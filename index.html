@@ -70,6 +70,17 @@ input:focus{outline:2px solid var(--acc);outline-offset:1px}
 .pop{animation:pop .6s ease-out}
 .badge{display:table;margin:0 auto 12px;padding:5px 14px;border-radius:999px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-weight:700;font-size:.8rem;letter-spacing:.04em;animation:pop .5s .15s both}
 @media (prefers-reduced-motion:reduce){.pop,.badge{animation:none}}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:grid;place-items:center;padding:20px;z-index:40}
+.ov .card{max-width:360px;width:100%;margin:0;text-align:center}
+.lvl{gap:6px}
+.lr{gap:10px;padding:7px 10px;border-radius:10px}
+.bars{height:16px;gap:2px}.bars i{width:4px}
+.bars i:nth-child(1){height:5px}.bars i:nth-child(2){height:8px}.bars i:nth-child(3){height:12px}.bars i:nth-child(4){height:16px}
+.lt b{font-size:.9rem}.lt small{font-size:.72rem}
+.cf{font-size:.75rem;padding:2px 8px}
+.lvl{flex-direction:row;gap:6px}
+.lr{flex:1;min-width:0;flex-direction:column;justify-content:flex-start;align-items:center;gap:5px;padding:9px 2px;text-align:center}
+.lt{flex:none}.lt b{font-size:.76rem;line-height:1.15}.lt small{display:none}
 </style></head>
 <body><main id="app"></main>
 <script>
@@ -77,7 +88,7 @@ input:focus{outline:2px solid var(--acc);outline-offset:1px}
 // Colle ici l'adresse de ta base Firebase Realtime Database pour partager le classement entre tous les joueurs.
 // Exemple : "https://mon-projet-default-rtdb.europe-west1.firebasedatabase.app"
 // Laisse vide pour un classement local (sur l'appareil uniquement).
-const FIREBASE_URL="https://geoquizz-5c149-default-rtdb.europe-west1.firebasedatabase.app/";
+const FIREBASE_URL="";
 const REMOTE=!!FIREBASE_URL;
 const RAW="FR:France:1,DE:Allemagne:1,ES:Espagne:1,IT:Italie:1,PT:Portugal:1,GB:Royaume-Uni:1,US:États-Unis:1,CA:Canada:1,BR:Brésil:1,AR:Argentine:1,MX:Mexique:1,JP:Japon:1,CN:Chine:1,IN:Inde:1,RU:Russie:1,MA:Maroc:1,DZ:Algérie:1,TN:Tunisie:1,EG:Égypte:1,SN:Sénégal:1,ZA:Afrique du Sud:1,AU:Australie:1,TR:Turquie:1,SA:Arabie saoudite:1,BE:Belgique:1,CH:Suisse:1,NL:Pays-Bas:1,SE:Suède:1,GR:Grèce:1,KR:Corée du Sud:1,CI:Côte d’Ivoire:1,NG:Nigeria:1,CM:Cameroun:1,CO:Colombie:1,IE:Irlande:1,PL:Pologne:1,NO:Norvège:2,DK:Danemark:2,FI:Finlande:2,AT:Autriche:2,CZ:Tchéquie:2,HU:Hongrie:2,RO:Roumanie:2,UA:Ukraine:2,HR:Croatie:2,RS:Serbie:2,IR:Iran:2,IQ:Irak:2,JO:Jordanie:2,LB:Liban:2,QA:Qatar:2,AE:Émirats arabes unis:2,PK:Pakistan:2,TH:Thaïlande:2,VN:Viêt Nam:2,ID:Indonésie:2,PH:Philippines:2,NZ:Nouvelle-Zélande:2,CL:Chili:2,PE:Pérou:2,VE:Venezuela:2,CU:Cuba:2,KE:Kenya:2,GH:Ghana:2,ET:Éthiopie:2,IS:Islande:3,LU:Luxembourg:3,MT:Malte:3,EE:Estonie:3,LV:Lettonie:3,LT:Lituanie:3,SK:Slovaquie:3,SI:Slovénie:3,BG:Bulgarie:3,AL:Albanie:3,GE:Géorgie:3,AM:Arménie:3,AZ:Azerbaïdjan:3,KZ:Kazakhstan:3,MN:Mongolie:3,NP:Népal:3,LK:Sri Lanka:3,BD:Bangladesh:3,MM:Myanmar:3,KH:Cambodge:3,MG:Madagascar:3,ML:Mali:3,TD:Tchad:3,NE:Niger:3,BO:Bolivie:3,PY:Paraguay:3,UY:Uruguay:3,EC:Équateur:3";
 const C=RAW.split(",").map(s=>{const[c,n,t]=s.split(":");return{c,n,t:+t}});
@@ -114,7 +125,7 @@ const app=$("app");
 
 const LC={1:"#10b981",2:"#3b82f6",3:"#f59e0b",4:"#ef4444"};
 function lvButtons(editable){
- return `<div class="lvl">${[1,2,3,4].map(k=>`<button class="lr ${S.lv===k?"on":""}" ${editable?`data-lv="${k}"`:"disabled"}><span class="bars">${[1,2,3,4].map(i=>`<i style="${i<=k?`background:${LC[k]}`:""}"></i>`).join("")}</span><span class="lt"><b>${LV[k].n}</b><small>${LV[k].h}</small></span><span class="cf">×${String(LV[k].coef).replace(".",",")}</span></button>`).join("")}</div>`;
+ return `<div class="lvl">${[1,2,3,4].map(k=>`<button class="lr ${S.lv===k?"on":""}" ${editable?`data-lv="${k}"`:"disabled"}><span class="bars">${[1,2,3,4].map(i=>`<i style="${i<=k?`background:${LC[k]}`:""}"></i>`).join("")}</span><span class="lt"><b>${LV[k].n}</b><small>${LV[k].h}</small></span></button>`).join("")}</div><p class="mute" style="margin:8px 0 0">${LV[S.lv].h}</p>`;
 }
 function home(){
  const acc=S.uid?`${REMOTE?"Pseudo":"Joueur"} : <b>${esc(S.name||"")}</b> · <button id="chg" class="lk">${REMOTE?"changer de pseudo":"changer de joueur"}</button>`:`Non connecté : tes scores ne seront pas enregistrés. Choisis un pseudo.`;
@@ -259,26 +270,30 @@ function start(seed,lv){
  S.lv=lv;S.qs=build(seed,lv);S.i=0;S.score=0;
  showQ();
 }
-function showQ(){
- S.locked=false;S.pick=null;S.view="play";S.left=LV[S.lv].time;play();
- clearInterval(S.t);
- S.t=setInterval(()=>{S.left=Math.max(0,S.left-.1);const b=$("tm");if(b){b.style.width=(S.left/LV[S.lv].time*100)+"%"}const t=$("ts");if(t)t.textContent=Math.ceil(S.left)+" s";if(S.left<=0)answer(null)},100);
-}
+function runTimer(){clearInterval(S.t);S.t=setInterval(()=>{S.left=Math.max(0,S.left-.1);const b=$("tm");if(b)b.style.width=(S.left/LV[S.lv].time*100)+"%";const t=$("ts");if(t)t.textContent=Math.ceil(S.left)+" s";if(S.left<=0)answer(null)},100)}
+function showQ(){S.locked=false;S.pick=null;S.quit=false;S.view="play";S.left=LV[S.lv].time;play();runTimer()}
+function askQuit(){if(S.locked)return;S.quit=true;clearInterval(S.t);play()}
+function resumeGame(){S.quit=false;play();if(!S.locked)runTimer()}
+function quitGame(){S.gid=(S.gid||0)+1;clearInterval(S.t);S.quit=false;if(S.sec)menu(S.sec);else{S.view="home";home()}}
 function play(){
  const q=S.qs[S.i];
  app.innerHTML=`<div class="top"><span>Question ${S.i+1}/20</span><span>${LV[S.lv].n} · <b>${S.score}</b> pts</span></div>
  <div class="bar"><i id="tm" style="width:${S.left/LV[S.lv].time*100}%"></i></div>
  <div class="card flag" style="margin-top:14px">${S.mode==="pf"||S.mode==="cp"?`<div style="font:800 2rem 'Inter',system-ui,sans-serif;padding:14px 0">${esc(S.mode==="cp"?q.a.k:q.a.n)}</div>`:flag(q.a.c)}${S.mode==="cap"?`<div style="font:800 1.5rem 'Inter',system-ui,sans-serif;margin-top:6px">${esc(q.a.n)}</div>`:""}</div>
  <div class="top"><span class="mute">${{flag:"À quel pays appartient ce drapeau ?",cap:"Quelle est sa capitale ?",pf:"Quel est son drapeau ?",cp:"De quel pays est-ce la capitale ?"}[S.mode]}</span><span id="ts" class="mute">${Math.ceil(S.left)} s</span></div>
- <div class="opts">${q.o.map((o,k)=>{let c="";if(S.locked){if(o===q.a)c="ok";else if(k===S.pick)c="no"}return `<button class="opt ${c} ${S.mode==="pf"?"fl":""}" data-k="${k}">${S.mode==="pf"?flag(o.c):S.mode==="cp"?`<span style="display:block;font-size:2rem;line-height:1.3;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">${flag(o.c)}</span>${esc(o.n)}`:esc(S.mode==="cap"?o.k:o.n)}</button>`}).join("")}</div>`;
+ <div class="opts">${q.o.map((o,k)=>{let c="";if(S.locked){if(o===q.a)c="ok";else if(k===S.pick)c="no"}return `<button class="opt ${c} ${S.mode==="pf"?"fl":""}" data-k="${k}">${S.mode==="pf"?flag(o.c):S.mode==="cp"?`<span style="display:block;font-size:2rem;line-height:1.3;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">${flag(o.c)}</span>${esc(o.n)}`:esc(S.mode==="cap"?o.k:o.n)}</button>`}).join("")}</div>
+ <button class="btn alt" id="qt" style="margin-top:14px" ${S.locked?"disabled":""}>Quitter la partie</button>
+ ${S.quit?`<div class="ov"><div class="card"><b>Quitter la partie ?</b><p class="mute">Ta progression sera perdue et ce score ne sera pas enregistré.</p><button class="btn" id="qc">Continuer</button><button class="btn alt" id="qy">Quitter</button></div></div>`:""}`;
  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+ $("qt").onclick=askQuit;
+ if(S.quit){$("qc").onclick=resumeGame;$("qy").onclick=quitGame}
 }
 function answer(k){
  if(S.locked)return;S.locked=true;clearInterval(S.t);S.pick=k;
  const q=S.qs[S.i];
  if(k!==null&&q.o[k]===q.a)S.score+=Math.round((100+50*S.left/LV[S.lv].time)*LV[S.lv].coef);
  play();
- setTimeout(()=>{S.i++;if(S.i>=20)finish();else showQ()},1200);
+ const g=S.gid||0;setTimeout(()=>{if(g!==(S.gid||0)||S.view!=="play")return;S.i++;if(S.i>=20)finish();else showQ()},1200);
 }
 const isRec=()=>S.uid?!!(S.res&&S.res.rec):!!S.sessRec;
 function confetti(){
