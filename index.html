@@ -60,6 +60,7 @@ button{font:inherit;cursor:pointer;color:var(--ink)}
 .lt{flex:1}.lt b{display:block;font-weight:600}.lt small{color:var(--mute);font-size:.8rem}
 .cf{font-weight:700;font-size:.82rem;padding:4px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
 .lr.on .cf{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+select{width:100%;font:inherit;font-size:1rem;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
 input{width:100%;font:inherit;font-size:1.05rem;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
 input:focus{outline:2px solid var(--acc);outline-offset:1px}
 .lk{border:0;background:none;color:var(--acc);font:inherit;padding:0;text-decoration:underline}
@@ -70,6 +71,7 @@ input:focus{outline:2px solid var(--acc);outline-offset:1px}
 .pop{animation:pop .6s ease-out}
 .badge{display:table;margin:0 auto 12px;padding:5px 14px;border-radius:999px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-weight:700;font-size:.8rem;letter-spacing:.04em;animation:pop .5s .15s both}
 @media (prefers-reduced-motion:reduce){.pop,.badge{animation:none}}
+.opt.mp{padding:8px}.opt.mp svg{pointer-events:none}.opt.mp.ok svg .tg,.opt.mp.no svg .tg{fill:#fff;stroke:#fff}.opt.mp.ok svg .nb,.opt.mp.no svg .nb{fill:rgba(255,255,255,.28);stroke:rgba(255,255,255,.55)}
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:grid;place-items:center;padding:20px;z-index:40}
 .ov .card{max-width:360px;width:100%;margin:0;text-align:center}
 .lvl{gap:6px}
@@ -83,19 +85,20 @@ input:focus{outline:2px solid var(--acc);outline-offset:1px}
 .lt{flex:none}.lt b{font-size:.76rem;line-height:1.15}.lt small{display:none}
 </style></head>
 <body><main id="app"></main>
+<script src="config.js"></script>
 <script>
-// ===== CLASSEMENT PARTAGÉ (optionnel) =====
-// Colle ici l'adresse de ta base Firebase Realtime Database pour partager le classement entre tous les joueurs.
-// Exemple : "https://mon-projet-default-rtdb.europe-west1.firebasedatabase.app"
-// Laisse vide pour un classement local (sur l'appareil uniquement).
-const FIREBASE_URL="";
+// ===== CLASSEMENT PARTAGÉ =====
+// L'adresse Firebase est lue dans le fichier config.js (à côté de index.html) et mémorisée sur l'appareil.
+// Ainsi, mettre à jour index.html ne réinitialise ni la connexion ni les scores.
+const FIREBASE_URL=(()=>{let u=(window.GQ_CONFIG&&window.GQ_CONFIG.firebaseUrl)||"";try{if(u)localStorage.setItem("gq-fb",u);else u=localStorage.getItem("gq-fb")||""}catch(e){}return u})();
 const REMOTE=!!FIREBASE_URL;
-const RAW="FR:France:1,DE:Allemagne:1,ES:Espagne:1,IT:Italie:1,PT:Portugal:1,GB:Royaume-Uni:1,US:États-Unis:1,CA:Canada:1,BR:Brésil:1,AR:Argentine:1,MX:Mexique:1,JP:Japon:1,CN:Chine:1,IN:Inde:1,RU:Russie:1,MA:Maroc:1,DZ:Algérie:1,TN:Tunisie:1,EG:Égypte:1,SN:Sénégal:1,ZA:Afrique du Sud:1,AU:Australie:1,TR:Turquie:1,SA:Arabie saoudite:1,BE:Belgique:1,CH:Suisse:1,NL:Pays-Bas:1,SE:Suède:1,GR:Grèce:1,KR:Corée du Sud:1,CI:Côte d’Ivoire:1,NG:Nigeria:1,CM:Cameroun:1,CO:Colombie:1,IE:Irlande:1,PL:Pologne:1,NO:Norvège:2,DK:Danemark:2,FI:Finlande:2,AT:Autriche:2,CZ:Tchéquie:2,HU:Hongrie:2,RO:Roumanie:2,UA:Ukraine:2,HR:Croatie:2,RS:Serbie:2,IR:Iran:2,IQ:Irak:2,JO:Jordanie:2,LB:Liban:2,QA:Qatar:2,AE:Émirats arabes unis:2,PK:Pakistan:2,TH:Thaïlande:2,VN:Viêt Nam:2,ID:Indonésie:2,PH:Philippines:2,NZ:Nouvelle-Zélande:2,CL:Chili:2,PE:Pérou:2,VE:Venezuela:2,CU:Cuba:2,KE:Kenya:2,GH:Ghana:2,ET:Éthiopie:2,IS:Islande:3,LU:Luxembourg:3,MT:Malte:3,EE:Estonie:3,LV:Lettonie:3,LT:Lituanie:3,SK:Slovaquie:3,SI:Slovénie:3,BG:Bulgarie:3,AL:Albanie:3,GE:Géorgie:3,AM:Arménie:3,AZ:Azerbaïdjan:3,KZ:Kazakhstan:3,MN:Mongolie:3,NP:Népal:3,LK:Sri Lanka:3,BD:Bangladesh:3,MM:Myanmar:3,KH:Cambodge:3,MG:Madagascar:3,ML:Mali:3,TD:Tchad:3,NE:Niger:3,BO:Bolivie:3,PY:Paraguay:3,UY:Uruguay:3,EC:Équateur:3";
+const RAW="FR:France:1,DE:Allemagne:1,ES:Espagne:1,IT:Italie:1,PT:Portugal:1,GB:Royaume-Uni:1,US:États-Unis:1,CA:Canada:1,BR:Brésil:1,AR:Argentine:1,MX:Mexique:1,JP:Japon:1,CN:Chine:1,IN:Inde:1,RU:Russie:1,MA:Maroc:1,DZ:Algérie:1,TN:Tunisie:1,EG:Égypte:1,SN:Sénégal:1,ZA:Afrique du Sud:1,AU:Australie:1,TR:Turquie:1,SA:Arabie saoudite:1,BE:Belgique:1,CH:Suisse:1,NL:Pays-Bas:1,SE:Suède:1,GR:Grèce:1,KR:Corée du Sud:1,CI:Côte d’Ivoire:1,NG:Nigeria:1,CM:Cameroun:1,CO:Colombie:1,IE:Irlande:1,PL:Pologne:1,NO:Norvège:2,DK:Danemark:2,FI:Finlande:2,AT:Autriche:2,CZ:Tchéquie:2,HU:Hongrie:2,RO:Roumanie:2,UA:Ukraine:2,HR:Croatie:2,RS:Serbie:2,IR:Iran:2,IQ:Irak:2,JO:Jordanie:2,LB:Liban:2,QA:Qatar:2,AE:Émirats arabes unis:2,PK:Pakistan:2,TH:Thaïlande:2,VN:Viêt Nam:2,ID:Indonésie:2,PH:Philippines:2,NZ:Nouvelle-Zélande:2,CL:Chili:2,PE:Pérou:2,VE:Venezuela:2,CU:Cuba:2,KE:Kenya:2,GH:Ghana:2,ET:Éthiopie:2,IS:Islande:3,LU:Luxembourg:3,MT:Malte:3,EE:Estonie:3,LV:Lettonie:3,LT:Lituanie:3,SK:Slovaquie:3,SI:Slovénie:3,BG:Bulgarie:3,AL:Albanie:3,GE:Géorgie:3,AM:Arménie:3,AZ:Azerbaïdjan:3,KZ:Kazakhstan:3,MN:Mongolie:3,NP:Népal:3,LK:Sri Lanka:3,BD:Bangladesh:3,MM:Myanmar:3,KH:Cambodge:3,MG:Madagascar:3,ML:Mali:3,TD:Tchad:3,NE:Niger:3,BO:Bolivie:3,PY:Paraguay:3,UY:Uruguay:3,EC:Équateur:3,PG:Papouasie-Nouvelle-Guinée:3,FJ:Fidji:3,SB:Îles Salomon:3,VU:Vanuatu:3,PA:Panama:3,CR:Costa Rica:3,GT:Guatemala:3,HN:Honduras:3,NI:Nicaragua:3,SV:Salvador:3,DO:République dominicaine:3,HT:Haïti:3,JM:Jamaïque:3";
 const C=RAW.split(",").map(s=>{const[c,n,t]=s.split(":");return{c,n,t:+t}});
-const CAPS=Object.fromEntries("FR:Paris,DE:Berlin,ES:Madrid,IT:Rome,PT:Lisbonne,GB:Londres,US:Washington,CA:Ottawa,BR:Brasilia,AR:Buenos Aires,MX:Mexico,JP:Tokyo,CN:Pékin,IN:New Delhi,RU:Moscou,MA:Rabat,DZ:Alger,TN:Tunis,EG:Le Caire,SN:Dakar,ZA:Pretoria,AU:Canberra,TR:Ankara,SA:Riyad,BE:Bruxelles,CH:Berne,NL:Amsterdam,SE:Stockholm,GR:Athènes,KR:Séoul,CI:Yamoussoukro,NG:Abuja,CM:Yaoundé,CO:Bogota,IE:Dublin,PL:Varsovie,NO:Oslo,DK:Copenhague,FI:Helsinki,AT:Vienne,CZ:Prague,HU:Budapest,RO:Bucarest,UA:Kiev,HR:Zagreb,RS:Belgrade,IR:Téhéran,IQ:Bagdad,JO:Amman,LB:Beyrouth,QA:Doha,AE:Abou Dabi,PK:Islamabad,TH:Bangkok,VN:Hanoï,ID:Jakarta,PH:Manille,NZ:Wellington,CL:Santiago,PE:Lima,VE:Caracas,CU:La Havane,KE:Nairobi,GH:Accra,ET:Addis-Abeba,IS:Reykjavik,LU:Luxembourg,MT:La Valette,EE:Tallinn,LV:Riga,LT:Vilnius,SK:Bratislava,SI:Ljubljana,BG:Sofia,AL:Tirana,GE:Tbilissi,AM:Erevan,AZ:Bakou,KZ:Astana,MN:Oulan-Bator,NP:Katmandou,LK:Sri Jayawardenepura Kotte,BD:Dacca,MM:Naypyidaw,KH:Phnom Penh,MG:Antananarivo,ML:Bamako,TD:N’Djamena,NE:Niamey,BO:Sucre,PY:Asunción,UY:Montevideo,EC:Quito".split(",").map(s=>s.split(":")));C.forEach(x=>x.k=CAPS[x.c]);
-const MODES={flag:"Pays d’un drapeau",pf:"Drapeau d’un pays",cap:"Capitale d’un pays",cp:"Pays d’une capitale",all:"Général · tous les jeux"},SEC={d:["flag","pf"],c:["cap","cp"]},IC={flag:"🎌➜🌍",pf:"🌍➜🎌",cap:"🌍➜🏙️",cp:"🏙️➜🌍"};
-const G={flag:["flag","globe","#2563eb","#7c3aed"],pf:["globe","flag","#7c3aed","#db2777"],cap:["globe","city","#f59e0b","#ef4444"],cp:["city","globe","#0d9488","#2563eb"]};
-const P={flag:'<path d="M5 21V4"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',city:'<path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.5 11 12 4l9.5 7z"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>'};
+const CAPS=Object.fromEntries("FR:Paris,DE:Berlin,ES:Madrid,IT:Rome,PT:Lisbonne,GB:Londres,US:Washington,CA:Ottawa,BR:Brasilia,AR:Buenos Aires,MX:Mexico,JP:Tokyo,CN:Pékin,IN:New Delhi,RU:Moscou,MA:Rabat,DZ:Alger,TN:Tunis,EG:Le Caire,SN:Dakar,ZA:Pretoria,AU:Canberra,TR:Ankara,SA:Riyad,BE:Bruxelles,CH:Berne,NL:Amsterdam,SE:Stockholm,GR:Athènes,KR:Séoul,CI:Yamoussoukro,NG:Abuja,CM:Yaoundé,CO:Bogota,IE:Dublin,PL:Varsovie,NO:Oslo,DK:Copenhague,FI:Helsinki,AT:Vienne,CZ:Prague,HU:Budapest,RO:Bucarest,UA:Kiev,HR:Zagreb,RS:Belgrade,IR:Téhéran,IQ:Bagdad,JO:Amman,LB:Beyrouth,QA:Doha,AE:Abou Dabi,PK:Islamabad,TH:Bangkok,VN:Hanoï,ID:Jakarta,PH:Manille,NZ:Wellington,CL:Santiago,PE:Lima,VE:Caracas,CU:La Havane,KE:Nairobi,GH:Accra,ET:Addis-Abeba,IS:Reykjavik,LU:Luxembourg,MT:La Valette,EE:Tallinn,LV:Riga,LT:Vilnius,SK:Bratislava,SI:Ljubljana,BG:Sofia,AL:Tirana,GE:Tbilissi,AM:Erevan,AZ:Bakou,KZ:Astana,MN:Oulan-Bator,NP:Katmandou,LK:Sri Jayawardenepura Kotte,BD:Dacca,MM:Naypyidaw,KH:Phnom Penh,MG:Antananarivo,ML:Bamako,TD:N’Djamena,NE:Niamey,BO:Sucre,PY:Asunción,UY:Montevideo,EC:Quito,PG:Port Moresby,FJ:Suva,SB:Honiara,VU:Port-Vila,PA:Panama,CR:San José,GT:Guatemala,HN:Tégucigalpa,NI:Managua,SV:San Salvador,DO:Saint-Domingue,HT:Port-au-Prince,JM:Kingston".split(",").map(s=>s.split(":")));C.forEach(x=>x.k=CAPS[x.c]);
+const N3=Object.fromEntries("FR:250,DE:276,ES:724,IT:380,PT:620,GB:826,US:840,CA:124,BR:76,AR:32,MX:484,JP:392,CN:156,IN:356,RU:643,MA:504,DZ:12,TN:788,EG:818,SN:686,ZA:710,AU:36,TR:792,SA:682,BE:56,CH:756,NL:528,SE:752,GR:300,KR:410,CI:384,NG:566,CM:120,CO:170,IE:372,PL:616,NO:578,DK:208,FI:246,AT:40,CZ:203,HU:348,RO:642,UA:804,HR:191,RS:688,IR:364,IQ:368,JO:400,LB:422,QA:634,AE:784,PK:586,TH:764,VN:704,ID:360,PH:608,NZ:554,CL:152,PE:604,VE:862,CU:192,KE:404,GH:288,ET:231,IS:352,LU:442,MT:470,EE:233,LV:428,LT:440,SK:703,SI:705,BG:100,AL:8,GE:268,AM:51,AZ:31,KZ:398,MN:496,NP:524,LK:144,BD:50,MM:104,KH:116,MG:450,ML:466,TD:148,NE:562,BO:68,PY:600,UY:858,EC:218,PG:598,FJ:242,SB:90,VU:548,PA:591,CR:188,GT:320,HN:340,NI:558,SV:222,DO:214,HT:332,JM:388".split(",").map(s=>s.split(":")));C.forEach(x=>x.n3=+N3[x.c]);
+const MODES={flag:"Pays d’un drapeau",pf:"Drapeau d’un pays",cap:"Capitale d’un pays",cp:"Pays d’une capitale",cm:"Carte d’un pays",all:"Général · tous les jeux"},SEC={d:["flag","pf"],c:["cap","cp"],m:["cm"]},IC={flag:"🎌➜🌍",pf:"🌍➜🎌",cap:"🌍➜🏙️",cp:"🏙️➜🌍"};
+const G={flag:["flag","globe","#2563eb","#7c3aed"],pf:["globe","flag","#7c3aed","#db2777"],cap:["globe","city","#f59e0b","#ef4444"],cp:["city","globe","#0d9488","#2563eb"],cm:["globe","map","#0d9488","#16a34a"]};
+const P={flag:'<path d="M5 21V4"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',city:'<path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.5 11 12 4l9.5 7z"/>',map:'<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>'};
 const sv=p=>`<svg viewBox="0 0 24 24">${P[p]}</svg>`;
 const MI=k=>{if(k==="all")return `<span class="mi" style="background:linear-gradient(135deg,#10b981,#059669)">${sv("trophy")}</span>`;const[a,b,c1,c2]=G[k];return `<span class="mi" style="background:linear-gradient(135deg,${c1},${c2})">${sv(a)}${sv("arrow")}${sv(b)}</span>`};
 const modeButtons=(ks=["flag","pf","cap","cp"],cur=S.mode)=>`<div class="lv" style="grid-template-columns:1fr">${ks.map(k=>`<button class="lvb md ${cur===k?"on":""}" data-md="${k}">${MI(k)}<span>${MODES[k]}</span></button>`).join("")}</div>`;
@@ -107,11 +110,14 @@ const LV={1:{n:"Facile",h:"Pays connus · 4 choix · 10 s",pool:1,ch:4,time:10,c
 const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
 const shuf=(arr,r)=>{const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const FG="FR NL RU LU HR RS SK SI CZ|IT IE MX CI HU BG|RO TD AM BE ML SN GH CM ET|AU NZ GB US CU CL PH CZ|ID PL AT LV PE CA|NO IS DK SE FI CH|AR UY GR EE|IQ EG JO AE SA IR LB QA|JP BD KR CN VN TR TN DZ PK MA|CO EC VE|IN NE CI IE|LT BO GH ET|UA SE KZ".split("|").map(g=>g.split(" "));
-const RG="FR DE ES IT PT GB BE CH NL IE LU AT MT|SE NO DK FI IS EE LV LT|PL CZ HU RO UA HR RS SK SI BG AL GR RU|TR GE AM AZ IR IQ JO LB SA AE QA|MA DZ TN EG|SN CI NG CM GH ML TD NE|ZA KE ET MG|JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ|AU NZ|US CA MX CU|BR AR CO VE PE CL EC BO PY UY".split("|").map(g=>g.split(" "));
+const RG="FR DE ES IT PT GB BE CH NL IE LU AT MT|SE NO DK FI IS EE LV LT|PL CZ HU RO UA HR RS SK SI BG AL GR RU|TR GE AM AZ IR IQ JO LB SA AE QA|MA DZ TN EG|SN CI NG CM GH ML TD NE|ZA KE ET MG|JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ|AU NZ PG FJ SB VU|US CA MX CU PA CR GT HN NI SV DO HT JM|BR AR CO VE PE CL EC BO PY UY".split("|").map(g=>g.split(" "));
 const near=a=>{const G=(S.mode==="flag"||S.mode==="pf")?FG:RG,o=new Set();G.forEach(g=>{if(g.includes(a.c))g.forEach(c=>{if(c!==a.c)o.add(c)})});return o};
 const build=(seed,lv)=>{
- const r=rng(seed),L=LV[lv],pool=C.filter(x=>x.t<=L.pool),n=(S.mode==="pf"?(L.ch>6?6:4):L.ch)-1;
- return shuf(pool,r).slice(0,20).map(a=>{
+ const r=rng(seed),L=LV[lv],cm=S.mode==="cm",ok=x=>!cm||(MAPS&&MAPS[x.n3]&&(S.zone==="world"||ZN[x.c]===S.zone));
+ let pool=C.filter(x=>x.t<=L.pool&&ok(x));
+ if(cm&&pool.length<8)pool=C.filter(ok);
+ const n=Math.min((S.mode==="pf"?(L.ch>6?6:4):cm?Math.min(L.ch,6):L.ch)-1,pool.length-1);
+ return shuf(pool,r).slice(0,Math.min(20,pool.length)).map(a=>{
   let d=[];
   if(lv>=3){const nr=near(a);d=shuf(pool.filter(x=>x!==a&&nr.has(x.c)),r).slice(0,lv===3?Math.ceil(n/2):n)}
   const rest=shuf(pool.filter(x=>x!==a&&!d.includes(x)),r).slice(0,n-d.length);
@@ -131,8 +137,8 @@ function home(){
  const acc=S.uid?`${REMOTE?"Pseudo":"Joueur"} : <b>${esc(S.name||"")}</b> · <button id="chg" class="lk">${REMOTE?"changer de pseudo":"changer de joueur"}</button>`:`Non connecté : tes scores ne seront pas enregistrés. Choisis un pseudo.`;
  app.innerHTML=`<div class="tb">${themeCtl()}</div><h1>Geo Quizz<span>.</span></h1><p class="sub">Choisis ton thème.</p>
  <div class="card mute" style="text-align:left">${acc}</div>
- <button class="nav" id="sd"><span class="nt" style="background:linear-gradient(135deg,#2563eb,#7c3aed)"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h13l-2.500 4.500L18 13H5"/></svg></span><span><b>Drapeaux</b><small>Pays d’un drapeau · Drapeau d’un pays</small></span><i>›</i></button><button class="nav" id="sc"><span class="nt" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.500 11 12 4l9.500 7z"/></svg></span><span><b>Capitales</b><small>Capitale d’un pays · Pays d’une capitale</small></span><i>›</i></button><button class="nav" id="rk"><span class="nt" style="background:linear-gradient(135deg,#10b981,#059669)"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/></svg></span><span><b>Classements</b><small>Meilleurs scores par jeu et par niveau</small></span><i>›</i></button>`;
- bindTheme();const cg=$("chg");if(cg)cg.onclick=nameScreen;$("sd").onclick=()=>menu("d");$("sc").onclick=()=>menu("c");$("rk").onclick=rank;
+ <button class="nav" id="sd"><span class="nt" style="background:linear-gradient(135deg,#2563eb,#7c3aed)"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h13l-2.500 4.500L18 13H5"/></svg></span><span><b>Drapeaux</b><small>Pays d’un drapeau · Drapeau d’un pays</small></span><i>›</i></button><button class="nav" id="sc"><span class="nt" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.500 11 12 4l9.500 7z"/></svg></span><span><b>Capitales</b><small>Capitale d’un pays · Pays d’une capitale</small></span><i>›</i></button><button class="nav" id="sm"><span class="nt" style="background:linear-gradient(135deg,#0d9488,#16a34a)"><svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span><span><b>Cartes</b><small>Carte d’un pays · par continent</small></span><i>›</i></button><button class="nav" id="rk"><span class="nt" style="background:linear-gradient(135deg,#10b981,#059669)"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/></svg></span><span><b>Classements</b><small>Meilleurs scores par jeu et par niveau</small></span><i>›</i></button>`;
+ bindTheme();const cg=$("chg");if(cg)cg.onclick=nameScreen;$("sd").onclick=()=>menu("d");$("sc").onclick=()=>menu("c");$("sm").onclick=()=>{S.zone=null;menu("m")};$("rk").onclick=rank;
 }
 const fmt=n=>(+n||0).toLocaleString("fr-FR");
 async function scoresBox(mode){
@@ -141,22 +147,38 @@ async function scoresBox(mode){
  try{
   const snap=await DB.collection("players").get();
   const rows=snap.docs.map(d=>({id:d.id,s:tv(d.data(),mode),n:d.data().u||"Joueur"})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s);
-  if(S.view!=="menu"||S.mode!==mode||!$("sc2"))return;
+  if(S.view!=="menu"||SK()!==mode||!$("sc2"))return;
   const i=rows.findIndex(r=>r.id===S.uid),me=i>=0?rows[i].s:0,top=rows[0];
   el.innerHTML=`<div class="pl"><span>Mon meilleur score</span><b>${me?fmt(me):"–"}</b></div><div class="pl"><span>Mon rang</span><b>${i>=0?`${i+1} / ${rows.length}`:"–"}</b></div><div class="pl"><span>Leader</span><b>${top?`${esc(top.n)} · ${fmt(top.s)}`:"–"}</b></div>`;
  }catch(e){const x=$("sc2");if(x)x.innerHTML=`<p class="mute">Scores indisponibles.</p>`}
 }
+const CON={"af":[[[-17,21],[-13,28],[-6,35.8],[10,37],[11,33],[20,32],[32,31],[34,28],[38,21],[43,12],[51,12],[46,5],[40,-3],[40,-15],[35,-24],[32,-29],[27,-34],[20,-35],[18,-32],[14,-23],[12,-13],[13,-5],[9,3],[5,5],[-4,5],[-8,4],[-13,8],[-17,14]]],"eu":[[[-9,37],[-9,43.5],[-2,43.5],[-1.5,46],[-4.5,48.5],[2,51],[5,53],[8,54],[8,57.5],[10.5,57.5],[11,55],[14,54.5],[20,54.5],[24,59.5],[30,60],[23,60.5],[23,64],[19,63],[18,59],[13,56],[11,59],[6,58.5],[5,62],[10,64],[15,68],[20,70],[28,71],[40,67],[55,68],[60,60],[60,50],[50,46],[40,47],[38,45],[33,45],[30,45.5],[28,43],[28,41],[26,40],[23,40],[23,37],[21,38],[19.5,41],[16,40],[18,40],[16,38],[15.5,40],[12,42],[10,44],[7.5,43.5],[3,43],[0,39],[-5,36]]],"as":[[[26,40],[36,36],[35,32],[34,28],[43,13],[52,16],[59,22],[57,26],[51,24],[48,30],[56,27],[61,25],[67,24],[73,20],[77,8],[80,13],[80,16],[87,21],[92,22],[94,17],[98,16],[98,8],[100,13],[103,9],[105,10],[109,12],[106,20],[109,21],[117,23],[122,30],[122,40],[126,38],[129,35],[130,42],[135,44],[141,52],[143,59],[163,60],[163,66],[180,67],[180,70],[140,73],[110,77],[80,73],[60,69],[60,50],[50,46],[53,41],[40,43],[40,42],[31,41]],[[114,-22],[122,-18],[130,-12],[137,-12],[136,-15],[141,-17],[142,-11],[146,-19],[153,-26],[151,-34],[147,-38],[141,-38],[138,-35],[131,-31],[124,-33],[115,-34],[114,-26]],[[172,-35],[178,-38],[175,-41],[172,-41]],[[167,-46],[174,-41],[171,-44.5],[168,-47]]],"na":[[[-168,66],[-165,60],[-155,58],[-135,57],[-125,49],[-124,40],[-117,32],[-110,23],[-105,20],[-96,16],[-92,14],[-84,10],[-80,8],[-78,9],[-83,15],[-88,16],[-87,21],[-90,21],[-97,27],[-90,30],[-82,26],[-80,25],[-81,31],[-76,35],[-70,42],[-66,44],[-60,46],[-56,52],[-65,60],[-78,62],[-80,52],[-95,59],[-93,68],[-110,68],[-125,70],[-140,70],[-158,71],[-166,68]]],"sa":[[[-78,9],[-72,12],[-62,10],[-52,5],[-50,0],[-40,-3],[-35,-6],[-35,-9],[-39,-14],[-41,-22],[-48,-26],[-53,-34],[-58,-35],[-57,-38],[-64,-41],[-66,-47],[-69,-52],[-68,-54],[-72,-52],[-75,-47],[-73,-38],[-71,-30],[-70,-18],[-76,-14],[-81,-5],[-80,0],[-77,4]]]};
+function conIcon(z){
+ const polys=CON[z];
+ if(!polys)return `<svg viewBox="0 0 24 24">${P.globe}</svg>`;
+ const all=polys.flat(),la=all.map(p=>p[1]),lo=all.map(p=>p[0]);
+ const k=Math.cos((Math.min(...la)+Math.max(...la))/2*Math.PI/180),x0=Math.min(...lo)*k,x1=Math.max(...lo)*k,y0=-Math.max(...la),y1=-Math.min(...la);
+ const s=Math.min(20/(x1-x0),20/(y1-y0)),ox=(24-(x1-x0)*s)/2,oy=(24-(y1-y0)*s)/2;
+ return `<svg viewBox="0 0 24 24"><path d="${polys.map(p=>"M"+p.map(([a,b])=>((a*k-x0)*s+ox).toFixed(1)+" "+((-b-y0)*s+oy).toFixed(1)).join("L")+"Z").join("")}" fill="#fff" stroke="#fff" stroke-width=".5" stroke-linejoin="round"/></svg>`;
+}
+function zoneMenu(){
+ S.view="menu";S.zone=null;S.mode="cm";
+ app.innerHTML=`<h1>Cartes<span>.</span></h1><p class="sub">Choisis une zone du monde.</p>${Object.keys(ZONES).map(z=>`<button class="nav" data-z="${z}"><span class="nt" style="background:linear-gradient(135deg,${ZG[z][0]},${ZG[z][1]})">${conIcon(z)}</span><span><b>${ZONES[z]}</b><small>${zcount(z)} pays</small></span><i>›</i></button>`).join("")}<button class="btn alt" id="bk">Retour</button>`;
+ app.querySelectorAll("[data-z]").forEach(b=>b.onclick=()=>{S.zone=b.dataset.z;menu("m")});
+ $("bk").onclick=()=>{S.view="home";home()};
+}
 function menu(sec){
+ if(sec==="m"&&!S.zone)return zoneMenu();
  S.view="menu";S.sec=sec;if(!SEC[sec].includes(S.mode))S.mode=SEC[sec][0];
- app.innerHTML=`<h1>${sec==="d"?"Drapeaux":"Capitales"}<span>.</span></h1><p class="sub">Choisis ton jeu et ta difficulté.</p>
- <div class="card"><label>Jeu</label>${modeButtons(SEC[sec])}<label style="margin-top:14px">Difficulté</label>${lvButtons(true)}</div>
- <div class="card"><label>Mes scores · ${MODES[S.mode]}</label><div id="sc2"><p class="mute">Chargement…</p></div></div>
+ app.innerHTML=`<h1>${{d:"Drapeaux",c:"Capitales",m:ZONES[S.zone]||"Cartes"}[sec]}<span>.</span></h1><p class="sub">Choisis ton jeu et ta difficulté.</p>
+ <div class="card">${sec==="m"?"":`<label>Jeu</label>${modeButtons(SEC[sec])}`}<label${sec==="m"?"":` style="margin-top:14px"`}>Difficulté</label>${lvButtons(true)}</div>
+ <div class="card"><label>Mes scores · ${KL(SK())}</label><div id="sc2"><p class="mute">Chargement…</p></div></div>
  <button class="btn" id="go">Jouer</button><button class="btn alt" id="bk">Retour</button>`;
  app.querySelectorAll("[data-md]").forEach(b=>b.onclick=()=>{S.mode=b.dataset.md;menu(sec)});
  app.querySelectorAll("[data-lv]").forEach(b=>b.onclick=()=>{S.lv=+b.dataset.lv;menu(sec)});
  $("go").onclick=()=>start(Date.now()%2147483647,S.lv);
- $("bk").onclick=()=>{S.view="home";home()};
- scoresBox(S.mode);
+ $("bk").onclick=()=>{if(sec==="m")zoneMenu();else{S.view="home";home()}};
+ scoresBox(SK());
 }
 let USER=null,DB=null;
 const KEY=()=>S.mode+"-"+S.lv;
@@ -231,7 +253,13 @@ async function boot(){
  if(!S.uid)return nameScreen();
  home();
 }
-const MK=["flag","pf","cap","cp"];
+const ZONES={world:"Monde entier",eu:"Europe",af:"Afrique",as:"Asie et Océanie",na:"Amérique du Nord et centrale",sa:"Amérique du Sud"};
+const ZG={world:["#0d9488","#2563eb"],eu:["#2563eb","#7c3aed"],af:["#f59e0b","#ef4444"],as:["#ef4444","#db2777"],na:["#10b981","#0d9488"],sa:["#16a34a","#65a30d"]};
+const ZN={};[["eu","FR DE ES IT PT GB BE CH NL IE LU AT MT SE NO DK FI IS EE LV LT PL CZ HU RO UA HR RS SK SI BG AL GR RU"],["af","MA DZ TN EG SN CI NG CM GH ML TD NE ZA KE ET MG"],["as","TR GE AM AZ IR IQ JO LB SA AE QA JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ AU NZ PG FJ SB VU"],["na","US CA MX CU PA CR GT HN NI SV DO HT JM"],["sa","BR AR CO VE PE CL EC BO PY UY"]] .forEach(([z,s])=>s.split(" ").forEach(c=>ZN[c]=z));
+const zcount=z=>C.filter(x=>z==="world"||ZN[x.c]===z).length;
+const SK=()=>S.mode==="cm"?"cm_"+(S.zone||"world"):S.mode;
+const KL=k=>k==="all"?"Général · tous les jeux":k.startsWith("cm_")?"Carte d’un pays · "+ZONES[k.slice(3)]:(MODES[k]||k);
+const MK=["flag","pf","cap","cp",...Object.keys(ZONES).map(z=>"cm_"+z)];
 const legacy=(d,m)=>d.b?Math.max(0,...[1,2,3,4].map(k=>+d.b[m+"-"+k]||0)):0;
 const bm=(d,m)=>Math.max(+(d.m&&d.m[m])||0,legacy(d,m));
 const tv=(d,m)=>m==="all"?Math.max(...MK.map(k=>bm(d,k))):bm(d,m);
@@ -240,9 +268,9 @@ async function save(){
  try{
   const ref=DB.collection("players").doc(S.uid),snap=await ref.get(),d=(snap.exists&&snap.data())||{},m={};
   MK.forEach(k=>{m[k]=bm(d,k)});
-  const old=m[S.mode];m[S.mode]=Math.max(old,S.score);
+  const sk=SK(),old=m[sk]||0;m[sk]=Math.max(old,S.score);
   await ref.set({...d,m,p:(+d.p||0)+1});
-  return{best:m[S.mode],rec:S.score>old};
+  return{best:m[sk],rec:S.score>old};
  }catch(e){return "err"}
 }
 async function rank(){
@@ -260,28 +288,92 @@ async function rank(){
 function drawRank(){
  const rows=S.rows;
  app.innerHTML=`<h1>Classement<span>.</span></h1><p class="sub">Meilleur score de chaque joueur${rows?` · ${rows.length} joueur${rows.length>1?"s":""}`:""}.</p>
- <div class="card"><label>Classement</label>${modeButtons(["all",...MK],S.board)}</div>
+ <div class="card"><label for="bd">Classement</label><select id="bd">${["all",...MK].map(k=>`<option value="${k}" ${S.board===k?"selected":""}>${esc(KL(k))}</option>`).join("")}</select></div>
  <div class="card">${rows===null?`<p class="mute">Chargement…</p>`:rows.length?rows.map((r,i)=>`<div class="pl"><span class="${r.id===S.uid?"me":""}">${i+1}. ${esc(r.n)}</span><b>${r.s?fmt(r.s):"–"}</b></div>`).join(""):`<p class="mute">${DB?"Aucun score pour l’instant. Sois le premier !":"Connecte-toi à ton compte pour voir le classement."}</p>`}</div>
  <button class="btn alt" id="hm">Accueil</button>`;
- app.querySelectorAll("[data-md]").forEach(b=>b.onclick=()=>{S.board=b.dataset.md;rank()});
+ $("bd").onchange=e=>{S.board=e.target.value;rank()};
  $("hm").onclick=()=>{S.view="home";home()};
 }
-function start(seed,lv){
+let MAPS=null;const MC={};
+const CLIP={FR:[-6,41,10,52],ES:[-10,35,5,44.5],PT:[-10,36,-6,43],US:[-126,24,-66,50],NL:[3,50,8,54],DK:[7,54,16,58],NO:[4,57,32,72],GB:[-9,49,2,61],CL:[-76,-56,-66,-17],EC:[-82,-5,-75,2],AU:[112,-44,154,-10],NZ:[165,-48,179,-34],ID:[94,-11.5,141,6],RU:[19,40,195,82]};
+function decodeTopo(t){
+ const [sx,sy]=t.transform.scale,[tx,ty]=t.transform.translate;
+ const arcs=t.arcs.map(a=>{let x=0,y=0;return a.map(p=>{x+=p[0];y+=p[1];return[x*sx+tx,y*sy+ty]})});
+ const ring=idx=>{let pts=[];idx.forEach(i=>{const a=i<0?arcs[~i].slice().reverse():arcs[i];pts=pts.concat(pts.length?a.slice(1):a)});return pts};
+ const out={};
+ t.objects.countries.geometries.forEach(g=>{
+  const id=g.id!=null?+g.id:({France:250,Norway:578}[g.properties&&g.properties.name]);
+  if(id==null||isNaN(id))return;
+  const polys=g.type==="Polygon"?[g.arcs]:g.type==="MultiPolygon"?g.arcs:[];
+  out[id]=polys.map(p=>p.map(ring));
+ });
+ return out;
+}
+async function loadMap(){
+ if(MAPS)return true;
+ try{
+  const r=await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json");
+  if(!r.ok)throw 0;
+  MAPS=decodeTopo(await r.json());return true;
+ }catch(e){return false}
+}
+const ringArea=r=>{let a=0;for(let i=0;i<r.length;i++){const p=r[i],q=r[(i+1)%r.length];a+=p[0]*q[1]-q[0]*p[1]}return Math.abs(a/2)};
+function mapSvg(x,ctx,th){
+ const key=x.c+(ctx?"n":"")+(th?"t":"");
+ if(MC[key])return MC[key];
+ let polys=(MAPS[x.n3]||[]).slice();
+ if(x.c==="RU"||x.c==="FJ")polys=polys.map(p=>p.map(r=>r.map(([a,b])=>[a<0?a+360:a,b])));
+ const cl=CLIP[x.c];
+ if(cl)polys=polys.filter(p=>{const r=p[0],m=r.reduce((s,q)=>[s[0]+q[0],s[1]+q[1]],[0,0]).map(v=>v/r.length);return m[0]>=cl[0]&&m[0]<=cl[2]&&m[1]>=cl[1]&&m[1]<=cl[3]});
+ const mx=Math.max(0,...polys.map(p=>ringArea(p[0])));
+ polys=polys.filter(p=>ringArea(p[0])>=mx*.004);
+ const R=Math.PI/180,my=b=>-Math.log(Math.tan(Math.PI/4+Math.max(-85,Math.min(85,b))*R/2));
+ let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+ polys.forEach(p=>p[0].forEach(([a,b])=>{const X=a*R,Y=my(b);x0=Math.min(x0,X);x1=Math.max(x1,X);y0=Math.min(y0,Y);y1=Math.max(y1,Y)}));
+ const W=300,H=190,px=ctx?60:10,py=ctx?38:10,sc=Math.min((W-2*px)/(x1-x0||1),(H-2*py)/(y1-y0||1)),ox=(W-(x1-x0)*sc)/2,oy=(H-(y1-y0)*sc)/2;
+ const P=([a,b])=>[(a*R-x0)*sc+ox,(my(b)-y0)*sc+oy];
+ const d=polys.map(p=>p.map(r=>"M"+r.map(q=>{const z=P(q);return z[0].toFixed(1)+" "+z[1].toFixed(1)}).join("L")+"Z").join("")).join("");
+ let nb="";
+ if(ctx){
+  const m=10,wx0=x0-(ox+m)/sc,wx1=x1+(W-ox-(x1-x0)*sc+m)/sc,wy0=y0-(oy+m)/sc,wy1=y1+(H-oy-(y1-y0)*sc+m)/sc;
+  const bbx=p=>p.bb||(p.bb=(()=>{let a=1e9,b=1e9,c=-1e9,d=-1e9;p[0].forEach(q=>{a=Math.min(a,q[0]);c=Math.max(c,q[0]);b=Math.min(b,q[1]);d=Math.max(d,q[1])});return[a*R,my(d),c*R,my(b)]})());
+  Object.keys(MAPS).forEach(id=>{
+   if(+id===x.n3)return;
+   MAPS[id].forEach(p=>{
+    const g=bbx(p);
+    if(g[2]<wx0||g[0]>wx1||g[3]<wy0||g[1]>wy1)return;
+    const r=p[0],st=r.length>200?3:1,pts=[];
+    for(let i=0;i<r.length;i+=st)pts.push(P(r[i]));
+    nb+="M"+pts.map(q=>q[0].toFixed(1)+" "+q[1].toFixed(1)).join("L")+"Z";
+   });
+  });
+ }
+ return MC[key]=`<svg viewBox="0 0 ${W} ${H}" style="display:block;width:100%;max-height:${th?96:230}px" role="img" aria-label="Carte du pays à deviner">${nb?`<path class="nb" d="${nb}" fill="var(--line)" stroke="var(--mute)" stroke-width=".5" stroke-linejoin="round"/>`:""}<path class="tg" d="${d}" fill="var(--acc)" fill-rule="evenodd" stroke="var(--acc)" stroke-width=".6" stroke-linejoin="round"/></svg>`;
+}
+async function start(seed,lv){
+ if(S.mode==="cm"&&!MAPS){
+  S.view="load";app.innerHTML=`<div class="card"><p class="mute">Chargement des cartes…</p></div>`;
+  if(!await loadMap()){
+   app.innerHTML=`<h1>Cartes<span>.</span></h1><div class="card"><p class="mute">Impossible de charger les cartes. Ce jeu a besoin d’une connexion internet et n’est pas disponible dans l’aperçu Claude : utilise la version hébergée.</p></div><button class="btn alt" id="bk">Retour</button>`;
+   $("bk").onclick=()=>menu(S.sec||"m");return;
+  }
+ }
+ S.gid=(S.gid||0)+1;
  S.lv=lv;S.qs=build(seed,lv);S.i=0;S.score=0;
  showQ();
 }
 function runTimer(){clearInterval(S.t);S.t=setInterval(()=>{S.left=Math.max(0,S.left-.1);const b=$("tm");if(b)b.style.width=(S.left/LV[S.lv].time*100)+"%";const t=$("ts");if(t)t.textContent=Math.ceil(S.left)+" s";if(S.left<=0)answer(null)},100)}
-function showQ(){S.locked=false;S.pick=null;S.quit=false;S.view="play";S.left=LV[S.lv].time;play();runTimer()}
+function showQ(){S.locked=false;S.pick=null;S.quit=false;S.hints=0;S.view="play";S.left=LV[S.lv].time;play();runTimer()}
 function askQuit(){if(S.locked)return;S.quit=true;clearInterval(S.t);play()}
 function resumeGame(){S.quit=false;play();if(!S.locked)runTimer()}
 function quitGame(){S.gid=(S.gid||0)+1;clearInterval(S.t);S.quit=false;if(S.sec)menu(S.sec);else{S.view="home";home()}}
 function play(){
  const q=S.qs[S.i];
- app.innerHTML=`<div class="top"><span>Question ${S.i+1}/20</span><span>${LV[S.lv].n} · <b>${S.score}</b> pts</span></div>
+ app.innerHTML=`<div class="top"><span>Question ${S.i+1}/${S.qs.length}</span><span>${LV[S.lv].n} · <b>${S.score}</b> pts</span></div>
  <div class="bar"><i id="tm" style="width:${S.left/LV[S.lv].time*100}%"></i></div>
- <div class="card flag" style="margin-top:14px">${S.mode==="pf"||S.mode==="cp"?`<div style="font:800 2rem 'Inter',system-ui,sans-serif;padding:14px 0">${esc(S.mode==="cp"?q.a.k:q.a.n)}</div>`:flag(q.a.c)}${S.mode==="cap"?`<div style="font:800 1.5rem 'Inter',system-ui,sans-serif;margin-top:6px">${esc(q.a.n)}</div>`:""}</div>
- <div class="top"><span class="mute">${{flag:"À quel pays appartient ce drapeau ?",cap:"Quelle est sa capitale ?",pf:"Quel est son drapeau ?",cp:"De quel pays est-ce la capitale ?"}[S.mode]}</span><span id="ts" class="mute">${Math.ceil(S.left)} s</span></div>
- <div class="opts">${q.o.map((o,k)=>{let c="";if(S.locked){if(o===q.a)c="ok";else if(k===S.pick)c="no"}return `<button class="opt ${c} ${S.mode==="pf"?"fl":""}" data-k="${k}">${S.mode==="pf"?flag(o.c):S.mode==="cp"?`<span style="display:block;font-size:2rem;line-height:1.3;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">${flag(o.c)}</span>${esc(o.n)}`:esc(S.mode==="cap"?o.k:o.n)}</button>`}).join("")}</div>
+ <div class="card flag" style="margin-top:14px">${S.mode==="pf"||S.mode==="cp"||S.mode==="cm"?`<div style="font:800 2rem 'Inter',system-ui,sans-serif;padding:14px 0">${esc(S.mode==="cp"?q.a.k:q.a.n)}</div>`:flag(q.a.c)}${S.mode==="cap"?`<div style="font:800 1.5rem 'Inter',system-ui,sans-serif;margin-top:6px">${esc(q.a.n)}</div>`:""}</div>
+ <div class="top"><span class="mute">${{flag:"À quel pays appartient ce drapeau ?",cap:"Quelle est sa capitale ?",pf:"Quel est son drapeau ?",cp:"De quel pays est-ce la capitale ?",cm:"Quelle est la carte de ce pays ?"}[S.mode]}</span><span id="ts" class="mute">${Math.ceil(S.left)} s</span></div>
+ <div class="opts">${q.o.map((o,k)=>{let c="";if(S.locked){if(o===q.a)c="ok";else if(k===S.pick)c="no"}return `<button class="opt ${c} ${S.mode==="pf"?"fl":S.mode==="cm"?"mp":""}" data-k="${k}">${S.mode==="cm"?mapSvg(o,S.lv<=2,true):S.mode==="pf"?flag(o.c):S.mode==="cp"?`<span style="display:block;font-size:2rem;line-height:1.3;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">${flag(o.c)}</span>${esc(o.n)}`:esc(S.mode==="cap"?o.k:o.n)}</button>`}).join("")}</div>
  <button class="btn alt" id="qt" style="margin-top:14px" ${S.locked?"disabled":""}>Quitter la partie</button>
  ${S.quit?`<div class="ov"><div class="card"><b>Quitter la partie ?</b><p class="mute">Ta progression sera perdue et ce score ne sera pas enregistré.</p><button class="btn" id="qc">Continuer</button><button class="btn alt" id="qy">Quitter</button></div></div>`:""}`;
  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.k));
@@ -291,9 +383,9 @@ function play(){
 function answer(k){
  if(S.locked)return;S.locked=true;clearInterval(S.t);S.pick=k;
  const q=S.qs[S.i];
- if(k!==null&&q.o[k]===q.a)S.score+=Math.round((100+50*S.left/LV[S.lv].time)*LV[S.lv].coef);
+ if(k!==null&&q.o[k]===q.a)S.score+=Math.round((100+50*S.left/LV[S.lv].time)*LV[S.lv].coef*(1-.2*(S.mode==="map"?S.hints||0:0)));
  play();
- const g=S.gid||0;setTimeout(()=>{if(g!==(S.gid||0)||S.view!=="play")return;S.i++;if(S.i>=20)finish();else showQ()},1200);
+ const g=S.gid||0;setTimeout(()=>{if(g!==(S.gid||0)||S.view!=="play")return;S.i++;if(S.i>=S.qs.length)finish();else showQ()},1200);
 }
 const isRec=()=>S.uid?!!(S.res&&S.res.rec):!!S.sessRec;
 function confetti(){
@@ -303,11 +395,11 @@ function confetti(){
  for(let i=0;i<46;i++){const p=document.createElement("i");p.style.cssText=`left:${Math.random()*100}%;background:${cols[i%6]};width:${6+Math.random()*6}px;height:${10+Math.random()*8}px;animation-delay:${Math.random()*.5}s;animation-duration:${1.8+Math.random()*1.4}s;--dx:${(Math.random()-.5)*160}px`;box.appendChild(p)}
  document.body.appendChild(box);setTimeout(()=>box.remove(),3600);
 }
-async function finish(){S.fx=0;const sb=S.sb=S.sb||{},pv=sb[S.mode]||0;S.sessRec=pv>0&&S.score>pv;if(S.score>pv)sb[S.mode]=S.score;S.view="end";S.res=null;end();S.res=await save();if(S.view==="end")end()}
+async function finish(){S.fx=0;const sb=S.sb=S.sb||{},pv=sb[SK()]||0;S.sessRec=pv>0&&S.score>pv;if(S.score>pv)sb[SK()]=S.score;S.view="end";S.res=null;end();S.res=await save();if(S.view==="end")end()}
 function end(){
  const m=S.res&&S.res.best!==undefined?`Meilleur score : ${fmt(S.res.best)} pts`:S.res==="err"?"Enregistrement impossible.":S.uid?"Enregistrement…":"Connecte-toi pour enregistrer tes scores.";
- app.innerHTML=`<h1>Terminé<span>.</span></h1><p class="sub">${MODES[S.mode]} · ${LV[S.lv].n}</p>
- <div class="card">${isRec()?`<div class="badge">Nouveau meilleur score</div>`:""}<div class="big ${isRec()?"pop":""}">${S.score}</div><p class="mute">points sur ${(3000*LV[S.lv].coef).toLocaleString("fr-FR")} possibles</p><p class="mute">${m}</p></div>
+ app.innerHTML=`<h1>Terminé<span>.</span></h1><p class="sub">${KL(SK())} · ${LV[S.lv].n}</p>
+ <div class="card">${isRec()?`<div class="badge">Nouveau meilleur score</div>`:""}<div class="big ${isRec()?"pop":""}">${S.score}</div><p class="mute">points sur ${(150*S.qs.length*LV[S.lv].coef).toLocaleString("fr-FR")} possibles</p><p class="mute">${m}</p></div>
  <button class="btn" id="again">Rejouer</button><button class="btn alt" id="rk">Voir le classement</button><button class="btn alt" id="hm">Accueil</button>`;
  if(isRec()&&!S.fx){S.fx=1;confetti()}
  $("again").onclick=()=>start(Date.now()%2147483647,S.lv);
