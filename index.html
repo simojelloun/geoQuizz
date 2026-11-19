@@ -155,6 +155,28 @@ label{text-transform:none;letter-spacing:0;font-size:.85rem}
 .pl.mine{background:color-mix(in srgb,var(--acc) 9%,transparent);margin:0 -10px;padding-left:10px;padding-right:10px;border-radius:10px;border-bottom-color:transparent}
 .seg button.on{background:var(--acc);color:var(--onacc)}
 input:focus,select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 22%,transparent)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:12px;box-shadow:0 3px 0 var(--edge)}
+.tabs button{border:0;background:none;padding:11px 6px;border-radius:10px;font-weight:600;color:var(--mute)}.tabs button.on{background:var(--acc);color:var(--onacc)}
+.af label{margin:16px 0 8px;color:var(--ink);font-size:.9rem}.af label:first-child{margin-top:0}.af .hint{display:block;color:var(--mute);font-size:.78rem;margin-top:6px}
+.af .err:empty,.af .okm:empty{display:none}.okm{color:var(--ok);font-weight:600;text-align:center;margin:10px 0 0}.lks{text-align:center;margin:14px 0 0}
+.rh{display:flex;align-items:center;gap:10px;margin-bottom:14px}.rh h1{margin:0;font-size:1.8rem}
+.bk{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);font:700 1.5rem/1 var(--D);box-shadow:0 3px 0 var(--edge);flex:none;padding-bottom:3px}
+.chips{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chips button{flex:1;white-space:nowrap;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 12px;font-weight:600;font-size:.88rem;color:var(--mute)}
+.chips button.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.rsel{display:flex;gap:8px;margin-bottom:12px}.rsel select{flex:1;min-width:0;padding:9px 12px;font-size:.92rem;background:var(--card)}
+.pod{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:8px;align-items:end;margin:4px 0 12px}
+.pd{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 0 var(--edge);padding:12px 6px 10px;text-align:center;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px}
+.pd.p1{padding-top:16px;padding-bottom:14px;border-color:#ffb703}.pd.mine{background:color-mix(in srgb,var(--acc) 9%,var(--card))}
+.md{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:800 .9rem var(--D);background:#c9d3dd;color:#1f2d3a}.p1 .md{width:36px;height:36px;background:#ffb703;color:#3d2b00;font-size:1.05rem}.p3 .md{background:#dfa172;color:#3b1f08}
+.pn2{font:800 .95rem/1.2 var(--D);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ps{font-size:.82rem;color:var(--mute);font-variant-numeric:tabular-nums}
+.rl0{padding:4px 14px}
+.rr{display:grid;grid-template-columns:28px 1fr auto auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:.93rem}.rr:last-child{border:0}
+.rr .rkn{width:26px;height:26px;font-size:.78rem}.rn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rn em{font-style:normal;font-size:.72rem;font-weight:700;color:var(--acc);margin-left:4px}
+.rl{font-size:.74rem;color:var(--mute)}.rr b{font-variant-numeric:tabular-nums;min-width:56px;text-align:right}
+.rr.mine{background:color-mix(in srgb,var(--acc) 9%,transparent);margin:0 -14px;padding-left:14px;padding-right:14px}
+.rgap{text-align:center;color:var(--mute);padding:2px 0;border-bottom:1px solid var(--line);letter-spacing:.2em}
+.rft{text-align:center;color:var(--mute);font-size:.85rem;margin:4px 0 12px}
 @media (prefers-reduced-motion:reduce){.btn,.opt,.tile,.nav,.dz{transition:none}.opt.no,.gain{animation:none}}
 </style></head>
 <body><main id="app"></main>
@@ -179,7 +201,7 @@ const MI=k=>{if(k==="all")return `<span class="mi" style="background:linear-grad
 const modeButtons=(ks=["flag","pf","cap","cp"],cur=S.mode)=>`<div class="lv" style="grid-template-columns:1fr">${ks.map(k=>`<button class="lvb md ${cur===k?"on":""}" data-md="${k}">${MI(k)}<span>${MODES[k]}</span></button>`).join("")}</div>`;
 function applyTheme(t){const e=document.documentElement;if(t==="light"||t==="dark")e.dataset.theme=t;else delete e.dataset.theme;S.theme=t}
 const themeCtl=()=>`<div class="seg" role="group" aria-label="Apparence">${[["auto","Auto"],["light","Clair"],["dark","Sombre"]].map(([k,l])=>`<button class="${S.theme===k?"on":""}" data-th="${k}" title="${l}" aria-label="${l}">${sv(k==="light"?"sun":k==="dark"?"moon":"auto")}</button>`).join("")}</div>`;
-const bindTheme=()=>app.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{applyTheme(b.dataset.th);try{localStorage.setItem("gq-theme",b.dataset.th)}catch(e){}home()});
+const bindTheme=(re=home)=>app.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{applyTheme(b.dataset.th);try{localStorage.setItem("gq-theme",b.dataset.th)}catch(e){}re()});
 const flag=c=>[...c].map(x=>String.fromCodePoint(127397+x.charCodeAt(0))).join("");
 const LV={1:{n:"Facile",h:"Pays connus · 4 choix · 10 s",pool:1,ch:4,time:10,coef:1},2:{n:"Moyen",h:"Plus large · 4 choix · 10 s",pool:2,ch:4,time:10,coef:2},3:{n:"Difficile",h:"Choix proches · 6 choix · 10 s",pool:3,ch:6,time:10,coef:3},4:{n:"Très difficile",h:"Choix très proches · 8 choix · 10 s",pool:3,ch:8,time:10,coef:5}};
 const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
@@ -216,12 +238,12 @@ function lvButtons(editable){
 function home(){
  const d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=streakOf(d),today=d.sd===dk(),dd=dayDone(d);
  app.innerHTML=`<div class="hb"><h1>Geo Quizz<span>.</span></h1>${themeCtl()}</div>
- <div class="card pc"><div class="stamp"><div><small>NIVEAU</small>${L}</div></div><div class="pi"><div class="pn">${esc(S.name||"")}<button id="chg" class="lk">changer</button></div><div class="pt">${titleOf(L)}</div><div class="xp"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><div class="px"><span>${fmt(x)} XP</span><span>niveau ${L+1} à ${fmt(b)} XP</span></div></div></div>
+ <div class="card pc"><div class="stamp"><div><small>NIVEAU</small>${L}</div></div><div class="pi"><div class="pn">${esc(S.name||"")}<button id="chg" class="lk">${AUTH?"compte":"changer"}</button></div><div class="pt">${titleOf(L)}</div><div class="xp"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><div class="px"><span>${fmt(x)} XP</span><span>niveau ${L+1} à ${fmt(b)} XP</span></div></div></div>
  <p class="strk ${st?"on":""}">${sv("fire")}<span>${st?(today?`Série de ${pl(st,"jour","jours")}. Reviens demain pour la prolonger.`:`Série de ${pl(st,"jour","jours")} en jeu : joue aujourd’hui pour la garder.`):"Joue une partie aujourd’hui pour démarrer une série."}</span></p>
  <button class="dz ${dd?"done":""}" id="dy"><span><b>${dd?"Défi du jour terminé":"Défi du jour"}</b><small>${dd?`${fmt(dd.s)} pts. Nouveau défi demain.`:"20 questions, les mêmes pour tous. Une seule tentative."}</small></span><em>${dd?"Classement":"Jouer"}</em></button>
  <div class="grid">${[["sd","d","Drapeaux"],["sc","c","Capitales"],["sm","m","Cartes"],["sx","x","Défis"]].map(([id,k,t])=>`<button class="tile" id="${id}"><span class="nt" style="background:linear-gradient(135deg,${SG[k][0]},${SG[k][1]})">${sv(SG[k][2])}</span><b>${t}</b><small>${SEC[k].length} jeux</small></button>`).join("")}</div>
  <button class="nav" id="rk"><span class="nt" style="background:linear-gradient(135deg,#10b981,#059669)">${sv("trophy")}</span><span><b>Classements</b><small>Records par jeu, défi du jour, points cumulés</small></span><i>›</i></button>`;
- bindTheme();$("chg").onclick=nameScreen;$("dy").onclick=startDay;$("sd").onclick=()=>menu("d");$("sc").onclick=()=>menu("c");$("sm").onclick=()=>{S.zone=null;menu("m")};$("sx").onclick=()=>menu("x");$("rk").onclick=rank;
+ bindTheme();$("chg").onclick=AUTH?accountScreen:nameScreen;$("dy").onclick=startDay;$("sd").onclick=()=>menu("d");$("sc").onclick=()=>menu("c");$("sm").onclick=()=>{S.zone=null;menu("m")};$("sx").onclick=()=>menu("x");$("rk").onclick=rank;
 }
 const dk=(o=0)=>{const d=new Date(Date.now()+o*864e5);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 const lvlOf=x=>Math.floor(Math.sqrt((+x||0)/1000))+1,lvlAt=n=>1000*(n-1)*(n-1);
@@ -241,7 +263,7 @@ async function scoresBox(mode){
  if(!DB||!S.uid){el.innerHTML=`<p class="mute">Connecte-toi pour enregistrer et voir tes scores.</p>`;return}
  try{
   const snap=await DB.collection("players").get();
-  const rows=snap.docs.map(d=>({id:d.id,s:tv(d.data(),mode),n:d.data().u||"Joueur"})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s);
+  const rows=docsOf(snap).map(d=>({id:d.id,s:tv(d.data(),mode),n:d.data().u||"Joueur"})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s);
   if(S.view!=="menu"||SK()!==mode||!$("sc2"))return;
   const i=rows.findIndex(r=>r.id===S.uid),me=i>=0?rows[i].s:0,top=rows[0];
   el.innerHTML=`<div class="pl"><span>Mon meilleur score</span><b>${me?fmt(me):"–"}</b></div><div class="pl"><span>Mon rang</span><b>${i>=0?`${i+1} / ${rows.length}`:"–"}</b></div><div class="pl"><span>Leader</span><b>${top?`${esc(top.n)} · ${fmt(top.s)}`:"–"}</b></div>`;
@@ -290,10 +312,10 @@ const LDB=(()=>{
 })();
 const RDB=base=>({collection:c=>({
  doc:id=>({
-  get:async()=>{const r=await fetch(`${base}/${c}/${id}.json`);if(!r.ok)throw 0;const v=await r.json();return{exists:v!=null,data:()=>v}},
-  set:async o=>{const r=await fetch(`${base}/${c}/${id}.json`,{method:"PUT",body:JSON.stringify(o)});if(!r.ok)throw 0},
-  delete:async()=>{await fetch(`${base}/${c}/${id}.json`,{method:"DELETE"})}}),
- get:async()=>{const r=await fetch(`${base}/${c}.json`);if(!r.ok)throw 0;const v=(await r.json())||{};return{docs:Object.entries(v).map(([id,x])=>({id,data:()=>x}))}}
+  get:async()=>{const r=await fetch(`${base}/${c}/${id}.json`+await aq());if(!r.ok)throw 0;const v=await r.json();return{exists:v!=null,data:()=>v}},
+  set:async o=>{const r=await fetch(`${base}/${c}/${id}.json`+await aq(),{method:"PUT",body:JSON.stringify(o)});if(!r.ok)throw 0},
+  delete:async()=>{const r=await fetch(`${base}/${c}/${id}.json`+await aq(),{method:"DELETE"});if(!r.ok)throw 0}}),
+ get:async()=>{const r=await fetch(`${base}/${c}.json`+await aq());if(!r.ok)throw 0;const v=(await r.json())||{};return{docs:Object.entries(v).map(([id,x])=>({id,data:()=>x}))}}
 })});
 async function claimLocal(raw){
  const name=raw.trim().replace(/\s+/g," "),key=slug(name);
@@ -341,8 +363,149 @@ function nameScreen(){
  };
  const c=$("cx");if(c)c.onclick=()=>{S.view="home";home()};
 }
+// ===== AUTHENTIFICATION (Firebase Auth : pseudo + mot de passe, email vérifié) =====
+const FB_KEY=(window.GQ_CONFIG&&window.GQ_CONFIG.apiKey)||"",AUTH=REMOTE&&!!FB_KEY;
+let SES=null;
+const E=c=>{const e=new Error(c);e.code=c;return e};
+const persist=()=>{try{SES?localStorage.setItem("gq-auth",JSON.stringify({uid:SES.uid,rt:SES.rt,email:SES.email,pend:SES.pend||null})):localStorage.removeItem("gq-auth")}catch(e){}};
+function setSes(j){const old=SES;SES={uid:j.localId,it:j.idToken,rt:j.refreshToken,exp:Date.now()+((+j.expiresIn||3600)-60)*1e3,email:j.email||(old&&old.email)||"",pend:old&&old.uid===j.localId?old.pend:null};persist()}
+async function idt(op,body){
+ let r,j={};
+ try{r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:${op}?key=${FB_KEY}`,{method:"POST",headers:{"Content-Type":"application/json","X-Firebase-Locale":"fr"},body:JSON.stringify(body)});j=await r.json().catch(()=>({}))}catch(e){throw E("NET")}
+ if(!r.ok){const m=(j.error&&j.error.message)||"ERR";throw E(m.startsWith("API key")?"API_KEY":m.split(/[ :]/)[0])}
+ return j;
+}
+async function token(force){
+ if(!SES)throw E("NOSES");
+ if(!force&&SES.it&&Date.now()<SES.exp)return SES.it;
+ let r;
+ try{r=await fetch("https://securetoken.googleapis.com/v1/token?key="+FB_KEY,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"grant_type=refresh_token&refresh_token="+encodeURIComponent(SES.rt)})}catch(e){throw E("NET")}
+ if(!r.ok){if(r.status===400){SES=null;persist()}throw E("EXPIRED")}
+ const j=await r.json();SES.it=j.id_token;SES.rt=j.refresh_token;SES.exp=Date.now()+((+j.expires_in||3600)-60)*1e3;persist();return SES.it;
+}
+const claims=t=>{try{return JSON.parse(atob(t.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")))}catch(e){return{}}};
+const aq=async()=>{if(!AUTH||!SES)return"";try{return"?auth="+encodeURIComponent(await token())}catch(e){return""}};
+const docsOf=snap=>snap.docs.filter(d=>!AUTH||d.id.length>=28);
+// L'email lié à un pseudo est stocké chiffré avec le mot de passe : personne ne peut le lire sans le mot de passe.
+const b64=u=>btoa(String.fromCharCode(...new Uint8Array(u))),ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function kdf(pw,salt){const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:250000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"])}
+async function seal(email,pw){const s=crypto.getRandomValues(new Uint8Array(16)),i=crypto.getRandomValues(new Uint8Array(12)),c=await crypto.subtle.encrypt({name:"AES-GCM",iv:i},await kdf(pw,s),new TextEncoder().encode(email));return{s:b64(s),i:b64(i),c:b64(c)}}
+async function unseal(o,pw){const p=await crypto.subtle.decrypt({name:"AES-GCM",iv:ub(o.i)},await kdf(pw,ub(o.s)),ub(o.c));return new TextDecoder().decode(p)}
+const AMSG={INVALID_LOGIN_CREDENTIALS:"Pseudo, email ou mot de passe incorrect.",INVALID_PASSWORD:"Pseudo, email ou mot de passe incorrect.",EMAIL_NOT_FOUND:"Pseudo, email ou mot de passe incorrect.",
+ STALE:"Mot de passe incorrect. Si tu l’as changé récemment, connecte-toi une fois avec ton email.",NOPSEUDO:"Aucun compte avec ce pseudo. Vérifie l’orthographe ou connecte-toi avec ton email.",
+ EMAIL_EXISTS:"Cet email a déjà un compte. Connecte-toi avec.",INVALID_EMAIL:"Cet email n’est pas valide.",MISSING_EMAIL:"Indique ton email.",MISSING_PASSWORD:"Indique ton mot de passe.",
+ WEAK_PASSWORD:"Mot de passe trop court : 8 caractères minimum.",TAKEN:"Ce pseudo est déjà pris. Choisis-en un autre.",NAME:"Pseudo : 3 à 16 caractères, avec des lettres ou des chiffres.",
+ TOO_MANY_ATTEMPTS_TRY_LATER:"Trop d’essais. Réessaie dans quelques minutes.",USER_DISABLED:"Ce compte est désactivé.",NOTVERIFIED:"Ton email n’est pas encore vérifié. Ouvre le lien reçu, puis réessaie.",
+ OPERATION_NOT_ALLOWED:"La connexion par email n’est pas activée dans Firebase (Authentication › Sign-in method).",CONFIGURATION_NOT_FOUND:"Firebase Authentication n’est pas activé pour ce projet.",
+ API_KEY:"La clé apiKey de config.js n’est pas valide.",EXPIRED:"Ta session a expiré. Reconnecte-toi.",NET:"Pas de connexion au serveur. Vérifie internet et réessaie.",WRITE:"Enregistrement refusé par la base. Vérifie les règles Firebase."};
+const amsg=x=>AMSG[x&&x.code]||"Action impossible pour le moment. Réessaie.";
+const normName=raw=>{const name=String(raw||"").trim().replace(/\s+/g," "),key=slug(name);if(name.length<3||name.length>16||key.length<3)throw E("NAME");return{name,key}};
+const wr=async p=>{try{await p}catch(e){throw E("WRITE")}};
+async function claimPseudo(name,key,sl,oldKey){
+ const uid=SES.uid,nref=DB.collection("names").doc(key),ns=await nref.get(),cur=ns.exists&&ns.data()&&ns.data().id;
+ if(cur&&cur!==uid&&String(cur).length>=28)throw E("TAKEN");
+ await wr(nref.set({id:uid,n:name}));
+ const chk=await nref.get();if(!chk.exists||chk.data().id!==uid)throw E("TAKEN");
+ await wr(DB.collection("logins").doc(key).set({u:uid,...sl}));
+ let legacy={};
+ try{const dev=localStorage.getItem("gq-dev");if(dev&&dev.length<28&&!oldKey){const ls=await DB.collection("players").doc(dev).get();if(ls.exists){const v=ls.data()||{};["m","x","p","sd","sn","sb","dc"].forEach(f=>{if(v[f]!==undefined)legacy[f]=v[f]})}}}catch(e){}
+ const pref=DB.collection("players").doc(uid),ps=await pref.get(),d=(ps.exists&&ps.data())||{};
+ await wr(pref.set({...legacy,...d,u:name,k:key}));
+ if(oldKey&&oldKey!==key){try{await DB.collection("logins").doc(oldKey).delete();await DB.collection("names").doc(oldKey).delete()}catch(e){}}
+ S.uid=uid;S.name=name;S.key=key;SES.pend=null;persist();
+}
+async function enter(){await loadMe();S.view="home";home()}
+async function afterAuth(){
+ // appelé avec une session valide
+ if(!claims(await token(true)).email_verified)return verifyScreen();
+ const ps=await DB.collection("players").doc(SES.uid).get(),d=ps.exists&&ps.data();
+ if(d&&d.u){S.uid=SES.uid;S.name=d.u;S.key=d.k;if(SES.pend&&SES.pend.seal&&d.k){try{await DB.collection("logins").doc(d.k).set({u:SES.uid,...SES.pend.seal})}catch(e){}SES.pend=null;persist()}return enter()}
+ if(SES.pend&&SES.pend.n&&SES.pend.seal){try{await claimPseudo(SES.pend.n,SES.pend.k,SES.pend.seal);return enter()}catch(x){return pseudoScreen(amsg(x))}}
+ return pseudoScreen();
+}
+async function doSignup(un,em,pw){
+ const{name,key}=normName(un);
+ if(!/^\S+@\S+\.\S+$/.test(em.trim()))throw E("INVALID_EMAIL");
+ if(pw.length<8)throw E("WEAK_PASSWORD");
+ const ns=await DB.collection("names").doc(key).get().catch(()=>null);
+ if(ns&&ns.exists&&ns.data()&&String(ns.data().id||"").length>=28)throw E("TAKEN");
+ const sl=await seal(em.trim(),pw);
+ setSes(await idt("signUp",{email:em.trim(),password:pw,returnSecureToken:true}));
+ SES.pend={n:name,k:key,seal:sl};persist();
+ try{await idt("sendOobCode",{requestType:"VERIFY_EMAIL",idToken:SES.it})}catch(e){}
+ verifyScreen();
+}
+async function doLogin(id,pw){
+ id=id.trim();if(!id)throw E("MISSING_EMAIL");if(!pw)throw E("MISSING_PASSWORD");
+ let email=id;
+ if(!id.includes("@")){
+  const key=slug(id),ls=await DB.collection("logins").doc(key).get();
+  if(!ls.exists||!ls.data()||!ls.data().c)throw E("NOPSEUDO");
+  try{email=await unseal(ls.data(),pw)}catch(e){throw E("STALE")}
+ }
+ setSes(await idt("signInWithPassword",{email,password:pw,returnSecureToken:true}));
+ SES.pend={...(SES.pend||{}),seal:await seal(email,pw)};persist();
+ return afterAuth();
+}
+function signOut(){SES=null;persist();S.uid=null;S.name=null;S.key=null;S.me=null;authScreen("in")}
+const field=(id,l,t,ac,v="")=>`<label for="${id}">${l}</label><input id="${id}" type="${t}" autocomplete="${ac}" value="${esc(v)}" ${t==="email"?'inputmode="email" autocapitalize="off"':t==="text"?'autocapitalize="off" spellcheck="false"':""}>`;
+function formRun(fn,ok){
+ $("af").onsubmit=async e=>{e.preventDefault();const b=$("ab");$("ae").textContent="";if($("ao"))$("ao").textContent="";b.disabled=true;try{const m=await fn();if(m&&$("ao"))$("ao").textContent=m}catch(x){if($("ae"))$("ae").textContent=amsg(x)}finally{if($("ab"))$("ab").disabled=false}};
+}
+function authScreen(tab="in",msg=""){
+ S.view="auth";S.atab=tab;
+ app.innerHTML=`<div class="hb"><h1>Geo Quizz<span>.</span></h1>${themeCtl()}</div>
+ <p class="sub">${tab==="up"?"Crée ton compte pour apparaître au classement et retrouver tes scores sur tous tes appareils.":tab==="fg"?"Indique l’email de ton compte : tu recevras un lien pour choisir un nouveau mot de passe.":"Connecte-toi pour jouer et enregistrer tes scores."}</p>
+ ${tab!=="fg"?`<div class="tabs" role="tablist"><button role="tab" aria-selected="${tab==="in"}" data-t="in" class="${tab==="in"?"on":""}">Se connecter</button><button role="tab" aria-selected="${tab==="up"}" data-t="up" class="${tab==="up"?"on":""}">Créer un compte</button></div>`:""}
+ <form class="card af" id="af" novalidate>${tab==="in"?field("li","Pseudo ou email","text","username")+field("pw","Mot de passe","password","current-password"):tab==="up"?field("un","Pseudo","text","username")+`<small class="hint">3 à 16 caractères, visible dans les classements.</small>`+field("em","Email","email","email")+`<small class="hint">Un lien de vérification y sera envoyé. Il n’est jamais affiché.</small>`+field("pw","Mot de passe","password","new-password")+`<small class="hint">8 caractères minimum.</small>`:field("em","Email","email","email")}
+ <p class="err" id="ae" role="alert">${esc(msg)}</p><p class="okm" id="ao" role="status"></p>
+ <button class="btn" id="ab" type="submit">${tab==="in"?"Se connecter":tab==="up"?"Créer mon compte":"Envoyer le lien"}</button>
+ ${tab==="in"?`<p class="lks"><button type="button" class="lk" id="fg">Mot de passe oublié ?</button></p>`:tab==="fg"?`<p class="lks"><button type="button" class="lk" id="bk">Retour à la connexion</button></p>`:""}</form>`;
+ bindTheme(()=>authScreen(S.atab));
+ app.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>authScreen(b.dataset.t));
+ const fg=$("fg");if(fg)fg.onclick=()=>authScreen("fg");const bk=$("bk");if(bk)bk.onclick=()=>authScreen("in");
+ formRun(tab==="in"?()=>doLogin($("li").value,$("pw").value):tab==="up"?()=>doSignup($("un").value,$("em").value,$("pw").value):async()=>{const em=$("em").value.trim();if(!/^\S+@\S+\.\S+$/.test(em))throw E("INVALID_EMAIL");try{await idt("sendOobCode",{requestType:"PASSWORD_RESET",email:em})}catch(x){if(x.code!=="EMAIL_NOT_FOUND")throw x}return"Si un compte utilise cet email, le lien vient d’être envoyé. Pense à regarder dans les spams."});
+}
+function verifyScreen(msg=""){
+ S.view="verify";
+ app.innerHTML=`<h1>Vérifie ton email<span>.</span></h1><p class="sub">Dernière étape avant de jouer.</p>
+ <form class="card af" id="af"><p style="margin:0 0 6px">Un lien de vérification a été envoyé à <b>${esc(SES&&SES.email||"ton email")}</b>.</p><p class="mute" style="text-align:left;margin:0">Ouvre-le, puis reviens ici. Rien reçu ? Regarde dans les spams.</p>
+ <p class="err" id="ae" role="alert">${esc(msg)}</p><p class="okm" id="ao" role="status"></p>
+ <button class="btn" id="ab" type="submit">J’ai ouvert le lien</button><button class="btn alt" id="rs" type="button">Renvoyer l’email</button>
+ <p class="lks"><button type="button" class="lk" id="so">Utiliser un autre compte</button></p></form>`;
+ formRun(async()=>{if(!claims(await token(true)).email_verified)throw E("NOTVERIFIED");await afterAuth()});
+ $("rs").onclick=async()=>{const b=$("rs");b.disabled=true;$("ae").textContent="";$("ao").textContent="";try{await idt("sendOobCode",{requestType:"VERIFY_EMAIL",idToken:await token()});$("ao").textContent="Email renvoyé à "+(SES.email||"ton adresse")+"."}catch(x){$("ae").textContent=amsg(x)}b.disabled=false};
+ $("so").onclick=signOut;
+}
+document.addEventListener("visibilitychange",async()=>{if(document.visibilityState!=="visible"||S.view!=="verify"||!SES)return;try{if(claims(await token(true)).email_verified)await afterAuth()}catch(e){}});
+function pseudoScreen(msg=""){
+ S.view="pseudo";
+ app.innerHTML=`<h1>Choisis ton pseudo<span>.</span></h1><p class="sub">Il apparaît dans les classements et sert à te connecter.</p>
+ <form class="card af" id="af" novalidate>${field("un","Pseudo","text","username",(SES&&SES.pend&&SES.pend.n)||"")}<small class="hint">3 à 16 caractères.</small>
+ ${SES&&SES.pend&&SES.pend.seal?"":field("pw","Mot de passe","password","current-password")}
+ <p class="err" id="ae" role="alert">${esc(msg)}</p><button class="btn" id="ab" type="submit">Valider</button>
+ <p class="lks"><button type="button" class="lk" id="so">Se déconnecter</button></p></form>`;
+ formRun(async()=>{const{name,key}=normName($("un").value);let sl=SES.pend&&SES.pend.seal;if(!sl){const pw=$("pw").value;setSes(await idt("signInWithPassword",{email:SES.email,password:pw,returnSecureToken:true}));sl=await seal(SES.email,pw)}await claimPseudo(name,key,sl);await enter()});
+ $("so").onclick=signOut;
+}
+function accountScreen(){
+ S.view="account";
+ app.innerHTML=`<h1>Mon compte<span>.</span></h1><p class="sub">Pseudo public, email privé.</p>
+ <div class="card"><div class="pl"><span>Pseudo</span><b>${esc(S.name||"")}</b></div><div class="pl"><span>Email</span><b style="font-weight:500;overflow-wrap:anywhere;text-align:right">${esc(SES&&SES.email||"")}</b></div></div>
+ <form class="card af" id="af" novalidate><label style="margin:0 0 8px">Changer de pseudo</label>${field("un","Nouveau pseudo","text","username")}${field("pw","Mot de passe actuel","password","current-password")}
+ <p class="err" id="ae" role="alert"></p><p class="okm" id="ao" role="status"></p><button class="btn" id="ab" type="submit">Changer de pseudo</button></form>
+ <button class="btn alt" id="so">Se déconnecter</button><button class="btn alt" id="hm">Accueil</button>`;
+ formRun(async()=>{const{name,key}=normName($("un").value),pw=$("pw").value;if(!pw)throw E("MISSING_PASSWORD");setSes(await idt("signInWithPassword",{email:SES.email,password:pw,returnSecureToken:true}));await claimPseudo(name,key,await seal(SES.email,pw),S.key);await loadMe();accountScreen();$("ao").textContent="Pseudo changé : "+name+"."});
+ $("so").onclick=signOut;$("hm").onclick=()=>{S.view="home";home()};
+}
+async function bootAuth(){
+ try{const a=JSON.parse(localStorage.getItem("gq-auth")||"null");if(a&&a.rt)SES={...a,it:null,exp:0}}catch(e){}
+ if(!SES)return authScreen("in");
+ try{await afterAuth()}catch(x){if(x.code==="NET")return authScreen("in",AMSG.NET);SES=null;persist();authScreen("in",x.code==="EXPIRED"?AMSG.EXPIRED:"")}
+}
 async function boot(){
  try{const t=localStorage.getItem("gq-theme");if(t)applyTheme(t)}catch(e){}
+ if(AUTH){DB=RDB(FIREBASE_URL.replace(/\/+$/,""));return bootAuth()}
  if(REMOTE){
   DB=RDB(FIREBASE_URL.replace(/\/+$/,""));
   let id=null;
@@ -384,30 +547,40 @@ async function save(){
 }
 async function standing(){
  try{
-  const k=SK(),snap=await DB.collection("players").get(),rows=snap.docs.map(d=>({id:d.id,s:tv(d.data(),k),n:d.data().u||"Joueur"})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s),i=rows.findIndex(r=>r.id===S.uid);
+  const k=SK(),snap=await DB.collection("players").get(),rows=docsOf(snap).map(d=>({id:d.id,s:tv(d.data(),k),n:d.data().u||"Joueur"})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s),i=rows.findIndex(r=>r.id===S.uid);
   return i<0?null:{pos:i+1,n:rows.length,up:i>0?rows[i-1]:null};
  }catch(e){return null}
 }
 async function rank(){
- const t=S.rt=(S.rt||0)+1;S.view="rank";S.rows=null;S.board=S.board||"all";drawRank();
- let rows=[];
- try{
-  if(DB){
-   const snap=await DB.collection("players").get();
-   rows=snap.docs.map(d=>({id:d.id,s:tv(d.data(),S.board),n:d.data().u||"Joueur",lv:lvlOf(d.data().x),reg:!!d.data().u})).filter(r=>r.s>0||(r.reg&&S.board!=="day")).sort((a,b)=>b.s-a.s);
-  }
- }catch(e){rows=[]}
+ const t=S.rt=(S.rt||0)+1;S.view="rank";S.board=S.board||"all";S.rall=false;if(!S.pall)S.pall=null;drawRank();
+ let all=[];
+ try{if(DB){const snap=await DB.collection("players").get();all=docsOf(snap).filter(d=>d.data()&&d.data().u).map(d=>({id:d.id,d:d.data()}))}}catch(e){all=S.pall||[]}
  if(t!==S.rt||S.view!=="rank")return;
- S.rows=rows;drawRank();
+ S.pall=all;drawRank();
 }
+const GAMES=[["Drapeaux",["flag","pf","fc"]],["Capitales",["cap","cp"]],["Cartes",["cm","mc"]],["Défis",["ct","mix","surv","chr"]]];
 function drawRank(){
- const rows=S.rows;
- app.innerHTML=`${HD("Classement",rows?pl(rows.length,"joueur","joueurs"):"Chargement…",["#10b981","#059669"],sv("trophy"))}
- <div class="card"><label for="bd">Classement affiché</label><select id="bd">${["all","day","xp",...MK].map(k=>`<option value="${k}" ${S.board===k?"selected":""}>${esc(KL(k))}</option>`).join("")}</select></div>
- <div class="card">${rows===null?`<p class="mute">Chargement…</p>`:rows.length?rows.map((r,i)=>`<div class="pl ${r.id===S.uid?"mine":""}"><span class="who"><span class="rkn ${i<3&&r.s?"r"+(i+1):""}">${i+1}</span><span>${esc(r.n)}${r.id===S.uid?" (moi)":""}<br><small>Niveau ${r.lv}</small></span></span><b>${r.s?fmt(r.s):"–"}</b></div>`).join(""):`<p class="mute">${S.board==="day"?"Personne n’a encore joué le défi du jour. À toi d’ouvrir le classement.":"Aucun score pour l’instant. Joue une partie pour ouvrir le classement."}</p>`}</div>
- ${S.board==="day"&&!dayDone(S.me)?`<button class="btn" id="dy">Jouer le défi du jour</button>`:""}<button class="btn alt" id="hm">Accueil</button>`;
- $("bd").onchange=e=>{S.board=e.target.value;rank()};
- const y=$("dy");if(y)y.onclick=startDay;
+ const B=S.board,game=/^(cm|mc)_/.test(B)?B.slice(0,2):B,zone=/^(cm|mc)_/.test(B)?B.slice(3):"world",per=!["all","day","xp"].includes(B);
+ const rows=S.pall===null?null:S.pall.map(p=>({id:p.id,s:tv(p.d,B),n:p.d.u,lv:lvlOf(p.d.x)})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s);
+ const mi=rows?rows.findIndex(r=>r.id===S.uid):-1;
+ const row=(r,i)=>`<div class="rr ${r.id===S.uid?"mine":""}"><span class="rkn">${i+1}</span><span class="rn">${esc(r.n)}${r.id===S.uid?" <em>moi</em>":""}</span><span class="rl">niv. ${r.lv}</span><b>${fmt(r.s)}</b></div>`;
+ const pod=rows?rows.slice(0,3):[];
+ let list="";
+ if(rows&&rows.length>3){const lim=S.rall?rows.length:10;list=rows.slice(3,lim).map((r,i)=>row(r,i+3)).join("");if(!S.rall&&mi>=lim)list+=`<div class="rgap">…</div>`+row(rows[mi],mi)}
+ app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>Classement<span>.</span></h1></div>
+ <div class="chips" role="tablist">${[["all","Général"],["day","Du jour"],["xp","XP"],["game","Par jeu"]].map(([k,l])=>`<button role="tab" data-b="${k}" class="${(k==="game"?per:B===k)?"on":""}" aria-selected="${k==="game"?per:B===k}">${l}</button>`).join("")}</div>
+ ${per?`<div class="rsel"><select id="bg" aria-label="Jeu">${GAMES.map(([g,ks])=>`<optgroup label="${g}">${ks.map(k=>`<option value="${k}" ${game===k?"selected":""}>${esc(MODES[k].split(" · ")[0])}</option>`).join("")}</optgroup>`).join("")}</select>${game==="cm"||game==="mc"?`<select id="bz" aria-label="Zone">${Object.keys(ZONES).map(z=>`<option value="${z}" ${zone===z?"selected":""}>${esc(ZONES[z])}</option>`).join("")}</select>`:""}</div>`:""}
+ ${rows===null?`<div class="card"><p class="mute">Chargement…</p></div>`:!rows.length?`<div class="card"><p class="mute">${B==="day"?"Personne n’a encore joué le défi du jour.":"Aucun score ici pour l’instant."} Joue une partie pour ouvrir ce classement.</p></div>`:
+ `<div class="pod" style="${pod.length===1?"grid-template-columns:minmax(0,170px);justify-content:center":pod.length===2?"grid-template-columns:1fr 1.15fr":""}">${[1,0,2].filter(i=>pod[i]).map(i=>`<div class="pd p${i+1} ${pod[i].id===S.uid?"mine":""}"><span class="md">${i+1}</span><b class="pn2">${esc(pod[i].n)}</b><span class="ps">${fmt(pod[i].s)}</span></div>`).join("")}</div>
+ ${list?`<div class="card rl0">${list}</div>`:""}
+ <p class="rft">${pl(rows.length,"joueur classé","joueurs classés")}${mi>=0?` · tu es ${mi+1}${mi===0?"er":"e"}`:""}${rows.length>10?` · <button class="lk" id="ra">${S.rall?"Voir le top 10":"Voir tout"}</button>`:""}</p>`}
+ ${B==="day"&&!dayDone(S.me)?`<button class="btn" id="dy">Jouer le défi du jour</button>`:""}`;
+ app.querySelectorAll("[data-b]").forEach(b=>b.onclick=()=>{const k=b.dataset.b;S.board=k==="game"?(per?B:"flag"):k;S.rall=false;drawRank()});
+ const bg=$("bg"),bz=$("bz"),ra=$("ra"),y=$("dy");
+ if(bg)bg.onchange=()=>{const g=bg.value;S.board=g==="cm"||g==="mc"?g+"_"+zone:g;drawRank()};
+ if(bz)bz.onchange=()=>{S.board=game+"_"+bz.value;drawRank()};
+ if(ra)ra.onclick=()=>{S.rall=!S.rall;drawRank()};
+ if(y)y.onclick=startDay;
  $("hm").onclick=()=>{S.view="home";home()};
 }
 let MAPS=null;const MC={};
