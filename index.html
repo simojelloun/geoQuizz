@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f5f6f8;--card:#fff;--ink:#111827;--mute:#6b7280;--acc:#2563eb;--onacc:#fff;--ok:#16a34a;--bad:#dc2626;--line:#e5e7eb;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#161a22;--ink:#e8eaed;--mute:#8b93a1;--acc:#4c8bf5;--onacc:#0b1220;--ok:#2fb36a;--bad:#e5534b;--line:#262c38;color-scheme:dark}}
@@ -45,6 +45,9 @@ button{font:inherit;cursor:pointer;color:var(--ink)}
 .flag{font-size:7rem;line-height:1.15;text-align:center;padding:22px 0;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .opt{padding:14px 8px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-weight:500;font-size:.98rem;min-height:58px;box-shadow:0 1px 2px rgba(16,24,40,.05);transition:.15s}
+.fi{height:.72em;width:auto;max-width:1.7em;vertical-align:-.08em;border-radius:.07em;box-shadow:0 0 0 1px rgba(12,27,46,.12);object-fit:contain}
+.flag .fi{height:6rem;max-width:min(78vw,11rem);border-radius:6px;box-shadow:0 6px 18px -8px rgba(12,27,46,.45),0 0 0 1px rgba(12,27,46,.1)}
+.opt.fl .fi{height:2.6rem;max-width:4.4rem}
 .opt.fl{font-size:3.2rem;line-height:1.2;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
 .opt.ok{background:var(--ok);border-color:var(--ok);color:#fff}.opt.no{background:var(--bad);border-color:var(--bad);color:#fff}
 .pl{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line)}
@@ -94,10 +97,10 @@ input:focus{outline:2px solid var(--acc);outline-offset:1px}
 .lt{flex:none}.lt b{font-size:.76rem;line-height:1.15}.lt small{display:none}
 
 /* ===== Atlas ===== */
-:root{--bg:#eef4f8;--card:#fff;--ink:#0c1b2e;--mute:#5b6b7d;--acc:#0b5cad;--acc2:#12a594;--sun:#ffb703;--onacc:#fff;--ok:#12a150;--bad:#e5484d;--line:#d6e1eb;--edge:#c3d2e0;--grid:rgba(11,92,173,.07);--pass:#0b3c6f;--D:'Bricolage Grotesque','DM Sans',system-ui,sans-serif}
+:root{--bg:#eef4f8;--card:#fff;--ink:#0c1b2e;--mute:#5b6b7d;--acc:#0b5cad;--acc2:#12a594;--sun:#ffb703;--onacc:#fff;--ok:#12a150;--bad:#e5484d;--line:#d6e1eb;--edge:#c3d2e0;--grid:rgba(11,92,173,.07);--pass:#0b3c6f;--D:'Bricolage Grotesque','DM Sans','IBM Plex Sans Arabic',system-ui,sans-serif}
 :root[data-theme="dark"]{--bg:#081726;--card:#0f2438;--ink:#e9f0f7;--mute:#8ea2b8;--acc:#4da3ff;--acc2:#2fd0bd;--onacc:#06121f;--ok:#2fb36a;--bad:#f2555a;--line:#1d3550;--edge:#0a1a2b;--grid:rgba(77,163,255,.07);--pass:#123e6b}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#081726;--card:#0f2438;--ink:#e9f0f7;--mute:#8ea2b8;--acc:#4da3ff;--acc2:#2fd0bd;--onacc:#06121f;--ok:#2fb36a;--bad:#f2555a;--line:#1d3550;--edge:#0a1a2b;--grid:rgba(77,163,255,.07);--pass:#123e6b}}
-body{font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;background:linear-gradient(var(--grid) 1px,transparent 1px) 0 0/100% 44px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/44px 100%,var(--bg);background-attachment:fixed}
+body{font-family:'DM Sans','IBM Plex Sans Arabic',system-ui,-apple-system,'Segoe UI',sans-serif;background:linear-gradient(var(--grid) 1px,transparent 1px) 0 0/100% 44px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/44px 100%,var(--bg);background-attachment:fixed}
 h1{font-family:var(--D);font-weight:800;font-size:2.1rem;letter-spacing:-.03em}
 h1 span{color:var(--sun)}
 label{text-transform:none;letter-spacing:0;font-size:.85rem}
@@ -113,7 +116,7 @@ label{text-transform:none;letter-spacing:0;font-size:.85rem}
 .stamp{width:68px;height:68px;border-radius:50%;border:2.5px solid var(--sun);outline:1px solid var(--sun);outline-offset:3px;color:var(--sun);display:grid;place-items:center;text-align:center;transform:rotate(-9deg);flex:none;font:800 1.7rem/1 var(--D)}
 .stamp small{display:block;font:700 .5rem/1.4 'DM Sans',sans-serif;letter-spacing:.14em}
 .pi{flex:1;min-width:0}.pn{font:800 1.25rem/1.2 var(--D);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pt{font-size:.85rem;opacity:.85}
-.pc .lk{color:#fff;opacity:.75;font:500 .75rem 'DM Sans',sans-serif;margin-left:6px}
+.pc .lk{color:#fff;opacity:.75;font:500 .75rem 'DM Sans','IBM Plex Sans Arabic',sans-serif;margin-inline-start:8px}
 .xp{height:8px;border-radius:8px;background:rgba(255,255,255,.2);margin:9px 0 5px;overflow:hidden}.xp i{display:block;height:100%;background:var(--sun);border-radius:8px}
 .px{font-size:.74rem;opacity:.85;display:flex;justify-content:space-between;gap:8px}
 .strk{display:flex;align-items:center;gap:8px;margin:0 2px 14px;font-size:.88rem;color:var(--mute)}
@@ -177,6 +180,26 @@ input:focus,select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 4
 .rr.mine{background:color-mix(in srgb,var(--acc) 9%,transparent);margin:0 -14px;padding-left:14px;padding-right:14px}
 .rgap{text-align:center;color:var(--mute);padding:2px 0;border-bottom:1px solid var(--line);letter-spacing:.2em}
 .rft{text-align:center;color:var(--mute);font-size:.85rem;margin:4px 0 12px}
+.gear{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--card);box-shadow:0 3px 0 var(--edge);display:grid;place-items:center;color:var(--ink)}.gear svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.row3{display:flex;gap:10px;margin-bottom:12px}.mini{flex:1;min-width:0;text-align:left;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 4px 0 var(--edge)}
+.mini:active{transform:translateY(3px);box-shadow:0 1px 0 var(--edge)}.mini[disabled]{opacity:.55}
+.mini span{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--bc);margin-bottom:8px}.mini svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mini b{display:block;font:800 .98rem/1.2 var(--D)}.mini small{color:var(--mute);font-size:.75rem;display:block;line-height:1.25}
+.segw{display:flex;gap:4px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:4px}.segw button{flex:1;border:0;background:none;padding:9px 4px;border-radius:9px;font-weight:600;font-size:.88rem;color:var(--mute)}.segw button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(12,27,46,.15)}
+.hint2{color:var(--mute);font-size:.78rem;margin:8px 0 0}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bdg{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:0 3px 0 var(--edge);opacity:.55}
+.bdg.on{opacity:1}.bdg span{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--line)}.bdg.on span{background:var(--bc);box-shadow:0 0 0 3px color-mix(in srgb,var(--bc) 25%,transparent)}
+.bdg svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.bdg:not(.on) svg{stroke:var(--mute)}
+.bdg b{display:block;font:800 .9rem/1.2 var(--D)}.bdg small{color:var(--mute);font-size:.74rem;line-height:1.25;display:block}
+.nbd{padding:12px}.nbd .bdg{box-shadow:none;border:0;padding:4px}
+.info{display:flex;gap:14px;align-items:center;margin-top:14px;font-size:2.4rem}.info b{display:block;font:800 1.1rem var(--D)}.info small{display:block;color:var(--mute);font-size:.86rem}
+.h3{font:800 1.1rem var(--D)}.dcode{font:800 2.6rem/1.2 var(--D);letter-spacing:.18em;margin:6px 0 12px;color:var(--acc)}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;text-align:center;gap:8px}.vs b{display:block;font:800 1.05rem var(--D);overflow:hidden;text-overflow:ellipsis}.vs small{color:var(--mute);font-size:.78rem}.vs>span{font:800 .9rem var(--D);color:var(--mute)}
+.vs.res b{font-size:1.8rem}.vs.res .w b{color:var(--ok)}
+.dbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 14px;margin:14px 0 0}.dbar div{min-width:0}.dbar b{display:block;font:800 .9rem var(--D);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dbar span{font-size:.8rem;color:var(--mute)}.dbar div+div{text-align:end}
+.gact{display:flex;gap:12px}
+[dir=rtl] .bk,[dir=rtl] .nav i{transform:scaleX(-1)}[dir=rtl] .nav:hover i{transform:scaleX(-1) translateX(3px)}
 @media (prefers-reduced-motion:reduce){.btn,.opt,.tile,.nav,.dz{transition:none}.opt.no,.gain{animation:none}}
 </style></head>
 <body><main id="app"></main>
@@ -187,13 +210,12 @@ input:focus,select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 4
 // Ainsi, mettre à jour index.html ne réinitialise ni la connexion ni les scores.
 const FIREBASE_URL=(()=>{let u=(window.GQ_CONFIG&&window.GQ_CONFIG.firebaseUrl)||"";try{if(u)localStorage.setItem("gq-fb",u);else u=localStorage.getItem("gq-fb")||""}catch(e){}return u})();
 const REMOTE=!!FIREBASE_URL;
-const RAW="FR:France:1,DE:Allemagne:1,ES:Espagne:1,IT:Italie:1,PT:Portugal:1,GB:Royaume-Uni:1,US:États-Unis:1,CA:Canada:1,BR:Brésil:1,AR:Argentine:1,MX:Mexique:1,JP:Japon:1,CN:Chine:1,IN:Inde:1,RU:Russie:1,MA:Maroc:1,DZ:Algérie:1,TN:Tunisie:1,EG:Égypte:1,SN:Sénégal:1,ZA:Afrique du Sud:1,AU:Australie:1,TR:Turquie:1,SA:Arabie saoudite:1,BE:Belgique:1,CH:Suisse:1,NL:Pays-Bas:1,SE:Suède:1,GR:Grèce:1,KR:Corée du Sud:1,CI:Côte d’Ivoire:1,NG:Nigeria:1,CM:Cameroun:1,CO:Colombie:1,IE:Irlande:1,PL:Pologne:1,NO:Norvège:2,DK:Danemark:2,FI:Finlande:2,AT:Autriche:2,CZ:Tchéquie:2,HU:Hongrie:2,RO:Roumanie:2,UA:Ukraine:2,HR:Croatie:2,RS:Serbie:2,IR:Iran:2,IQ:Irak:2,JO:Jordanie:2,LB:Liban:2,QA:Qatar:2,AE:Émirats arabes unis:2,PK:Pakistan:2,TH:Thaïlande:2,VN:Viêt Nam:2,ID:Indonésie:2,PH:Philippines:2,NZ:Nouvelle-Zélande:2,CL:Chili:2,PE:Pérou:2,VE:Venezuela:2,CU:Cuba:2,KE:Kenya:2,GH:Ghana:2,ET:Éthiopie:2,IS:Islande:3,LU:Luxembourg:3,MT:Malte:3,EE:Estonie:3,LV:Lettonie:3,LT:Lituanie:3,SK:Slovaquie:3,SI:Slovénie:3,BG:Bulgarie:3,AL:Albanie:3,GE:Géorgie:3,AM:Arménie:3,AZ:Azerbaïdjan:3,KZ:Kazakhstan:3,MN:Mongolie:3,NP:Népal:3,LK:Sri Lanka:3,BD:Bangladesh:3,MM:Myanmar:3,KH:Cambodge:3,MG:Madagascar:3,ML:Mali:3,TD:Tchad:3,NE:Niger:3,BO:Bolivie:3,PY:Paraguay:3,UY:Uruguay:3,EC:Équateur:3,PG:Papouasie-Nouvelle-Guinée:3,FJ:Fidji:3,SB:Îles Salomon:3,VU:Vanuatu:3,PA:Panama:3,CR:Costa Rica:3,GT:Guatemala:3,HN:Honduras:3,NI:Nicaragua:3,SV:Salvador:3,DO:République dominicaine:3,HT:Haïti:3,JM:Jamaïque:3";
-const C=RAW.split(",").map(s=>{const[c,n,t]=s.split(":");return{c,n,t:+t}});
-const CAPS=Object.fromEntries("FR:Paris,DE:Berlin,ES:Madrid,IT:Rome,PT:Lisbonne,GB:Londres,US:Washington,CA:Ottawa,BR:Brasilia,AR:Buenos Aires,MX:Mexico,JP:Tokyo,CN:Pékin,IN:New Delhi,RU:Moscou,MA:Rabat,DZ:Alger,TN:Tunis,EG:Le Caire,SN:Dakar,ZA:Pretoria,AU:Canberra,TR:Ankara,SA:Riyad,BE:Bruxelles,CH:Berne,NL:Amsterdam,SE:Stockholm,GR:Athènes,KR:Séoul,CI:Yamoussoukro,NG:Abuja,CM:Yaoundé,CO:Bogota,IE:Dublin,PL:Varsovie,NO:Oslo,DK:Copenhague,FI:Helsinki,AT:Vienne,CZ:Prague,HU:Budapest,RO:Bucarest,UA:Kiev,HR:Zagreb,RS:Belgrade,IR:Téhéran,IQ:Bagdad,JO:Amman,LB:Beyrouth,QA:Doha,AE:Abou Dabi,PK:Islamabad,TH:Bangkok,VN:Hanoï,ID:Jakarta,PH:Manille,NZ:Wellington,CL:Santiago,PE:Lima,VE:Caracas,CU:La Havane,KE:Nairobi,GH:Accra,ET:Addis-Abeba,IS:Reykjavik,LU:Luxembourg,MT:La Valette,EE:Tallinn,LV:Riga,LT:Vilnius,SK:Bratislava,SI:Ljubljana,BG:Sofia,AL:Tirana,GE:Tbilissi,AM:Erevan,AZ:Bakou,KZ:Astana,MN:Oulan-Bator,NP:Katmandou,LK:Sri Jayawardenepura Kotte,BD:Dacca,MM:Naypyidaw,KH:Phnom Penh,MG:Antananarivo,ML:Bamako,TD:N’Djamena,NE:Niamey,BO:Sucre,PY:Asunción,UY:Montevideo,EC:Quito,PG:Port Moresby,FJ:Suva,SB:Honiara,VU:Port-Vila,PA:Panama,CR:San José,GT:Guatemala,HN:Tégucigalpa,NI:Managua,SV:San Salvador,DO:Saint-Domingue,HT:Port-au-Prince,JM:Kingston".split(",").map(s=>s.split(":")));C.forEach(x=>x.k=CAPS[x.c]);
-const N3=Object.fromEntries("FR:250,DE:276,ES:724,IT:380,PT:620,GB:826,US:840,CA:124,BR:76,AR:32,MX:484,JP:392,CN:156,IN:356,RU:643,MA:504,DZ:12,TN:788,EG:818,SN:686,ZA:710,AU:36,TR:792,SA:682,BE:56,CH:756,NL:528,SE:752,GR:300,KR:410,CI:384,NG:566,CM:120,CO:170,IE:372,PL:616,NO:578,DK:208,FI:246,AT:40,CZ:203,HU:348,RO:642,UA:804,HR:191,RS:688,IR:364,IQ:368,JO:400,LB:422,QA:634,AE:784,PK:586,TH:764,VN:704,ID:360,PH:608,NZ:554,CL:152,PE:604,VE:862,CU:192,KE:404,GH:288,ET:231,IS:352,LU:442,MT:470,EE:233,LV:428,LT:440,SK:703,SI:705,BG:100,AL:8,GE:268,AM:51,AZ:31,KZ:398,MN:496,NP:524,LK:144,BD:50,MM:104,KH:116,MG:450,ML:466,TD:148,NE:562,BO:68,PY:600,UY:858,EC:218,PG:598,FJ:242,SB:90,VU:548,PA:591,CR:188,GT:320,HN:340,NI:558,SV:222,DO:214,HT:332,JM:388".split(",").map(s=>s.split(":")));C.forEach(x=>x.n3=+N3[x.c]);
-const MODES={flag:"Pays d’un drapeau",pf:"Drapeau d’un pays",cap:"Capitale d’un pays",cp:"Pays d’une capitale",cm:"Carte d’un pays",fc:"Capitale d’un drapeau",mc:"Pays d’une carte",ct:"Continent d’un pays",mix:"Mélange · tous les types",surv:"Survie · une erreur et c’est fini",chr:"Contre-la-montre · 60 s",day:"Défi du jour",xp:"Points cumulés (XP)",all:"Général · tous les jeux"},SEC={d:["flag","pf","fc"],c:["cap","cp"],m:["cm","mc"],x:["ct","mix","surv","chr"]},IC={flag:"🎌➜🌍",pf:"🌍➜🎌",cap:"🌍➜🏙️",cp:"🏙️➜🌍"};
+const DATA="FR|France|1|Paris|250|eu|Paris|باريس;DE|Allemagne|1|Berlin|276|eu|Berlin|برلين;ES|Espagne|1|Madrid|724|eu|Madrid|مدريد;IT|Italie|1|Rome|380|eu|Rome|روما;PT|Portugal|1|Lisbonne|620|eu|Lisbon|لشبونة;GB|Royaume-Uni|1|Londres|826|eu|London|لندن;US|États-Unis|1|Washington|840|na|Washington, D.C.|واشنطن;CA|Canada|1|Ottawa|124|na|Ottawa|أوتاوا;BR|Brésil|1|Brasilia|76|sa|Brasília|برازيليا;AR|Argentine|1|Buenos Aires|32|sa|Buenos Aires|بوينس آيرس;MX|Mexique|1|Mexico|484|na|Mexico City|مكسيكو;JP|Japon|1|Tokyo|392|as|Tokyo|طوكيو;CN|Chine|1|Pékin|156|as|Beijing|بكين;IN|Inde|1|New Delhi|356|as|New Delhi|نيودلهي;RU|Russie|1|Moscou|643|eu|Moscow|موسكو;MA|Maroc|1|Rabat|504|af|Rabat|الرباط;DZ|Algérie|1|Alger|12|af|Algiers|الجزائر;TN|Tunisie|1|Tunis|788|af|Tunis|تونس;EG|Égypte|1|Le Caire|818|af|Cairo|القاهرة;SN|Sénégal|1|Dakar|686|af|Dakar|داكار;ZA|Afrique du Sud|1|Pretoria|710|af|Pretoria|بريتوريا;AU|Australie|1|Canberra|36|as|Canberra|كانبرا;TR|Turquie|1|Ankara|792|as|Ankara|أنقرة;SA|Arabie saoudite|1|Riyad|682|as|Riyadh|الرياض;BE|Belgique|1|Bruxelles|56|eu|Brussels|بروكسل;CH|Suisse|1|Berne|756|eu|Bern|برن;NL|Pays-Bas|1|Amsterdam|528|eu|Amsterdam|أمستردام;SE|Suède|1|Stockholm|752|eu|Stockholm|ستوكهولم;GR|Grèce|1|Athènes|300|eu|Athens|أثينا;KR|Corée du Sud|1|Séoul|410|as|Seoul|سول;CI|Côte d’Ivoire|1|Yamoussoukro|384|af|Yamoussoukro|ياموسوكرو;NG|Nigeria|1|Abuja|566|af|Abuja|أبوجا;CM|Cameroun|1|Yaoundé|120|af|Yaoundé|ياوندي;CO|Colombie|1|Bogota|170|sa|Bogotá|بوغوتا;IE|Irlande|1|Dublin|372|eu|Dublin|دبلن;PL|Pologne|1|Varsovie|616|eu|Warsaw|وارسو;NO|Norvège|2|Oslo|578|eu|Oslo|أوسلو;DK|Danemark|2|Copenhague|208|eu|Copenhagen|كوبنهاغن;FI|Finlande|2|Helsinki|246|eu|Helsinki|هلسنكي;AT|Autriche|2|Vienne|40|eu|Vienna|فيينا;CZ|Tchéquie|2|Prague|203|eu|Prague|براغ;HU|Hongrie|2|Budapest|348|eu|Budapest|بودابست;RO|Roumanie|2|Bucarest|642|eu|Bucharest|بوخارست;UA|Ukraine|2|Kiev|804|eu|Kyiv|كييف;HR|Croatie|2|Zagreb|191|eu|Zagreb|زغرب;RS|Serbie|2|Belgrade|688|eu|Belgrade|بلغراد;IR|Iran|2|Téhéran|364|as|Tehran|طهران;IQ|Irak|2|Bagdad|368|as|Baghdad|بغداد;JO|Jordanie|2|Amman|400|as|Amman|عمّان;LB|Liban|2|Beyrouth|422|as|Beirut|بيروت;QA|Qatar|2|Doha|634|as|Doha|الدوحة;AE|Émirats arabes unis|2|Abou Dabi|784|as|Abu Dhabi|أبوظبي;PK|Pakistan|2|Islamabad|586|as|Islamabad|إسلام آباد;TH|Thaïlande|2|Bangkok|764|as|Bangkok|بانكوك;VN|Viêt Nam|2|Hanoï|704|as|Hanoi|هانوي;ID|Indonésie|2|Jakarta|360|as|Jakarta|جاكرتا;PH|Philippines|2|Manille|608|as|Manila|مانيلا;NZ|Nouvelle-Zélande|2|Wellington|554|as|Wellington|ولينغتون;CL|Chili|2|Santiago|152|sa|Santiago|سانتياغو;PE|Pérou|2|Lima|604|sa|Lima|ليما;VE|Venezuela|2|Caracas|862|sa|Caracas|كاراكاس;CU|Cuba|2|La Havane|192|na|Havana|هافانا;KE|Kenya|2|Nairobi|404|af|Nairobi|نيروبي;GH|Ghana|2|Accra|288|af|Accra|أكرا;ET|Éthiopie|2|Addis-Abeba|231|af|Addis Ababa|أديس أبابا;IS|Islande|3|Reykjavik|352|eu|Reykjavík|ريكيافيك;LU|Luxembourg|3|Luxembourg|442|eu|Luxembourg|لوكسمبورغ;MT|Malte|3|La Valette|470|eu|Valletta|فاليتا;EE|Estonie|3|Tallinn|233|eu|Tallinn|تالين;LV|Lettonie|3|Riga|428|eu|Riga|ريغا;LT|Lituanie|3|Vilnius|440|eu|Vilnius|فيلنيوس;SK|Slovaquie|3|Bratislava|703|eu|Bratislava|براتيسلافا;SI|Slovénie|3|Ljubljana|705|eu|Ljubljana|ليوبليانا;BG|Bulgarie|3|Sofia|100|eu|Sofia|صوفيا;AL|Albanie|3|Tirana|8|eu|Tirana|تيرانا;GE|Géorgie|3|Tbilissi|268|as|Tbilisi|تبليسي;AM|Arménie|3|Erevan|51|as|Yerevan|يريفان;AZ|Azerbaïdjan|3|Bakou|31|as|Baku|باكو;KZ|Kazakhstan|3|Astana|398|as|Astana|أستانا;MN|Mongolie|3|Oulan-Bator|496|as|Ulaanbaatar|أولان باتور;NP|Népal|3|Katmandou|524|as|Kathmandu|كاتماندو;LK|Sri Lanka|3|Sri Jayawardenepura Kotte|144|as|Sri Jayawardenepura Kotte|سري جاياواردنابورا كوتي;BD|Bangladesh|3|Dacca|50|as|Dhaka|دكا;MM|Myanmar|3|Naypyidaw|104|as|Naypyidaw|نايبيداو;KH|Cambodge|3|Phnom Penh|116|as|Phnom Penh|بنوم بنه;MG|Madagascar|3|Antananarivo|450|af|Antananarivo|أنتاناناريفو;ML|Mali|3|Bamako|466|af|Bamako|باماكو;TD|Tchad|3|N’Djamena|148|af|N'Djamena|نجامينا;NE|Niger|3|Niamey|562|af|Niamey|نيامي;BO|Bolivie|3|Sucre|68|sa|Sucre|سوكري;PY|Paraguay|3|Asunción|600|sa|Asunción|أسونسيون;UY|Uruguay|3|Montevideo|858|sa|Montevideo|مونتيفيديو;EC|Équateur|3|Quito|218|sa|Quito|كيتو;PG|Papouasie-Nouvelle-Guinée|3|Port Moresby|598|as|Port Moresby|بورت مورسبي;FJ|Fidji|3|Suva|242|as|Suva|سوفا;SB|Îles Salomon|3|Honiara|90|as|Honiara|هونيارا;VU|Vanuatu|3|Port-Vila|548|as|Port Vila|بورت فيلا;PA|Panama|3|Panama|591|na|Panama City|بنما;CR|Costa Rica|3|San José|188|na|San José|سان خوسيه;GT|Guatemala|3|Guatemala|320|na|Guatemala City|غواتيمالا;HN|Honduras|3|Tégucigalpa|340|na|Tegucigalpa|تيغوسيغالبا;NI|Nicaragua|3|Managua|558|na|Managua|ماناغوا;SV|Salvador|3|San Salvador|222|na|San Salvador|سان سلفادور;DO|République dominicaine|3|Saint-Domingue|214|na|Santo Domingo|سانتو دومينغو;HT|Haïti|3|Port-au-Prince|332|na|Port-au-Prince|بورت أو برانس;JM|Jamaïque|3|Kingston|388|na|Kingston|كينغستون;BY|Biélorussie|3|Minsk|112|eu|Minsk|مينسك;BA|Bosnie-Herzégovine|3|Sarajevo|70|eu|Sarajevo|سراييفو;CY|Chypre|3|Nicosie|196|eu|Nicosia|نيقوسيا;MC|Monaco|3|Monaco|492|eu|Monaco|موناكو;AF|Afghanistan|3|Kaboul|4|as|Kabul|كابل;KP|Corée du Nord|3|Pyongyang|408|as|Pyongyang|بيونغيانغ;KW|Koweït|3|Koweït|414|as|Kuwait City|مدينة الكويت;MY|Malaisie|3|Kuala Lumpur|458|as|Kuala Lumpur|كوالالمبور;SG|Singapour|3|Singapour|702|as|Singapore|سنغافورة;SY|Syrie|3|Damas|760|as|Damascus|دمشق;YE|Yémen|3|Sanaa|887|as|Sanaa|صنعاء;AO|Angola|3|Luanda|24|af|Luanda|لواندا;BF|Burkina Faso|3|Ouagadougou|854|af|Ouagadougou|واغادوغو;CD|RD Congo|3|Kinshasa|180|af|Kinshasa|كينشاسا;LY|Libye|3|Tripoli|434|af|Tripoli|طرابلس;MR|Mauritanie|3|Nouakchott|478|af|Nouakchott|نواكشوط;SD|Soudan|3|Khartoum|729|af|Khartoum|الخرطوم;TZ|Tanzanie|3|Dodoma|834|af|Dodoma|دودوما;UG|Ouganda|3|Kampala|800|af|Kampala|كمبالا;ZW|Zimbabwe|3|Harare|716|af|Harare|هراري;AD|Andorre|4|Andorre-la-Vieille|20|eu|Andorra la Vella|أندورا لا فيلا;LI|Liechtenstein|4|Vaduz|438|eu|Vaduz|فادوز;MD|Moldavie|4|Chișinău|498|eu|Chișinău|كيشيناو;ME|Monténégro|4|Podgorica|499|eu|Podgorica|بودغوريتسا;MK|Macédoine du Nord|4|Skopje|807|eu|Skopje|سكوبيه;SM|Saint-Marin|4|Saint-Marin|674|eu|San Marino|سان مارينو;BH|Bahreïn|4|Manama|48|as|Manama|المنامة;BT|Bhoutan|4|Thimphou|64|as|Thimphu|تيمفو;BN|Brunei|4|Bandar Seri Begawan|96|as|Bandar Seri Begawan|بندر سري بكاوان;KG|Kirghizistan|4|Bichkek|417|as|Bishkek|بيشكيك;LA|Laos|4|Vientiane|418|as|Vientiane|فيينتيان;MV|Maldives|4|Malé|462|as|Malé|ماليه;OM|Oman|4|Mascate|512|as|Muscat|مسقط;TJ|Tadjikistan|4|Douchanbé|762|as|Dushanbe|دوشنبه;TL|Timor oriental|4|Dili|626|as|Dili|ديلي;TM|Turkménistan|4|Achgabat|795|as|Ashgabat|عشق آباد;UZ|Ouzbékistan|4|Tachkent|860|as|Tashkent|طشقند;KI|Kiribati|4|Tarawa-Sud|296|as|South Tarawa|تاراوا الجنوبية;MH|Îles Marshall|4|Majuro|584|as|Majuro|ماجورو;FM|Micronésie|4|Palikir|583|as|Palikir|باليكير;NR|Nauru|4|Yaren|520|as|Yaren|يارين;PW|Palaos|4|Ngerulmud|585|as|Ngerulmud|نغيرولمود;WS|Samoa|4|Apia|882|as|Apia|آبيا;TO|Tonga|4|Nukuʻalofa|776|as|Nukuʻalofa|نوكوألوفا;TV|Tuvalu|4|Funafuti|798|as|Funafuti|فونافوتي;AG|Antigua-et-Barbuda|4|Saint John’s|28|na|Saint John's|سانت جونز;BS|Bahamas|4|Nassau|44|na|Nassau|ناساو;BB|Barbade|4|Bridgetown|52|na|Bridgetown|بريدجتاون;BZ|Belize|4|Belmopan|84|na|Belmopan|بلموبان;DM|Dominique|4|Roseau|212|na|Roseau|روسو;GD|Grenade|4|Saint-Georges|308|na|St. George's|سانت جورجز;KN|Saint-Christophe-et-Niévès|4|Basseterre|659|na|Basseterre|باستير;LC|Sainte-Lucie|4|Castries|662|na|Castries|كاستريس;VC|Saint-Vincent-et-les-Grenadines|4|Kingstown|670|na|Kingstown|كينغزتاون;TT|Trinité-et-Tobago|4|Port-d’Espagne|780|na|Port of Spain|بورت أوف سبين;GY|Guyana|4|Georgetown|328|sa|Georgetown|جورج تاون;SR|Suriname|4|Paramaribo|740|sa|Paramaribo|باراماريبو;BJ|Bénin|4|Porto-Novo|204|af|Porto-Novo|بورتو نوفو;BW|Botswana|4|Gaborone|72|af|Gaborone|غابورون;BI|Burundi|4|Gitega|108|af|Gitega|جيتيغا;CV|Cap-Vert|4|Praia|132|af|Praia|برايا;CF|Centrafrique|4|Bangui|140|af|Bangui|بانغي;KM|Comores|4|Moroni|174|af|Moroni|موروني;CG|Congo|4|Brazzaville|178|af|Brazzaville|برازافيل;DJ|Djibouti|4|Djibouti|262|af|Djibouti|جيبوتي;GQ|Guinée équatoriale|4|Malabo|226|af|Malabo|مالابو;ER|Érythrée|4|Asmara|232|af|Asmara|أسمرة;SZ|Eswatini|4|Mbabane|748|af|Mbabane|مباباني;GA|Gabon|4|Libreville|266|af|Libreville|ليبرفيل;GM|Gambie|4|Banjul|270|af|Banjul|بانجول;GN|Guinée|4|Conakry|324|af|Conakry|كوناكري;GW|Guinée-Bissau|4|Bissau|624|af|Bissau|بيساو;LS|Lesotho|4|Maseru|426|af|Maseru|ماسيرو;LR|Liberia|4|Monrovia|430|af|Monrovia|مونروفيا;MW|Malawi|4|Lilongwe|454|af|Lilongwe|ليلونغوي;MU|Maurice|4|Port-Louis|480|af|Port Louis|بورت لويس;MZ|Mozambique|4|Maputo|508|af|Maputo|مابوتو;NA|Namibie|4|Windhoek|516|af|Windhoek|ويندهوك;RW|Rwanda|4|Kigali|646|af|Kigali|كيغالي;ST|Sao Tomé-et-Principe|4|São Tomé|678|af|São Tomé|ساو تومي;SC|Seychelles|4|Victoria|690|af|Victoria|فيكتوريا;SL|Sierra Leone|4|Freetown|694|af|Freetown|فريتاون;SO|Somalie|4|Mogadiscio|706|af|Mogadishu|مقديشو;SS|Soudan du Sud|4|Djouba|728|af|Juba|جوبا;TG|Togo|4|Lomé|768|af|Lomé|لومي;ZM|Zambie|4|Lusaka|894|af|Lusaka|لوساكا";
+const C=DATA.split(";").map(s=>{const[c,n,t,k,n3,z,ke,ka]=s.split("|");return{c,n,nf:n,t:+t,k,kf:k,ke,ka,n3:+n3,z}});
+const ZN=Object.fromEntries(C.map(x=>[x.c,x.z]));
+const MODES={flag:"Pays d’un drapeau",pf:"Drapeau d’un pays",cap:"Capitale d’un pays",cp:"Pays d’une capitale",cm:"Carte d’un pays",fc:"Capitale d’un drapeau",mc:"Pays d’une carte",ct:"Continent d’un pays",mix:"Mélange · tous les types",surv:"Survie · une erreur et c’est fini",chr:"Contre-la-montre · 60 s",day:"Défi du jour",xp:"Points cumulés (XP)",week:"Semaine",rev:"Révision",duel:"Duel",all:"Général · tous les jeux"},SEC={d:["flag","pf","fc"],c:["cap","cp"],m:["cm","mc"],x:["ct","mix","surv","chr"]},IC={flag:"🎌➜🌍",pf:"🌍➜🎌",cap:"🌍➜🏙️",cp:"🏙️➜🌍"};
 const G={flag:["flag","globe","#2563eb","#7c3aed"],pf:["globe","flag","#7c3aed","#db2777"],cap:["globe","city","#f59e0b","#ef4444"],cp:["city","globe","#0d9488","#2563eb"],cm:["globe","map","#0d9488","#16a34a"],fc:["flag","city","#2563eb","#f59e0b"],mc:["map","globe","#16a34a","#2563eb"],ct:["flag","map","#0d9488","#65a30d"],mix:["shuffle",null,"#db2777","#7c3aed"],surv:["heart",null,"#ef4444","#db2777"],chr:["clock",null,"#f59e0b","#db2777"]};
-const P={flag:'<path d="M5 21V4"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',city:'<path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.5 11 12 4l9.5 7z"/>',map:'<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',shuffle:'<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',heart:'<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.800-8 11-8 11z"/>',clock:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.500 2M9 2h6"/>',fire:'<path d="M8.500 14.500A2.500 2.500 0 0 0 11 12c0-1.380-.500-2-1-3-1.072-2.143-.224-4.054 2-6 .500 2.500 2 4.900 4 6.500 2 1.600 3 3.500 3 5.500a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.500 2.500 0 0 0 2.500 2.500z"/>',star:'<path d="M12 2.500l2.900 6 6.600.9-4.800 4.600 1.200 6.500L12 17.400l-5.900 3.100 1.200-6.500L2.500 9.400l6.600-.9z"/>',auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>'};
+const P={flag:'<path d="M5 21V4"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',city:'<path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.5 11 12 4l9.5 7z"/>',map:'<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',shuffle:'<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',heart:'<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.800-8 11-8 11z"/>',clock:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.500 2M9 2h6"/>',swords:'<path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2M9.500 6.500 13 3h3v3l-3.500 3.500M5 14l-1.500 1.500M7 17l-3 3M3 19l2 2"/>',book:'<path d="M4 19.500A2.500 2.500 0 0 1 6.500 17H20V3H6.500A2.500 2.500 0 0 0 4 5.500z"/><path d="M4 19.500A2.500 2.500 0 0 0 6.500 22H20v-5"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8.500 10 6 2h4l2 4 2-4h4l-2.500 8M12 12.500l.900 1.800 2 .300-1.450 1.400.350 2L12 17l-1.800.950.350-2-1.450-1.400 2-.300z"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.650 1.650 0 0 0 .330 1.820l.060.060a2 2 0 1 1-2.830 2.830l-.060-.060a1.650 1.650 0 0 0-1.820-.330 1.650 1.650 0 0 0-1 1.510V21a2 2 0 1 1-4 0v-.090A1.650 1.650 0 0 0 9 19.400a1.650 1.650 0 0 0-1.820.330l-.060.060a2 2 0 1 1-2.830-2.830l.060-.060A1.650 1.650 0 0 0 4.680 15a1.650 1.650 0 0 0-1.510-1H3a2 2 0 1 1 0-4h.090A1.650 1.650 0 0 0 4.600 9a1.650 1.650 0 0 0-.330-1.820l-.060-.060a2 2 0 1 1 2.830-2.830l.060.060A1.650 1.650 0 0 0 9 4.680a1.650 1.650 0 0 0 1-1.510V3a2 2 0 1 1 4 0v.090a1.650 1.650 0 0 0 1 1.510 1.650 1.650 0 0 0 1.820-.330l.060-.060a2 2 0 1 1 2.830 2.830l-.060.060A1.650 1.650 0 0 0 19.400 9a1.650 1.650 0 0 0 1.510 1H21a2 2 0 1 1 0 4h-.090a1.650 1.650 0 0 0-1.510 1z"/>',users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.870M16 3.130a4 4 0 0 1 0 7.750"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',fire:'<path d="M8.500 14.500A2.500 2.500 0 0 0 11 12c0-1.380-.500-2-1-3-1.072-2.143-.224-4.054 2-6 .500 2.500 2 4.900 4 6.500 2 1.600 3 3.500 3 5.500a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.500 2.500 0 0 0 2.500 2.500z"/>',star:'<path d="M12 2.500l2.900 6 6.600.9-4.800 4.600 1.200 6.500L12 17.400l-5.900 3.100 1.200-6.500L2.500 9.400l6.600-.9z"/>',auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>'};
 const HD=(t,sub,g,ic)=>`<div class="hd" style="background:linear-gradient(135deg,${g[0]},${g[1]})"><span class="nt">${ic}</span><div><h1>${t}<span>.</span></h1><p class="sub">${sub}</p></div></div>`;
 const SG={d:["#2563eb","#7c3aed","flag"],c:["#f59e0b","#ef4444","city"],m:["#0d9488","#16a34a","map"],x:["#db2777","#7c3aed","bolt"]};
 const sv=p=>`<svg viewBox="0 0 24 24">${P[p]}</svg>`;
@@ -202,33 +224,37 @@ const modeButtons=(ks=["flag","pf","cap","cp"],cur=S.mode)=>`<div class="lv" sty
 function applyTheme(t){const e=document.documentElement;if(t==="light"||t==="dark")e.dataset.theme=t;else delete e.dataset.theme;S.theme=t}
 const themeCtl=()=>`<div class="seg" role="group" aria-label="Apparence">${[["auto","Auto"],["light","Clair"],["dark","Sombre"]].map(([k,l])=>`<button class="${S.theme===k?"on":""}" data-th="${k}" title="${l}" aria-label="${l}">${sv(k==="light"?"sun":k==="dark"?"moon":"auto")}</button>`).join("")}</div>`;
 const bindTheme=(re=home)=>app.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{applyTheme(b.dataset.th);try{localStorage.setItem("gq-theme",b.dataset.th)}catch(e){}re()});
-const flag=c=>[...c].map(x=>String.fromCodePoint(127397+x.charCodeAt(0))).join("");
-const LV={1:{n:"Facile",h:"Pays connus · 4 choix · 10 s",pool:1,ch:4,time:10,coef:1},2:{n:"Moyen",h:"Plus large · 4 choix · 10 s",pool:2,ch:4,time:10,coef:2},3:{n:"Difficile",h:"Choix proches · 6 choix · 10 s",pool:3,ch:6,time:10,coef:3},4:{n:"Très difficile",h:"Choix très proches · 8 choix · 10 s",pool:3,ch:8,time:10,coef:5}};
+const flag=c=>`<img class="fi" src="https://flagcdn.com/${c.toLowerCase()}.svg" alt="" draggable="false">`;
+const LV={1:{n:"Facile",h:"Pays connus · 4 choix · 10 s",pool:1,ch:4,time:10,coef:1},2:{n:"Moyen",h:"Plus large · 4 choix · 10 s",pool:2,ch:4,time:10,coef:2},3:{n:"Difficile",h:"Choix proches · 6 choix · 10 s",pool:3,ch:6,time:10,coef:3},4:{n:"Très difficile",h:"Tous les pays · 8 choix · 10 s",pool:4,ch:8,time:10,coef:5}};
 const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
 const shuf=(arr,r)=>{const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-const FG="FR NL RU LU HR RS SK SI CZ|IT IE MX CI HU BG|RO TD AM BE ML SN GH CM ET|AU NZ GB US CU CL PH CZ|ID PL AT LV PE CA|NO IS DK SE FI CH|AR UY GR EE|IQ EG JO AE SA IR LB QA|JP BD KR CN VN TR TN DZ PK MA|CO EC VE|IN NE CI IE|LT BO GH ET|UA SE KZ".split("|").map(g=>g.split(" "));
-const RG="FR DE ES IT PT GB BE CH NL IE LU AT MT|SE NO DK FI IS EE LV LT|PL CZ HU RO UA HR RS SK SI BG AL GR RU|TR GE AM AZ IR IQ JO LB SA AE QA|MA DZ TN EG|SN CI NG CM GH ML TD NE|ZA KE ET MG|JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ|AU NZ PG FJ SB VU|US CA MX CU PA CR GT HN NI SV DO HT JM|BR AR CO VE PE CL EC BO PY UY".split("|").map(g=>g.split(" "));
+const FG="MC ID PL SG|TD RO AD MD|ML GN SN CM BJ BF GW|KW AE JO SD SY YE IQ EG LY|BH QA|CG ZM ZW MW|SL GA|NZ AU TV FJ|TT AG BS|FR NL RU LU HR RS SK SI CZ|IT IE MX CI HU BG|RO TD AM BE ML SN GH CM ET|AU NZ GB US CU CL PH CZ|ID PL AT LV PE CA|NO IS DK SE FI CH|AR UY GR EE|IQ EG JO AE SA IR LB QA|JP BD KR CN VN TR TN DZ PK MA|CO EC VE|IN NE CI IE|LT BO GH ET|UA SE KZ".split("|").map(g=>g.split(" "));
+const RG="FR DE ES IT PT GB BE CH NL IE LU AT MT AD LI MC SM|SE NO DK FI IS EE LV LT|PL CZ HU RO UA HR RS SK SI BG AL GR RU BY BA MD ME MK|TR GE AM AZ IR IQ JO LB SA AE QA CY KW BH OM SY YE AF|MA DZ TN EG LY MR SD|SN CI NG CM GH ML TD NE BJ BF CF CG CD GQ GA GM GN GW LR SL TG CV ST|ZA KE ET MG AO BW BI KM DJ ER SZ LS MW MU MZ NA RW SC SO SS TZ UG ZM ZW|JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ BT BN KP KG LA MY MV SG TJ TL TM UZ|AU NZ PG FJ SB VU KI MH FM NR PW WS TO TV|US CA MX CU PA CR GT HN NI SV DO HT JM AG BS BB BZ DM GD KN LC VC TT|BR AR CO VE PE CL EC BO PY UY GY SR".split("|").map(g=>g.split(" "));
 const near=(a,m)=>{const G=(m==="flag"||m==="pf"||m==="fc")?FG:RG,o=new Set();G.forEach(g=>{if(g.includes(a.c))g.forEach(c=>{if(c!==a.c)o.add(c)})});return o};
-const MIXK=["flag","pf","cap","cp","fc","ct"],ZK=["eu","af","as","na","sa"];
+const MIXK=["flag","pf","cap","cp","fc","ct"],REVK=["flag","pf","fc","cap","ct"],ZK=["eu","af","as","na","sa"];
 const right=(q,o)=>q.m==="ct"?o===ZN[q.a.c]:o===q.a;
-const TT=()=>S.mode==="chr"?60:LV[S.lv].time;
+const TT=()=>S.mode==="chr"?60:S.mode==="rev"?0:(S.mode==="day"||S.mode==="duel")?10:S.ct;
+const capm=m=>m==="cap"||m==="cp"||m==="fc";
 const build=(seed,lv)=>{
- const r=rng(seed),L=LV[lv],M=S.mode,mp=M==="cm"||M==="mc",long=M==="surv"||M==="chr",ok=x=>!mp||(MAPS&&MAPS[x.n3]&&(S.zone==="world"||ZN[x.c]===S.zone));
+ const r=rng(seed),L=LV[lv],M=S.mode,mp=M==="cm"||M==="mc",long=M==="surv"||M==="chr",ok=x=>(!mp||(MAPS&&MAPS[x.n3]&&(S.zone==="world"||ZN[x.c]===S.zone)))&&(!capm(M)||x.k);
  let pool=C.filter(x=>x.t<=L.pool&&ok(x));
  if(mp&&pool.length<8)pool=C.filter(ok);
- return shuf(pool,r).slice(0,long?pool.length:Math.min(20,pool.length)).map(a=>{
-  const m=(M==="mix"||M==="day"||long)?MIXK[Math.floor(r()*MIXK.length)]:M;
+ return shuf(pool,r).slice(0,long?pool.length:Math.min(M==="duel"?10:20,pool.length)).map(a=>{
+  let m=(M==="mix"||M==="day"||M==="duel"||long)?MIXK[Math.floor(r()*MIXK.length)]:M;
+  if(capm(m)&&!a.k)m="flag";
   if(m==="ct")return{a,m,o:ZK};
-  const n=Math.min((m==="pf"?(L.ch>6?6:4):m==="cm"?Math.min(L.ch,6):L.ch)-1,pool.length-1);
+  const pp=capm(m)?pool.filter(x=>x.k):pool;
+  const n=Math.min((m==="pf"?(L.ch>6?6:4):m==="cm"?Math.min(L.ch,6):L.ch)-1,pp.length-1);
   let d=[];
-  if(lv>=3){const nr=near(a,m);d=shuf(pool.filter(x=>x!==a&&nr.has(x.c)),r).slice(0,lv===3?Math.ceil(n/2):n)}
-  const rest=shuf(pool.filter(x=>x!==a&&!d.includes(x)),r).slice(0,n-d.length);
+  if(lv>=3){const nr=near(a,m);d=shuf(pp.filter(x=>x!==a&&nr.has(x.c)),r).slice(0,lv===3?Math.ceil(n/2):n)}
+  const rest=shuf(pp.filter(x=>x!==a&&!d.includes(x)),r).slice(0,n-d.length);
   return{a,m,o:shuf([a,...d,...rest],r)};
  });
 };
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const $=id=>document.getElementById(id);
-const S={theme:"auto",view:"home",name:"",lv:2,mode:"flag",unsub:null,host:false,room:null,qs:[],i:0,score:0,left:0,locked:false,pick:null,peers:[],lastId:0,err:"",solo:true};
+const LS=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}},LSset=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const S={ct:+LS("gq-ct","10"),snd:LS("gq-snd","1")==="1",vib:LS("gq-vib","1")==="1",theme:"auto",view:"home",name:"",lv:2,mode:"flag",unsub:null,host:false,room:null,qs:[],i:0,score:0,left:0,locked:false,pick:null,peers:[],lastId:0,err:"",solo:true};
 const app=$("app");
 
 const LC={1:"#10b981",2:"#3b82f6",3:"#f59e0b",4:"#ef4444"};
@@ -237,13 +263,15 @@ function lvButtons(editable){
 }
 function home(){
  const d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=streakOf(d),today=d.sd===dk(),dd=dayDone(d);
- app.innerHTML=`<div class="hb"><h1>Geo Quizz<span>.</span></h1>${themeCtl()}</div>
+ app.innerHTML=`<div class="hb"><h1>Geo Quizz<span>.</span></h1><button class="gear" id="st" aria-label="Réglages">${sv("gear")}</button></div>
  <div class="card pc"><div class="stamp"><div><small>NIVEAU</small>${L}</div></div><div class="pi"><div class="pn">${esc(S.name||"")}<button id="chg" class="lk">${AUTH?"compte":"changer"}</button></div><div class="pt">${titleOf(L)}</div><div class="xp"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><div class="px"><span>${fmt(x)} XP</span><span>niveau ${L+1} à ${fmt(b)} XP</span></div></div></div>
  <p class="strk ${st?"on":""}">${sv("fire")}<span>${st?(today?`Série de ${pl(st,"jour","jours")}. Reviens demain pour la prolonger.`:`Série de ${pl(st,"jour","jours")} en jeu : joue aujourd’hui pour la garder.`):"Joue une partie aujourd’hui pour démarrer une série."}</span></p>
  <button class="dz ${dd?"done":""}" id="dy"><span><b>${dd?"Défi du jour terminé":"Défi du jour"}</b><small>${dd?`${fmt(dd.s)} pts. Nouveau défi demain.`:"20 questions, les mêmes pour tous. Une seule tentative."}</small></span><em>${dd?"Classement":"Jouer"}</em></button>
  <div class="grid">${[["sd","d","Drapeaux"],["sc","c","Capitales"],["sm","m","Cartes"],["sx","x","Défis"]].map(([id,k,t])=>`<button class="tile" id="${id}"><span class="nt" style="background:linear-gradient(135deg,${SG[k][0]},${SG[k][1]})">${sv(SG[k][2])}</span><b>${t}</b><small>${SEC[k].length} jeux</small></button>`).join("")}</div>
- <button class="nav" id="rk"><span class="nt" style="background:linear-gradient(135deg,#10b981,#059669)">${sv("trophy")}</span><span><b>Classements</b><small>Records par jeu, défi du jour, points cumulés</small></span><i>›</i></button>`;
- bindTheme();$("chg").onclick=AUTH?accountScreen:nameScreen;$("dy").onclick=startDay;$("sd").onclick=()=>menu("d");$("sc").onclick=()=>menu("c");$("sm").onclick=()=>{S.zone=null;menu("m")};$("sx").onclick=()=>menu("x");$("rk").onclick=rank;
+ <div class="row3">${AUTH?`<button class="mini" id="dl"><span style="--bc:#db2777">${sv("swords")}</span><b>Duel</b><small>Défie un ami</small></button>`:""}<button class="mini" id="rvw" ${(d.rv||[]).length?"":"disabled"}><span style="--bc:#16a34a">${sv("book")}</span><b>Réviser</b><small>${(d.rv||[]).length?pl(d.rv.length,"pays","pays"):"Rien à revoir"}</small></button><button class="mini" id="bdg"><span style="--bc:#7c3aed">${sv("medal")}</span><b>Badges</b><small>${Object.keys(d.bd||{}).length}/${BADGES.length}</small></button></div>
+ <button class="nav" id="rk"><span class="nt" style="background:linear-gradient(135deg,#10b981,#059669)">${sv("trophy")}</span><span><b>Classements</b><small>Semaine, défi du jour, records, groupes</small></span><i>›</i></button>
+ ${S.off?`<p class="mute">Hors connexion : tu peux jouer, les scores seront enregistrés au retour d’internet.</p>`:""}${Q.get().some(j=>j.uid===S.uid)?`<p class="mute">Des scores attendent internet pour être enregistrés.</p>`:""}`;
+ $("st").onclick=settings;$("rvw").onclick=startRev;$("bdg").onclick=badgeScreen;if($("dl"))$("dl").onclick=duelScreen;$("chg").onclick=AUTH?accountScreen:nameScreen;$("dy").onclick=startDay;$("sd").onclick=()=>menu("d");$("sc").onclick=()=>menu("c");$("sm").onclick=()=>{S.zone=null;menu("m")};$("sx").onclick=()=>menu("x");$("rk").onclick=rank;
 }
 const dk=(o=0)=>{const d=new Date(Date.now()+o*864e5);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 const lvlOf=x=>Math.floor(Math.sqrt((+x||0)/1000))+1,lvlAt=n=>1000*(n-1)*(n-1);
@@ -251,13 +279,13 @@ const TITLES=[[20,"Légende"],[16,"Globe-trotter"],[12,"Cartographe"],[8,"Naviga
 const streakOf=d=>d&&(d.sd===dk()||d.sd===dk(-1))?+d.sn||0:0;
 const dayDone=d=>d&&d.dc&&d.dc.d===dk()?d.dc:null;
 const pl=(n,a,b)=>n+" "+(n>1?b:a);
-async function loadMe(){try{const sn=await DB.collection("players").doc(S.uid).get();S.me=(sn.exists&&sn.data())||{}}catch(e){S.me=S.me||{}}}
+async function loadMe(){try{const sn=await DB.collection("players").doc(S.uid).get();S.me=(sn.exists&&sn.data())||{};S.off=false;LSset("gq-mec",JSON.stringify({uid:S.uid,name:S.name,key:S.key,me:S.me}))}catch(e){S.off=true;if(!S.me){try{const c=JSON.parse(LS("gq-mec","null"));if(c&&c.uid===S.uid)S.me=c.me}catch(x){}}S.me=S.me||{}}}
 async function startDay(){
  if(dayDone(S.me)){S.board="day";return rank()}
  try{const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};if(dayDone(d)){S.me=d;return home()}const nd={...d,dc:{d:dk(),s:0}};await ref.set(nd);S.me=nd}catch(e){}
  S.mode="day";S.sec=null;S.zone=null;start(+dk().replace(/-/g,""),2);
 }
-const fmt=n=>(+n||0).toLocaleString("fr-FR");
+const fmt=n=>(+n||0).toLocaleString(LOC[LANG]||"fr-FR");
 async function scoresBox(mode){
  const el=$("sc2");if(!el)return;
  if(!DB||!S.uid){el.innerHTML=`<p class="mute">Connecte-toi pour enregistrer et voir tes scores.</p>`;return}
@@ -371,7 +399,7 @@ const persist=()=>{try{SES?localStorage.setItem("gq-auth",JSON.stringify({uid:SE
 function setSes(j){const old=SES;SES={uid:j.localId,it:j.idToken,rt:j.refreshToken,exp:Date.now()+((+j.expiresIn||3600)-60)*1e3,email:j.email||(old&&old.email)||"",pend:old&&old.uid===j.localId?old.pend:null};persist()}
 async function idt(op,body){
  let r,j={};
- try{r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:${op}?key=${FB_KEY}`,{method:"POST",headers:{"Content-Type":"application/json","X-Firebase-Locale":"fr"},body:JSON.stringify(body)});j=await r.json().catch(()=>({}))}catch(e){throw E("NET")}
+ try{r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:${op}?key=${FB_KEY}`,{method:"POST",headers:{"Content-Type":"application/json","X-Firebase-Locale":LANG},body:JSON.stringify(body)});j=await r.json().catch(()=>({}))}catch(e){throw E("NET")}
  if(!r.ok){const m=(j.error&&j.error.message)||"ERR";throw E(m.startsWith("API key")?"API_KEY":m.split(/[ :]/)[0])}
  return j;
 }
@@ -397,7 +425,7 @@ const AMSG={INVALID_LOGIN_CREDENTIALS:"Pseudo, email ou mot de passe incorrect."
  WEAK_PASSWORD:"Mot de passe trop court : 8 caractères minimum.",TAKEN:"Ce pseudo est déjà pris. Choisis-en un autre.",NAME:"Pseudo : 3 à 16 caractères, avec des lettres ou des chiffres.",
  TOO_MANY_ATTEMPTS_TRY_LATER:"Trop d’essais. Réessaie dans quelques minutes.",USER_DISABLED:"Ce compte est désactivé.",NOTVERIFIED:"Ton email n’est pas encore vérifié. Ouvre le lien reçu, puis réessaie.",
  OPERATION_NOT_ALLOWED:"La connexion par email n’est pas activée dans Firebase (Authentication › Sign-in method).",CONFIGURATION_NOT_FOUND:"Firebase Authentication n’est pas activé pour ce projet.",
- API_KEY:"La clé apiKey de config.js n’est pas valide.",EXPIRED:"Ta session a expiré. Reconnecte-toi.",NET:"Pas de connexion au serveur. Vérifie internet et réessaie.",WRITE:"Enregistrement refusé par la base. Vérifie les règles Firebase."};
+ DCODE:"Aucun duel avec ce code. Vérifie les 5 caractères.",DFULL:"Ce duel a déjà deux joueurs.",DOLD:"Ce duel est terminé ou trop ancien.",GCODE:"Aucun groupe avec ce code. Vérifie les 6 caractères.",GNAME:"Donne un nom au groupe (2 caractères minimum).",GMAX:"10 groupes maximum.",API_KEY:"La clé apiKey de config.js n’est pas valide.",EXPIRED:"Ta session a expiré. Reconnecte-toi.",NET:"Pas de connexion au serveur. Vérifie internet et réessaie.",WRITE:"Enregistrement refusé par la base. Vérifie les règles Firebase."};
 const amsg=x=>AMSG[x&&x.code]||"Action impossible pour le moment. Réessaie.";
 const normName=raw=>{const name=String(raw||"").trim().replace(/\s+/g," "),key=slug(name);if(name.length<3||name.length>16||key.length<3)throw E("NAME");return{name,key}};
 const wr=async p=>{try{await p}catch(e){throw E("WRITE")}};
@@ -414,7 +442,8 @@ async function claimPseudo(name,key,sl,oldKey){
  if(oldKey&&oldKey!==key){try{await DB.collection("logins").doc(oldKey).delete();await DB.collection("names").doc(oldKey).delete()}catch(e){}}
  S.uid=uid;S.name=name;S.key=key;SES.pend=null;persist();
 }
-async function enter(){await loadMe();S.view="home";home()}
+async function enter(){await loadMe();await flushQueue();const gq=new URLSearchParams(location.search).get("groupe");if(gq&&!S.gqSeen){S.gqSeen=1;history.replaceState(null,"",location.pathname);groupScreen();const i=$("gc");if(i)i.value=gq.toUpperCase();return}
+ const dc=new URLSearchParams(location.search).get("duel");if(dc&&!S.dlSeen){S.dlSeen=1;history.replaceState(null,"",location.pathname);return duelScreen(dc.toUpperCase())}S.view="home";home()}
 async function afterAuth(){
  // appelé avec une session valide
  if(!claims(await token(true)).email_verified)return verifyScreen();
@@ -498,12 +527,134 @@ function accountScreen(){
  formRun(async()=>{const{name,key}=normName($("un").value),pw=$("pw").value;if(!pw)throw E("MISSING_PASSWORD");setSes(await idt("signInWithPassword",{email:SES.email,password:pw,returnSecureToken:true}));await claimPseudo(name,key,await seal(SES.email,pw),S.key);await loadMe();accountScreen();$("ao").textContent="Pseudo changé : "+name+"."});
  $("so").onclick=signOut;$("hm").onclick=()=>{S.view="home";home()};
 }
+
+// ===== DUEL EN DIRECT & GROUPES PRIVÉS (Firebase) =====
+const FBU=()=>FIREBASE_URL.replace(/\/+$/,"");
+async function rget(path){const r=await fetch(`${FBU()}/${path}.json`+await aq());if(!r.ok)throw E("NET");return r.json()}
+async function rpatch(path,o){const r=await fetch(`${FBU()}/${path}.json`+await aq(),{method:"PATCH",body:JSON.stringify(o)});if(!r.ok)throw E("WRITE")}
+async function rput(path,o){const r=await fetch(`${FBU()}/${path}.json`+await aq(),{method:"PUT",body:JSON.stringify(o)});if(!r.ok)throw E("WRITE")}
+const CODEA="ABCDEFGHJKMNPQRSTUVWXYZ23456789",mkCode=n=>Array.from(crypto.getRandomValues(new Uint8Array(n)),b=>CODEA[b%CODEA.length]).join("");
+function stopPoll(){clearInterval(S.dpoll);S.dpoll=null}
+function duelScreen(prefill=""){
+ stopPoll();S.view="duel";S.duel=null;
+ app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>Duel<span>.</span></h1></div>
+ <p class="sub">10 questions, les mêmes pour vous deux, en même temps. Le plus rapide et le plus juste gagne.</p>
+ <div class="card"><b class="h3">Défier un ami</b><p class="mute" style="text-align:left;margin:4px 0 0">Crée un duel et envoie-lui le code.</p><button class="btn" id="dc">Créer un duel</button></div>
+ <form class="card af" id="af" novalidate><label for="cd">Rejoindre avec un code</label><input id="cd" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false" value="${esc(prefill)}" style="text-transform:uppercase;letter-spacing:.2em;font-weight:700">
+ <p class="err" id="ae" role="alert"></p><button class="btn alt" id="ab" type="submit">Rejoindre</button></form>`;
+ $("hm").onclick=()=>{S.view="home";home()};
+ $("dc").onclick=async()=>{$("dc").disabled=true;try{const code=mkCode(5);await rput("duels/"+code,{h:S.uid,hn:S.name,seed:Math.floor(Math.random()*2147483647),st:"wait",t:Date.now()});duelLobby(code,true)}catch(x){$("dc").disabled=false;alertIn("ae",amsg(x))}};
+ formRun(async()=>{const code=$("cd").value.trim().toUpperCase();if(code.length!==5)throw E("DCODE");const d=await rget("duels/"+code);
+  if(!d||!d.h)throw E("DCODE");if(d.h===S.uid)return duelLobby(code,true);if(d.g&&d.g!==S.uid)throw E("DFULL");if(d.st==="done"||Date.now()-(+d.t||0)>864e5)throw E("DOLD");
+  if(!d.g)await rpatch("duels/"+code,{g:S.uid,gn:S.name});duelLobby(code,false)});
+ if(prefill)$("ab").focus();
+}
+const alertIn=(id,m)=>{const e=$(id);if(e)e.textContent=m};
+function duelLobby(code,host){
+ S.view="lobby";S.duel={code,host};
+ const link=location.origin+location.pathname+"?duel="+code;
+ const draw=d=>{if(S.view!=="lobby")return;const opp=host?d&&d.gn:d&&d.hn;
+  app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Annuler">‹</button><h1>Duel<span>.</span></h1></div>
+  <div class="card" style="text-align:center"><p class="mute" style="margin:0">Code du duel</p><div class="dcode">${code}</div>
+  ${host?`<button class="btn alt" id="sh">Partager le lien</button><p class="okm" id="ao" role="status"></p>`:""}</div>
+  <div class="card vs"><div><b>${esc(host?S.name:(d&&d.hn)||"…")}</b><small>${host?"toi":"hôte"}</small></div><span>VS</span><div><b>${esc(host?(opp||"En attente…"):S.name)}</b><small>${host?(opp?"prêt":"partage le code"):"toi"}</small></div></div>
+  ${host?`<button class="btn" id="go" ${opp?"":"disabled"}>${opp?"Lancer le duel":"En attente d’un adversaire…"}</button>`:`<p class="mute">En attente du lancement par ${esc((d&&d.hn)||"l’hôte")}…</p>`}`;
+  $("hm").onclick=()=>{stopPoll();duelScreen()};
+  const sh=$("sh");if(sh)sh.onclick=async()=>{try{if(navigator.share)await navigator.share({title:"Geo Quizz",text:"Duel Geo Quizz : code "+code,url:link});else{await navigator.clipboard.writeText(link);$("ao").textContent="Lien copié."}}catch(e){}};
+  const go=$("go");if(go)go.onclick=async()=>{go.disabled=true;try{await rpatch("duels/"+code,{st:"play"})}catch(e){go.disabled=false}};
+ };
+ let last="";
+ const tick=async()=>{try{const d=await rget("duels/"+code);if(S.view!=="lobby"||!S.duel||S.duel.code!==code)return stopPoll();if(d&&d.st==="play"){stopPoll();return duelStart(code,host,d)}const sig=JSON.stringify([d&&d.gn,d&&d.hn]);if(sig!==last){last=sig;draw(d)}}catch(e){}};
+ draw(null);stopPoll();S.dpoll=setInterval(tick,1500);tick();
+}
+function duelStart(code,host,d){
+ S.duel={code,host,opp:host?d.g:d.h,on:host?d.gn:d.hn,os:{s:0,i:0,f:false}};S.duelWin=0;
+ S.mode="duel";S.sec=null;S.zone=null;start(+d.seed,2);
+ stopPoll();S.dpoll=setInterval(async()=>{try{const sc=await rget(`duels/${code}/sc/${S.duel.opp}`);if(sc){S.duel.os=sc;const b=$("dbar");if(b)b.outerHTML=duelBar();if(S.view==="dwait"&&sc.f)duelResult()}}catch(e){}},1200);
+}
+function duelBar(){const D=S.duel,o=D.os||{},n=S.qs.length;return `<div class="card dbar" id="dbar"><div><b>Toi</b><span>${fmt(S.score)} pts · ${Math.min(S.i+(S.locked?1:0),n)}/${n}</span></div><div><b>${esc(D.on||"Adversaire")}</b><span>${fmt(o.s||0)} pts · ${o.f?"terminé":(o.i||0)+"/"+n}</span></div></div>`}
+function duelProgress(){if(!S.duel)return;rpatch(`duels/${S.duel.code}/sc/${S.uid}`,{s:S.score,i:S.i+1,f:false}).catch(()=>{})}
+async function duelFinish(){
+ S.view="dwait";try{await rpatch(`duels/${S.duel.code}/sc/${S.uid}`,{s:S.score,i:S.qs.length,f:true})}catch(e){}
+ if(S.duel.os&&S.duel.os.f)return duelResult();
+ app.innerHTML=`<h1>Bien joué<span>.</span></h1><div class="card" style="text-align:center"><div class="big">${fmt(S.score)}</div><p class="mute">En attente de ${esc(S.duel.on||"ton adversaire")}…</p>${duelBar()}</div><button class="btn alt" id="qy">Arrêter d’attendre</button>`;
+ $("qy").onclick=()=>{stopPoll();S.duelWin=0;S.mode="duel";S.view="end";save().then(()=>{S.view="home";home()})};
+}
+async function duelResult(){
+ if(S.view!=="dwait")return;stopPoll();S.view="end";const o=S.duel.os.s||0,me=S.score,res=me>o?"win":me<o?"lose":"draw";S.duelWin=res==="win";
+ if(S.duel.host)rpatch("duels/"+S.duel.code,{st:"done"}).catch(()=>{});
+ const draw=()=>{const r=S.res&&S.res.best!==undefined?S.res:null;
+  app.innerHTML=`<h1>${res==="win"?"Victoire":res==="lose"?"Défaite":"Égalité"}<span>.</span></h1><p class="sub">Duel contre ${esc(S.duel.on||"ton adversaire")}</p>
+  <div class="card vs res"><div class="${res==="win"?"w":""}"><b>${fmt(me)}</b><small>toi</small></div><span>–</span><div class="${res==="lose"?"w":""}"><b>${fmt(o)}</b><small>${esc(S.duel.on||"")}</small></div></div>
+  ${r?badgeCard(r.nb):""}
+  <button class="btn" id="re">Nouveau duel</button><button class="btn alt" id="hm">Accueil</button>`;
+  $("re").onclick=()=>duelScreen();$("hm").onclick=()=>{S.view="home";home()}};
+ draw();sfx(res==="win"?"end":"no");if(res==="win")confetti();S.res=await save();if(S.view==="end")draw();
+}
+async function setGroups(g){const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};const nd={...d,g};await wr(ref.set(nd));S.me=nd}
+function groupScreen(msg=""){
+ S.view="groups";const g=(S.me&&S.me.g)||{},link=c=>location.origin+location.pathname+"?groupe="+c;
+ app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>Groupes<span>.</span></h1></div>
+ <p class="sub">Un classement rien qu’entre vous : amis, famille ou classe.</p>
+ ${Object.keys(g).length?`<div class="card">${Object.entries(g).map(([c,n])=>`<div class="pl"><span><b>${esc(n)}</b><br><small class="mute">Code ${c}</small></span><span class="gact"><button class="lk" data-sh="${c}">Partager</button><button class="lk" data-lv="${c}">Quitter</button></span></div>`).join("")}<p class="okm" id="ao" role="status"></p></div>`:""}
+ <form class="card af" id="af" novalidate><label for="gn">Créer un groupe</label><input id="gn" maxlength="24" autocomplete="off" placeholder="Ex. 3e B, Famille…">
+ <label for="gc">Ou rejoindre avec un code</label><input id="gc" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" style="text-transform:uppercase;letter-spacing:.2em;font-weight:700">
+ <p class="err" id="ae" role="alert">${esc(msg)}</p><button class="btn" id="ab" type="submit">Valider</button></form>`;
+ $("bk").onclick=rank;
+ app.querySelectorAll("[data-lv]").forEach(b=>b.onclick=async()=>{const n={...g};delete n[b.dataset.lv];try{await setGroups(n);if(S.gsel===b.dataset.lv)S.gsel="";groupScreen()}catch(x){alertIn("ae",amsg(x))}});
+ app.querySelectorAll("[data-sh]").forEach(b=>b.onclick=async()=>{const c=b.dataset.sh;try{if(navigator.share)await navigator.share({title:"Geo Quizz",text:`Rejoins le groupe « ${g[c]} » sur Geo Quizz : code ${c}`,url:link(c)});else{await navigator.clipboard.writeText(link(c));$("ao").textContent="Lien copié."}}catch(e){}});
+ formRun(async()=>{
+  const name=$("gn").value.trim().replace(/\s+/g," "),code=$("gc").value.trim().toUpperCase();
+  if(Object.keys(g).length>=10)throw E("GMAX");
+  if(code){if(code.length!==6)throw E("GCODE");const d=await rget("groups/"+code);if(!d||!d.n)throw E("GCODE");await setGroups({...g,[code]:d.n});S.gsel=code}
+  else{if(name.length<2)throw E("GNAME");const c=mkCode(6);await rput("groups/"+c,{n:name,o:S.uid,t:Date.now()});await setGroups({...g,[c]:name});S.gsel=c}
+  groupScreen();
+ });
+}
 async function bootAuth(){
  try{const a=JSON.parse(localStorage.getItem("gq-auth")||"null");if(a&&a.rt)SES={...a,it:null,exp:0}}catch(e){}
  if(!SES)return authScreen("in");
- try{await afterAuth()}catch(x){if(x.code==="NET")return authScreen("in",AMSG.NET);SES=null;persist();authScreen("in",x.code==="EXPIRED"?AMSG.EXPIRED:"")}
+ try{await afterAuth()}catch(x){if(x.code==="NET"){try{const c=JSON.parse(LS("gq-mec","null"));if(c&&c.uid===SES.uid){S.uid=c.uid;S.name=c.name;S.key=c.key;S.me=c.me;S.off=true;S.view="home";return home()}}catch(e){}return authScreen("in",AMSG.NET)}SES=null;persist();authScreen("in",x.code==="EXPIRED"?AMSG.EXPIRED:"")}
 }
+
+// ===== LANGUES (français, anglais, arabe) =====
+let LANG=(()=>{const v=LS("gq-lang","")||(navigator.language||"fr").slice(0,2);return["fr","en","ar"].includes(v)?v:"fr"})();
+const LOC={fr:"fr-FR",en:"en-GB",ar:"ar-u-nu-latn"};
+const TRD={en:new Map(),ar:new Map()},TRP=[];
+function addTr(list){list.forEach(([f,e,a])=>{TRD.en.set(f,e);TRD.ar.set(f,a)})}
+function addPat(list){list.forEach(([re,e,a])=>TRP.push([re,e,a]))}
+const MISS=new Set();
+function tr(t){
+ if(LANG==="fr"||!t)return t;
+ const m=t.match(/^(\s*)([\s\S]*?)(\s*)$/),core=m[2];if(!core||!/[A-Za-zÀ-ÿ]/.test(core))return t;
+ const d=TRD[LANG];let out=d.get(core);
+ if(out===undefined){for(const[re,e,a]of TRP){const x=core.match(re);if(x){const tpl=LANG==="en"?e:a;out=typeof tpl==="function"?tpl(x,tr):tpl.replace(/\$(\d)/g,(_,i)=>tr(x[i]));break}}}
+ if(out===undefined&&core.includes(" · "))out=core.split(" · ").map(tr).join(" · ");
+ if(out===undefined&&core.startsWith("· "))out="· "+tr(core.slice(2));
+ if(out===undefined&&core.includes(": ")){const i=core.indexOf(": "),l=core.slice(0,i).trim(),a=tr(l);if(a!==l)out=a+": "+tr(core.slice(i+2))}
+ if(out===undefined){MISS.add(core);return t}
+ return m[1]+out+m[3];
+}
+function trNode(root){
+ if(LANG==="fr")return;
+ const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);let n=root;
+ do{if(n.nodeType===3){if(n.parentNode&&!/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName)){const v=tr(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v}}
+  else if(n.nodeType===1){for(const a of["aria-label","placeholder","title"]){const v=n.getAttribute&&n.getAttribute(a);if(v){const t=tr(v);if(t!==v)n.setAttribute(a,t)}}}}while((n=w.nextNode()));
+}
+let TRBUSY=false;
+const TROB=new MutationObserver(ms=>{if(LANG==="fr")return;for(const m of ms){if(m.type==="characterData")trNode(m.target);else m.addedNodes.forEach(x=>trNode(x))}TROB.takeRecords()});TROB.observe(document.getElementById("app"),{childList:true,subtree:true,characterData:true});
+const DN={};
+function setLang(l){
+ LANG=l;LSset("gq-lang",l);const h=document.documentElement;h.lang=l;h.dir=l==="ar"?"rtl":"ltr";
+ let dn=null;try{dn=l==="fr"?null:new Intl.DisplayNames([l],{type:"region"})}catch(e){}
+ C.forEach(x=>{x.n=l==="fr"?x.nf:(TRD[l].get("§"+x.c)||(dn&&dn.of(x.c).replace(/ & /g,l==="en"?" and ":" و").replace(/\s*\(.*\)$/,""))||x.nf);x.k=l==="fr"?x.kf:l==="en"?x.ke:x.ka});
+ Object.keys(MC).forEach(k=>delete MC[k]);
+ document.title=l==="ar"?"جيو كويز":"Geo Quizz";
+}
+addTr([["Accueil", "Home", "الرئيسية"], ["Retour", "Back", "رجوع"], ["Annuler", "Cancel", "إلغاء"], ["Valider", "Confirm", "تأكيد"], ["Continuer", "Continue", "متابعة"], ["Quitter", "Quit", "خروج"], ["Jouer", "Play", "العب"], ["Rejouer", "Play again", "العب مجددًا"], ["Réglages", "Settings", "الإعدادات"], ["Chargement…", "Loading…", "جارٍ التحميل…"], ["Enregistrement…", "Saving…", "جارٍ الحفظ…"], ["Geo Quizz", "Geo Quizz", "جيو كويز"], ["Apparence", "Appearance", "المظهر"], ["Auto", "Auto", "تلقائي"], ["Clair", "Light", "فاتح"], ["Sombre", "Dark", "داكن"], ["Langue", "Language", "اللغة"], ["Compte", "Account", "الحساب"], ["Changer de joueur", "Change player", "تغيير اللاعب"], ["Français", "Français", "Français"], ["English", "English", "English"], ["Sons", "Sounds", "الأصوات"], ["Vibrations", "Vibrations", "الاهتزاز"], ["Activés", "On", "مفعّلة"], ["Activées", "On", "مفعّل"], ["Coupés", "Off", "متوقفة"], ["Coupées", "Off", "متوقف"], ["Temps par question", "Time per question", "الوقت لكل سؤال"], ["Sans chrono", "No timer", "بدون مؤقت"], ["Le bonus de rapidité compte toujours sur 10 s. Le défi du jour, le duel et le contre-la-montre gardent leur chrono.", "The speed bonus always counts over 10 s. The daily challenge, duels and time attack keep their timer.", "مكافأة السرعة تُحسب دائمًا على 10 ث. تحدي اليوم والمبارزة وسباق الوقت تحتفظ بمؤقتها."], ["NIVEAU", "LEVEL", "المستوى"], ["compte", "account", "الحساب"], ["changer", "change", "تغيير"], ["XP", "XP", "XP"], ["pts", "pts", "نقطة"], ["points", "points", "نقطة"], ["Touriste", "Tourist", "سائح"], ["Voyageur", "Traveller", "مسافر"], ["Explorateur", "Explorer", "مستكشف"], ["Navigateur", "Navigator", "ملاح"], ["Cartographe", "Cartographer", "رسام خرائط"], ["Globe-trotter", "Globetrotter", "جوّال العالم"], ["Légende", "Legend", "أسطورة"], ["Joue une partie aujourd’hui pour démarrer une série.", "Play a game today to start a streak.", "العب اليوم لتبدأ سلسلة."], ["Défi du jour", "Daily challenge", "تحدي اليوم"], ["Défi du jour terminé", "Daily challenge done", "انتهى تحدي اليوم"], ["20 questions, les mêmes pour tous. Une seule tentative.", "20 questions, the same for everyone. One attempt only.", "20 سؤالًا، نفسها للجميع. محاولة واحدة فقط."], ["Classement", "Leaderboard", "الترتيب"], ["Classements", "Leaderboards", "الترتيب"], ["Semaine, défi du jour, records, groupes", "Week, daily challenge, records, groups", "الأسبوع، تحدي اليوم، الأرقام القياسية، المجموعات"], ["Drapeaux", "Flags", "الأعلام"], ["Capitales", "Capitals", "العواصم"], ["Cartes", "Maps", "الخرائط"], ["Défis", "Challenges", "تحديات"], ["Duel", "Duel", "مبارزة"], ["Défie un ami", "Challenge a friend", "تحدَّ صديقًا"], ["Réviser", "Review", "مراجعة"], ["Rien à revoir", "Nothing to review", "لا شيء للمراجعة"], ["Badges", "Badges", "الشارات"], ["Hors connexion : tu peux jouer, les scores seront enregistrés au retour d’internet.", "Offline: you can play, scores will be saved when you're back online.", "غير متصل: يمكنك اللعب، وستُحفظ النتائج عند عودة الإنترنت."], ["Des scores attendent internet pour être enregistrés.", "Some scores are waiting for internet to be saved.", "بعض النتائج بانتظار الإنترنت لحفظها."], ["Pays d’un drapeau", "Country of a flag", "دولة العلم"], ["Drapeau d’un pays", "Flag of a country", "علم الدولة"], ["Capitale d’un pays", "Capital of a country", "عاصمة الدولة"], ["Pays d’une capitale", "Country of a capital", "دولة العاصمة"], ["Carte d’un pays", "Map of a country", "خريطة الدولة"], ["Capitale d’un drapeau", "Capital from a flag", "عاصمة من العلم"], ["Pays d’une carte", "Country from a map", "دولة من الخريطة"], ["Continent d’un pays", "Continent of a country", "قارة الدولة"], ["Mélange", "Mix", "خليط"], ["tous les types", "all types", "كل الأنواع"], ["Survie", "Survival", "البقاء"], ["une erreur et c’est fini", "one mistake and it's over", "خطأ واحد وتنتهي"], ["Contre-la-montre", "Time attack", "سباق الوقت"], ["60 s", "60 s", "60 ث"], ["Général", "Overall", "العام"], ["tous les jeux", "all games", "كل الألعاب"], ["Points cumulés (XP)", "Total points (XP)", "مجموع النقاط (XP)"], ["Semaine", "Week", "الأسبوع"], ["Révision", "Review", "مراجعة"], ["Du jour", "Daily", "اليوم"], ["Par jeu", "By game", "حسب اللعبة"], ["Jeu", "Game", "اللعبة"], ["Difficulté", "Difficulty", "الصعوبة"], ["Choisis ton jeu et ta difficulté.", "Pick your game and difficulty.", "اختر لعبتك ومستوى الصعوبة."], ["Choisis une zone du monde.", "Pick a region of the world.", "اختر منطقة من العالم."], ["Facile", "Easy", "سهل"], ["Moyen", "Medium", "متوسط"], ["Difficile", "Hard", "صعب"], ["Très difficile", "Very hard", "صعب جدًا"], ["Pays connus", "Well-known countries", "دول معروفة"], ["Plus large", "Wider range", "نطاق أوسع"], ["Choix proches", "Similar choices", "خيارات متشابهة"], ["Tous les pays", "All countries", "كل الدول"], ["Mes scores", "My scores", "نتائجي"], ["Mon meilleur score", "My best score", "أفضل نتيجة لي"], ["Mon rang", "My rank", "ترتيبي"], ["Leader", "Leader", "المتصدر"], ["Scores indisponibles.", "Scores unavailable.", "النتائج غير متاحة."], ["Connecte-toi pour enregistrer et voir tes scores.", "Sign in to save and see your scores.", "سجّل الدخول لحفظ نتائجك ورؤيتها."], ["Monde entier", "Whole world", "العالم كله"], ["Europe", "Europe", "أوروبا"], ["Afrique", "Africa", "أفريقيا"], ["Asie et Océanie", "Asia and Oceania", "آسيا وأوقيانوسيا"], ["Amérique du Nord et centrale", "North and Central America", "أمريكا الشمالية والوسطى"], ["Amérique du Sud", "South America", "أمريكا الجنوبية"], ["À quel pays appartient ce drapeau ?", "Which country does this flag belong to?", "لأي دولة هذا العلم؟"], ["Quelle est sa capitale ?", "What is its capital?", "ما عاصمتها؟"], ["Quel est son drapeau ?", "Which is its flag?", "ما علمها؟"], ["De quel pays est-ce la capitale ?", "Which country is this the capital of?", "هذه عاصمة أي دولة؟"], ["Quelle est la carte de ce pays ?", "Which map shows this country?", "ما خريطة هذه الدولة؟"], ["Quelle est la capitale de ce pays ?", "What is the capital of this country?", "ما عاصمة هذه الدولة؟"], ["Quel pays est représenté sur cette carte ?", "Which country is shown on this map?", "أي دولة تظهر في هذه الخريطة؟"], ["Sur quel continent se trouve ce pays ?", "Which continent is this country in?", "في أي قارة تقع هذه الدولة؟"], ["Quitter la partie", "Quit game", "إنهاء اللعبة"], ["Quitter la partie ?", "Quit the game?", "إنهاء اللعبة؟"], ["Ta progression sera perdue et ce score ne sera pas enregistré.", "Your progress will be lost and this score won't be saved.", "سيضيع تقدمك ولن تُحفظ هذه النتيجة."], ["Le défi du jour ne se joue qu’une fois : si tu quittes, ton score du jour restera à 0.", "The daily challenge can only be played once: if you quit, today's score stays at 0.", "تحدي اليوم يُلعب مرة واحدة فقط: إن خرجت، تبقى نتيجتك اليوم 0."], ["Chrono", "Time attack", "سباق الوقت"], ["Question suivante", "Next question", "السؤال التالي"], ["Voir le bilan", "See summary", "عرض الحصيلة"], ["Arrêter la révision", "Stop reviewing", "إيقاف المراجعة"], ["Carte du pays à deviner", "Map of the country to guess", "خريطة الدولة المطلوبة"], ["Chargement des cartes…", "Loading maps…", "جارٍ تحميل الخرائط…"], ["Impossible de charger les cartes. Ce jeu a besoin d’une connexion internet et n’est pas disponible dans l’aperçu Claude : utilise la version hébergée.", "Maps couldn't be loaded. This game needs an internet connection the first time.", "تعذّر تحميل الخرائط. تحتاج هذه اللعبة إلى الإنترنت في المرة الأولى."], ["Bravo", "Well done", "أحسنت"], ["Terminé", "Finished", "انتهى"], ["Nouveau record", "New record", "رقم قياسي جديد"], ["bonnes réponses", "correct answers", "إجابات صحيحة"], ["à la suite", "in a row", "متتالية"], ["mon record", "my record", "رقمي القياسي"], ["XP gagnés", "XP earned", "XP مكتسبة"], ["Hors connexion : ton score sera enregistré dès le retour d’internet.", "Offline: your score will be saved as soon as you're back online.", "غير متصل: ستُحفظ نتيجتك فور عودة الإنترنت."], ["Score non enregistré. Vérifie ta connexion puis rejoue.", "Score not saved. Check your connection and play again.", "لم تُحفظ النتيجة. تحقق من اتصالك ثم العب مجددًا."], ["Personne devant toi.", "Nobody ahead of you.", "لا أحد أمامك."], ["Voir le classement", "See leaderboard", "عرض الترتيب"], ["Voir le classement du jour", "See today's leaderboard", "عرض ترتيب اليوم"], ["Révision terminée", "Review complete", "انتهت المراجعة"], ["pays maîtrisés", "countries mastered", "دول أتقنتها"], ["encore ratés", "still missed", "ما زالت خاطئة"], ["à revoir en tout", "left to review", "المتبقي للمراجعة"], ["Continuer à réviser", "Keep reviewing", "تابع المراجعة"], ["Hors connexion : la révision sera enregistrée au retour d’internet.", "Offline: your review will be saved when you're back online.", "غير متصل: ستُحفظ المراجعة عند عودة الإنترنت."], ["Capitale", "Capital", "العاصمة"], ["Classement indisponible hors connexion.", "Leaderboard unavailable offline.", "الترتيب غير متاح دون اتصال."], ["Personne n’a encore joué le défi du jour. Joue une partie pour ouvrir ce classement.", "Nobody has played today's challenge yet. Play to open this leaderboard.", "لم يلعب أحد تحدي اليوم بعد. العب لتفتتح هذا الترتيب."], ["Personne n’a encore joué cette semaine. Joue une partie pour ouvrir ce classement.", "Nobody has played this week yet. Play to open this leaderboard.", "لم يلعب أحد هذا الأسبوع بعد. العب لتفتتح هذا الترتيب."], ["Aucun score ici pour l’instant. Joue une partie pour ouvrir ce classement.", "No scores here yet. Play to open this leaderboard.", "لا توجد نتائج هنا بعد. العب لتفتتح هذا الترتيب."], ["Classement indisponible hors connexion. Joue une partie pour ouvrir ce classement.", "Leaderboard unavailable offline.", "الترتيب غير متاح دون اتصال."], ["Voir tout", "See all", "عرض الكل"], ["Voir le top 10", "See top 10", "عرض أفضل 10"], ["moi", "me", "أنا"], ["Jouer le défi du jour", "Play the daily challenge", "العب تحدي اليوم"], ["Tous les joueurs", "All players", "كل اللاعبين"], ["Joueurs affichés", "Players shown", "اللاعبون المعروضون"], ["Zone", "Region", "المنطقة"], ["Groupes", "Groups", "المجموعات"], ["Groupe", "Group", "مجموعة"], ["Un classement rien qu’entre vous : amis, famille ou classe.", "A leaderboard just for you: friends, family or class.", "ترتيب خاص بكم: أصدقاء أو عائلة أو قسم."], ["Créer un groupe", "Create a group", "إنشاء مجموعة"], ["Ou rejoindre avec un code", "Or join with a code", "أو انضم برمز"], ["Ex. 3e B, Famille…", "E.g. Class 3B, Family…", "مثال: القسم 3ب، العائلة…"], ["Partager", "Share", "مشاركة"], ["Lien copié.", "Link copied.", "تم نسخ الرابط."], ["Aucun groupe avec ce code. Vérifie les 6 caractères.", "No group with this code. Check the 6 characters.", "لا توجد مجموعة بهذا الرمز. تحقق من الأحرف الستة."], ["Donne un nom au groupe (2 caractères minimum).", "Give the group a name (at least 2 characters).", "أعطِ المجموعة اسمًا (حرفان على الأقل)."], ["10 groupes maximum.", "10 groups maximum.", "10 مجموعات كحد أقصى."], ["10 questions, les mêmes pour vous deux, en même temps. Le plus rapide et le plus juste gagne.", "10 questions, the same for both of you, at the same time. The fastest and most accurate wins.", "10 أسئلة، نفسها لكما وفي الوقت نفسه. الأسرع والأدق يفوز."], ["Défier un ami", "Challenge a friend", "تحدَّ صديقًا"], ["Crée un duel et envoie-lui le code.", "Create a duel and send them the code.", "أنشئ مبارزة وأرسل له الرمز."], ["Créer un duel", "Create a duel", "إنشاء مبارزة"], ["Rejoindre avec un code", "Join with a code", "انضم برمز"], ["Rejoindre", "Join", "انضمام"], ["Code du duel", "Duel code", "رمز المبارزة"], ["Partager le lien", "Share the link", "مشاركة الرابط"], ["toi", "you", "أنت"], ["Toi", "You", "أنت"], ["hôte", "host", "المضيف"], ["prêt", "ready", "جاهز"], ["partage le code", "share the code", "شارك الرمز"], ["En attente…", "Waiting…", "في الانتظار…"], ["Lancer le duel", "Start the duel", "ابدأ المبارزة"], ["En attente d’un adversaire…", "Waiting for an opponent…", "في انتظار خصم…"], ["En attente du lancement par l’hôte…", "Waiting for the host to start…", "في انتظار أن يبدأ المضيف…"], ["Bien joué", "Well played", "أحسنت اللعب"], ["Arrêter d’attendre", "Stop waiting", "توقف عن الانتظار"], ["Victoire", "Victory", "فوز"], ["Défaite", "Defeat", "خسارة"], ["Égalité", "Draw", "تعادل"], ["Nouveau duel", "New duel", "مبارزة جديدة"], ["terminé", "finished", "انتهى"], ["Adversaire", "Opponent", "الخصم"], ["VS", "VS", "ضد"], ["Aucun duel avec ce code. Vérifie les 5 caractères.", "No duel with this code. Check the 5 characters.", "لا توجد مبارزة بهذا الرمز. تحقق من الأحرف الخمسة."], ["Ce duel a déjà deux joueurs.", "This duel already has two players.", "هذه المبارزة بها لاعبان بالفعل."], ["Ce duel est terminé ou trop ancien.", "This duel is over or too old.", "هذه المبارزة انتهت أو قديمة جدًا."], ["Premiers pas", "First steps", "الخطوات الأولى"], ["Jouer une première partie", "Play your first game", "العب أول لعبة"], ["Habitué", "Regular", "معتاد"], ["Jouer 10 parties", "Play 10 games", "العب 10 ألعاب"], ["Passionné", "Enthusiast", "شغوف"], ["Jouer 50 parties", "Play 50 games", "العب 50 لعبة"], ["Infatigable", "Tireless", "لا يتعب"], ["Jouer 200 parties", "Play 200 games", "العب 200 لعبة"], ["Régulier", "Consistent", "منتظم"], ["Jouer 3 jours de suite", "Play 3 days in a row", "العب 3 أيام متتالية"], ["Une semaine", "One week", "أسبوع كامل"], ["Jouer 7 jours de suite", "Play 7 days in a row", "العب 7 أيام متتالية"], ["Un mois", "One month", "شهر كامل"], ["Jouer 30 jours de suite", "Play 30 days in a row", "العب 30 يومًا متتاليًا"], ["Sans faute", "Flawless", "بلا أخطاء"], ["Faire 20/20 dans une partie", "Score 20/20 in a game", "احصل على 20/20 في لعبة"], ["Perfectionniste", "Perfectionist", "مثالي"], ["Faire 10 parties sans faute", "Play 10 flawless games", "العب 10 ألعاب بلا أخطاء"], ["Expert", "Expert", "خبير"], ["3 étoiles en Très difficile", "3 stars on Very hard", "3 نجوم في المستوى الصعب جدًا"], ["Atteindre le niveau 5", "Reach level 5", "الوصول إلى المستوى 5"], ["Atteindre le niveau 10", "Reach level 10", "الوصول إلى المستوى 10"], ["Rendez-vous", "Daily date", "الموعد اليومي"], ["Jouer un défi du jour", "Play a daily challenge", "العب تحدي يوم"], ["Fidèle", "Loyal", "وفيّ"], ["Jouer 10 défis du jour", "Play 10 daily challenges", "العب 10 تحديات يومية"], ["Survivant", "Survivor", "الناجي"], ["20 bonnes réponses en Survie", "20 correct answers in Survival", "20 إجابة صحيحة في البقاء"], ["Éclair", "Lightning", "البرق"], ["20 bonnes réponses en Contre-la-montre", "20 correct answers in Time attack", "20 إجابة صحيحة في سباق الوقت"], ["Touche-à-tout", "All-rounder", "متعدد المواهب"], ["Jouer à tous les types de jeu", "Play every type of game", "العب كل أنواع الألعاب"], ["Duelliste", "Duellist", "المبارز"], ["Gagner un duel", "Win a duel", "افز بمبارزة"], ["Bon élève", "Good student", "تلميذ نجيب"], ["Maîtriser 20 pays en révision", "Master 20 countries in review", "أتقن 20 دولة في المراجعة"], ["Se connecter", "Sign in", "تسجيل الدخول"], ["Créer un compte", "Create account", "إنشاء حساب"], ["Connecte-toi pour jouer et enregistrer tes scores.", "Sign in to play and save your scores.", "سجّل الدخول لتلعب وتحفظ نتائجك."], ["Crée ton compte pour apparaître au classement et retrouver tes scores sur tous tes appareils.", "Create your account to appear on the leaderboard and keep your scores on all your devices.", "أنشئ حسابك لتظهر في الترتيب وتجد نتائجك على كل أجهزتك."], ["Indique l’email de ton compte : tu recevras un lien pour choisir un nouveau mot de passe.", "Enter your account email: you'll get a link to choose a new password.", "أدخل بريد حسابك: ستتلقى رابطًا لاختيار كلمة مرور جديدة."], ["Pseudo ou email", "Username or email", "اسم المستخدم أو البريد"], ["Mot de passe", "Password", "كلمة المرور"], ["Mot de passe oublié ?", "Forgot password?", "نسيت كلمة المرور؟"], ["Pseudo", "Username", "اسم المستخدم"], ["Email", "Email", "البريد الإلكتروني"], ["3 à 16 caractères, visible dans les classements.", "3 to 16 characters, shown on leaderboards.", "من 3 إلى 16 حرفًا، يظهر في الترتيب."], ["Un lien de vérification y sera envoyé. Il n’est jamais affiché.", "A verification link will be sent there. It's never shown.", "سيُرسل إليه رابط تحقق. لا يُعرض أبدًا."], ["8 caractères minimum.", "8 characters minimum.", "8 أحرف على الأقل."], ["Créer mon compte", "Create my account", "أنشئ حسابي"], ["Envoyer le lien", "Send the link", "أرسل الرابط"], ["Retour à la connexion", "Back to sign in", "العودة لتسجيل الدخول"], ["Si un compte utilise cet email, le lien vient d’être envoyé. Pense à regarder dans les spams.", "If an account uses this email, the link has just been sent. Check your spam folder too.", "إذا كان هناك حساب بهذا البريد، فقد أُرسل الرابط للتو. تحقق من البريد غير المرغوب فيه أيضًا."], ["Vérifie ton email", "Check your email", "تحقق من بريدك"], ["Dernière étape avant de jouer.", "Last step before playing.", "الخطوة الأخيرة قبل اللعب."], ["Un lien de vérification a été envoyé à", "A verification link was sent to", "أُرسل رابط تحقق إلى"], ["ton email", "your email", "بريدك"], ["Ouvre-le, puis reviens ici. Rien reçu ? Regarde dans les spams.", "Open it, then come back here. Nothing? Check your spam folder.", "افتحه ثم عد إلى هنا. لم يصلك شيء؟ تحقق من البريد غير المرغوب فيه."], ["J’ai ouvert le lien", "I opened the link", "فتحت الرابط"], ["Renvoyer l’email", "Resend the email", "أعد إرسال البريد"], ["Utiliser un autre compte", "Use another account", "استخدم حسابًا آخر"], ["Choisis ton pseudo", "Choose your username", "اختر اسم المستخدم"], ["Il apparaît dans les classements et sert à te connecter.", "It's shown on leaderboards and used to sign in.", "يظهر في الترتيب ويُستخدم لتسجيل الدخول."], ["3 à 16 caractères.", "3 to 16 characters.", "من 3 إلى 16 حرفًا."], ["Se déconnecter", "Sign out", "تسجيل الخروج"], ["Mon compte", "My account", "حسابي"], ["Pseudo public, email privé.", "Public username, private email.", "اسم مستخدم عام، بريد خاص."], ["Changer de pseudo", "Change username", "تغيير اسم المستخدم"], ["Nouveau pseudo", "New username", "اسم مستخدم جديد"], ["Mot de passe actuel", "Current password", "كلمة المرور الحالية"], ["Pseudo, email ou mot de passe incorrect.", "Wrong username, email or password.", "اسم المستخدم أو البريد أو كلمة المرور غير صحيحة."], ["Mot de passe incorrect. Si tu l’as changé récemment, connecte-toi une fois avec ton email.", "Wrong password. If you changed it recently, sign in once with your email.", "كلمة المرور غير صحيحة. إذا غيّرتها مؤخرًا، سجّل الدخول مرة بالبريد."], ["Aucun compte avec ce pseudo. Vérifie l’orthographe ou connecte-toi avec ton email.", "No account with this username. Check the spelling or sign in with your email.", "لا يوجد حساب بهذا الاسم. تحقق من الكتابة أو سجّل الدخول بالبريد."], ["Cet email a déjà un compte. Connecte-toi avec.", "This email already has an account. Sign in with it.", "هذا البريد له حساب بالفعل. سجّل الدخول به."], ["Cet email n’est pas valide.", "This email isn't valid.", "هذا البريد غير صالح."], ["Indique ton email.", "Enter your email.", "أدخل بريدك."], ["Indique ton mot de passe.", "Enter your password.", "أدخل كلمة المرور."], ["Mot de passe trop court : 8 caractères minimum.", "Password too short: 8 characters minimum.", "كلمة المرور قصيرة: 8 أحرف على الأقل."], ["Ce pseudo est déjà pris. Choisis-en un autre.", "This username is taken. Choose another one.", "اسم المستخدم مأخوذ. اختر غيره."], ["Pseudo : 3 à 16 caractères, avec des lettres ou des chiffres.", "Username: 3 to 16 characters, with letters or digits.", "اسم المستخدم: من 3 إلى 16 حرفًا، بحروف أو أرقام."], ["Trop d’essais. Réessaie dans quelques minutes.", "Too many attempts. Try again in a few minutes.", "محاولات كثيرة. أعد المحاولة بعد دقائق."], ["Ce compte est désactivé.", "This account is disabled.", "هذا الحساب معطّل."], ["Ton email n’est pas encore vérifié. Ouvre le lien reçu, puis réessaie.", "Your email isn't verified yet. Open the link you received, then try again.", "لم يُتحقق من بريدك بعد. افتح الرابط ثم أعد المحاولة."], ["La connexion par email n’est pas activée dans Firebase (Authentication › Sign-in method).", "Email sign-in isn't enabled in Firebase (Authentication › Sign-in method).", "تسجيل الدخول بالبريد غير مفعّل في Firebase."], ["Firebase Authentication n’est pas activé pour ce projet.", "Firebase Authentication isn't enabled for this project.", "Firebase Authentication غير مفعّل لهذا المشروع."], ["La clé apiKey de config.js n’est pas valide.", "The apiKey in config.js isn't valid.", "مفتاح apiKey في config.js غير صالح."], ["Ta session a expiré. Reconnecte-toi.", "Your session expired. Sign in again.", "انتهت جلستك. سجّل الدخول مجددًا."], ["Pas de connexion au serveur. Vérifie internet et réessaie.", "Can't reach the server. Check your internet and try again.", "تعذّر الوصول إلى الخادم. تحقق من الإنترنت وأعد المحاولة."], ["Enregistrement refusé par la base. Vérifie les règles Firebase.", "Saving was refused by the database. Check the Firebase rules.", "رفضت قاعدة البيانات الحفظ. تحقق من قواعد Firebase."], ["Action impossible pour le moment. Réessaie.", "Can't do that right now. Try again.", "تعذّر ذلك الآن. أعد المحاولة."], ["Qui joue ?", "Who's playing?", "من يلعب؟"], ["Ton pseudo", "Your username", "اسم المستخدم"], ["Joueur", "Player", "لاعب"], ["Non connecté : tes scores ne seront pas enregistrés. Choisis un pseudo.", "Not signed in: your scores won't be saved. Pick a username.", "غير متصل: لن تُحفظ نتائجك. اختر اسمًا."], ["Plusieurs amis peuvent jouer sur le même appareil : chaque pseudo a son profil (3 à 16 caractères).", "Several friends can play on the same device: each username has its own profile (3 to 16 characters).", "يمكن لعدة أصدقاء اللعب على الجهاز نفسه: لكل اسم ملفه (من 3 إلى 16 حرفًا)."], ["Il apparaît dans le classement de tous les joueurs et doit être unique (3 à 16 caractères).", "It's shown on everyone's leaderboard and must be unique (3 to 16 characters).", "يظهر في ترتيب جميع اللاعبين ويجب أن يكون فريدًا (من 3 إلى 16 حرفًا)."], ["Ce pseudo est déjà pris.", "This username is taken.", "اسم المستخدم مأخوذ."], ["3 à 16 caractères, avec des lettres ou des chiffres.", "3 to 16 characters, with letters or digits.", "من 3 إلى 16 حرفًا، بحروف أو أرقام."], ["Erreur, réessaie.", "Error, try again.", "خطأ، أعد المحاولة."], ["C’est ton pseudo ? Connecte-toi avec pour retrouver tes scores sur cet appareil.", "Is this your username? Sign in with it to get your scores on this device.", "هل هذا اسمك؟ سجّل الدخول به لاستعادة نتائجك على هذا الجهاز."], ["Me connecter avec ce pseudo", "Sign in with this username", "سجّل الدخول بهذا الاسم"], ["Connexion impossible, réessaie.", "Couldn't sign in, try again.", "تعذّر تسجيل الدخول، أعد المحاولة."], ["changer de pseudo", "change username", "تغيير الاسم"], ["changer de joueur", "change player", "تغيير اللاعب"], ["§CD", "DR Congo", "الكونغو الديمقراطية"], ["§CG", "Congo", "الكونغو"], ["§MM", "Myanmar", "ميانمار"], ["§CI", "Côte d’Ivoire", "ساحل العاج"], ["§CZ", "Czechia", ""], ["§TL", "Timor-Leste", ""], ["§FM", "Micronesia", ""], ["§VA", "Vatican", ""]]);
+addPat([[/^\+([\d   ,.]+) XP$/,"+$1 XP","+$1 XP"],[/^([\d   ,.]+) XP$/,"$1 XP","$1 XP"],[/^([\d   ,.]+) pts$/,"$1 pts","$1 نقطة"],[/^(\d) étoiles sur 3$/,"$1 stars out of 3","$1 من 3 نجوم"],[/^(\d+) bonnes? réponses? sur (\d+)\.$/,"$1 correct out of $2.","$1 إجابة صحيحة من $2."],[/^(\d+) joueurs? classés?$/,"$1 ranked player(s)","$1 لاعب في الترتيب"],[/^(\d+) pays$/,"$1 countries","$1 دولة"],[/^À revoir : (\d+) pays \(ajoutés à ta révision\)$/,"To review: $1 countries (added to your review list)","للمراجعة: $1 دولة (أضيفت إلى قائمة مراجعتك)"],[/^(\d+)(?:er|e) sur (\d+)$/,"#$1 of $2","المركز $1 من $2"],[/^(\d+) jeux$/,"$1 games","$1 ألعاب"],[/^(\d+) s$/,"$1 s","$1 ث"],[/^(\d+) s au total$/,"$1 s in total","$1 ث إجمالًا"],[/^(\d+) choix$/,"$1 choices","$1 خيارات"],[/^(\d+) sur (\d+) obtenus\.$/,"$1 of $2 earned.","حصلت على $1 من $2."],[/^([\d   ,.]+) pts\. Nouveau défi demain\.$/,"$1 pts. New challenge tomorrow.","$1 نقطة. تحدٍّ جديد غدًا."],[/^Badge obtenu : (.+)$/,"Badge earned: $1","شارة جديدة: $1"],[/^Capitale : (.+)$/,(x)=>"Capital: "+x[1],(x)=>"العاصمة: "+x[1]],[/^Code (\w+)$/,(x)=>"Code "+x[1],(x)=>"الرمز "+x[1]],[/^Duel contre (.+)$/,(x)=>"Duel against "+x[1],(x)=>"مبارزة ضد "+x[1]],[/^Email renvoyé à (.+)\.$/,(x)=>"Email sent again to "+x[1]+".",(x)=>"أُعيد إرسال البريد إلى "+x[1]+"."],[/^En attente de (.+)…$/,(x)=>"Waiting for "+x[1]+"…",(x)=>"في انتظار "+x[1]+"…"],[/^En attente du lancement par (.+)…$/,(x)=>"Waiting for "+x[1]+" to start…",(x)=>"في انتظار أن يبدأ "+x[1]+"…"],[/^Encore ([\d   ,.]+) XP pour le niveau (\d+)\.$/,"$1 XP to level $2.","$1 XP للوصول إلى المستوى $2."],[/^Groupe : (.+)$/,(x)=>"Group: "+x[1],(x)=>"المجموعة: "+x[1]],[/^Niveau (\d+)$/,"Level $1","المستوى $1"],[/^Niveau (\d+) atteint\.$/,"Level $1 reached.","وصلت إلى المستوى $1."],[/^niveau (\d+) à ([\d   ,.]+) XP$/,"level $1 at $2 XP","المستوى $1 عند $2 XP"],[/^Passer en (.+)$/,"Move up to $1","انتقل إلى $1"],[/^Question (\d+)\/(\d+)$/,"Question $1/$2","السؤال $1/$2"],[/^question (\d+)$/,"question $1","السؤال $1"],[/^Série de (\d+) jours?\. Reviens demain pour la prolonger\.$/,"$1-day streak. Come back tomorrow to extend it.","سلسلة $1 يوم. عد غدًا لتمديدها."],[/^Série de (\d+) jours? en jeu : joue aujourd’hui pour la garder\.$/,"$1-day streak at stake: play today to keep it.","سلسلة $1 يوم مهددة: العب اليوم لتحافظ عليها."],[/^tu es (\d+)(?:er|e)$/,"you are #$1","أنت في المركز $1"],[/^dans ce classement\. Personne devant toi\.$/,"in this leaderboard. Nobody ahead of you.","في هذا الترتيب. لا أحد أمامك."],[/^dans ce classement\. Encore ([\d   ,.]+) pts pour dépasser (.+)\.$/,(x)=>"in this leaderboard. "+x[1]+" pts to overtake "+x[2]+".",(x)=>"في هذا الترتيب. "+x[1]+" نقطة لتتجاوز "+x[2]+"."],[/^Pseudo changé : (.+)\.$/,(x)=>"Username changed: "+x[1]+".",(x)=>"تم تغيير الاسم: "+x[1]+"."],[/^Email renvoyé à ton adresse\.$/,"Email sent again.","أُعيد إرسال البريد."],[/^Rejoins le groupe « (.+) » sur Geo Quizz : code (\w+)$/,(x)=>"Join the group \""+x[1]+"\" on Geo Quizz: code "+x[2],(x)=>"انضم إلى مجموعة «"+x[1]+"» على جيو كويز: الرمز "+x[2]],[/^(\d+)\/(\d+)$/,"$1/$2","$1/$2"],[/^([\d   ,.]+) pts · (\d+)\/(\d+)$/,"$1 pts · $2/$3","$1 نقطة · $2/$3"],[/^([\d   ,.]+) pts · terminé$/,"$1 pts · finished","$1 نقطة · انتهى"]]);
 async function boot(){
+ setLang(LANG);
  try{const t=localStorage.getItem("gq-theme");if(t)applyTheme(t)}catch(e){}
  if(AUTH){DB=RDB(FIREBASE_URL.replace(/\/+$/,""));return bootAuth()}
  if(REMOTE){
@@ -523,27 +674,69 @@ async function boot(){
 }
 const ZONES={world:"Monde entier",eu:"Europe",af:"Afrique",as:"Asie et Océanie",na:"Amérique du Nord et centrale",sa:"Amérique du Sud"};
 const ZG={world:["#0d9488","#2563eb"],eu:["#2563eb","#7c3aed"],af:["#f59e0b","#ef4444"],as:["#ef4444","#db2777"],na:["#10b981","#0d9488"],sa:["#16a34a","#65a30d"]};
-const ZN={};[["eu","FR DE ES IT PT GB BE CH NL IE LU AT MT SE NO DK FI IS EE LV LT PL CZ HU RO UA HR RS SK SI BG AL GR RU"],["af","MA DZ TN EG SN CI NG CM GH ML TD NE ZA KE ET MG"],["as","TR GE AM AZ IR IQ JO LB SA AE QA JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ AU NZ PG FJ SB VU"],["na","US CA MX CU PA CR GT HN NI SV DO HT JM"],["sa","BR AR CO VE PE CL EC BO PY UY"]] .forEach(([z,s])=>s.split(" ").forEach(c=>ZN[c]=z));
 const zcount=z=>C.filter(x=>z==="world"||ZN[x.c]===z).length;
 const SK=()=>S.mode==="cm"||S.mode==="mc"?S.mode+"_"+(S.zone||"world"):S.mode;
 const KL=k=>k==="all"?"Général · tous les jeux":/^(cm|mc)_/.test(k)?MODES[k.slice(0,2)]+" · "+ZONES[k.slice(3)]:(MODES[k]||k);
 const MK=["flag","pf","fc","cap","cp",...Object.keys(ZONES).map(z=>"cm_"+z),...Object.keys(ZONES).map(z=>"mc_"+z),"ct","mix","surv","chr"];
 const legacy=(d,m)=>d.b?Math.max(0,...[1,2,3,4].map(k=>+d.b[m+"-"+k]||0)):0;
 const bm=(d,m)=>Math.max(+(d.m&&d.m[m])||0,legacy(d,m));
-const tv=(d,m)=>m==="xp"?+d.x||0:m==="day"?(dayDone(d)?+d.dc.s||0:0):m==="all"?Math.max(...MK.filter(k=>k!=="surv").map(k=>bm(d,k))):bm(d,m);
+const tv=(d,m)=>m==="week"?(d.wk&&d.wk.w===wkKey()?+d.wk.s||0:0):m==="xp"?+d.x||0:m==="day"?(dayDone(d)?+d.dc.s||0:0):m==="all"?Math.max(...MK.filter(k=>k!=="surv").map(k=>bm(d,k))):bm(d,m);
+const wkKey=()=>{const d=new Date();d.setDate(d.getDate()-(d.getDay()+6)%7);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const BASEK=["flag","pf","fc","cap","cp","ct","mix","surv","chr"];
+const BADGES=[
+ ["first","Premiers pas","Jouer une première partie",d=>+d.p>=1,"#10b981"],
+ ["p10","Habitué","Jouer 10 parties",d=>+d.p>=10,"#10b981"],
+ ["p50","Passionné","Jouer 50 parties",d=>+d.p>=50,"#0d9488"],
+ ["p200","Infatigable","Jouer 200 parties",d=>+d.p>=200,"#0b5cad"],
+ ["s3","Régulier","Jouer 3 jours de suite",d=>+d.sb>=3,"#f59e0b"],
+ ["s7","Une semaine","Jouer 7 jours de suite",d=>+d.sb>=7,"#ef4444"],
+ ["s30","Un mois","Jouer 30 jours de suite",d=>+d.sb>=30,"#db2777"],
+ ["perf","Sans faute","Faire 20/20 dans une partie",d=>+(d.c&&d.c.perf)>=1,"#7c3aed"],
+ ["perf10","Perfectionniste","Faire 10 parties sans faute",d=>+(d.c&&d.c.perf)>=10,"#7c3aed"],
+ ["x4","Expert","3 étoiles en Très difficile",d=>+(d.c&&d.c.x4)>=1,"#e5484d"],
+ ["l5","Explorateur","Atteindre le niveau 5",d=>lvlOf(d.x)>=5,"#0b5cad"],
+ ["l10","Cartographe","Atteindre le niveau 10",d=>lvlOf(d.x)>=10,"#0b3c6f"],
+ ["day1","Rendez-vous","Jouer un défi du jour",d=>+(d.c&&d.c.dn)>=1,"#ffb703"],
+ ["day10","Fidèle","Jouer 10 défis du jour",d=>+(d.c&&d.c.dn)>=10,"#e8590c"],
+ ["surv","Survivant","20 bonnes réponses en Survie",d=>+(d.c&&d.c.sv)>=20,"#e5484d"],
+ ["chr","Éclair","20 bonnes réponses en Contre-la-montre",d=>+(d.c&&d.c.cr)>=20,"#f59e0b"],
+ ["tour","Touche-à-tout","Jouer à tous les types de jeu",d=>BASEK.every(k=>bm(d,k)>0)&&MK.some(k=>/^(cm|mc)_/.test(k)&&bm(d,k)>0),"#12a594"],
+ ["duel","Duelliste","Gagner un duel",d=>+(d.c&&d.c.dw)>=1,"#db2777"],
+ ["rev","Bon élève","Maîtriser 20 pays en révision",d=>+(d.c&&d.c.rm)>=20,"#16a34a"]];
+const badgesOf=d=>BADGES.filter(b=>b[3](d||{})).map(b=>b[0]);
+function applyJob(d,job){
+ const m={};MK.forEach(k=>{m[k]=bm(d,k)});
+ const rec=!["day","rev","duel"].includes(job.mode),old=rec?(m[job.sk]||0):0;
+ if(rec)m[job.sk]=Math.max(old,job.score);
+ const sn=d.sd===job.t?(+d.sn||1):d.sd===job.y?(+d.sn||0)+1:1,x0=+d.x||0,x=x0+job.score;
+ const c={...(d.c||{})},inc=(k,v=1)=>c[k]=(+c[k]||0)+v;
+ if(rec&&job.n>=20&&job.good>=job.n)inc("perf");
+ if(rec&&job.lv===4&&job.stars===3)inc("x4");
+ if(job.mode==="surv")c.sv=Math.max(+c.sv||0,job.good);
+ if(job.mode==="chr")c.cr=Math.max(+c.cr||0,job.good);
+ if(job.mode==="day")inc("dn");
+ if(job.mast.length)inc("rm",job.mast.length);
+ if(job.win)inc("dw");
+ let rv=(d.rv||[]).filter(k=>!job.mast.includes(k));rv=[...job.miss.filter(k=>!rv.includes(k)),...rv].slice(0,60);
+ const wk=d.wk&&d.wk.w===job.wk?{w:job.wk,s:(+d.wk.s||0)+job.score}:{w:job.wk,s:job.score};
+ const nd={...d,m,p:(+d.p||0)+1,x,sd:job.t,sn,sb:Math.max(+d.sb||0,sn),c,rv,wk};
+ if(job.mode==="day")nd.dc={d:job.t,s:job.score};
+ const had=new Set(Object.keys(d.bd||{})),nb=badgesOf(nd).filter(k=>!had.has(k));
+ if(nb.length){nd.bd={...(d.bd||{})};nb.forEach(k=>nd.bd[k]=job.t)}
+ return{nd,res:{best:job.mode==="day"?job.score:m[job.sk]||job.score,rec:rec&&job.score>old,lvUp:lvlOf(x)>lvlOf(x0),nb}};
+}
+const jobOf=()=>({mode:S.mode,sk:SK(),score:S.score,good:S.good,n:S.qs.length,lv:S.lv,stars:stars(),miss:S.miss.map(c=>c.c),mast:S.mast||[],win:!!S.duelWin,t:dk(),y:dk(-1),wk:wkKey()});
+async function saveJob(job){const ref=DB.collection("players").doc(S.uid),snap=await ref.get(),d=(snap.exists&&snap.data())||{},{nd,res}=applyJob(d,job);await ref.set(nd);S.me=nd;return res}
+const Q={get:()=>{try{return JSON.parse(LS("gq-q","[]"))}catch(e){return[]}},set:a=>LSset("gq-q",JSON.stringify(a))};
+async function flushQueue(){
+ if(!DB||!S.uid||S.flushing)return;const q=Q.get().filter(j=>j.uid===S.uid);if(!q.length)return;S.flushing=1;
+ try{for(const j of q){await saveJob(j);Q.set(Q.get().filter(x=>x.id!==j.id))}}catch(e){}S.flushing=0;
+}
+window.addEventListener("online",()=>flushQueue().then(()=>{if(S.view==="home")home()}));
 async function save(){
  if(!DB||!S.uid)return null;
- try{
-  const ref=DB.collection("players").doc(S.uid),snap=await ref.get(),d=(snap.exists&&snap.data())||{},m={};
-  MK.forEach(k=>{m[k]=bm(d,k)});
-  const sk=SK(),day=S.mode==="day",old=day?0:(m[sk]||0),t=dk();
-  if(!day)m[sk]=Math.max(old,S.score);
-  const sn=d.sd===t?(+d.sn||1):d.sd===dk(-1)?(+d.sn||0)+1:1,x0=+d.x||0,x=x0+S.score;
-  const nd={...d,m,p:(+d.p||0)+1,x,sd:t,sn,sb:Math.max(+d.sb||0,sn)};
-  if(day)nd.dc={d:t,s:S.score};
-  await ref.set(nd);S.me=nd;
-  return{best:day?S.score:m[sk],rec:!day&&S.score>old,lvUp:lvlOf(x)>lvlOf(x0)};
- }catch(e){return "err"}
+ const job=jobOf();
+ try{return await saveJob(job)}catch(e){if(REMOTE){Q.set([...Q.get(),{...job,uid:S.uid,id:Date.now()+"-"+Math.random()}]);return"queued"}return"err"}
 }
 async function standing(){
  try{
@@ -554,23 +747,25 @@ async function standing(){
 async function rank(){
  const t=S.rt=(S.rt||0)+1;S.view="rank";S.board=S.board||"all";S.rall=false;if(!S.pall)S.pall=null;drawRank();
  let all=[];
- try{if(DB){const snap=await DB.collection("players").get();all=docsOf(snap).filter(d=>d.data()&&d.data().u).map(d=>({id:d.id,d:d.data()}))}}catch(e){all=S.pall||[]}
+ S.rkErr=false;try{if(DB){const snap=await DB.collection("players").get();all=docsOf(snap).filter(d=>d.data()&&d.data().u).map(d=>({id:d.id,d:d.data()}))}}catch(e){all=S.pall||[];S.rkErr=!all.length}
  if(t!==S.rt||S.view!=="rank")return;
  S.pall=all;drawRank();
 }
 const GAMES=[["Drapeaux",["flag","pf","fc"]],["Capitales",["cap","cp"]],["Cartes",["cm","mc"]],["Défis",["ct","mix","surv","chr"]]];
 function drawRank(){
- const B=S.board,game=/^(cm|mc)_/.test(B)?B.slice(0,2):B,zone=/^(cm|mc)_/.test(B)?B.slice(3):"world",per=!["all","day","xp"].includes(B);
- const rows=S.pall===null?null:S.pall.map(p=>({id:p.id,s:tv(p.d,B),n:p.d.u,lv:lvlOf(p.d.x)})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s);
+ const B=S.board,game=/^(cm|mc)_/.test(B)?B.slice(0,2):B,zone=/^(cm|mc)_/.test(B)?B.slice(3):"world",per=!["all","day","xp","week"].includes(B);
+ const gs=(S.me&&S.me.g)||{};if(S.gsel&&!gs[S.gsel])S.gsel="";
+ const rows=S.pall===null?null:S.pall.filter(p=>!S.gsel||(p.d.g&&p.d.g[S.gsel])).map(p=>({id:p.id,s:tv(p.d,B),n:p.d.u,lv:lvlOf(p.d.x)})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s);
  const mi=rows?rows.findIndex(r=>r.id===S.uid):-1;
  const row=(r,i)=>`<div class="rr ${r.id===S.uid?"mine":""}"><span class="rkn">${i+1}</span><span class="rn">${esc(r.n)}${r.id===S.uid?" <em>moi</em>":""}</span><span class="rl">niv. ${r.lv}</span><b>${fmt(r.s)}</b></div>`;
  const pod=rows?rows.slice(0,3):[];
  let list="";
  if(rows&&rows.length>3){const lim=S.rall?rows.length:10;list=rows.slice(3,lim).map((r,i)=>row(r,i+3)).join("");if(!S.rall&&mi>=lim)list+=`<div class="rgap">…</div>`+row(rows[mi],mi)}
- app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>Classement<span>.</span></h1></div>
- <div class="chips" role="tablist">${[["all","Général"],["day","Du jour"],["xp","XP"],["game","Par jeu"]].map(([k,l])=>`<button role="tab" data-b="${k}" class="${(k==="game"?per:B===k)?"on":""}" aria-selected="${k==="game"?per:B===k}">${l}</button>`).join("")}</div>
+ app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>Classement<span>.</span></h1>${AUTH?`<button class="gear" id="grp" aria-label="Groupes" style="margin-inline-start:auto">${sv("users")}</button>`:""}</div>
+ ${AUTH&&Object.keys(gs).length?`<div class="rsel"><select id="gsel" aria-label="Joueurs affichés"><option value="">Tous les joueurs</option>${Object.entries(gs).map(([c,n])=>`<option value="${c}" ${S.gsel===c?"selected":""}>Groupe : ${esc(n)}</option>`).join("")}</select></div>`:""}
+ <div class="chips" role="tablist">${[["all","Général"],["week","Semaine"],["day","Du jour"],["xp","XP"],["game","Par jeu"]].map(([k,l])=>`<button role="tab" data-b="${k}" class="${(k==="game"?per:B===k)?"on":""}" aria-selected="${k==="game"?per:B===k}">${l}</button>`).join("")}</div>
  ${per?`<div class="rsel"><select id="bg" aria-label="Jeu">${GAMES.map(([g,ks])=>`<optgroup label="${g}">${ks.map(k=>`<option value="${k}" ${game===k?"selected":""}>${esc(MODES[k].split(" · ")[0])}</option>`).join("")}</optgroup>`).join("")}</select>${game==="cm"||game==="mc"?`<select id="bz" aria-label="Zone">${Object.keys(ZONES).map(z=>`<option value="${z}" ${zone===z?"selected":""}>${esc(ZONES[z])}</option>`).join("")}</select>`:""}</div>`:""}
- ${rows===null?`<div class="card"><p class="mute">Chargement…</p></div>`:!rows.length?`<div class="card"><p class="mute">${B==="day"?"Personne n’a encore joué le défi du jour.":"Aucun score ici pour l’instant."} Joue une partie pour ouvrir ce classement.</p></div>`:
+ ${rows===null?`<div class="card"><p class="mute">Chargement…</p></div>`:!rows.length?`<div class="card"><p class="mute">${S.rkErr?"Classement indisponible hors connexion.":B==="day"?"Personne n’a encore joué le défi du jour.":B==="week"?"Personne n’a encore joué cette semaine.":"Aucun score ici pour l’instant."} Joue une partie pour ouvrir ce classement.</p></div>`:
  `<div class="pod" style="${pod.length===1?"grid-template-columns:minmax(0,170px);justify-content:center":pod.length===2?"grid-template-columns:1fr 1.15fr":""}">${[1,0,2].filter(i=>pod[i]).map(i=>`<div class="pd p${i+1} ${pod[i].id===S.uid?"mine":""}"><span class="md">${i+1}</span><b class="pn2">${esc(pod[i].n)}</b><span class="ps">${fmt(pod[i].s)}</span></div>`).join("")}</div>
  ${list?`<div class="card rl0">${list}</div>`:""}
  <p class="rft">${pl(rows.length,"joueur classé","joueurs classés")}${mi>=0?` · tu es ${mi+1}${mi===0?"er":"e"}`:""}${rows.length>10?` · <button class="lk" id="ra">${S.rall?"Voir le top 10":"Voir tout"}</button>`:""}</p>`}
@@ -581,6 +776,7 @@ function drawRank(){
  if(bz)bz.onchange=()=>{S.board=game+"_"+bz.value;drawRank()};
  if(ra)ra.onclick=()=>{S.rall=!S.rall;drawRank()};
  if(y)y.onclick=startDay;
+ const gp=$("grp"),gl=$("gsel");if(gp)gp.onclick=()=>groupScreen();if(gl)gl.onchange=()=>{S.gsel=gl.value;drawRank()};
  $("hm").onclick=()=>{S.view="home";home()};
 }
 let MAPS=null;const MC={};
@@ -639,6 +835,40 @@ function mapSvg(x,ctx,th){
  }
  return MC[key]=`<svg viewBox="0 0 ${W} ${H}" style="display:block;width:100%;max-height:${th?96:230}px" role="img" aria-label="Carte du pays à deviner">${nb?`<path class="nb" d="${nb}" fill="var(--line)" stroke="var(--mute)" stroke-width=".5" stroke-linejoin="round"/>`:""}<path class="tg" d="${d}" fill="var(--acc)" fill-rule="evenodd" stroke="var(--acc)" stroke-width=".6" stroke-linejoin="round"/></svg>`;
 }
+function startRev(){
+ const rv=(S.me&&S.me.rv)||[];if(!rv.length)return home();
+ const r=rng(Date.now()%2147483647),codes=shuf(rv.slice(0,20),r),by=Object.fromEntries(C.map(x=>[x.c,x]));
+ S.mode="rev";S.sec=null;S.gid=(S.gid||0)+1;S.lv=1;
+ S.qs=codes.map(c=>by[c]).filter(Boolean).map(a=>{let m=REVK[Math.floor(r()*REVK.length)];if(capm(m)&&!a.k)m="flag";if(m==="ct")return{a,m,o:ZK};
+  const pp=C.filter(x=>x!==a&&x.z===a.z&&(!capm(m)||x.k));return{a,m,o:shuf([a,...shuf(pp,r).slice(0,3)],r)}});
+ S.qs.forEach(q=>{const i=new Image();i.src=`https://flagcdn.com/${q.a.c.toLowerCase()}.svg`});
+ S.i=0;S.score=0;S.good=0;S.combo=0;S.maxCombo=0;S.miss=[];S.mast=[];S.gain=0;S.res=null;showQ();
+}
+function settings(){
+ S.view="settings";
+ const opt=(id,cur,list)=>`<div class="segw" role="radiogroup">${list.map(([v,l])=>`<button role="radio" aria-checked="${String(cur)===String(v)}" class="${String(cur)===String(v)?"on":""}" data-${id}="${v}">${l}</button>`).join("")}</div>`;
+ app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>Réglages<span>.</span></h1></div>
+ <div class="card"><label>Apparence</label>${opt("th",S.theme,[["auto","Auto"],["light","Clair"],["dark","Sombre"]])}
+ <label style="margin-top:18px">Temps par question</label>${opt("ct",S.ct,[[10,"10 s"],[20,"20 s"],[0,"Sans chrono"]])}<p class="hint2">Le bonus de rapidité compte toujours sur 10 s. Le défi du jour, le duel et le contre-la-montre gardent leur chrono.</p>
+ <label style="margin-top:18px">Sons</label>${opt("snd",S.snd?1:0,[[1,"Activés"],[0,"Coupés"]])}
+ <label style="margin-top:18px">Vibrations</label>${opt("vib",S.vib?1:0,[[1,"Activées"],[0,"Coupées"]])}
+ <label style="margin-top:18px">Langue</label>${opt("lg",LANG,[["fr","Français"],["en","English"],["ar","العربية"]])}</div>
+ ${S.uid?`<div class="card"><label>${AUTH?"Compte":"Joueur"}</label><div class="pl"><span>${AUTH?"Pseudo":"Joueur"}</span><b>${esc(S.name||"")}</b></div>${AUTH?`<button class="btn alt" id="acc">Mon compte</button>`:""}<button class="btn alt" id="lo">${AUTH?"Se déconnecter":"Changer de joueur"}</button></div>`:""}`;
+ app.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{applyTheme(b.dataset.th);LSset("gq-theme",b.dataset.th);settings()});
+ app.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>{S.ct=+b.dataset.ct;LSset("gq-ct",S.ct);settings()});
+ app.querySelectorAll("[data-snd]").forEach(b=>b.onclick=()=>{S.snd=b.dataset.snd==="1";LSset("gq-snd",S.snd?"1":"0");if(S.snd)sfx("ok");settings()});
+ app.querySelectorAll("[data-vib]").forEach(b=>b.onclick=()=>{S.vib=b.dataset.vib==="1";LSset("gq-vib",S.vib?"1":"0");buzz(30);settings()});
+ app.querySelectorAll("[data-lg]").forEach(b=>b.onclick=()=>{setLang(b.dataset.lg);settings()});
+ const lo=$("lo"),ac=$("acc");if(ac)ac.onclick=accountScreen;if(lo)lo.onclick=()=>{if(AUTH)return signOut();try{localStorage.removeItem("gq-me")}catch(e){}S.uid=null;S.name="";S.me=null;nameScreen()};
+ $("hm").onclick=()=>{S.view="home";home()};
+}
+function badgeScreen(){
+ S.view="badges";const d=S.me||{},bd=d.bd||{},n=Object.keys(bd).length;
+ app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>Badges<span>.</span></h1></div>
+ <p class="sub">${n} sur ${BADGES.length} obtenus.</p>
+ <div class="bgrid">${BADGES.map(b=>`<div class="bdg ${bd[b[0]]?"on":""}" style="--bc:${b[4]}"><span>${sv(bd[b[0]]?"medal":"lock")}</span><div><b>${esc(b[1])}</b><small>${esc(b[2])}</small></div></div>`).join("")}</div>`;
+ $("hm").onclick=()=>{S.view="home";home()};
+}
 async function start(seed,lv){
  if((S.mode==="cm"||S.mode==="mc")&&!MAPS){
   S.view="load";app.innerHTML=`<div class="card"><p class="mute">Chargement des cartes…</p></div>`;
@@ -648,36 +878,57 @@ async function start(seed,lv){
   }
  }
  S.gid=(S.gid||0)+1;
- S.lv=lv;S.qs=build(seed,lv);S.i=0;S.score=0;S.good=0;S.combo=0;S.maxCombo=0;S.miss=[];S.gain=0;
+ S.lv=lv;S.qs=build(seed,lv);S.qs.slice(0,60).forEach(q=>{const i=new Image();i.src=`https://flagcdn.com/${q.a.c.toLowerCase()}.svg`});S.i=0;S.score=0;S.good=0;S.combo=0;S.maxCombo=0;S.miss=[];S.mast=[];S.gain=0;S.res=null;
  showQ();
 }
-function runTimer(){clearInterval(S.t);S.t=setInterval(()=>{S.left=Math.max(0,S.left-.1);const b=$("tm");if(b)b.style.width=(S.left/TT()*100)+"%";const t=$("ts");if(t)t.textContent=Math.ceil(S.left)+" s";if(S.left<=0){if(S.mode==="chr"){clearInterval(S.t);S.locked=true;finish()}else answer(null)}},100)}
-function showQ(){S.locked=false;S.pick=null;S.quit=false;S.hints=0;S.view="play";if(S.mode!=="chr"||S.i===0)S.left=TT();play();runTimer()}
+function runTimer(){clearInterval(S.t);if(!TT())return;S.t=setInterval(()=>{S.left=Math.max(0,S.left-.1);const b=$("tm");if(b)b.style.width=(S.left/TT()*100)+"%";const t=$("ts");if(t)t.textContent=Math.ceil(S.left)+" s";if(S.left<=0){if(S.mode==="chr"){clearInterval(S.t);S.locked=true;finish()}else answer(null)}},100)}
+function showQ(){S.locked=false;S.pick=null;S.quit=false;S.hints=0;S.view="play";S.qt0=performance.now();if(S.mode!=="chr"||S.i===0)S.left=TT();play();runTimer()}
 function askQuit(){if(S.locked)return;S.quit=true;clearInterval(S.t);play()}
 function resumeGame(){S.quit=false;play();if(!S.locked)runTimer()}
-function quitGame(){S.gid=(S.gid||0)+1;clearInterval(S.t);S.quit=false;if(S.sec)menu(S.sec);else{S.view="home";home()}}
+function quitGame(){S.gid=(S.gid||0)+1;clearInterval(S.t);if(S.mode==="duel"){stopPoll();S.duel=null}S.quit=false;if(S.sec)menu(S.sec);else{S.view="home";home()}}
 function play(){
  const q=S.qs[S.i],m=q.m,F="'Bricolage Grotesque','DM Sans',sans-serif";
  const head=m==="mc"?mapSvg(q.a,S.lv<=2,false):m==="pf"||m==="cp"||m==="cm"?`<div style="font:800 2rem ${F};padding:14px 0">${esc(m==="cp"?q.a.k:q.a.n)}</div>`:flag(q.a.c)+(m==="cap"||m==="ct"?`<div style="font:800 1.5rem ${F};margin-top:6px">${esc(q.a.n)}</div>`:"");
  const lab=o=>m==="cm"?mapSvg(o,S.lv<=2,true):m==="pf"?flag(o.c):m==="cp"?`<span style="display:block;font-size:2rem;line-height:1.3;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">${flag(o.c)}</span>${esc(o.n)}`:m==="ct"?esc(ZONES[o]):esc(m==="cap"||m==="fc"?o.k:o.n);
- app.innerHTML=`<div class="top"><span>${S.mode==="surv"?`Survie · question ${S.i+1}`:S.mode==="chr"?`Chrono · question ${S.i+1}`:`Question ${S.i+1}/${S.qs.length}`}</span><span>${S.combo>=2?`<span class="combo">${sv("fire")}${S.combo}</span>`:""}<b>${fmt(S.score)}</b> pts${S.locked&&S.gain?`<span class="gain">+${S.gain}</span>`:""}</span></div>
- <div class="bar"><i id="tm" style="width:${S.left/TT()*100}%"></i></div>
+ app.innerHTML=`<div class="top"><span>${S.mode==="rev"?`Révision · ${S.i+1}/${S.qs.length}`:S.mode==="surv"?`Survie · question ${S.i+1}`:S.mode==="chr"?`Chrono · question ${S.i+1}`:`Question ${S.i+1}/${S.qs.length}`}</span><span>${S.combo>=2?`<span class="combo">${sv("fire")}${S.combo}</span>`:""}<b>${fmt(S.score)}</b> pts${S.locked&&S.gain?`<span class="gain">+${S.gain}</span>`:""}</span></div>
+ ${TT()?`<div class="bar"><i id="tm" style="width:${S.left/TT()*100}%"></i></div>`:""}
  <div class="card flag" style="margin-top:14px">${head}</div>
- <div class="top"><span class="mute">${{flag:"À quel pays appartient ce drapeau ?",cap:"Quelle est sa capitale ?",pf:"Quel est son drapeau ?",cp:"De quel pays est-ce la capitale ?",cm:"Quelle est la carte de ce pays ?",fc:"Quelle est la capitale de ce pays ?",mc:"Quel pays est représenté sur cette carte ?",ct:"Sur quel continent se trouve ce pays ?"}[m]}</span><span id="ts" class="mute">${Math.ceil(S.left)} s</span></div>
+ <div class="top"><span class="mute">${{flag:"À quel pays appartient ce drapeau ?",cap:"Quelle est sa capitale ?",pf:"Quel est son drapeau ?",cp:"De quel pays est-ce la capitale ?",cm:"Quelle est la carte de ce pays ?",fc:"Quelle est la capitale de ce pays ?",mc:"Quel pays est représenté sur cette carte ?",ct:"Sur quel continent se trouve ce pays ?"}[m]}</span>${TT()?`<span id="ts" class="mute">${Math.ceil(S.left)} s</span>`:""}</div>
  <div class="opts">${q.o.map((o,k)=>{let c="";if(S.locked){if(right(q,o))c="ok";else if(k===S.pick)c="no"}return `<button class="opt ${c} ${m==="pf"?"fl":m==="cm"?"mp":""}" data-k="${k}">${lab(o)}</button>`}).join("")}</div>
- <button class="btn alt" id="qt" style="margin-top:14px" ${S.locked?"disabled":""}>Quitter la partie</button>
+ ${S.mode==="rev"&&S.locked?`<div class="card info">${flag(q.a.c)}<div><b>${esc(q.a.n)}</b><small>${q.a.k?"Capitale : "+esc(q.a.k)+" · ":""}${esc(ZONES[ZN[q.a.c]])}</small></div></div><button class="btn" id="nx">${S.i+1<S.qs.length?"Question suivante":"Voir le bilan"}</button>`:""}
+ ${S.mode==="duel"&&S.duel?duelBar():""}
+ <button class="btn alt" id="qt" style="margin-top:14px" ${S.locked&&S.mode!=="rev"?"disabled":""}>${S.mode==="rev"?"Arrêter la révision":"Quitter la partie"}</button>
  ${S.quit?`<div class="ov"><div class="card"><b>Quitter la partie ?</b><p class="mute">${S.mode==="day"?"Le défi du jour ne se joue qu’une fois : si tu quittes, ton score du jour restera à 0.":"Ta progression sera perdue et ce score ne sera pas enregistré."}</p><button class="btn" id="qc">Continuer</button><button class="btn alt" id="qy">Quitter</button></div></div>`:""}`;
  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.k));
- $("qt").onclick=askQuit;
+ $("qt").onclick=S.mode==="rev"?()=>{S.gid++;finish()}:askQuit;
+ const nx=$("nx");if(nx){nx.onclick=()=>nextQ(true);nx.focus()}
  if(S.quit){$("qc").onclick=resumeGame;$("qy").onclick=quitGame}
 }
 function answer(k){
  if(S.locked)return;S.locked=true;clearInterval(S.t);S.pick=k;
- const q=S.qs[S.i],good=k!==null&&right(q,q.o[k]);
- S.gain=0;if(good){S.good++;S.combo++;S.maxCombo=Math.max(S.maxCombo,S.combo);S.gain=Math.round((100+(S.mode==="chr"?0:50*S.left/LV[S.lv].time))*LV[S.lv].coef);S.score+=S.gain}else{S.combo=0;if(!S.miss.includes(q.a))S.miss.push(q.a)}
+ const q=S.qs[S.i],good=k!==null&&right(q,q.o[k]),el=TT()?TT()-S.left:(performance.now()-S.qt0)/1000;
+ S.gain=0;
+ if(good){S.good++;S.combo++;S.maxCombo=Math.max(S.maxCombo,S.combo);S.gain=S.mode==="rev"?10:Math.round((100+(S.mode==="chr"?0:50*Math.max(0,10-el)/10))*(S.mode==="duel"?2:LV[S.lv].coef));S.score+=S.gain;if(S.mode==="rev")S.mast.push(q.a.c)}
+ else{S.combo=0;if(!S.miss.includes(q.a))S.miss.push(q.a)}
+ fb(good);
+ if(S.mode==="duel")duelProgress();
  play();
- const g=S.gid||0;setTimeout(()=>{if(g!==(S.gid||0)||S.view!=="play")return;S.i++;if(S.i>=S.qs.length||(S.mode==="surv"&&!good))finish();else showQ()},S.mode==="chr"?450:1200);
+ if(S.mode==="rev")return;
+ const g=S.gid||0;setTimeout(()=>{if(g!==(S.gid||0)||S.view!=="play")return;nextQ(good)},S.mode==="chr"?450:1200);
 }
+function nextQ(good){S.i++;if(S.i>=S.qs.length||(S.mode==="surv"&&!good))finish();else showQ()}
+let AC=null;
+function tone(f,t0,d,type="sine",g=.12){const c=AC,o=c.createOscillator(),v=c.createGain();o.type=type;o.frequency.setValueAtTime(f,c.currentTime+t0);v.gain.setValueAtTime(0,c.currentTime+t0);v.gain.linearRampToValueAtTime(g,c.currentTime+t0+.01);v.gain.exponentialRampToValueAtTime(.0001,c.currentTime+t0+d);o.connect(v).connect(c.destination);o.start(c.currentTime+t0);o.stop(c.currentTime+t0+d+.02)}
+function sfx(k){
+ if(!S.snd)return;
+ try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume();
+  if(k==="ok"){tone(660,0,.12,"triangle");tone(990,.08,.16,"triangle")}
+  else if(k==="no"){tone(220,0,.22,"sawtooth",.07);tone(165,.1,.25,"sawtooth",.06)}
+  else if(k==="end"){[523,659,784,1047].forEach((f,i)=>tone(f,i*.11,.22,"triangle"))}
+  else if(k==="badge"){[784,988,1175,1568].forEach((f,i)=>tone(f,i*.08,.2,"sine",.1))}}catch(e){}
+}
+const buzz=p=>{if(S.vib&&navigator.vibrate)try{navigator.vibrate(p)}catch(e){}};
+function fb(good){sfx(good?"ok":"no");buzz(good?15:[40,40,60])}
 const isRec=()=>S.uid?!!(S.res&&S.res.rec):!!S.sessRec;
 function confetti(){
  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
@@ -686,24 +937,37 @@ function confetti(){
  for(let i=0;i<46;i++){const p=document.createElement("i");p.style.cssText=`left:${Math.random()*100}%;background:${cols[i%6]};width:${6+Math.random()*6}px;height:${10+Math.random()*8}px;animation-delay:${Math.random()*.5}s;animation-duration:${1.8+Math.random()*1.4}s;--dx:${(Math.random()-.5)*160}px`;box.appendChild(p)}
  document.body.appendChild(box);setTimeout(()=>box.remove(),3600);
 }
-async function finish(){clearInterval(S.t);S.fx=0;S.er=0;S.view="end";S.res=null;S.st=null;end();const g=S.gid;S.res=await save();if(S.view!=="end"||g!==S.gid)return;end();S.st=await standing();if(S.view==="end"&&g===S.gid)end()}
+async function finish(){clearInterval(S.t);S.fx=0;S.er=0;S.view="end";S.res=null;S.st=null;if(S.mode==="duel")return duelFinish();end();const g=S.gid;S.res=await save();if(S.view!=="end"||g!==S.gid)return;if(S.res&&S.res.nb&&S.res.nb.length)sfx("badge");else if(S.mode!=="rev")sfx("end");end();if(S.mode==="rev"||!S.res||!S.res.best)return;S.st=await standing();if(S.view==="end"&&g===S.gid)end()}
 function stars(){const g=S.good||0,n=S.qs.length;return S.mode==="surv"?(g>=20?3:g>=10?2:g>=5?1:0):S.mode==="chr"?(g>=25?3:g>=15?2:g>=8?1:0):(g>=n*.9?3:g>=n*.6?2:g>=n*.3?1:0)}
+const badgeCard=nb=>nb&&nb.length?`<div class="card nbd">${nb.map(id=>{const b=BADGES.find(x=>x[0]===id);return `<div class="bdg on" style="--bc:${b[4]}"><span>${sv("medal")}</span><div><b>Badge obtenu : ${esc(b[1])}</b><small>${esc(b[2])}</small></div></div>`}).join("")}</div>`:"";
+function endRev(){
+ const left=((S.me&&S.me.rv)||[]).length,r=S.res&&S.res.best!==undefined?S.res:null;
+ app.innerHTML=`<h1>Révision terminée<span>.</span></h1><p class="sub">${S.good} bonne${S.good>1?"s":""} réponse${S.good>1?"s":""} sur ${S.i+(S.locked?1:0)}.</p>
+ <div class="card" style="text-align:center"><div class="stats"><div class="st"><b>${S.mast.length}</b><small>pays maîtrisés</small></div><div class="st"><b>${S.miss.length}</b><small>encore ratés</small></div><div class="st"><b>${r?left:"…"}</b><small>à revoir en tout</small></div></div>
+ ${r?`<p class="mute" style="margin:12px 0 0">+${fmt(S.score)} XP</p>`:S.res==="err"||S.res==="queued"?`<p class="mute" style="margin:12px 0 0">Hors connexion : la révision sera enregistrée au retour d’internet.</p>`:`<p class="mute" style="margin:12px 0 0">Enregistrement…</p>`}</div>
+ ${r?badgeCard(r.nb):""}
+ ${r&&left?`<button class="btn" id="again">Continuer à réviser</button>`:""}<button class="btn alt" id="hm">Accueil</button>`;
+ const ag=$("again");if(ag)ag.onclick=startRev;$("hm").onclick=()=>{S.view="home";home()};
+}
 function end(){
+ if(S.mode==="rev")return endRev();
  const r=S.res&&S.res.best!==undefined?S.res:null,long=S.mode==="surv"||S.mode==="chr",day=S.mode==="day",sn=stars(),d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=S.st,sk=streakOf(d),first=!S.er;S.er=1;
  app.innerHTML=`<h1>${sn===3?"Bravo":"Terminé"}<span>.</span></h1><p class="sub">${KL(SK())}${day?"":" · "+LV[S.lv].n}</p>
  <div class="card" style="text-align:center">${r&&r.rec?`<div class="badge">Nouveau record</div>`:""}<div class="stars" role="img" aria-label="${sn} étoiles sur 3">${[1,2,3].map(i=>`<svg viewBox="0 0 24 24" class="${i<=sn?"on":""}">${P.star}</svg>`).join("")}</div><div class="big ${first?"pop":""}">${fmt(S.score)}</div><p class="mute" style="margin:2px 0 14px">points</p>
  <div class="stats"><div class="st"><b>${S.good}${long?"":"/"+S.qs.length}</b><small>bonnes réponses</small></div><div class="st"><b>${S.maxCombo||0}</b><small>à la suite</small></div><div class="st"><b>${r&&!day?fmt(r.best):"+"+fmt(S.score)}</b><small>${r&&!day?"mon record":"XP gagnés"}</small></div></div>
- ${r?"":S.res==="err"?`<p class="err">Score non enregistré. Vérifie ta connexion puis rejoue.</p>`:`<p class="mute" style="margin:12px 0 0">Enregistrement…</p>`}</div>
+ ${r?"":S.res==="queued"?`<p class="mute" style="margin:12px 0 0">Hors connexion : ton score sera enregistré dès le retour d’internet.</p>`:S.res==="err"?`<p class="err">Score non enregistré. Vérifie ta connexion puis rejoue.</p>`:`<p class="mute" style="margin:12px 0 0">Enregistrement…</p>`}</div>
+ ${r?badgeCard(r.nb):""}
  ${r?`<div class="card"><div class="top"><span><b>Niveau ${L}</b> · ${titleOf(L)}</span><span class="mute" style="font-size:.82rem">+${fmt(S.score)} XP</span></div><div class="bar"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><p class="mute" style="text-align:left;margin:8px 0 0">${r.lvUp?`<b class="up">Niveau ${L} atteint.</b> `:""}Encore ${fmt(b-x)} XP pour le niveau ${L+1}.</p></div>
  <p class="strk on">${sv("fire")}<span>Série de ${pl(sk,"jour","jours")}. Reviens demain pour la prolonger.</span></p>`:""}
  ${st?`<div class="card"><b>${st.pos}${st.pos===1?"er":"e"} sur ${st.n}</b> dans ce classement. ${st.up?`Encore ${fmt(st.up.s-(day?S.score:r?r.best:S.score)+1)} pts pour dépasser ${esc(st.up.n)}.`:"Personne devant toi."}</div>`:""}
- ${S.miss.length?`<details class="card rv"><summary>À revoir : ${pl(S.miss.length,"pays","pays")}</summary>${S.miss.map(c=>`<div class="pl"><span>${flag(c.c)} ${esc(c.n)}</span><b>${esc(c.k)} · ${esc(ZONES[ZN[c.c]])}</b></div>`).join("")}</details>`:""}
+ ${S.miss.length?`<details class="card rv"><summary>À revoir : ${pl(S.miss.length,"pays","pays")} (ajoutés à ta révision)</summary>${S.miss.map(c=>`<div class="pl"><span>${flag(c.c)} ${esc(c.n)}</span><b>${c.k?esc(c.k)+" · ":""}${esc(ZONES[ZN[c.c]])}</b></div>`).join("")}</details>`:""}
  ${day?`<button class="btn" id="rk">Voir le classement du jour</button>`:`<button class="btn" id="again">Rejouer</button>${sn===3&&S.lv<4?`<button class="btn alt" id="up">Passer en ${LV[S.lv+1].n}</button>`:""}<button class="btn alt" id="rk">Voir le classement</button>`}<button class="btn alt" id="hm">Accueil</button>`;
- if(r&&(r.rec||r.lvUp)&&!S.fx){S.fx=1;confetti()}
+ if(r&&(r.rec||r.lvUp||(r.nb&&r.nb.length))&&!S.fx){S.fx=1;confetti()}
  const ag=$("again"),up=$("up");
  if(ag)ag.onclick=()=>start(Date.now()%2147483647,S.lv);
  if(up)up.onclick=()=>start(Date.now()%2147483647,S.lv+1);
  $("rk").onclick=()=>{S.board=SK();rank()};$("hm").onclick=()=>{S.view="home";home()};
 }
 boot();
+if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script></body></html>
