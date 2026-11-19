@@ -216,7 +216,18 @@ input:focus,select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 4
 .lgh{display:flex;gap:12px;align-items:center;border-inline-start:5px solid var(--lc)}.lgh b{display:block;font:800 1.1rem var(--D)}.lgh small{color:var(--mute);font-size:.82rem}
 .lgm{width:40px;height:40px;border-radius:12px;background:var(--lc);display:grid;place-items:center;flex:none}.lgm svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .rr.zu{box-shadow:inset 3px 0 0 var(--ok)}.rr.zd{box-shadow:inset 3px 0 0 var(--bad)}[dir=rtl] .rr.zu{box-shadow:inset -3px 0 0 var(--ok)}[dir=rtl] .rr.zd{box-shadow:inset -3px 0 0 var(--bad)}
-@media (prefers-reduced-motion:reduce){.btn,.opt,.tile,.nav,.dz{transition:none}.opt.no,.gain{animation:none}}
+.blurimg{transition:filter .1s linear}
+.typed input{font-size:1.15rem;padding:14px;text-align:center;background:var(--card);border-width:2px}.typed .btn{margin-top:10px}
+.typedr{text-align:center;border-inline-start:5px solid var(--ok)}.typedr.b{border-inline-start-color:var(--bad)}.typedr b{display:block;font:800 1.15rem var(--D)}.typedr small{color:var(--mute)}
+.zcard{padding:6px;overflow:hidden}.zmap{display:block;width:100%;height:auto;max-height:62vh;touch-action:manipulation}
+.zmap path{stroke:var(--edge);stroke-width:.5;stroke-linejoin:round;vector-effect:non-scaling-stroke}.zmap .zo{fill:var(--line);opacity:.55}.zmap .zc{fill:var(--card);cursor:pointer;stroke:var(--mute)}
+.zmap .zc:hover{fill:color-mix(in srgb,var(--acc) 25%,var(--card))}.zmap .ok{fill:var(--ok)!important}.zmap .no{fill:var(--bad)!important}
+.opt.tfb{font:800 1.3rem var(--D);min-height:70px}
+.lgsel{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px}
+.lgsel button{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:700;font-size:.74rem;color:var(--ink);box-shadow:0 3px 0 var(--edge);min-width:0}
+.lgsel button i{width:18px;height:18px;border-radius:50%;background:var(--lc);box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}.lgsel button span{max-width:100%;overflow:hidden;text-overflow:ellipsis}.lgsel button small{color:var(--mute);font-weight:500;font-size:.7rem}
+.lgsel button.on{border-color:var(--lc);box-shadow:0 0 0 2px var(--lc)}.lgme{display:block;margin-top:2px;font-weight:700;color:var(--ink)!important}
+@media (prefers-reduced-motion:reduce){.blurimg{transition:none}.btn,.opt,.tile,.nav,.dz{transition:none}.opt.no,.gain{animation:none}}
 </style></head>
 <body><main id="app"></main>
 <script src="config.js"></script>
@@ -229,9 +240,9 @@ const REMOTE=!!FIREBASE_URL;
 const DATA="FR|France|1|Paris|250|eu|Paris|باريس;DE|Allemagne|1|Berlin|276|eu|Berlin|برلين;ES|Espagne|1|Madrid|724|eu|Madrid|مدريد;IT|Italie|1|Rome|380|eu|Rome|روما;PT|Portugal|1|Lisbonne|620|eu|Lisbon|لشبونة;GB|Royaume-Uni|1|Londres|826|eu|London|لندن;US|États-Unis|1|Washington|840|na|Washington, D.C.|واشنطن;CA|Canada|1|Ottawa|124|na|Ottawa|أوتاوا;BR|Brésil|1|Brasilia|76|sa|Brasília|برازيليا;AR|Argentine|1|Buenos Aires|32|sa|Buenos Aires|بوينس آيرس;MX|Mexique|1|Mexico|484|na|Mexico City|مكسيكو;JP|Japon|1|Tokyo|392|as|Tokyo|طوكيو;CN|Chine|1|Pékin|156|as|Beijing|بكين;IN|Inde|1|New Delhi|356|as|New Delhi|نيودلهي;RU|Russie|1|Moscou|643|eu|Moscow|موسكو;MA|Maroc|1|Rabat|504|af|Rabat|الرباط;DZ|Algérie|1|Alger|12|af|Algiers|الجزائر;TN|Tunisie|1|Tunis|788|af|Tunis|تونس;EG|Égypte|1|Le Caire|818|af|Cairo|القاهرة;SN|Sénégal|1|Dakar|686|af|Dakar|داكار;ZA|Afrique du Sud|1|Pretoria|710|af|Pretoria|بريتوريا;AU|Australie|1|Canberra|36|as|Canberra|كانبرا;TR|Turquie|1|Ankara|792|as|Ankara|أنقرة;SA|Arabie saoudite|1|Riyad|682|as|Riyadh|الرياض;BE|Belgique|1|Bruxelles|56|eu|Brussels|بروكسل;CH|Suisse|1|Berne|756|eu|Bern|برن;NL|Pays-Bas|1|Amsterdam|528|eu|Amsterdam|أمستردام;SE|Suède|1|Stockholm|752|eu|Stockholm|ستوكهولم;GR|Grèce|1|Athènes|300|eu|Athens|أثينا;KR|Corée du Sud|1|Séoul|410|as|Seoul|سول;CI|Côte d’Ivoire|1|Yamoussoukro|384|af|Yamoussoukro|ياموسوكرو;NG|Nigeria|1|Abuja|566|af|Abuja|أبوجا;CM|Cameroun|1|Yaoundé|120|af|Yaoundé|ياوندي;CO|Colombie|1|Bogota|170|sa|Bogotá|بوغوتا;IE|Irlande|1|Dublin|372|eu|Dublin|دبلن;PL|Pologne|1|Varsovie|616|eu|Warsaw|وارسو;NO|Norvège|2|Oslo|578|eu|Oslo|أوسلو;DK|Danemark|2|Copenhague|208|eu|Copenhagen|كوبنهاغن;FI|Finlande|2|Helsinki|246|eu|Helsinki|هلسنكي;AT|Autriche|2|Vienne|40|eu|Vienna|فيينا;CZ|Tchéquie|2|Prague|203|eu|Prague|براغ;HU|Hongrie|2|Budapest|348|eu|Budapest|بودابست;RO|Roumanie|2|Bucarest|642|eu|Bucharest|بوخارست;UA|Ukraine|2|Kiev|804|eu|Kyiv|كييف;HR|Croatie|2|Zagreb|191|eu|Zagreb|زغرب;RS|Serbie|2|Belgrade|688|eu|Belgrade|بلغراد;IR|Iran|2|Téhéran|364|as|Tehran|طهران;IQ|Irak|2|Bagdad|368|as|Baghdad|بغداد;JO|Jordanie|2|Amman|400|as|Amman|عمّان;LB|Liban|2|Beyrouth|422|as|Beirut|بيروت;QA|Qatar|2|Doha|634|as|Doha|الدوحة;AE|Émirats arabes unis|2|Abou Dabi|784|as|Abu Dhabi|أبوظبي;PK|Pakistan|2|Islamabad|586|as|Islamabad|إسلام آباد;TH|Thaïlande|2|Bangkok|764|as|Bangkok|بانكوك;VN|Viêt Nam|2|Hanoï|704|as|Hanoi|هانوي;ID|Indonésie|2|Jakarta|360|as|Jakarta|جاكرتا;PH|Philippines|2|Manille|608|as|Manila|مانيلا;NZ|Nouvelle-Zélande|2|Wellington|554|as|Wellington|ولينغتون;CL|Chili|2|Santiago|152|sa|Santiago|سانتياغو;PE|Pérou|2|Lima|604|sa|Lima|ليما;VE|Venezuela|2|Caracas|862|sa|Caracas|كاراكاس;CU|Cuba|2|La Havane|192|na|Havana|هافانا;KE|Kenya|2|Nairobi|404|af|Nairobi|نيروبي;GH|Ghana|2|Accra|288|af|Accra|أكرا;ET|Éthiopie|2|Addis-Abeba|231|af|Addis Ababa|أديس أبابا;IS|Islande|3|Reykjavik|352|eu|Reykjavík|ريكيافيك;LU|Luxembourg|3|Luxembourg|442|eu|Luxembourg|لوكسمبورغ;MT|Malte|3|La Valette|470|eu|Valletta|فاليتا;EE|Estonie|3|Tallinn|233|eu|Tallinn|تالين;LV|Lettonie|3|Riga|428|eu|Riga|ريغا;LT|Lituanie|3|Vilnius|440|eu|Vilnius|فيلنيوس;SK|Slovaquie|3|Bratislava|703|eu|Bratislava|براتيسلافا;SI|Slovénie|3|Ljubljana|705|eu|Ljubljana|ليوبليانا;BG|Bulgarie|3|Sofia|100|eu|Sofia|صوفيا;AL|Albanie|3|Tirana|8|eu|Tirana|تيرانا;GE|Géorgie|3|Tbilissi|268|as|Tbilisi|تبليسي;AM|Arménie|3|Erevan|51|as|Yerevan|يريفان;AZ|Azerbaïdjan|3|Bakou|31|as|Baku|باكو;KZ|Kazakhstan|3|Astana|398|as|Astana|أستانا;MN|Mongolie|3|Oulan-Bator|496|as|Ulaanbaatar|أولان باتور;NP|Népal|3|Katmandou|524|as|Kathmandu|كاتماندو;LK|Sri Lanka|3|Sri Jayawardenepura Kotte|144|as|Sri Jayawardenepura Kotte|سري جاياواردنابورا كوتي;BD|Bangladesh|3|Dacca|50|as|Dhaka|دكا;MM|Myanmar|3|Naypyidaw|104|as|Naypyidaw|نايبيداو;KH|Cambodge|3|Phnom Penh|116|as|Phnom Penh|بنوم بنه;MG|Madagascar|3|Antananarivo|450|af|Antananarivo|أنتاناناريفو;ML|Mali|3|Bamako|466|af|Bamako|باماكو;TD|Tchad|3|N’Djamena|148|af|N'Djamena|نجامينا;NE|Niger|3|Niamey|562|af|Niamey|نيامي;BO|Bolivie|3|Sucre|68|sa|Sucre|سوكري;PY|Paraguay|3|Asunción|600|sa|Asunción|أسونسيون;UY|Uruguay|3|Montevideo|858|sa|Montevideo|مونتيفيديو;EC|Équateur|3|Quito|218|sa|Quito|كيتو;PG|Papouasie-Nouvelle-Guinée|3|Port Moresby|598|as|Port Moresby|بورت مورسبي;FJ|Fidji|3|Suva|242|as|Suva|سوفا;SB|Îles Salomon|3|Honiara|90|as|Honiara|هونيارا;VU|Vanuatu|3|Port-Vila|548|as|Port Vila|بورت فيلا;PA|Panama|3|Panama|591|na|Panama City|بنما;CR|Costa Rica|3|San José|188|na|San José|سان خوسيه;GT|Guatemala|3|Guatemala|320|na|Guatemala City|غواتيمالا;HN|Honduras|3|Tégucigalpa|340|na|Tegucigalpa|تيغوسيغالبا;NI|Nicaragua|3|Managua|558|na|Managua|ماناغوا;SV|Salvador|3|San Salvador|222|na|San Salvador|سان سلفادور;DO|République dominicaine|3|Saint-Domingue|214|na|Santo Domingo|سانتو دومينغو;HT|Haïti|3|Port-au-Prince|332|na|Port-au-Prince|بورت أو برانس;JM|Jamaïque|3|Kingston|388|na|Kingston|كينغستون;BY|Biélorussie|3|Minsk|112|eu|Minsk|مينسك;BA|Bosnie-Herzégovine|3|Sarajevo|70|eu|Sarajevo|سراييفو;CY|Chypre|3|Nicosie|196|eu|Nicosia|نيقوسيا;MC|Monaco|3|Monaco|492|eu|Monaco|موناكو;AF|Afghanistan|3|Kaboul|4|as|Kabul|كابل;KP|Corée du Nord|3|Pyongyang|408|as|Pyongyang|بيونغيانغ;KW|Koweït|3|Koweït|414|as|Kuwait City|مدينة الكويت;MY|Malaisie|3|Kuala Lumpur|458|as|Kuala Lumpur|كوالالمبور;SG|Singapour|3|Singapour|702|as|Singapore|سنغافورة;SY|Syrie|3|Damas|760|as|Damascus|دمشق;YE|Yémen|3|Sanaa|887|as|Sanaa|صنعاء;AO|Angola|3|Luanda|24|af|Luanda|لواندا;BF|Burkina Faso|3|Ouagadougou|854|af|Ouagadougou|واغادوغو;CD|RD Congo|3|Kinshasa|180|af|Kinshasa|كينشاسا;LY|Libye|3|Tripoli|434|af|Tripoli|طرابلس;MR|Mauritanie|3|Nouakchott|478|af|Nouakchott|نواكشوط;SD|Soudan|3|Khartoum|729|af|Khartoum|الخرطوم;TZ|Tanzanie|3|Dodoma|834|af|Dodoma|دودوما;UG|Ouganda|3|Kampala|800|af|Kampala|كمبالا;ZW|Zimbabwe|3|Harare|716|af|Harare|هراري;AD|Andorre|4|Andorre-la-Vieille|20|eu|Andorra la Vella|أندورا لا فيلا;LI|Liechtenstein|4|Vaduz|438|eu|Vaduz|فادوز;MD|Moldavie|4|Chișinău|498|eu|Chișinău|كيشيناو;ME|Monténégro|4|Podgorica|499|eu|Podgorica|بودغوريتسا;MK|Macédoine du Nord|4|Skopje|807|eu|Skopje|سكوبيه;SM|Saint-Marin|4|Saint-Marin|674|eu|San Marino|سان مارينو;BH|Bahreïn|4|Manama|48|as|Manama|المنامة;BT|Bhoutan|4|Thimphou|64|as|Thimphu|تيمفو;BN|Brunei|4|Bandar Seri Begawan|96|as|Bandar Seri Begawan|بندر سري بكاوان;KG|Kirghizistan|4|Bichkek|417|as|Bishkek|بيشكيك;LA|Laos|4|Vientiane|418|as|Vientiane|فيينتيان;MV|Maldives|4|Malé|462|as|Malé|ماليه;OM|Oman|4|Mascate|512|as|Muscat|مسقط;TJ|Tadjikistan|4|Douchanbé|762|as|Dushanbe|دوشنبه;TL|Timor oriental|4|Dili|626|as|Dili|ديلي;TM|Turkménistan|4|Achgabat|795|as|Ashgabat|عشق آباد;UZ|Ouzbékistan|4|Tachkent|860|as|Tashkent|طشقند;KI|Kiribati|4|Tarawa-Sud|296|as|South Tarawa|تاراوا الجنوبية;MH|Îles Marshall|4|Majuro|584|as|Majuro|ماجورو;FM|Micronésie|4|Palikir|583|as|Palikir|باليكير;NR|Nauru|4|Yaren|520|as|Yaren|يارين;PW|Palaos|4|Ngerulmud|585|as|Ngerulmud|نغيرولمود;WS|Samoa|4|Apia|882|as|Apia|آبيا;TO|Tonga|4|Nukuʻalofa|776|as|Nukuʻalofa|نوكوألوفا;TV|Tuvalu|4|Funafuti|798|as|Funafuti|فونافوتي;AG|Antigua-et-Barbuda|4|Saint John’s|28|na|Saint John's|سانت جونز;BS|Bahamas|4|Nassau|44|na|Nassau|ناساو;BB|Barbade|4|Bridgetown|52|na|Bridgetown|بريدجتاون;BZ|Belize|4|Belmopan|84|na|Belmopan|بلموبان;DM|Dominique|4|Roseau|212|na|Roseau|روسو;GD|Grenade|4|Saint-Georges|308|na|St. George's|سانت جورجز;KN|Saint-Christophe-et-Niévès|4|Basseterre|659|na|Basseterre|باستير;LC|Sainte-Lucie|4|Castries|662|na|Castries|كاستريس;VC|Saint-Vincent-et-les-Grenadines|4|Kingstown|670|na|Kingstown|كينغزتاون;TT|Trinité-et-Tobago|4|Port-d’Espagne|780|na|Port of Spain|بورت أوف سبين;GY|Guyana|4|Georgetown|328|sa|Georgetown|جورج تاون;SR|Suriname|4|Paramaribo|740|sa|Paramaribo|باراماريبو;BJ|Bénin|4|Porto-Novo|204|af|Porto-Novo|بورتو نوفو;BW|Botswana|4|Gaborone|72|af|Gaborone|غابورون;BI|Burundi|4|Gitega|108|af|Gitega|جيتيغا;CV|Cap-Vert|4|Praia|132|af|Praia|برايا;CF|Centrafrique|4|Bangui|140|af|Bangui|بانغي;KM|Comores|4|Moroni|174|af|Moroni|موروني;CG|Congo|4|Brazzaville|178|af|Brazzaville|برازافيل;DJ|Djibouti|4|Djibouti|262|af|Djibouti|جيبوتي;GQ|Guinée équatoriale|4|Malabo|226|af|Malabo|مالابو;ER|Érythrée|4|Asmara|232|af|Asmara|أسمرة;SZ|Eswatini|4|Mbabane|748|af|Mbabane|مباباني;GA|Gabon|4|Libreville|266|af|Libreville|ليبرفيل;GM|Gambie|4|Banjul|270|af|Banjul|بانجول;GN|Guinée|4|Conakry|324|af|Conakry|كوناكري;GW|Guinée-Bissau|4|Bissau|624|af|Bissau|بيساو;LS|Lesotho|4|Maseru|426|af|Maseru|ماسيرو;LR|Liberia|4|Monrovia|430|af|Monrovia|مونروفيا;MW|Malawi|4|Lilongwe|454|af|Lilongwe|ليلونغوي;MU|Maurice|4|Port-Louis|480|af|Port Louis|بورت لويس;MZ|Mozambique|4|Maputo|508|af|Maputo|مابوتو;NA|Namibie|4|Windhoek|516|af|Windhoek|ويندهوك;RW|Rwanda|4|Kigali|646|af|Kigali|كيغالي;ST|Sao Tomé-et-Principe|4|São Tomé|678|af|São Tomé|ساو تومي;SC|Seychelles|4|Victoria|690|af|Victoria|فيكتوريا;SL|Sierra Leone|4|Freetown|694|af|Freetown|فريتاون;SO|Somalie|4|Mogadiscio|706|af|Mogadishu|مقديشو;SS|Soudan du Sud|4|Djouba|728|af|Juba|جوبا;TG|Togo|4|Lomé|768|af|Lomé|لومي;ZM|Zambie|4|Lusaka|894|af|Lusaka|لوساكا";
 const C=DATA.split(";").map(s=>{const[c,n,t,k,n3,z,ke,ka]=s.split("|");return{c,n,nf:n,t:+t,k,kf:k,ke,ka,n3:+n3,z}});
 const ZN=Object.fromEntries(C.map(x=>[x.c,x.z]));
-const MODES={flag:"Pays d’un drapeau",pf:"Drapeau d’un pays",cap:"Capitale d’un pays",cp:"Pays d’une capitale",cm:"Carte d’un pays",fc:"Capitale d’un drapeau",mc:"Pays d’une carte",ct:"Continent d’un pays",mix:"Mélange · tous les types",surv:"Survie · une erreur et c’est fini",chr:"Contre-la-montre · 60 s",day:"Défi du jour",xp:"Points cumulés (XP)",week:"Semaine",rev:"Révision",duel:"Duel",all:"Général · tous les jeux"},SEC={d:["flag","pf","fc"],c:["cap","cp"],m:["cm","mc"],x:["ct","mix","surv","chr"]},IC={flag:"🎌➜🌍",pf:"🌍➜🎌",cap:"🌍➜🏙️",cp:"🏙️➜🌍"};
-const G={flag:["flag","globe","#0b5cad","#0b5cad"],pf:["globe","flag","#0b5cad","#0b5cad"],cap:["globe","city","#e8590c","#e8590c"],cp:["city","globe","#e8590c","#e8590c"],cm:["globe","map","#0f8f80","#0f8f80"],fc:["flag","city","#0b5cad","#0b5cad"],mc:["map","globe","#0f8f80","#0f8f80"],ct:["flag","map","#e5484d","#e5484d"],mix:["shuffle",null,"#e5484d","#e5484d"],surv:["heart",null,"#e5484d","#e5484d"],chr:["clock",null,"#e5484d","#e5484d"]};
-const P={flag:'<path d="M5 21V4"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',city:'<path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.5 11 12 4l9.5 7z"/>',map:'<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',shuffle:'<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',heart:'<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.800-8 11-8 11z"/>',clock:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.500 2M9 2h6"/>',swords:'<path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2M9.500 6.500 13 3h3v3l-3.500 3.500M5 14l-1.500 1.500M7 17l-3 3M3 19l2 2"/>',book:'<path d="M4 19.500A2.500 2.500 0 0 1 6.500 17H20V3H6.500A2.500 2.500 0 0 0 4 5.500z"/><path d="M4 19.500A2.500 2.500 0 0 0 6.500 22H20v-5"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8.500 10 6 2h4l2 4 2-4h4l-2.500 8M12 12.500l.900 1.800 2 .300-1.450 1.400.350 2L12 17l-1.800.950.350-2-1.450-1.400 2-.300z"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.650 1.650 0 0 0 .330 1.820l.060.060a2 2 0 1 1-2.830 2.830l-.060-.060a1.650 1.650 0 0 0-1.820-.330 1.650 1.650 0 0 0-1 1.510V21a2 2 0 1 1-4 0v-.090A1.650 1.650 0 0 0 9 19.400a1.650 1.650 0 0 0-1.820.330l-.060.060a2 2 0 1 1-2.830-2.830l.060-.060A1.650 1.650 0 0 0 4.680 15a1.650 1.650 0 0 0-1.510-1H3a2 2 0 1 1 0-4h.090A1.650 1.650 0 0 0 4.600 9a1.650 1.650 0 0 0-.330-1.820l-.060-.060a2 2 0 1 1 2.830-2.830l.060.060A1.650 1.650 0 0 0 9 4.680a1.650 1.650 0 0 0 1-1.510V3a2 2 0 1 1 4 0v.090a1.650 1.650 0 0 0 1 1.510 1.650 1.650 0 0 0 1.820-.330l.060-.060a2 2 0 1 1 2.830 2.830l-.060.060A1.650 1.650 0 0 0 19.400 9a1.650 1.650 0 0 0 1.510 1H21a2 2 0 1 1 0 4h-.090a1.650 1.650 0 0 0-1.510 1z"/>',users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.870M16 3.130a4 4 0 0 1 0 7.750"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',fire:'<path d="M8.500 14.500A2.500 2.500 0 0 0 11 12c0-1.380-.500-2-1-3-1.072-2.143-.224-4.054 2-6 .500 2.500 2 4.900 4 6.500 2 1.600 3 3.500 3 5.500a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.500 2.500 0 0 0 2.500 2.500z"/>',star:'<path d="M12 2.500l2.900 6 6.600.9-4.800 4.600 1.200 6.500L12 17.400l-5.900 3.100 1.200-6.500L2.500 9.400l6.600-.9z"/>',auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>'};
+const MODES={blur:"Drapeau flou",wf:"Écris le pays",wc:"Écris la capitale",fm:"Trouve sur la carte",tf:"Vrai ou faux",flag:"Pays d’un drapeau",pf:"Drapeau d’un pays",cap:"Capitale d’un pays",cp:"Pays d’une capitale",cm:"Carte d’un pays",fc:"Capitale d’un drapeau",mc:"Pays d’une carte",ct:"Continent d’un pays",mix:"Mélange · tous les types",surv:"Survie · une erreur et c’est fini",chr:"Contre-la-montre · 60 s",day:"Défi du jour",xp:"Points cumulés (XP)",week:"Semaine",rev:"Révision",duel:"Duel",all:"Général · tous les jeux"},SEC={d:["flag","pf","fc","blur"],c:["cap","cp"],m:["cm","mc","fm"],x:["ct","tf","mix","surv","chr"]},IC={flag:"🎌➜🌍",pf:"🌍➜🎌",cap:"🌍➜🏙️",cp:"🏙️➜🌍"};
+const G={blur:["eye",null,"#0b5cad","#0b5cad"],wf:["flag","pen","#0b5cad","#0b5cad"],wc:["globe","pen","#e8590c","#e8590c"],fm:["map","pin","#0f8f80","#0f8f80"],tf:["check",null,"#e5484d","#e5484d"],flag:["flag","globe","#0b5cad","#0b5cad"],pf:["globe","flag","#0b5cad","#0b5cad"],cap:["globe","city","#e8590c","#e8590c"],cp:["city","globe","#e8590c","#e8590c"],cm:["globe","map","#0f8f80","#0f8f80"],fc:["flag","city","#0b5cad","#0b5cad"],mc:["map","globe","#0f8f80","#0f8f80"],ct:["flag","map","#e5484d","#e5484d"],mix:["shuffle",null,"#e5484d","#e5484d"],surv:["heart",null,"#e5484d","#e5484d"],chr:["clock",null,"#e5484d","#e5484d"]};
+const P={eye:'<path d="M2 12s3.500-7 10-7 10 7 10 7-3.500 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',pen:'<path d="M12 20h9M16.500 3.500a2.100 2.100 0 0 1 3 3L7 19l-4 1 1-4z"/>',pin:'<path d="M12 22s7-6.200 7-12a7 7 0 0 0-14 0c0 5.800 7 12 7 12z"/><circle cx="12" cy="10" r="2.500"/>',check:'<path d="M4 12.500 9.500 18 20 6"/>',flag:'<path d="M5 21V4"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',city:'<path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.5 11 12 4l9.5 7z"/>',map:'<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',shuffle:'<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',heart:'<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.800-8 11-8 11z"/>',clock:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.500 2M9 2h6"/>',swords:'<path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2M9.500 6.500 13 3h3v3l-3.500 3.500M5 14l-1.500 1.500M7 17l-3 3M3 19l2 2"/>',book:'<path d="M4 19.500A2.500 2.500 0 0 1 6.500 17H20V3H6.500A2.500 2.500 0 0 0 4 5.500z"/><path d="M4 19.500A2.500 2.500 0 0 0 6.500 22H20v-5"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8.500 10 6 2h4l2 4 2-4h4l-2.500 8M12 12.500l.900 1.800 2 .300-1.450 1.400.350 2L12 17l-1.800.950.350-2-1.450-1.400 2-.300z"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.650 1.650 0 0 0 .330 1.820l.060.060a2 2 0 1 1-2.830 2.830l-.060-.060a1.650 1.650 0 0 0-1.820-.330 1.650 1.650 0 0 0-1 1.510V21a2 2 0 1 1-4 0v-.090A1.650 1.650 0 0 0 9 19.400a1.650 1.650 0 0 0-1.820.330l-.060.060a2 2 0 1 1-2.830-2.830l.060-.060A1.650 1.650 0 0 0 4.680 15a1.650 1.650 0 0 0-1.510-1H3a2 2 0 1 1 0-4h.090A1.650 1.650 0 0 0 4.600 9a1.650 1.650 0 0 0-.330-1.820l-.060-.060a2 2 0 1 1 2.830-2.830l.060.060A1.650 1.650 0 0 0 9 4.680a1.650 1.650 0 0 0 1-1.510V3a2 2 0 1 1 4 0v.090a1.650 1.650 0 0 0 1 1.510 1.650 1.650 0 0 0 1.820-.330l.060-.060a2 2 0 1 1 2.830 2.830l-.060.060A1.650 1.650 0 0 0 19.400 9a1.650 1.650 0 0 0 1.510 1H21a2 2 0 1 1 0 4h-.090a1.650 1.650 0 0 0-1.510 1z"/>',users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.870M16 3.130a4 4 0 0 1 0 7.750"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',fire:'<path d="M8.500 14.500A2.500 2.500 0 0 0 11 12c0-1.380-.500-2-1-3-1.072-2.143-.224-4.054 2-6 .500 2.500 2 4.900 4 6.500 2 1.600 3 3.500 3 5.500a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.500 2.500 0 0 0 2.500 2.500z"/>',star:'<path d="M12 2.500l2.900 6 6.600.9-4.800 4.600 1.200 6.500L12 17.400l-5.900 3.100 1.200-6.500L2.500 9.400l6.600-.9z"/>',auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>'};
 const HD=(t,sub,g,ic)=>`<div class="hd" style="background:${g[0]}"><button class="hbk" id="bk" aria-label="Retour">‹</button><span class="nt">${ic}</span><div><h1>${t}<span>.</span></h1><p class="sub">${sub}</p></div></div>`;
 const SG={d:["#0b5cad","#0b5cad","flag"],c:["#e8590c","#e8590c","city"],m:["#0f8f80","#0f8f80","map"],x:["#e5484d","#e5484d","bolt"]};
 const sv=p=>`<svg viewBox="0 0 24 24">${P[p]}</svg>`;
@@ -248,17 +259,27 @@ const FG="MC ID PL SG|TD RO AD MD|ML GN SN CM BJ BF GW|KW AE JO SD SY YE IQ EG L
 const RG="FR DE ES IT PT GB BE CH NL IE LU AT MT AD LI MC SM|SE NO DK FI IS EE LV LT|PL CZ HU RO UA HR RS SK SI BG AL GR RU BY BA MD ME MK|TR GE AM AZ IR IQ JO LB SA AE QA CY KW BH OM SY YE AF|MA DZ TN EG LY MR SD|SN CI NG CM GH ML TD NE BJ BF CF CG CD GQ GA GM GN GW LR SL TG CV ST|ZA KE ET MG AO BW BI KM DJ ER SZ LS MW MU MZ NA RW SC SO SS TZ UG ZM ZW|JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ BT BN KP KG LA MY MV SG TJ TL TM UZ|AU NZ PG FJ SB VU KI MH FM NR PW WS TO TV|US CA MX CU PA CR GT HN NI SV DO HT JM AG BS BB BZ DM GD KN LC VC TT|BR AR CO VE PE CL EC BO PY UY GY SR".split("|").map(g=>g.split(" "));
 const near=(a,m)=>{const G=(m==="flag"||m==="pf"||m==="fc")?FG:RG,o=new Set();G.forEach(g=>{if(g.includes(a.c))g.forEach(c=>{if(c!==a.c)o.add(c)})});return o};
 const MIXK=["flag","pf","cap","cp","fc","ct"],REVK=["flag","pf","fc","cap","ct"],ZK=["eu","af","as","na","sa"];
-const right=(q,o)=>q.m==="ct"?o===ZN[q.a.c]:o===q.a;
-const TT=()=>S.mode==="chr"?60:S.mode==="rev"?0:(S.mode==="day"||S.mode==="duel")?10:S.ct;
-const capm=m=>m==="cap"||m==="cp"||m==="fc";
+const right=(q,o)=>q.m==="tf"?o===q.truth:q.m==="ct"?o===ZN[q.a.c]:o===q.a;
+const TTm=md=>md==="chr"?60:md==="rev"?0:(md==="day"||md==="duel")?10:!S.ct?0:(md==="wf"||md==="wc")?S.ct+10:md==="fm"?S.ct+5:md==="tf"?S.ct-4:S.ct,TT=()=>TTm(S.mode),BW=()=>({wf:20,wc:20,fm:15,tf:6})[S.mode]||10;
+const capm=m=>m==="cap"||m==="cp"||m==="fc"||m==="wc";
 const build=(seed,lv)=>{
- const r=rng(seed),L=LV[lv],M=S.mode,mp=M==="cm"||M==="mc",long=M==="surv"||M==="chr",ok=x=>(!mp||(MAPS&&MAPS[x.n3]&&(S.zone==="world"||ZN[x.c]===S.zone)))&&(!capm(M)||x.k);
+ const r=rng(seed),L=LV[lv],M=S.mode,mp=M==="cm"||M==="mc",long=M==="surv"||M==="chr";
+ const fmSet=M==="fm"?new Set(zoneMap(S.zone||"world").cand):null;
+ const ok=x=>(!mp||(MAPS&&MAPS[x.n3]&&(S.zone==="world"||ZN[x.c]===S.zone)))&&(!fmSet||fmSet.has(x.n3))&&(!capm(M)||x.k);
  let pool=C.filter(x=>x.t<=L.pool&&ok(x));
- if(mp&&pool.length<8)pool=C.filter(ok);
+ if(mp&&pool.length<8||fmSet&&pool.length<20)pool=C.filter(ok);
  return shuf(pool,r).slice(0,long?pool.length:Math.min(M==="duel"?10:20,pool.length)).map(a=>{
-  let m=(M==="mix"||M==="day"||M==="duel"||long)?MIXK[Math.floor(r()*MIXK.length)]:M;
+  let m=(M==="mix"||M==="day"||M==="duel"||long)?MIXK[Math.floor(r()*MIXK.length)]:M==="blur"?"flag":M;
   if(capm(m)&&!a.k)m="flag";
   if(m==="ct")return{a,m,o:ZK};
+  if(m==="wf"||m==="wc"||m==="fm")return{a,m,o:[]};
+  if(m==="tf"){
+   let kind=["cap","flag","ct"][Math.floor(r()*3)];if(kind==="cap"&&!a.k)kind="flag";
+   const truth=r()<.5;let claim=a;
+   if(kind==="ct")claim=truth?ZN[a.c]:shuf(ZK.filter(z=>z!==ZN[a.c]),r)[0];
+   else if(!truth){const pp=pool.filter(x=>x!==a&&(kind!=="cap"||x.k)),nr=lv>=3?near(a,kind==="flag"?"flag":"cap"):new Set(),cl=pp.filter(x=>nr.has(x.c));claim=shuf(cl.length?cl:pp,r)[0]||a}
+   return{a,m,kind,claim,truth:claim===a||(kind==="ct"&&truth),o:[true,false]};
+  }
   const pp=capm(m)?pool.filter(x=>x.k):pool;
   const n=Math.min((m==="pf"?(L.ch>6?6:4):m==="cm"?Math.min(L.ch,6):L.ch)-1,pp.length-1);
   let d=[];
@@ -267,6 +288,42 @@ const build=(seed,lv)=>{
   return{a,m,o:shuf([a,...d,...rest],r)};
  });
 };
+// ===== saisie libre =====
+const ALIAS={US:"usa|etats unis|etats-unis|amerique|united states|america|us",GB:"angleterre|uk|royaume uni|england|britain|grande bretagne|great britain",AE:"emirats|uae|emirats arabes",KR:"coree|south korea|korea",KP:"north korea|coree du nord",CD:"rdc|congo kinshasa|drc|republique democratique du congo",CG:"congo brazzaville",CZ:"republique tcheque|czech republic|czech",NL:"hollande|holland",CI:"cote divoire|ivory coast|cote d ivoire",MM:"birmanie|burma",SZ:"swaziland",MK:"macedoine|macedonia",BA:"bosnie|bosnia",TL:"timor leste|east timor",CV:"cape verde",RU:"russia",DE:"germany",VN:"vietnam|viet nam",VA:"vatican",SA:"arabie|saudi arabia",ZA:"south africa"};
+const CALIAS={US:"washington dc|washington d c",IN:"delhi",MX:"mexico city|ciudad de mexico",PA:"panama city",GT:"guatemala city",KW:"kuwait",BD:"dhaka",KZ:"astana|nur sultan",MN:"ulaanbaatar|oulan bator",LK:"kotte|colombo"};
+const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f\u064b-\u0652]/g,"").replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").toLowerCase().replace(/[’'`´\-.,()]/g," ").replace(/(^|\s)(le|la|les|l|the|el|al|ال)(?=\s)/g," ").replace(/(^|\s)ال/g,"$1").replace(/\s+/g," ").trim();
+function lev(a,b){if(a===b)return 0;const m=a.length,n=b.length;if(!m||!n)return m+n;let p=Array.from({length:n+1},(_,i)=>i);for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return p[n]}
+let DNEN=null;try{DNEN=new Intl.DisplayNames(["en"],{type:"region"})}catch(e){}
+function typedOk(q,txt){
+ const t=norm(txt);if(!t)return false;const a=q.a;
+ const cands=q.m==="wc"?[a.kf,a.ke,a.ka,a.k,...(CALIAS[a.c]||"").split("|")]:[a.nf,a.n,DNEN&&DNEN.of(a.c),...(ALIAS[a.c]||"").split("|")];
+ return cands.filter(Boolean).map(norm).some(c=>{const tol=c.length<=4?0:c.length<=8?1:2;return c===t||lev(c,t)<=tol});
+}
+// ===== carte cliquable par zone =====
+const ZB={world:[-170,-58,190,80],eu:[-25,34,45,71],af:[-19,-36,53,38],as:[25,-48,182,56],na:[-170,6,-52,72],sa:[-83,-56,-33,14]},ZMC={};
+const N3C={};C.forEach(x=>N3C[x.n3]=x);
+function zoneMap(z){
+ if(ZMC[z])return ZMC[z];
+ const R0=Math.PI/180,my=b=>-Math.log(Math.tan(Math.PI/4+Math.max(-80,Math.min(84,b))*R0/2)),[l0,b0,l1,b1]=ZB[z],x0=l0*R0,x1=l1*R0,y0=my(b1),y1=my(b0);
+ const W=360,sc=W/(x1-x0),H=Math.round((y1-y0)*sc),P=([a,b])=>[(a*R0-x0)*sc,(my(b)-y0)*sc];
+ const paths=[],cand=[];
+ Object.keys(MAPS).forEach(id=>{
+  const c=N3C[+id],inz=!!c&&(z==="world"||ZN[c.c]===z);let ds="",bx=[1e9,1e9,-1e9,-1e9];
+  MAPS[id].forEach(poly=>{let r=poly[0];if((c&&(c.c==="RU"||c.c==="FJ"))||z==="as")r=r.map(([a,b])=>[a<-150?a+360:a,b]);
+   let a0=1e9,a1=-1e9,c0=1e9,c1=-1e9;r.forEach(([a,b])=>{a0=Math.min(a0,a);a1=Math.max(a1,a);c0=Math.min(c0,b);c1=Math.max(c1,b)});
+   if(a1<l0||a0>l1||c1<b0||c0>b1)return;
+   const st=r.length>600?5:r.length>200?3:r.length>80?2:1,pts=[];for(let i=0;i<r.length;i+=st)pts.push(P(r[i]));
+   pts.forEach(([x,y])=>{bx[0]=Math.min(bx[0],x);bx[1]=Math.min(bx[1],y);bx[2]=Math.max(bx[2],x);bx[3]=Math.max(bx[3],y)});
+   ds+="M"+pts.map(q=>q[0].toFixed(1)+" "+q[1].toFixed(1)).join("L")+"Z"});
+  if(!ds)return;paths.push({n:+id,d:ds,inz});
+  if(inz&&Math.max(bx[2]-bx[0],bx[3]-bx[1])>=9)cand.push(+id);
+ });
+ return ZMC[z]={W,H,paths,cand};
+}
+function zoneSvg(z,q){
+ const Z=zoneMap(z);
+ return `<svg viewBox="0 0 ${Z.W} ${Z.H}" class="zmap" role="img" aria-label="Carte de la zone">${Z.paths.map(p=>`<path d="${p.d}" class="${p.inz?"zc":"zo"}${S.locked&&p.n===q.a.n3?" ok":""}${S.locked&&p.n===+S.pick&&p.n!==q.a.n3?" no":""}" ${p.inz?`data-n="${p.n}"`:""}/>`).join("")}</svg>`;
+}
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const $=id=>document.getElementById(id);
 const LS=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}},LSset=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
@@ -275,7 +332,7 @@ const app=$("app");
 
 const LC={1:"#10b981",2:"#3b82f6",3:"#f59e0b",4:"#ef4444"};
 function lvButtons(editable){
- return `<div class="lvl">${[1,2,3,4].map(k=>`<button class="lr ${S.lv===k?"on":""}" ${editable?`data-lv="${k}"`:"disabled"}><span class="bars">${[1,2,3,4].map(i=>`<i style="${i<=k?`background:${LC[k]}`:""}"></i>`).join("")}</span><span class="lt"><b>${LV[k].n}</b><small>${LV[k].h}</small></span></button>`).join("")}</div><p class="mute" style="margin:8px 0 0">${S.mode==="chr"?LV[S.lv].h.replace("10 s","60 s au total"):S.mode==="ct"?LV[S.lv].h.replace(/\d choix/,"5 choix"):LV[S.lv].h}</p>`;
+ return `<div class="lvl">${[1,2,3,4].map(k=>`<button class="lr ${S.lv===k?"on":""}" ${editable?`data-lv="${k}"`:"disabled"}><span class="bars">${[1,2,3,4].map(i=>`<i style="${i<=k?`background:${LC[k]}`:""}"></i>`).join("")}</span><span class="lt"><b>${LV[k].n}</b><small>${LV[k].h}</small></span></button>`).join("")}</div><p class="mute" style="margin:8px 0 0">${S.mode==="chr"?LV[S.lv].h.replace("10 s","60 s au total"):S.mode==="ct"?LV[S.lv].h.replace(/\d choix/,"5 choix"):S.mode==="wf"||S.mode==="wc"?LV[S.lv].h.split(" · ")[0]+" · réponse écrite · "+(TTm(S.mode)?TTm(S.mode)+" s":"sans chrono"):S.mode==="fm"?LV[S.lv].h.split(" · ")[0]+" · sur la carte · "+(TTm(S.mode)?TTm(S.mode)+" s":"sans chrono"):S.mode==="tf"?LV[S.lv].h.split(" · ")[0]+" · vrai ou faux · "+(TTm(S.mode)?TTm(S.mode)+" s":"sans chrono"):LV[S.lv].h}</p>`;
 }
 function home(fromX){
  const d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=streakOf(d),today=d.sd===dk(),dd=dayDone(d);
@@ -694,6 +751,9 @@ addTr([["Duel en direct","Live duel","مبارزة مباشرة"],["Défie un am
 addPat([[/^\+([\d   ,.]+) XP$/,"+$1 XP","+$1 XP"],[/^([\d   ,.]+) XP$/,"$1 XP","$1 XP"],[/^([\d   ,.]+) pts$/,"$1 pts","$1 نقطة"],[/^(\d) étoiles sur 3$/,"$1 stars out of 3","$1 من 3 نجوم"],[/^(\d+) bonnes? réponses? sur (\d+)\.$/,"$1 correct out of $2.","$1 إجابة صحيحة من $2."],[/^(\d+) joueurs? classés?$/,"$1 ranked player(s)","$1 لاعب في الترتيب"],[/^(\d+) pays$/,"$1 countries","$1 دولة"],[/^À revoir : (\d+) pays \(ajoutés à ta révision\)$/,"To review: $1 countries (added to your review list)","للمراجعة: $1 دولة (أضيفت إلى قائمة مراجعتك)"],[/^(\d+)(?:er|e) sur (\d+)$/,"#$1 of $2","المركز $1 من $2"],[/^(\d+) jeux$/,"$1 games","$1 ألعاب"],[/^(\d+) s$/,"$1 s","$1 ث"],[/^(\d+) s au total$/,"$1 s in total","$1 ث إجمالًا"],[/^(\d+) choix$/,"$1 choices","$1 خيارات"],[/^(\d+) sur (\d+) obtenus\.$/,"$1 of $2 earned.","حصلت على $1 من $2."],[/^([\d   ,.]+) pts\. Nouveau défi demain\.$/,"$1 pts. New challenge tomorrow.","$1 نقطة. تحدٍّ جديد غدًا."],[/^Badge obtenu : (.+)$/,"Badge earned: $1","شارة جديدة: $1"],[/^Capitale : (.+)$/,(x)=>"Capital: "+x[1],(x)=>"العاصمة: "+x[1]],[/^Code (\w+)$/,(x)=>"Code "+x[1],(x)=>"الرمز "+x[1]],[/^Duel contre (.+)$/,(x)=>"Duel against "+x[1],(x)=>"مبارزة ضد "+x[1]],[/^Email renvoyé à (.+)\.$/,(x)=>"Email sent again to "+x[1]+".",(x)=>"أُعيد إرسال البريد إلى "+x[1]+"."],[/^En attente de (.+)…$/,(x)=>"Waiting for "+x[1]+"…",(x)=>"في انتظار "+x[1]+"…"],[/^En attente du lancement par (.+)…$/,(x)=>"Waiting for "+x[1]+" to start…",(x)=>"في انتظار أن يبدأ "+x[1]+"…"],[/^Encore ([\d   ,.]+) XP pour le niveau (\d+)\.$/,"$1 XP to level $2.","$1 XP للوصول إلى المستوى $2."],[/^Groupe : (.+)$/,(x)=>"Group: "+x[1],(x)=>"المجموعة: "+x[1]],[/^Niveau (\d+)$/,"Level $1","المستوى $1"],[/^Niveau (\d+) atteint\.$/,"Level $1 reached.","وصلت إلى المستوى $1."],[/^niveau (\d+) à ([\d   ,.]+) XP$/,"level $1 at $2 XP","المستوى $1 عند $2 XP"],[/^Passer en (.+)$/,"Move up to $1","انتقل إلى $1"],[/^Question (\d+)\/(\d+)$/,"Question $1/$2","السؤال $1/$2"],[/^question (\d+)$/,"question $1","السؤال $1"],[/^Série de (\d+) jours?\. Reviens demain pour la prolonger\.$/,"$1-day streak. Come back tomorrow to extend it.","سلسلة $1 يوم. عد غدًا لتمديدها."],[/^Série de (\d+) jours? en jeu : joue aujourd’hui pour la garder\.$/,"$1-day streak at stake: play today to keep it.","سلسلة $1 يوم مهددة: العب اليوم لتحافظ عليها."],[/^tu es (\d+)(?:er|e)$/,"you are #$1","أنت في المركز $1"],[/^dans ce classement\. Personne devant toi\.$/,"in this leaderboard. Nobody ahead of you.","في هذا الترتيب. لا أحد أمامك."],[/^dans ce classement\. Encore ([\d   ,.]+) pts pour dépasser (.+)\.$/,(x)=>"in this leaderboard. "+x[1]+" pts to overtake "+x[2]+".",(x)=>"في هذا الترتيب. "+x[1]+" نقطة لتتجاوز "+x[2]+"."],[/^Pseudo changé : (.+)\.$/,(x)=>"Username changed: "+x[1]+".",(x)=>"تم تغيير الاسم: "+x[1]+"."],[/^Email renvoyé à ton adresse\.$/,"Email sent again.","أُعيد إرسال البريد."],[/^Rejoins le groupe « (.+) » sur Geo Quizz : code (\w+)$/,(x)=>"Join the group \""+x[1]+"\" on Geo Quizz: code "+x[2],(x)=>"انضم إلى مجموعة «"+x[1]+"» على جيو كويز: الرمز "+x[2]],[/^(\d+)\/(\d+)$/,"$1/$2","$1/$2"],[/^([\d   ,.]+) pts · (\d+)\/(\d+)$/,"$1 pts · $2/$3","$1 نقطة · $2/$3"],[/^([\d   ,.]+) pts · terminé$/,"$1 pts · finished","$1 نقطة · انتهى"]]);
 addTr([["Partager mon résultat", "Share my result", "شارك نتيجتي"], ["Résultat copié : colle-le dans une conversation.", "Result copied: paste it into a chat.", "تم نسخ النتيجة: الصقها في محادثة."], ["Ligue", "League", "الدوري"], ["Bronze", "Bronze", "البرونزي"], ["Argent", "Silver", "الفضي"], ["Or", "Gold", "الذهبي"], ["Saphir", "Sapphire", "الياقوتي"], ["Diamant", "Diamond", "الماسي"], ["Tu fais partie des meilleurs de ta ligue la semaine dernière.", "You were among the best in your league last week.", "كنت من الأفضل في دوريك الأسبوع الماضي."], ["Joue cette semaine pour remonter.", "Play this week to move back up.", "العب هذا الأسبوع لتصعد من جديد."], ["Joue une partie pour reprendre ta place dans ta ligue.", "Play a game to win your place back in your league.", "العب لتستعيد مكانك في دوريك."], ["Fin ce soir", "Ends tonight", "ينتهي الليلة"], ["le premier quart monte, le dernier quart descend", "top quarter moves up, bottom quarter moves down", "الربع الأول يصعد والربع الأخير ينزل"], ["le premier quart monte", "top quarter moves up", "الربع الأول يصعد"], ["ligue la plus haute, le dernier quart descend", "highest league, bottom quarter moves down", "أعلى دوري، الربع الأخير ينزل"], ["Personne n’a encore marqué de points dans ta ligue cette semaine. Joue une partie pour ouvrir ce classement.", "Nobody in your league has scored this week yet. Play a game to open this leaderboard.", "لم يسجل أحد في دوريك نقاطًا هذا الأسبوع. العب لتفتتح هذا الترتيب."], ["Rappels de série", "Streak reminders", "تذكير السلسلة"], ["Ce navigateur ne permet pas les rappels.", "This browser doesn't support reminders.", "هذا المتصفح لا يدعم التذكيرات."], ["Un rappel le soir si ta série est en jeu. Sur Android, ajoute le jeu à l’écran d’accueil pour le recevoir même jeu fermé.", "An evening reminder when your streak is at stake. On Android, add the game to your home screen to get it even when the game is closed.", "تذكير مسائي إذا كانت سلسلتك مهددة. على أندرويد، أضف اللعبة إلى الشاشة الرئيسية لتصلك حتى واللعبة مغلقة."], ["Rappels activés.", "Reminders on.", "تم تفعيل التذكيرات."], ["Rappels activés tant que le jeu est ouvert : ce navigateur ne permet pas les rappels jeu fermé.", "Reminders on while the game is open: this browser can't send them when it's closed.", "التذكيرات مفعّلة ما دامت اللعبة مفتوحة: هذا المتصفح لا يرسلها واللعبة مغلقة."], ["Notifications refusées : autorise-les dans les réglages du navigateur.", "Notifications blocked: allow them in your browser settings.", "الإشعارات مرفوضة: فعّلها من إعدادات المتصفح."], ["Ta série de {n} jours se termine ce soir. Une partie suffit pour la garder.", "Your {n}-day streak ends tonight. One game is enough to keep it.", "سلسلتك من {n} أيام تنتهي الليلة. لعبة واحدة تكفي للحفاظ عليها."], ["Fermer", "Close", "إغلاق"]]);
 addPat([[/^Ligue (Bronze|Argent|Or|Saphir|Diamant)$/,(x)=>""+tr(x[1])+" league",(x)=>"الدوري "+tr(x[1])],[/^Promotion en ligue (.+) !$/,(x)=>"Promoted to "+tr(x[1])+" league!",(x)=>"ترقية إلى الدوري "+tr(x[1])+"!"],[/^Retour en ligue (.+)$/,(x)=>"Back to "+tr(x[1])+" league",(x)=>"عودة إلى الدوري "+tr(x[1])],[/^(.+) t’a dépassé cette semaine$/,(x)=>""+x[1]+" overtook you this week",(x)=>""+x[1]+" تجاوزك هذا الأسبوع"],[/^Fin dans (\d+) jours$/,"Ends in $1 days","ينتهي بعد $1 أيام"]]);
+addTr([["Drapeau flou", "Blurred flag", "علم ضبابي"], ["Écris le pays", "Type the country", "اكتب الدولة"], ["Écris la capitale", "Type the capital", "اكتب العاصمة"], ["Trouve sur la carte", "Find it on the map", "جدها على الخريطة"], ["Vrai ou faux", "True or false", "صح أم خطأ"], ["Vrai ou faux ?", "True or false?", "صح أم خطأ؟"], ["Écris le nom de ce pays", "Type the name of this country", "اكتب اسم هذه الدولة"], ["Écris la capitale de ce pays", "Type the capital of this country", "اكتب عاصمة هذه الدولة"], ["Touche ce pays sur la carte", "Tap this country on the map", "المس هذه الدولة على الخريطة"], ["capitale de", "capital of", "عاصمة"], ["se trouve en", "is in", "تقع في"], ["Vrai", "True", "صح"], ["Faux", "False", "خطأ"], ["Je ne sais pas", "I don't know", "لا أعرف"], ["Nom du pays", "Country name", "اسم الدولة"], ["Nom de la capitale", "Capital name", "اسم العاصمة"], ["Ta réponse", "Your answer", "إجابتك"], ["Temps écoulé. La bonne réponse est en vert.", "Time's up. The right answer is in green.", "انتهى الوقت. الإجابة الصحيحة باللون الأخضر."], ["Raté. La bonne réponse est en vert.", "Missed. The right answer is in green.", "خطأ. الإجابة الصحيحة باللون الأخضر."], ["réponse écrite", "typed answer", "إجابة مكتوبة"], ["sur la carte", "on the map", "على الخريطة"], ["vrai ou faux", "true or false", "صح أم خطأ"], ["sans chrono", "no timer", "بدون مؤقت"], ["Carte de la zone", "Map of the region", "خريطة المنطقة"]]);
+addPat([[/^Bonne réponse : (.+)$/,(x)=>"Correct: "+x[1],(x)=>"إجابة صحيحة: "+x[1]],[/^Réponse : (.+)$/,(x)=>"Answer: "+x[1],(x)=>"الإجابة: "+x[1]],[/^Tu as écrit : (.+)$/,(x)=>"You wrote: "+x[1],(x)=>"كتبت: "+x[1]]]);
+addTr([["Ligues","Leagues","الدوريات"]]);addPat([[/^Ta ligue : (.+)$/,(x)=>"Your league: "+tr(x[1]),(x)=>"دوريك: "+tr(x[1])]]);
 async function boot(){
  setLang(LANG);
  try{const t=localStorage.getItem("gq-theme");if(t)applyTheme(t)}catch(e){}
@@ -716,9 +776,9 @@ async function boot(){
 const ZONES={world:"Monde entier",eu:"Europe",af:"Afrique",as:"Asie et Océanie",na:"Amérique du Nord et centrale",sa:"Amérique du Sud"};
 const ZG={world:["#0b3c6f","#0b3c6f"],eu:["#0b5cad","#0b5cad"],af:["#e8590c","#e8590c"],as:["#e5484d","#e5484d"],na:["#0f8f80","#0f8f80"],sa:["#12a150","#12a150"]};
 const zcount=z=>C.filter(x=>z==="world"||ZN[x.c]===z).length;
-const SK=()=>S.mode==="cm"||S.mode==="mc"?S.mode+"_"+(S.zone||"world"):S.mode;
-const KL=k=>k==="all"?"Général · tous les jeux":/^(cm|mc)_/.test(k)?MODES[k.slice(0,2)]+" · "+ZONES[k.slice(3)]:(MODES[k]||k);
-const MK=["flag","pf","fc","cap","cp",...Object.keys(ZONES).map(z=>"cm_"+z),...Object.keys(ZONES).map(z=>"mc_"+z),"ct","mix","surv","chr"];
+const SK=()=>S.mode==="cm"||S.mode==="mc"||S.mode==="fm"?S.mode+"_"+(S.zone||"world"):S.mode;
+const KL=k=>k==="all"?"Général · tous les jeux":/^(cm|mc|fm)_/.test(k)?MODES[k.slice(0,2)]+" · "+ZONES[k.slice(3)]:(MODES[k]||k);
+const MK=["flag","pf","fc","cap","cp",...Object.keys(ZONES).map(z=>"cm_"+z),...Object.keys(ZONES).map(z=>"mc_"+z),...Object.keys(ZONES).map(z=>"fm_"+z),"blur","tf","ct","mix","surv","chr"];
 const legacy=(d,m)=>d.b?Math.max(0,...[1,2,3,4].map(k=>+d.b[m+"-"+k]||0)):0;
 const bm=(d,m)=>Math.max(+(d.m&&d.m[m])||0,legacy(d,m));
 const tv=(d,m)=>m==="lg"?wkScore(d,wkKey()):m==="week"?(d.wk&&d.wk.w===wkKey()?+d.wk.s||0:0):m==="xp"?+d.x||0:m==="day"?(dayDone(d)?+d.dc.s||0:0):m==="all"?Math.max(...MK.filter(k=>k!=="surv").map(k=>bm(d,k))):bm(d,m);
@@ -833,29 +893,30 @@ async function standing(){
  }catch(e){return null}
 }
 async function rank(){
- const t=S.rt=(S.rt||0)+1;S.view="rank";S.board=S.board||(AUTH?"lg":"all");S.rall=false;if(!S.pall)S.pall=null;drawRank();
+ const t=S.rt=(S.rt||0)+1;S.view="rank";S.lgSel=null;S.board=S.board||(AUTH?"lg":"all");S.rall=false;if(!S.pall)S.pall=null;drawRank();
  let all=[];
  S.rkErr=false;try{if(DB){const snap=await DB.collection("players").get();all=docsOf(snap).filter(d=>d.data()&&d.data().u).map(d=>({id:d.id,d:d.data()}))}}catch(e){all=S.pall||[];S.rkErr=!all.length}
  if(t!==S.rt||S.view!=="rank")return;
  S.pall=all;drawRank();
 }
-const GAMES=[["Drapeaux",["flag","pf","fc"]],["Capitales",["cap","cp"]],["Cartes",["cm","mc"]],["Défis",["ct","mix","surv","chr"]]];
+const GAMES=[["Drapeaux",["flag","pf","fc","blur"]],["Capitales",["cap","cp"]],["Cartes",["cm","mc","fm"]],["Défis",["ct","tf","mix","surv","chr"]]];
 function drawRank(){
- const B=S.board,game=/^(cm|mc)_/.test(B)?B.slice(0,2):B,zone=/^(cm|mc)_/.test(B)?B.slice(3):"world",per=!["all","day","xp","week","lg"].includes(B);
+ const B=S.board,game=/^(cm|mc|fm)_/.test(B)?B.slice(0,2):B,zone=/^(cm|mc|fm)_/.test(B)?B.slice(3):"world",per=!["all","day","xp","week","lg"].includes(B);
  const gs=(S.me&&S.me.g)||{};if(S.gsel&&!gs[S.gsel])S.gsel="";
- const myT=tierOf(S.me);
- const rows=S.pall===null?null:S.pall.filter(p=>(B!=="lg"||tierOf(p.d)===myT)&&(B==="lg"||!S.gsel||(p.d.g&&p.d.g[S.gsel]))).map(p=>({id:p.id,s:tv(p.d,B),n:p.d.u,lv:lvlOf(p.d.x)})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s);
+ const realT=tierOf(S.me),myT=S.lgSel==null?realT:S.lgSel,lgCnt=[0,0,0,0,0];(S.pall||[]).forEach(p=>lgCnt[tierOf(p.d)]++);
+ const rows=S.pall===null?null:S.pall.filter(p=>(B!=="lg"||tierOf(p.d)===myT)&&(B==="lg"||!S.gsel||(p.d.g&&p.d.g[S.gsel]))).map(p=>({id:p.id,s:tv(p.d,B),n:p.d.u,lv:lvlOf(p.d.x)})).filter(r=>r.s>0||B==="lg").sort((a,b)=>b.s-a.s||a.n.localeCompare(b.n));
  const mi=rows?rows.findIndex(r=>r.id===S.uid):-1;
- const nR=rows?rows.length:0,kz=Math.max(1,Math.floor(nR/4)),zn=i=>B!=="lg"?"":(i<kz&&myT<4&&nR>=2)?"zu":(nR>=4&&i>=nR-kz&&myT>0)?"zd":"";
- const row=(r,i)=>`<div class="rr ${r.id===S.uid?"mine":""} ${zn(i)}"><span class="rkn">${i+1}</span><span class="rn">${esc(r.n)}${r.id===S.uid?" <em>moi</em>":""}</span><span class="rl">niv. ${r.lv}</span><b>${fmt(r.s)}</b></div>`;
- const pod=rows?rows.slice(0,3):[];
+ const nR=rows?rows.filter(r=>r.s>0).length:0,kz=Math.max(1,Math.floor(nR/4)),zn=i=>B!=="lg"?"":(i<kz&&myT<4&&nR>=2)?"zu":(nR>=4&&i>=nR-kz&&myT>0)?"zd":"";
+ const row=(r,i)=>`<div class="rr ${r.id===S.uid?"mine":""} ${zn(i)}"><span class="rkn">${i+1}</span><span class="rn">${esc(r.n)}${r.id===S.uid?" <em>moi</em>":""}</span><span class="rl">niv. ${r.lv}</span><b>${r.s?fmt(r.s):"–"}</b></div>`;
+ const pod=rows?rows.filter(r=>r.s>0).slice(0,3):[];
  let list="";
- if(rows&&rows.length>3){const lim=S.rall?rows.length:10;list=rows.slice(3,lim).map((r,i)=>row(r,i+3)).join("");if(!S.rall&&mi>=lim)list+=`<div class="rgap">…</div>`+row(rows[mi],mi)}
+ if(rows&&rows.length>pod.length){const st=pod.length,lim=S.rall?rows.length:10;list=rows.slice(st,Math.max(lim,st)).map((r,i)=>row(r,i+st)).join("");if(!S.rall&&mi>=lim)list+=`<div class="rgap">…</div>`+row(rows[mi],mi)}
  app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>Classement<span>.</span></h1>${AUTH?`<button class="gear" id="grp" aria-label="Groupes" style="margin-inline-start:auto">${sv("users")}</button>`:""}</div>
  ${AUTH&&Object.keys(gs).length?`<div class="rsel"><select id="gsel" aria-label="Joueurs affichés"><option value="">Tous les joueurs</option>${Object.entries(gs).map(([c,n])=>`<option value="${c}" ${S.gsel===c?"selected":""}>Groupe : ${esc(n)}</option>`).join("")}</select></div>`:""}
  <div class="chips" role="tablist">${[...(AUTH?[["lg","Ligue"]]:[]),["all","Général"],["week","Semaine"],["day","Du jour"],["xp","XP"],["game","Par jeu"]].map(([k,l])=>`<button role="tab" data-b="${k}" class="${(k==="game"?per:B===k)?"on":""}" aria-selected="${k==="game"?per:B===k}">${l}</button>`).join("")}</div>
- ${B==="lg"?`<div class="card lgh" style="--lc:${LEAGUES[myT][1]}"><span class="lgm">${sv("trophy")}</span><div><b>Ligue ${LEAGUES[myT][0]}</b><small>${daysLeft()>1?`Fin dans ${daysLeft()} jours`:"Fin ce soir"} · ${myT<4?"le premier quart monte":"ligue la plus haute"}${myT>0?", le dernier quart descend":""}</small></div></div>`:""}
- ${per?`<div class="rsel"><select id="bg" aria-label="Jeu">${GAMES.map(([g,ks])=>`<optgroup label="${g}">${ks.map(k=>`<option value="${k}" ${game===k?"selected":""}>${esc(MODES[k].split(" · ")[0])}</option>`).join("")}</optgroup>`).join("")}</select>${game==="cm"||game==="mc"?`<select id="bz" aria-label="Zone">${Object.keys(ZONES).map(z=>`<option value="${z}" ${zone===z?"selected":""}>${esc(ZONES[z])}</option>`).join("")}</select>`:""}</div>`:""}
+ ${B==="lg"?`<div class="lgsel" role="tablist" aria-label="Ligues">${LEAGUES.map((L,i)=>`<button role="tab" aria-selected="${i===myT}" data-lt="${i}" class="${i===myT?"on":""}" style="--lc:${L[1]}"><i></i><span>${L[0]}</span><small>${lgCnt[i]}</small></button>`).join("")}</div>`:""}
+ ${B==="lg"?`<div class="card lgh" style="--lc:${LEAGUES[myT][1]}"><span class="lgm">${sv("trophy")}</span><div><b>Ligue ${LEAGUES[myT][0]}</b><small>${daysLeft()>1?`Fin dans ${daysLeft()} jours`:"Fin ce soir"} · ${myT<4?"le premier quart monte":"ligue la plus haute"}${myT>0?", le dernier quart descend":""}</small>${myT!==realT?`<small class="lgme">Ta ligue : ${LEAGUES[realT][0]}</small>`:""}</div></div>`:""}
+ ${per?`<div class="rsel"><select id="bg" aria-label="Jeu">${GAMES.map(([g,ks])=>`<optgroup label="${g}">${ks.map(k=>`<option value="${k}" ${game===k?"selected":""}>${esc(MODES[k].split(" · ")[0])}</option>`).join("")}</optgroup>`).join("")}</select>${game==="cm"||game==="mc"||game==="fm"?`<select id="bz" aria-label="Zone">${Object.keys(ZONES).map(z=>`<option value="${z}" ${zone===z?"selected":""}>${esc(ZONES[z])}</option>`).join("")}</select>`:""}</div>`:""}
  ${rows===null?`<div class="card"><p class="mute">Chargement…</p></div>`:!rows.length?`<div class="card"><p class="mute">${S.rkErr?"Classement indisponible hors connexion.":B==="lg"?"Personne n’a encore marqué de points dans ta ligue cette semaine.":B==="day"?"Personne n’a encore joué le défi du jour.":B==="week"?"Personne n’a encore joué cette semaine.":"Aucun score ici pour l’instant."} Joue une partie pour ouvrir ce classement.</p></div>`:
  `<div class="pod" style="${pod.length===1?"grid-template-columns:minmax(0,170px);justify-content:center":pod.length===2?"grid-template-columns:1fr 1.15fr":""}">${[1,0,2].filter(i=>pod[i]).map(i=>`<div class="pd p${i+1} ${pod[i].id===S.uid?"mine":""}"><span class="mdl">${i+1}</span><b class="pn2">${esc(pod[i].n)}</b><span class="ps">${fmt(pod[i].s)}</span></div>`).join("")}</div>
  ${list?`<div class="card rl0">${list}</div>`:""}
@@ -863,10 +924,11 @@ function drawRank(){
  ${B==="day"&&!dayDone(S.me)?`<button class="btn" id="dy">Jouer le défi du jour</button>`:""}`;
  app.querySelectorAll("[data-b]").forEach(b=>b.onclick=()=>{const k=b.dataset.b;S.board=k==="game"?(per?B:"flag"):k;S.rall=false;drawRank()});
  const bg=$("bg"),bz=$("bz"),ra=$("ra"),y=$("dy");
- if(bg)bg.onchange=()=>{const g=bg.value;S.board=g==="cm"||g==="mc"?g+"_"+zone:g;drawRank()};
+ if(bg)bg.onchange=()=>{const g=bg.value;S.board=g==="cm"||g==="mc"||g==="fm"?g+"_"+zone:g;drawRank()};
  if(bz)bz.onchange=()=>{S.board=game+"_"+bz.value;drawRank()};
  if(ra)ra.onclick=()=>{S.rall=!S.rall;drawRank()};
  if(y)y.onclick=startDay;
+ app.querySelectorAll("[data-lt]").forEach(b=>b.onclick=()=>{S.lgSel=+b.dataset.lt;S.rall=false;drawRank()});
  const gp=$("grp"),gl=$("gsel");if(gp)gp.onclick=()=>groupScreen();if(gl)gl.onchange=()=>{S.gsel=gl.value;drawRank()};
  $("hm").onclick=()=>{S.view="home";home()};
 }
@@ -966,7 +1028,7 @@ function badgeScreen(){
  $("hm").onclick=()=>{S.view="home";home()};
 }
 async function start(seed,lv){
- if((S.mode==="cm"||S.mode==="mc")&&!MAPS){
+ if((S.mode==="cm"||S.mode==="mc"||S.mode==="fm")&&!MAPS){
   S.view="load";app.innerHTML=`<div class="card"><p class="mute">Chargement des cartes…</p></div>`;
   if(!await loadMap()){
    app.innerHTML=`<h1>Cartes<span>.</span></h1><div class="card"><p class="mute">Impossible de charger les cartes. Ce jeu a besoin d’une connexion internet et n’est pas disponible dans l’aperçu Claude : utilise la version hébergée.</p></div><button class="btn alt" id="bk">Retour</button>`;
@@ -978,64 +1040,77 @@ async function start(seed,lv){
  showQ();
 }
 function runTimer(){clearInterval(S.t);if(!TT())return;S.t=setInterval(()=>{S.left=Math.max(0,S.left-.1);const b=$("tm");if(b)b.style.width=(S.left/TT()*100)+"%";const t=$("ts");if(t)t.textContent=Math.ceil(S.left)+" s";if(S.left<=0){if(S.mode==="chr"){clearInterval(S.t);S.locked=true;finish()}else answer(null)}},100)}
-function showQ(){S.locked=false;S.pick=null;S.quit=false;S.hints=0;S.view="play";S.qt0=performance.now();if(S.mode!=="chr"||S.i===0)S.left=TT();play();runTimer()}
+function showQ(){S.locked=false;S.pick=null;S.quit=false;S.hints=0;S.view="play";S.qt0=performance.now();if(S.mode!=="chr"||S.i===0)S.left=TT();play();runTimer();clearInterval(S.bt);if(S.mode==="blur")S.bt=setInterval(()=>{const im=$("fimg");if(!im||S.locked||S.quit)return;const el=(performance.now()-S.qt0)/1000;im.style.filter=`blur(${Math.max(0,16*(1-el/8)).toFixed(1)}px)`},100)}
 function askQuit(){if(S.locked)return;S.quit=true;clearInterval(S.t);play()}
 function resumeGame(){S.quit=false;play();if(!S.locked)runTimer()}
-function quitGame(){S.gid=(S.gid||0)+1;clearInterval(S.t);if(S.mode==="duel"){stopPoll();S.duel=null}S.quit=false;if(S.sec)menu(S.sec);else{S.view="home";home()}}
+function quitGame(){S.gid=(S.gid||0)+1;clearInterval(S.t);clearInterval(S.bt);if(S.mode==="duel"){stopPoll();S.duel=null}S.quit=false;if(S.sec)menu(S.sec);else{S.view="home";home()}}
 function play(){
  const q=S.qs[S.i],m=q.m,F="'Bricolage Grotesque','DM Sans',sans-serif";
- const head=m==="mc"?mapSvg(q.a,S.lv<=2,false):m==="pf"||m==="cp"||m==="cm"?`<div style="font:800 2rem ${F};padding:14px 0">${esc(m==="cp"?q.a.k:q.a.n)}</div>`:flag(q.a.c)+(m==="cap"||m==="ct"?`<div style="font:800 1.5rem ${F};margin-top:6px">${esc(q.a.n)}</div>`:"");
+ const BIG=t=>`<div style="font:800 1.9rem/1.2 ${F};padding:6px 0">${esc(t)}</div>`,SM=t=>`<div style="font:500 .95rem/1.3 'DM Sans','IBM Plex Sans Arabic',sans-serif;color:var(--mute)">${t}</div>`;
+ const head=m==="tf"?(q.kind==="flag"?flag(q.a.c)+BIG(q.claim.n):q.kind==="cap"?BIG(q.claim.k)+SM("capitale de")+BIG(q.a.n):BIG(q.a.n)+SM("se trouve en")+BIG(ZONES[q.claim])):m==="fm"||m==="wc"?BIG(q.a.n):S.mode==="blur"?`<img class="fi blurimg" id="fimg" src="https://flagcdn.com/${q.a.c.toLowerCase()}.svg" alt="" draggable="false" style="filter:blur(${S.locked?0:16}px)">`:m==="mc"?mapSvg(q.a,S.lv<=2,false):m==="pf"||m==="cp"||m==="cm"?`<div style="font:800 2rem ${F};padding:14px 0">${esc(m==="cp"?q.a.k:q.a.n)}</div>`:flag(q.a.c)+(m==="cap"||m==="ct"?`<div style="font:800 1.5rem ${F};margin-top:6px">${esc(q.a.n)}</div>`:"");
  const lab=o=>m==="cm"?mapSvg(o,S.lv<=2,true):m==="pf"?flag(o.c):m==="cp"?`<span style="display:block;font-size:2rem;line-height:1.3;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">${flag(o.c)}</span>${esc(o.n)}`:m==="ct"?esc(ZONES[o]):esc(m==="cap"||m==="fc"?o.k:o.n);
  app.innerHTML=`<div class="top"><span>${S.mode==="rev"?`Révision · ${S.i+1}/${S.qs.length}`:S.mode==="surv"?`Survie · question ${S.i+1}`:S.mode==="chr"?`Chrono · question ${S.i+1}`:`Question ${S.i+1}/${S.qs.length}`}</span><span>${S.combo>=2?`<span class="combo">${sv("fire")}${S.combo}</span>`:""}<b>${fmt(S.score)}</b> pts${S.locked&&S.gain?`<span class="gain">+${S.gain}</span>`:""}</span></div>
  ${TT()?`<div class="bar"><i id="tm" style="width:${S.left/TT()*100}%"></i></div>`:""}
  <div class="card flag" style="margin-top:14px">${head}</div>
- <div class="top"><span class="mute">${{flag:"À quel pays appartient ce drapeau ?",cap:"Quelle est sa capitale ?",pf:"Quel est son drapeau ?",cp:"De quel pays est-ce la capitale ?",cm:"Quelle est la carte de ce pays ?",fc:"Quelle est la capitale de ce pays ?",mc:"Quel pays est représenté sur cette carte ?",ct:"Sur quel continent se trouve ce pays ?"}[m]}</span>${TT()?`<span id="ts" class="mute">${Math.ceil(S.left)} s</span>`:""}</div>
- <div class="opts">${q.o.map((o,k)=>{let c="";if(S.locked){if(right(q,o))c="ok";else if(k===S.pick)c="no"}return `<button class="opt ${c} ${m==="pf"?"fl":m==="cm"?"mp":""}" data-k="${k}">${lab(o)}</button>`}).join("")}</div>
+ <div class="top"><span class="mute">${{tf:"Vrai ou faux ?",wf:"Écris le nom de ce pays",wc:"Écris la capitale de ce pays",fm:"Touche ce pays sur la carte",flag:"À quel pays appartient ce drapeau ?",cap:"Quelle est sa capitale ?",pf:"Quel est son drapeau ?",cp:"De quel pays est-ce la capitale ?",cm:"Quelle est la carte de ce pays ?",fc:"Quelle est la capitale de ce pays ?",mc:"Quel pays est représenté sur cette carte ?",ct:"Sur quel continent se trouve ce pays ?"}[m]}</span>${TT()?`<span id="ts" class="mute">${Math.ceil(S.left)} s</span>`:""}</div>
+ ${m==="fm"?`<div class="card zcard">${zoneSvg(S.zone||"world",q)}</div>${S.locked&&+S.pick!==q.a.n3?`<p class="mute">${S.pick===null?"Temps écoulé.":"Raté."} La bonne réponse est en vert.</p>`:""}`:
+ m==="wf"||m==="wc"?(S.locked?`<div class="card typedr ${S.lastGood?"g":"b"}"><b>${S.lastGood?"Bonne réponse":"Réponse"} : ${esc(m==="wc"?q.a.k:q.a.n)}</b>${!S.lastGood&&S.typed?`<small>Tu as écrit : ${esc(S.typed)}</small>`:""}</div>`:`<form class="typed" id="tform" autocomplete="off"><input id="ti" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" aria-label="Ta réponse" placeholder="${m==="wc"?"Nom de la capitale":"Nom du pays"}"><button class="btn" type="submit">Valider</button><button class="btn alt" type="button" id="skip">Je ne sais pas</button></form>`):
+ m==="tf"?`<div class="opts">${[true,false].map((o,k)=>{let c="";if(S.locked){if(o===q.truth)c="ok";else if(k===S.pick)c="no"}return `<button class="opt tfb ${c}" data-k="${k}">${o?"Vrai":"Faux"}</button>`}).join("")}</div>`:`
+ <div class="opts">${q.o.map((o,k)=>{let c="";if(S.locked){if(right(q,o))c="ok";else if(k===S.pick)c="no"}return `<button class="opt ${c} ${m==="pf"?"fl":m==="cm"?"mp":""}" data-k="${k}">${lab(o)}</button>`}).join("")}</div>`}
  ${S.mode==="rev"&&S.locked?`<div class="card info">${flag(q.a.c)}<div><b>${esc(q.a.n)}</b><small>${q.a.k?"Capitale : "+esc(q.a.k)+" · ":""}${esc(ZONES[ZN[q.a.c]])}</small></div></div><button class="btn" id="nx">${S.i+1<S.qs.length?"Question suivante":"Voir le bilan"}</button>`:""}
  ${S.mode==="duel"&&S.duel?duelBar():""}
  <button class="btn alt" id="qt" style="margin-top:14px" ${S.locked&&S.mode!=="rev"?"disabled":""}>${S.mode==="rev"?"Arrêter la révision":"Quitter la partie"}</button>
  ${S.quit?`<div class="ov"><div class="card"><b>Quitter la partie ?</b><p class="mute">${S.mode==="day"?"Le défi du jour ne se joue qu’une fois : si tu quittes, ton score du jour restera à 0.":"Ta progression sera perdue et ce score ne sera pas enregistré."}</p><button class="btn" id="qc">Continuer</button><button class="btn alt" id="qy">Quitter</button></div></div>`:""}`;
  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+ const zm=app.querySelector(".zmap");if(zm&&!S.locked)zm.onclick=e=>{const t=e.target.closest("[data-n]");if(t)answer(+t.dataset.n)};
+ const tfm=$("tform");if(tfm){tfm.onsubmit=e=>{e.preventDefault();const v=$("ti").value;if(v.trim())answer(v)};$("skip").onclick=()=>answer(null);if(!S.quit)setTimeout(()=>{const i=$("ti");if(i)i.focus()},30)}
  $("qt").onclick=S.mode==="rev"?()=>{S.gid++;finish()}:askQuit;
  const nx=$("nx");if(nx){nx.onclick=()=>nextQ(true);nx.focus()}
  if(S.quit){$("qc").onclick=resumeGame;$("qy").onclick=quitGame}
 }
 function answer(k){
  if(S.locked)return;S.locked=true;clearInterval(S.t);S.pick=k;
- const q=S.qs[S.i],good=k!==null&&right(q,q.o[k]),el=TT()?TT()-S.left:(performance.now()-S.qt0)/1000;
+ const q=S.qs[S.i],good=k!==null&&(q.m==="fm"?+k===q.a.n3:q.m==="wf"||q.m==="wc"?typedOk(q,k):right(q,q.o[k])),el=TT()?TT()-S.left:(performance.now()-S.qt0)/1000;
+ clearInterval(S.bt);S.lastGood=good;S.typed=typeof k==="string"?k:"";
  S.gain=0;
- if(good){S.good++;S.combo++;S.maxCombo=Math.max(S.maxCombo,S.combo);S.gain=S.mode==="rev"?10:Math.round((100+(S.mode==="chr"?0:50*Math.max(0,10-el)/10))*(S.mode==="duel"?2:LV[S.lv].coef));S.score+=S.gain;if(S.mode==="rev")S.mast.push(q.a.c)}
+ if(good){S.good++;S.combo++;S.maxCombo=Math.max(S.maxCombo,S.combo);S.gain=S.mode==="rev"?10:Math.round((100+(S.mode==="chr"?0:50*Math.max(0,BW()-el)/BW()))*(S.mode==="duel"?2:LV[S.lv].coef));S.score+=S.gain;if(S.mode==="rev")S.mast.push(q.a.c)}
  else{S.combo=0;if(!S.miss.includes(q.a))S.miss.push(q.a)}
  (S.marks=S.marks||[]).push(good?1:0);fb(good);
  if(S.mode==="duel")duelProgress();
  play();
  if(S.mode==="rev")return;
- const g=S.gid||0;setTimeout(()=>{if(g!==(S.gid||0)||S.view!=="play")return;nextQ(good)},S.mode==="chr"?450:1200);
+ const slow=!good&&(q.m==="wf"||q.m==="wc"||q.m==="fm");
+ const g=S.gid||0;setTimeout(()=>{if(g!==(S.gid||0)||S.view!=="play")return;nextQ(good)},S.mode==="chr"?450:slow?2200:1200);
 }
 function nextQ(good){S.i++;if(S.i>=S.qs.length||(S.mode==="surv"&&!good))finish();else showQ()}
 let AC=null,MUS=null;
-const CH=[[146.83,185.00,220.00,277.18],[123.47,146.83,185.00,220.00],[98.00,123.47,146.83,185.00],[110.00,146.83,164.81,196.00]],BELL=[587.33,659.25,739.99,880.00,987.77];
+const MVOL=1.5;
+const NF=n=>440*Math.pow(2,(n-69)/12);
+// D, Bm, G, A — accords (notes MIDI) ; mélodie pentatonique en ré
+const PROG=[[62,66,69],[59,62,66],[55,59,62],[57,61,64]],BASS=[38,35,31,33],MEL=[74,76,78,81,83,86];
 function musicStart(){
  if(!S.mus||MUS)return;
- try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume()}catch(e){return}
- if(AC.state!=="running")return;
- const c=AC,out=c.createGain(),lp=c.createBiquadFilter(),dl=c.createDelay(1),fb=c.createGain(),dw=c.createGain();
- out.gain.setValueAtTime(.0001,c.currentTime);out.gain.exponentialRampToValueAtTime(.075,c.currentTime+5);out.connect(c.destination);
- lp.type="lowpass";lp.frequency.value=1250;lp.connect(out);lp.connect(dl);
- dl.delayTime.value=.45;fb.gain.value=.3;dw.gain.value=.22;dl.connect(fb);fb.connect(dl);dl.connect(dw);dw.connect(out);
+ try{AC=AC||new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}
+ if(AC.state!=="running"){try{AC.resume().then(()=>{if(AC.state==="running"&&!MUS)musicStart()}).catch(()=>{})}catch(e){}return}
+ const c=AC,out=c.createGain(),lp=c.createBiquadFilter(),dl=c.createDelay(1.5),fb=c.createGain(),dw=c.createGain(),cmp=c.createDynamicsCompressor();
+ cmp.threshold.value=-14;cmp.ratio.value=4;cmp.connect(c.destination);
+ out.gain.setValueAtTime(.0001,c.currentTime);out.gain.exponentialRampToValueAtTime(MVOL,c.currentTime+2.5);out.connect(cmp);
+ lp.type="lowpass";lp.frequency.value=3400;lp.Q.value=.4;lp.connect(out);
+ const beat=60/84,e8=beat/2,blk=beat*8;
+ dl.delayTime.value=e8*3;fb.gain.value=.28;dw.gain.value=.2;dl.connect(fb);fb.connect(dl);dl.connect(dw);dw.connect(out);
  const M=MUS={out,lp,i:0,stop:false,timer:null};
- const bar=8,pad=(t,f,d)=>{for(const det of[-3,3]){const o=c.createOscillator(),g=c.createGain();o.type="triangle";o.frequency.value=f;o.detune.value=det;
-   g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.12,t+2.5);g.gain.setValueAtTime(.12,t+d-3);g.gain.exponentialRampToValueAtTime(.0001,t+d);
-   o.connect(g);g.connect(lp);o.start(t);o.stop(t+d+.1)}};
- const bell=(t,f)=>{const o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.value=f;
-   g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.05,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+2.4);
-   o.connect(g);g.connect(lp);o.start(t);o.stop(t+2.5)};
+ const voice=(t,f,dur,type,peak,att,send)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(peak,t+att);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g);g.connect(lp);if(send)g.connect(dl);o.start(t);o.stop(t+dur+.05)};
  const sched=()=>{
   if(M.stop)return;
-  const t=M.t=Math.max(M.t||c.currentTime+.15,c.currentTime+.05);
-  CH[M.i%CH.length].forEach(f=>pad(t,f,bar+1.2));
-  for(let k=0;k<3;k++)if(Math.random()<.62)bell(t+1+k*2.2+Math.random()*.6,BELL[Math.floor(Math.random()*BELL.length)]);
-  M.i++;M.t=t+bar;M.timer=setTimeout(sched,(bar-1.2)*1000);
+  const t=M.t=Math.max(M.t||c.currentTime+.12,c.currentTime+.05),k=M.i%PROG.length,ch=PROG[k];
+  ch.forEach(n=>{voice(t,NF(n),blk+.6,"triangle",.05,.9,false);voice(t,NF(n)*1.003,blk+.6,"sine",.035,1.2,false)});
+  voice(t,NF(BASS[k]+12),blk*.5,"triangle",.07,.04,false);voice(t+blk*.5,NF(BASS[k]+12),blk*.5,"triangle",.06,.04,false);
+  const arp=[ch[0]+12,ch[1]+12,ch[2]+12,ch[0]+24,ch[2]+12,ch[1]+12,ch[0]+12,ch[1]+12];
+  for(let b=0;b<2;b++)arp.forEach((n,j)=>voice(t+b*beat*4+j*e8,NF(n),.5,"triangle",.045,.008,true));
+  if(M.i%2===1){const r=Math.random();const ph=r<.33?[0,2,3,1]:r<.66?[3,2,1,0]:[1,3,4,3];ph.forEach((x,j)=>voice(t+beat*(1+j*1.5),NF(MEL[x]),1.6,"sine",.06,.02,true))}
+  M.i++;M.t=t+blk;M.timer=setTimeout(sched,(blk-.8)*1000);
  };
  sched();
 }
@@ -1046,7 +1121,7 @@ function musicStop(fade=1.2){
 document.addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"?musicStop(.4):musicStart()});
 setInterval(()=>{try{if(LS("gq-rem","0")!=="1"||!S.me||Notification.permission!=="granted")return;const h=new Date().getHours(),sn=streakOf(S.me);if(h<18||!sn||S.me.sd===dk()||LS("gq-remd","")===dk())return;LSset("gq-remd",dk());
  navigator.serviceWorker.getRegistration().then(r=>r?r.showNotification("Geo Quizz",{body:tr("Ta série de {n} jours se termine ce soir. Une partie suffit pour la garder.").replace("{n}",sn),icon:"icon-192.png",tag:"gq-streak"}):new Notification("Geo Quizz",{body:tr("Ta série de {n} jours se termine ce soir. Une partie suffit pour la garder.").replace("{n}",sn)}))}catch(e){}},600000);
-["pointerdown","keydown"].forEach(ev=>document.addEventListener(ev,()=>musicStart(),{passive:true}));
+["pointerdown","touchend","click","keydown"].forEach(ev=>document.addEventListener(ev,()=>musicStart(),{passive:true}));
 function tone(f,t0,d,type="sine",g=.12){const c=AC,o=c.createOscillator(),v=c.createGain();o.type=type;o.frequency.setValueAtTime(f,c.currentTime+t0);v.gain.setValueAtTime(0,c.currentTime+t0);v.gain.linearRampToValueAtTime(g,c.currentTime+t0+.01);v.gain.exponentialRampToValueAtTime(.0001,c.currentTime+t0+d);o.connect(v).connect(c.destination);o.start(c.currentTime+t0);o.stop(c.currentTime+t0+d+.02)}
 function sfx(k){
  if(!S.snd)return;
