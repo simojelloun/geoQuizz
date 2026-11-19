@@ -2,7 +2,15 @@
 <html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Geo Quizz</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0b3c6f">
+<meta name="apple-mobile-web-app-title" content="Geo Quizz">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f5f6f8;--card:#fff;--ink:#111827;--mute:#6b7280;--acc:#2563eb;--onacc:#fff;--ok:#16a34a;--bad:#dc2626;--line:#e5e7eb;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#161a22;--ink:#e8eaed;--mute:#8b93a1;--acc:#4c8bf5;--onacc:#0b1220;--ok:#2fb36a;--bad:#e5534b;--line:#262c38;color-scheme:dark}}
@@ -26,7 +34,8 @@ button{font:inherit;cursor:pointer;color:var(--ink)}
 .btn[disabled]{opacity:.45}
 .nav{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:16px;margin-bottom:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.05)}
 .nt{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;flex:none}.nav svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.nav span{flex:1}.nav b{display:block;font-weight:600;font-size:1.05rem}.nav small{color:var(--mute);font-size:.82rem}
+.nav span{flex:1}.nav .nt{flex:none}.nav b{display:block;font-weight:600;font-size:1.05rem}.nav small{color:var(--mute);font-size:.82rem}
+.hd{display:flex;align-items:center;gap:16px;margin:4px 0 18px;padding:18px;border-radius:16px;color:#fff;box-shadow:0 6px 18px -8px rgba(0,0,0,.45)}.hd .nt{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.18)}.hd svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.hd h1{margin:0;color:#fff}.hd h1 span{color:rgba(255,255,255,.7)}.hd .sub{margin:3px 0 0;color:rgba(255,255,255,.88)}
 .nav i{color:var(--mute);font-style:normal;font-size:1.4rem}
 .nav:active{background:var(--bg)}
 .top{display:flex;justify-content:space-between;align-items:center;font-weight:500;margin-bottom:10px;font-size:.92rem}
@@ -83,6 +92,70 @@ input:focus{outline:2px solid var(--acc);outline-offset:1px}
 .lvl{flex-direction:row;gap:6px}
 .lr{flex:1;min-width:0;flex-direction:column;justify-content:flex-start;align-items:center;gap:5px;padding:9px 2px;text-align:center}
 .lt{flex:none}.lt b{font-size:.76rem;line-height:1.15}.lt small{display:none}
+
+/* ===== Atlas ===== */
+:root{--bg:#eef4f8;--card:#fff;--ink:#0c1b2e;--mute:#5b6b7d;--acc:#0b5cad;--acc2:#12a594;--sun:#ffb703;--onacc:#fff;--ok:#12a150;--bad:#e5484d;--line:#d6e1eb;--edge:#c3d2e0;--grid:rgba(11,92,173,.07);--pass:#0b3c6f;--D:'Bricolage Grotesque','DM Sans',system-ui,sans-serif}
+:root[data-theme="dark"]{--bg:#081726;--card:#0f2438;--ink:#e9f0f7;--mute:#8ea2b8;--acc:#4da3ff;--acc2:#2fd0bd;--onacc:#06121f;--ok:#2fb36a;--bad:#f2555a;--line:#1d3550;--edge:#0a1a2b;--grid:rgba(77,163,255,.07);--pass:#123e6b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#081726;--card:#0f2438;--ink:#e9f0f7;--mute:#8ea2b8;--acc:#4da3ff;--acc2:#2fd0bd;--onacc:#06121f;--ok:#2fb36a;--bad:#f2555a;--line:#1d3550;--edge:#0a1a2b;--grid:rgba(77,163,255,.07);--pass:#123e6b}}
+body{font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;background:linear-gradient(var(--grid) 1px,transparent 1px) 0 0/100% 44px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/44px 100%,var(--bg);background-attachment:fixed}
+h1{font-family:var(--D);font-weight:800;font-size:2.1rem;letter-spacing:-.03em}
+h1 span{color:var(--sun)}
+label{text-transform:none;letter-spacing:0;font-size:.85rem}
+.card{border-radius:16px;box-shadow:0 3px 0 var(--edge)}
+.btn{font-family:var(--D);border:0;border-radius:12px;font-weight:800;font-size:1.05rem;box-shadow:0 4px 0 color-mix(in srgb,var(--acc) 62%,#000);transition:transform .08s,box-shadow .08s}
+.btn:active{filter:none;transform:translateY(3px);box-shadow:0 1px 0 color-mix(in srgb,var(--acc) 62%,#000)}
+.btn.alt{border:1px solid var(--line);box-shadow:0 4px 0 var(--edge);font-weight:600}
+.btn.alt:active{box-shadow:0 1px 0 var(--edge)}
+.btn:focus-visible,.opt:focus-visible,.tile:focus-visible,.nav:focus-visible,.dz:focus-visible,.lr:focus-visible,.lvb:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.hb{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.hb h1{margin:0}
+.pc{display:flex;gap:16px;align-items:center;background:var(--pass);color:#fff;border:0;position:relative;padding:20px}
+.pc:before{content:"";position:absolute;inset:7px;border:1px dashed rgba(255,255,255,.28);border-radius:10px;pointer-events:none}
+.stamp{width:68px;height:68px;border-radius:50%;border:2.5px solid var(--sun);outline:1px solid var(--sun);outline-offset:3px;color:var(--sun);display:grid;place-items:center;text-align:center;transform:rotate(-9deg);flex:none;font:800 1.7rem/1 var(--D)}
+.stamp small{display:block;font:700 .5rem/1.4 'DM Sans',sans-serif;letter-spacing:.14em}
+.pi{flex:1;min-width:0}.pn{font:800 1.25rem/1.2 var(--D);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pt{font-size:.85rem;opacity:.85}
+.pc .lk{color:#fff;opacity:.75;font:500 .75rem 'DM Sans',sans-serif;margin-left:6px}
+.xp{height:8px;border-radius:8px;background:rgba(255,255,255,.2);margin:9px 0 5px;overflow:hidden}.xp i{display:block;height:100%;background:var(--sun);border-radius:8px}
+.px{font-size:.74rem;opacity:.85;display:flex;justify-content:space-between;gap:8px}
+.strk{display:flex;align-items:center;gap:8px;margin:0 2px 14px;font-size:.88rem;color:var(--mute)}
+.strk svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.strk.on{color:var(--ink)}.strk.on svg{stroke:#e8590c;fill:#ffb703}
+.dz{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:16px;margin-bottom:18px;border:0;border-radius:16px;background:var(--sun);color:#2b1d00;box-shadow:0 4px 0 #c98f00;transition:transform .08s,box-shadow .08s}
+.dz:active{transform:translateY(3px);box-shadow:0 1px 0 #c98f00}
+.dz span{flex:1}.dz b{display:block;font:800 1.15rem/1.2 var(--D)}.dz small{font-size:.82rem;opacity:.85}
+.dz em{font:800 .9rem var(--D);font-style:normal;background:#2b1d00;color:var(--sun);padding:8px 14px;border-radius:999px;flex:none}
+.dz.done{background:var(--card);color:var(--ink);box-shadow:0 3px 0 var(--edge);border:1px solid var(--line)}.dz.done em{background:var(--bg);color:var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.tile{display:block;text-align:left;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 0 var(--edge);transition:transform .08s,box-shadow .08s}
+.tile:active{transform:translateY(3px);box-shadow:0 1px 0 var(--edge)}
+.tile .nt{margin-bottom:12px}.tile svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tile b{display:block;font:800 1.15rem/1.2 var(--D)}.tile small{color:var(--mute);font-size:.82rem}
+.nav{border-radius:16px;box-shadow:0 4px 0 var(--edge);transition:transform .08s,box-shadow .08s}.nav .nt{flex:none}.nav b{font-family:var(--D);font-weight:800}
+.nav:active{transform:translateY(3px);box-shadow:0 1px 0 var(--edge);background:var(--card)}
+.hd{box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.lr,.lvb{border-radius:12px}
+.bar{height:10px;border-radius:10px}.bar i{background:var(--acc2);border-radius:10px}
+.flag{border-radius:20px}
+.opt{border-radius:14px;font-weight:600;border:1px solid var(--line);box-shadow:0 4px 0 var(--edge);transition:transform .08s,box-shadow .08s}
+.opt:active{transform:translateY(3px);box-shadow:0 1px 0 var(--edge)}
+.opt.ok{box-shadow:0 4px 0 color-mix(in srgb,var(--ok) 65%,#000)}
+.opt.no{box-shadow:0 4px 0 color-mix(in srgb,var(--bad) 65%,#000);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.top b{color:var(--ink);font-family:var(--D);font-size:1.05rem}
+.combo{display:inline-flex;align-items:center;gap:2px;color:#e8590c;font-weight:700;margin-right:8px}.combo svg{width:16px;height:16px;fill:#ffb703;stroke:#e8590c;stroke-width:2;stroke-linejoin:round}
+.gain{color:var(--ok);font-weight:700;margin-left:6px;display:inline-block;animation:rise .5s ease-out}
+@keyframes rise{from{transform:translateY(8px);opacity:0}}
+.big{font:800 4rem/1 var(--D);color:var(--ink);letter-spacing:-.03em}
+.stars{display:flex;justify-content:center;gap:6px;margin:2px 0 10px}.stars svg{width:38px;height:38px;fill:var(--line)}.stars svg.on{fill:var(--sun)}.stars svg:nth-child(2){width:46px;height:46px;margin-top:-6px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.st{background:var(--bg);border-radius:12px;padding:10px 4px}.st b{display:block;font:800 1.3rem/1.2 var(--D)}.st small{color:var(--mute);font-size:.74rem}
+.up{font-weight:700;color:var(--ok);margin:10px 0 0}
+.rv summary{cursor:pointer;font-weight:600}.rv .pl b{font-weight:500;color:var(--mute);text-align:right}
+.pl{align-items:center}.pl .who{display:flex;align-items:center;gap:10px;min-width:0}.pl .who small{color:var(--mute);font-size:.75rem;font-weight:400}
+.rkn{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:800 .82rem var(--D);background:var(--bg);flex:none}
+.r1{background:#ffb703;color:#3d2b00}.r2{background:#c9d3dd;color:#1f2d3a}.r3{background:#dfa172;color:#3b1f08}
+.pl.mine{background:color-mix(in srgb,var(--acc) 9%,transparent);margin:0 -10px;padding-left:10px;padding-right:10px;border-radius:10px;border-bottom-color:transparent}
+.seg button.on{background:var(--acc);color:var(--onacc)}
+input:focus,select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 22%,transparent)}
+@media (prefers-reduced-motion:reduce){.btn,.opt,.tile,.nav,.dz{transition:none}.opt.no,.gain{animation:none}}
 </style></head>
 <body><main id="app"></main>
 <script src="config.js"></script>
@@ -96,11 +169,13 @@ const RAW="FR:France:1,DE:Allemagne:1,ES:Espagne:1,IT:Italie:1,PT:Portugal:1,GB:
 const C=RAW.split(",").map(s=>{const[c,n,t]=s.split(":");return{c,n,t:+t}});
 const CAPS=Object.fromEntries("FR:Paris,DE:Berlin,ES:Madrid,IT:Rome,PT:Lisbonne,GB:Londres,US:Washington,CA:Ottawa,BR:Brasilia,AR:Buenos Aires,MX:Mexico,JP:Tokyo,CN:Pékin,IN:New Delhi,RU:Moscou,MA:Rabat,DZ:Alger,TN:Tunis,EG:Le Caire,SN:Dakar,ZA:Pretoria,AU:Canberra,TR:Ankara,SA:Riyad,BE:Bruxelles,CH:Berne,NL:Amsterdam,SE:Stockholm,GR:Athènes,KR:Séoul,CI:Yamoussoukro,NG:Abuja,CM:Yaoundé,CO:Bogota,IE:Dublin,PL:Varsovie,NO:Oslo,DK:Copenhague,FI:Helsinki,AT:Vienne,CZ:Prague,HU:Budapest,RO:Bucarest,UA:Kiev,HR:Zagreb,RS:Belgrade,IR:Téhéran,IQ:Bagdad,JO:Amman,LB:Beyrouth,QA:Doha,AE:Abou Dabi,PK:Islamabad,TH:Bangkok,VN:Hanoï,ID:Jakarta,PH:Manille,NZ:Wellington,CL:Santiago,PE:Lima,VE:Caracas,CU:La Havane,KE:Nairobi,GH:Accra,ET:Addis-Abeba,IS:Reykjavik,LU:Luxembourg,MT:La Valette,EE:Tallinn,LV:Riga,LT:Vilnius,SK:Bratislava,SI:Ljubljana,BG:Sofia,AL:Tirana,GE:Tbilissi,AM:Erevan,AZ:Bakou,KZ:Astana,MN:Oulan-Bator,NP:Katmandou,LK:Sri Jayawardenepura Kotte,BD:Dacca,MM:Naypyidaw,KH:Phnom Penh,MG:Antananarivo,ML:Bamako,TD:N’Djamena,NE:Niamey,BO:Sucre,PY:Asunción,UY:Montevideo,EC:Quito,PG:Port Moresby,FJ:Suva,SB:Honiara,VU:Port-Vila,PA:Panama,CR:San José,GT:Guatemala,HN:Tégucigalpa,NI:Managua,SV:San Salvador,DO:Saint-Domingue,HT:Port-au-Prince,JM:Kingston".split(",").map(s=>s.split(":")));C.forEach(x=>x.k=CAPS[x.c]);
 const N3=Object.fromEntries("FR:250,DE:276,ES:724,IT:380,PT:620,GB:826,US:840,CA:124,BR:76,AR:32,MX:484,JP:392,CN:156,IN:356,RU:643,MA:504,DZ:12,TN:788,EG:818,SN:686,ZA:710,AU:36,TR:792,SA:682,BE:56,CH:756,NL:528,SE:752,GR:300,KR:410,CI:384,NG:566,CM:120,CO:170,IE:372,PL:616,NO:578,DK:208,FI:246,AT:40,CZ:203,HU:348,RO:642,UA:804,HR:191,RS:688,IR:364,IQ:368,JO:400,LB:422,QA:634,AE:784,PK:586,TH:764,VN:704,ID:360,PH:608,NZ:554,CL:152,PE:604,VE:862,CU:192,KE:404,GH:288,ET:231,IS:352,LU:442,MT:470,EE:233,LV:428,LT:440,SK:703,SI:705,BG:100,AL:8,GE:268,AM:51,AZ:31,KZ:398,MN:496,NP:524,LK:144,BD:50,MM:104,KH:116,MG:450,ML:466,TD:148,NE:562,BO:68,PY:600,UY:858,EC:218,PG:598,FJ:242,SB:90,VU:548,PA:591,CR:188,GT:320,HN:340,NI:558,SV:222,DO:214,HT:332,JM:388".split(",").map(s=>s.split(":")));C.forEach(x=>x.n3=+N3[x.c]);
-const MODES={flag:"Pays d’un drapeau",pf:"Drapeau d’un pays",cap:"Capitale d’un pays",cp:"Pays d’une capitale",cm:"Carte d’un pays",all:"Général · tous les jeux"},SEC={d:["flag","pf"],c:["cap","cp"],m:["cm"]},IC={flag:"🎌➜🌍",pf:"🌍➜🎌",cap:"🌍➜🏙️",cp:"🏙️➜🌍"};
-const G={flag:["flag","globe","#2563eb","#7c3aed"],pf:["globe","flag","#7c3aed","#db2777"],cap:["globe","city","#f59e0b","#ef4444"],cp:["city","globe","#0d9488","#2563eb"],cm:["globe","map","#0d9488","#16a34a"]};
-const P={flag:'<path d="M5 21V4"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',city:'<path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.5 11 12 4l9.5 7z"/>',map:'<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>'};
+const MODES={flag:"Pays d’un drapeau",pf:"Drapeau d’un pays",cap:"Capitale d’un pays",cp:"Pays d’une capitale",cm:"Carte d’un pays",fc:"Capitale d’un drapeau",mc:"Pays d’une carte",ct:"Continent d’un pays",mix:"Mélange · tous les types",surv:"Survie · une erreur et c’est fini",chr:"Contre-la-montre · 60 s",day:"Défi du jour",xp:"Points cumulés (XP)",all:"Général · tous les jeux"},SEC={d:["flag","pf","fc"],c:["cap","cp"],m:["cm","mc"],x:["ct","mix","surv","chr"]},IC={flag:"🎌➜🌍",pf:"🌍➜🎌",cap:"🌍➜🏙️",cp:"🏙️➜🌍"};
+const G={flag:["flag","globe","#2563eb","#7c3aed"],pf:["globe","flag","#7c3aed","#db2777"],cap:["globe","city","#f59e0b","#ef4444"],cp:["city","globe","#0d9488","#2563eb"],cm:["globe","map","#0d9488","#16a34a"],fc:["flag","city","#2563eb","#f59e0b"],mc:["map","globe","#16a34a","#2563eb"],ct:["flag","map","#0d9488","#65a30d"],mix:["shuffle",null,"#db2777","#7c3aed"],surv:["heart",null,"#ef4444","#db2777"],chr:["clock",null,"#f59e0b","#db2777"]};
+const P={flag:'<path d="M5 21V4"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',city:'<path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.5 11 12 4l9.5 7z"/>',map:'<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',shuffle:'<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',heart:'<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.800-8 11-8 11z"/>',clock:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.500 2M9 2h6"/>',fire:'<path d="M8.500 14.500A2.500 2.500 0 0 0 11 12c0-1.380-.500-2-1-3-1.072-2.143-.224-4.054 2-6 .500 2.500 2 4.900 4 6.500 2 1.600 3 3.500 3 5.500a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.500 2.500 0 0 0 2.500 2.500z"/>',star:'<path d="M12 2.500l2.900 6 6.600.9-4.800 4.600 1.200 6.500L12 17.400l-5.900 3.100 1.200-6.500L2.500 9.400l6.600-.9z"/>',auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>'};
+const HD=(t,sub,g,ic)=>`<div class="hd" style="background:linear-gradient(135deg,${g[0]},${g[1]})"><span class="nt">${ic}</span><div><h1>${t}<span>.</span></h1><p class="sub">${sub}</p></div></div>`;
+const SG={d:["#2563eb","#7c3aed","flag"],c:["#f59e0b","#ef4444","city"],m:["#0d9488","#16a34a","map"],x:["#db2777","#7c3aed","bolt"]};
 const sv=p=>`<svg viewBox="0 0 24 24">${P[p]}</svg>`;
-const MI=k=>{if(k==="all")return `<span class="mi" style="background:linear-gradient(135deg,#10b981,#059669)">${sv("trophy")}</span>`;const[a,b,c1,c2]=G[k];return `<span class="mi" style="background:linear-gradient(135deg,${c1},${c2})">${sv(a)}${sv("arrow")}${sv(b)}</span>`};
+const MI=k=>{if(k==="all")return `<span class="mi" style="background:linear-gradient(135deg,#10b981,#059669)">${sv("trophy")}</span>`;const[a,b,c1,c2]=G[k];return `<span class="mi" style="background:linear-gradient(135deg,${c1},${c2})">${sv(a)}${b?sv("arrow")+sv(b):""}</span>`};
 const modeButtons=(ks=["flag","pf","cap","cp"],cur=S.mode)=>`<div class="lv" style="grid-template-columns:1fr">${ks.map(k=>`<button class="lvb md ${cur===k?"on":""}" data-md="${k}">${MI(k)}<span>${MODES[k]}</span></button>`).join("")}</div>`;
 function applyTheme(t){const e=document.documentElement;if(t==="light"||t==="dark")e.dataset.theme=t;else delete e.dataset.theme;S.theme=t}
 const themeCtl=()=>`<div class="seg" role="group" aria-label="Apparence">${[["auto","Auto"],["light","Clair"],["dark","Sombre"]].map(([k,l])=>`<button class="${S.theme===k?"on":""}" data-th="${k}" title="${l}" aria-label="${l}">${sv(k==="light"?"sun":k==="dark"?"moon":"auto")}</button>`).join("")}</div>`;
@@ -111,17 +186,22 @@ const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.i
 const shuf=(arr,r)=>{const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const FG="FR NL RU LU HR RS SK SI CZ|IT IE MX CI HU BG|RO TD AM BE ML SN GH CM ET|AU NZ GB US CU CL PH CZ|ID PL AT LV PE CA|NO IS DK SE FI CH|AR UY GR EE|IQ EG JO AE SA IR LB QA|JP BD KR CN VN TR TN DZ PK MA|CO EC VE|IN NE CI IE|LT BO GH ET|UA SE KZ".split("|").map(g=>g.split(" "));
 const RG="FR DE ES IT PT GB BE CH NL IE LU AT MT|SE NO DK FI IS EE LV LT|PL CZ HU RO UA HR RS SK SI BG AL GR RU|TR GE AM AZ IR IQ JO LB SA AE QA|MA DZ TN EG|SN CI NG CM GH ML TD NE|ZA KE ET MG|JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ|AU NZ PG FJ SB VU|US CA MX CU PA CR GT HN NI SV DO HT JM|BR AR CO VE PE CL EC BO PY UY".split("|").map(g=>g.split(" "));
-const near=a=>{const G=(S.mode==="flag"||S.mode==="pf")?FG:RG,o=new Set();G.forEach(g=>{if(g.includes(a.c))g.forEach(c=>{if(c!==a.c)o.add(c)})});return o};
+const near=(a,m)=>{const G=(m==="flag"||m==="pf"||m==="fc")?FG:RG,o=new Set();G.forEach(g=>{if(g.includes(a.c))g.forEach(c=>{if(c!==a.c)o.add(c)})});return o};
+const MIXK=["flag","pf","cap","cp","fc","ct"],ZK=["eu","af","as","na","sa"];
+const right=(q,o)=>q.m==="ct"?o===ZN[q.a.c]:o===q.a;
+const TT=()=>S.mode==="chr"?60:LV[S.lv].time;
 const build=(seed,lv)=>{
- const r=rng(seed),L=LV[lv],cm=S.mode==="cm",ok=x=>!cm||(MAPS&&MAPS[x.n3]&&(S.zone==="world"||ZN[x.c]===S.zone));
+ const r=rng(seed),L=LV[lv],M=S.mode,mp=M==="cm"||M==="mc",long=M==="surv"||M==="chr",ok=x=>!mp||(MAPS&&MAPS[x.n3]&&(S.zone==="world"||ZN[x.c]===S.zone));
  let pool=C.filter(x=>x.t<=L.pool&&ok(x));
- if(cm&&pool.length<8)pool=C.filter(ok);
- const n=Math.min((S.mode==="pf"?(L.ch>6?6:4):cm?Math.min(L.ch,6):L.ch)-1,pool.length-1);
- return shuf(pool,r).slice(0,Math.min(20,pool.length)).map(a=>{
+ if(mp&&pool.length<8)pool=C.filter(ok);
+ return shuf(pool,r).slice(0,long?pool.length:Math.min(20,pool.length)).map(a=>{
+  const m=(M==="mix"||M==="day"||long)?MIXK[Math.floor(r()*MIXK.length)]:M;
+  if(m==="ct")return{a,m,o:ZK};
+  const n=Math.min((m==="pf"?(L.ch>6?6:4):m==="cm"?Math.min(L.ch,6):L.ch)-1,pool.length-1);
   let d=[];
-  if(lv>=3){const nr=near(a);d=shuf(pool.filter(x=>x!==a&&nr.has(x.c)),r).slice(0,lv===3?Math.ceil(n/2):n)}
+  if(lv>=3){const nr=near(a,m);d=shuf(pool.filter(x=>x!==a&&nr.has(x.c)),r).slice(0,lv===3?Math.ceil(n/2):n)}
   const rest=shuf(pool.filter(x=>x!==a&&!d.includes(x)),r).slice(0,n-d.length);
-  return{a,o:shuf([a,...d,...rest],r)};
+  return{a,m,o:shuf([a,...d,...rest],r)};
  });
 };
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -131,14 +211,29 @@ const app=$("app");
 
 const LC={1:"#10b981",2:"#3b82f6",3:"#f59e0b",4:"#ef4444"};
 function lvButtons(editable){
- return `<div class="lvl">${[1,2,3,4].map(k=>`<button class="lr ${S.lv===k?"on":""}" ${editable?`data-lv="${k}"`:"disabled"}><span class="bars">${[1,2,3,4].map(i=>`<i style="${i<=k?`background:${LC[k]}`:""}"></i>`).join("")}</span><span class="lt"><b>${LV[k].n}</b><small>${LV[k].h}</small></span></button>`).join("")}</div><p class="mute" style="margin:8px 0 0">${LV[S.lv].h}</p>`;
+ return `<div class="lvl">${[1,2,3,4].map(k=>`<button class="lr ${S.lv===k?"on":""}" ${editable?`data-lv="${k}"`:"disabled"}><span class="bars">${[1,2,3,4].map(i=>`<i style="${i<=k?`background:${LC[k]}`:""}"></i>`).join("")}</span><span class="lt"><b>${LV[k].n}</b><small>${LV[k].h}</small></span></button>`).join("")}</div><p class="mute" style="margin:8px 0 0">${S.mode==="chr"?LV[S.lv].h.replace("10 s","60 s au total"):S.mode==="ct"?LV[S.lv].h.replace(/\d choix/,"5 choix"):LV[S.lv].h}</p>`;
 }
 function home(){
- const acc=S.uid?`${REMOTE?"Pseudo":"Joueur"} : <b>${esc(S.name||"")}</b> · <button id="chg" class="lk">${REMOTE?"changer de pseudo":"changer de joueur"}</button>`:`Non connecté : tes scores ne seront pas enregistrés. Choisis un pseudo.`;
- app.innerHTML=`<div class="tb">${themeCtl()}</div><h1>Geo Quizz<span>.</span></h1><p class="sub">Choisis ton thème.</p>
- <div class="card mute" style="text-align:left">${acc}</div>
- <button class="nav" id="sd"><span class="nt" style="background:linear-gradient(135deg,#2563eb,#7c3aed)"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h13l-2.500 4.500L18 13H5"/></svg></span><span><b>Drapeaux</b><small>Pays d’un drapeau · Drapeau d’un pays</small></span><i>›</i></button><button class="nav" id="sc"><span class="nt" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V11m4 10V11m6 10V11m4 10V11M2.500 11 12 4l9.500 7z"/></svg></span><span><b>Capitales</b><small>Capitale d’un pays · Pays d’une capitale</small></span><i>›</i></button><button class="nav" id="sm"><span class="nt" style="background:linear-gradient(135deg,#0d9488,#16a34a)"><svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span><span><b>Cartes</b><small>Carte d’un pays · par continent</small></span><i>›</i></button><button class="nav" id="rk"><span class="nt" style="background:linear-gradient(135deg,#10b981,#059669)"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/></svg></span><span><b>Classements</b><small>Meilleurs scores par jeu et par niveau</small></span><i>›</i></button>`;
- bindTheme();const cg=$("chg");if(cg)cg.onclick=nameScreen;$("sd").onclick=()=>menu("d");$("sc").onclick=()=>menu("c");$("sm").onclick=()=>{S.zone=null;menu("m")};$("rk").onclick=rank;
+ const d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=streakOf(d),today=d.sd===dk(),dd=dayDone(d);
+ app.innerHTML=`<div class="hb"><h1>Geo Quizz<span>.</span></h1>${themeCtl()}</div>
+ <div class="card pc"><div class="stamp"><div><small>NIVEAU</small>${L}</div></div><div class="pi"><div class="pn">${esc(S.name||"")}<button id="chg" class="lk">changer</button></div><div class="pt">${titleOf(L)}</div><div class="xp"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><div class="px"><span>${fmt(x)} XP</span><span>niveau ${L+1} à ${fmt(b)} XP</span></div></div></div>
+ <p class="strk ${st?"on":""}">${sv("fire")}<span>${st?(today?`Série de ${pl(st,"jour","jours")}. Reviens demain pour la prolonger.`:`Série de ${pl(st,"jour","jours")} en jeu : joue aujourd’hui pour la garder.`):"Joue une partie aujourd’hui pour démarrer une série."}</span></p>
+ <button class="dz ${dd?"done":""}" id="dy"><span><b>${dd?"Défi du jour terminé":"Défi du jour"}</b><small>${dd?`${fmt(dd.s)} pts. Nouveau défi demain.`:"20 questions, les mêmes pour tous. Une seule tentative."}</small></span><em>${dd?"Classement":"Jouer"}</em></button>
+ <div class="grid">${[["sd","d","Drapeaux"],["sc","c","Capitales"],["sm","m","Cartes"],["sx","x","Défis"]].map(([id,k,t])=>`<button class="tile" id="${id}"><span class="nt" style="background:linear-gradient(135deg,${SG[k][0]},${SG[k][1]})">${sv(SG[k][2])}</span><b>${t}</b><small>${SEC[k].length} jeux</small></button>`).join("")}</div>
+ <button class="nav" id="rk"><span class="nt" style="background:linear-gradient(135deg,#10b981,#059669)">${sv("trophy")}</span><span><b>Classements</b><small>Records par jeu, défi du jour, points cumulés</small></span><i>›</i></button>`;
+ bindTheme();$("chg").onclick=nameScreen;$("dy").onclick=startDay;$("sd").onclick=()=>menu("d");$("sc").onclick=()=>menu("c");$("sm").onclick=()=>{S.zone=null;menu("m")};$("sx").onclick=()=>menu("x");$("rk").onclick=rank;
+}
+const dk=(o=0)=>{const d=new Date(Date.now()+o*864e5);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const lvlOf=x=>Math.floor(Math.sqrt((+x||0)/1000))+1,lvlAt=n=>1000*(n-1)*(n-1);
+const TITLES=[[20,"Légende"],[16,"Globe-trotter"],[12,"Cartographe"],[8,"Navigateur"],[5,"Explorateur"],[3,"Voyageur"],[1,"Touriste"]],titleOf=n=>TITLES.find(t=>n>=t[0])[1];
+const streakOf=d=>d&&(d.sd===dk()||d.sd===dk(-1))?+d.sn||0:0;
+const dayDone=d=>d&&d.dc&&d.dc.d===dk()?d.dc:null;
+const pl=(n,a,b)=>n+" "+(n>1?b:a);
+async function loadMe(){try{const sn=await DB.collection("players").doc(S.uid).get();S.me=(sn.exists&&sn.data())||{}}catch(e){S.me=S.me||{}}}
+async function startDay(){
+ if(dayDone(S.me)){S.board="day";return rank()}
+ try{const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};if(dayDone(d)){S.me=d;return home()}const nd={...d,dc:{d:dk(),s:0}};await ref.set(nd);S.me=nd}catch(e){}
+ S.mode="day";S.sec=null;S.zone=null;start(+dk().replace(/-/g,""),2);
 }
 const fmt=n=>(+n||0).toLocaleString("fr-FR");
 async function scoresBox(mode){
@@ -163,15 +258,15 @@ function conIcon(z){
 }
 function zoneMenu(){
  S.view="menu";S.zone=null;S.mode="cm";
- app.innerHTML=`<h1>Cartes<span>.</span></h1><p class="sub">Choisis une zone du monde.</p>${Object.keys(ZONES).map(z=>`<button class="nav" data-z="${z}"><span class="nt" style="background:linear-gradient(135deg,${ZG[z][0]},${ZG[z][1]})">${conIcon(z)}</span><span><b>${ZONES[z]}</b><small>${zcount(z)} pays</small></span><i>›</i></button>`).join("")}<button class="btn alt" id="bk">Retour</button>`;
+ app.innerHTML=`${HD("Cartes","Choisis une zone du monde.",SG.m,sv("map"))}${Object.keys(ZONES).map(z=>`<button class="nav" data-z="${z}"><span class="nt" style="background:linear-gradient(135deg,${ZG[z][0]},${ZG[z][1]})">${conIcon(z)}</span><span><b>${ZONES[z]}</b><small>${zcount(z)} pays</small></span><i>›</i></button>`).join("")}<button class="btn alt" id="bk">Retour</button>`;
  app.querySelectorAll("[data-z]").forEach(b=>b.onclick=()=>{S.zone=b.dataset.z;menu("m")});
  $("bk").onclick=()=>{S.view="home";home()};
 }
 function menu(sec){
  if(sec==="m"&&!S.zone)return zoneMenu();
  S.view="menu";S.sec=sec;if(!SEC[sec].includes(S.mode))S.mode=SEC[sec][0];
- app.innerHTML=`<h1>${{d:"Drapeaux",c:"Capitales",m:ZONES[S.zone]||"Cartes"}[sec]}<span>.</span></h1><p class="sub">Choisis ton jeu et ta difficulté.</p>
- <div class="card">${sec==="m"?"":`<label>Jeu</label>${modeButtons(SEC[sec])}`}<label${sec==="m"?"":` style="margin-top:14px"`}>Difficulté</label>${lvButtons(true)}</div>
+ app.innerHTML=`${sec==="m"&&S.zone?HD(ZONES[S.zone],"Choisis ton jeu et ta difficulté.",ZG[S.zone],conIcon(S.zone)):HD({d:"Drapeaux",c:"Capitales",m:"Cartes",x:"Défis"}[sec],"Choisis ton jeu et ta difficulté.",SG[sec],sv(SG[sec][2]))}
+ <div class="card"><label>Jeu</label>${modeButtons(SEC[sec])}<label style="margin-top:14px">Difficulté</label>${lvButtons(true)}</div>
  <div class="card"><label>Mes scores · ${KL(SK())}</label><div id="sc2"><p class="mute">Chargement…</p></div></div>
  <button class="btn" id="go">Jouer</button><button class="btn alt" id="bk">Retour</button>`;
  app.querySelectorAll("[data-md]").forEach(b=>b.onclick=()=>{S.mode=b.dataset.md;menu(sec)});
@@ -222,16 +317,26 @@ async function claimRemote(raw){
  await pref.set({...d,u:name,k:key});
  S.name=name;S.key=key;return "ok";
 }
+async function loginAs(raw){
+ const key=slug(raw.trim().replace(/\s+/g," ")),ns=await DB.collection("names").doc(key).get();
+ if(!ns.exists||!ns.data().id)return false;
+ const id=ns.data().id,ps=await DB.collection("players").doc(id).get(),d=(ps.exists&&ps.data())||{};
+ S.uid=id;S.key=key;S.name=d.u||ns.data().n||raw.trim();
+ try{localStorage.setItem("gq-dev",id)}catch(e){}
+ return true;
+}
 const claimName=raw=>REMOTE?claimRemote(raw):claimLocal(raw);
 function nameScreen(){
  S.view="name";
  app.innerHTML=`<h1>${REMOTE?"Ton pseudo":"Qui joue ?"}<span>.</span></h1><p class="sub">${REMOTE?"Il apparaît dans le classement de tous les joueurs et doit être unique (3 à 16 caractères).":"Plusieurs amis peuvent jouer sur le même appareil : chaque pseudo a son profil (3 à 16 caractères)."}</p>
- <div class="card"><label for="un">Pseudo</label><input id="un" maxlength="16" autocomplete="off" value="${esc(S.name||S.suggest||"")}"><p class="err" id="ue"></p></div>
+ <div class="card"><label for="un">Pseudo</label><input id="un" maxlength="16" autocomplete="off" oninput="document.getElementById('lg').hidden=true;document.getElementById('ue').textContent=''" value="${esc(S.name||S.suggest||"")}"><p class="err" id="ue"></p><div id="lg" hidden><p class="mute" style="text-align:left;margin:4px 0 0">C’est ton pseudo ? Connecte-toi avec pour retrouver tes scores sur cet appareil.</p><button class="btn" id="lgb">Me connecter avec ce pseudo</button></div></div>
  <button class="btn" id="ok">Valider</button>${S.name?`<button class="btn alt" id="cx">Annuler</button>`:""}`;
  $("ok").onclick=async()=>{
   $("ok").disabled=true;let r;
   try{r=await claimName($("un").value)}catch(e){r="err"}
-  if(r==="ok"){S.view="home";home()}
+  if(r==="taken")$("lgb").onclick=async()=>{$("lgb").disabled=true;let ok=false;try{ok=await loginAs($("un").value)}catch(e){}if(ok){await loadMe();S.view="home";home()}else{$("ue").textContent="Connexion impossible, réessaie.";$("lgb").disabled=false}};
+  $("lg").hidden=r!=="taken";
+  if(r==="ok"){await loadMe();S.view="home";home()}
   else{$("ue").textContent=r==="taken"?"Ce pseudo est déjà pris.":r==="invalid"?"3 à 16 caractères, avec des lettres ou des chiffres.":"Erreur, réessaie.";$("ok").disabled=false}
  };
  const c=$("cx");if(c)c.onclick=()=>{S.view="home";home()};
@@ -245,33 +350,43 @@ async function boot(){
   S.uid=id;
   try{const sn=await DB.collection("players").doc(id).get(),d=sn.exists&&sn.data();S.name=(d&&d.u)||null;S.key=(d&&d.k)||null}catch(e){}
   if(!S.name)return nameScreen();
-  return home();
+  await loadMe();return home();
  }
  DB=LDB;
  let me=null;try{me=localStorage.getItem("gq-me")}catch(e){}
  if(me){try{const sn=await DB.collection("players").doc(me).get(),d=sn.exists&&sn.data();if(d&&d.u){S.uid=me;S.name=d.u;S.key=d.k||null}}catch(e){}}
  if(!S.uid)return nameScreen();
- home();
+ await loadMe();home();
 }
 const ZONES={world:"Monde entier",eu:"Europe",af:"Afrique",as:"Asie et Océanie",na:"Amérique du Nord et centrale",sa:"Amérique du Sud"};
 const ZG={world:["#0d9488","#2563eb"],eu:["#2563eb","#7c3aed"],af:["#f59e0b","#ef4444"],as:["#ef4444","#db2777"],na:["#10b981","#0d9488"],sa:["#16a34a","#65a30d"]};
 const ZN={};[["eu","FR DE ES IT PT GB BE CH NL IE LU AT MT SE NO DK FI IS EE LV LT PL CZ HU RO UA HR RS SK SI BG AL GR RU"],["af","MA DZ TN EG SN CI NG CM GH ML TD NE ZA KE ET MG"],["as","TR GE AM AZ IR IQ JO LB SA AE QA JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ AU NZ PG FJ SB VU"],["na","US CA MX CU PA CR GT HN NI SV DO HT JM"],["sa","BR AR CO VE PE CL EC BO PY UY"]] .forEach(([z,s])=>s.split(" ").forEach(c=>ZN[c]=z));
 const zcount=z=>C.filter(x=>z==="world"||ZN[x.c]===z).length;
-const SK=()=>S.mode==="cm"?"cm_"+(S.zone||"world"):S.mode;
-const KL=k=>k==="all"?"Général · tous les jeux":k.startsWith("cm_")?"Carte d’un pays · "+ZONES[k.slice(3)]:(MODES[k]||k);
-const MK=["flag","pf","cap","cp",...Object.keys(ZONES).map(z=>"cm_"+z)];
+const SK=()=>S.mode==="cm"||S.mode==="mc"?S.mode+"_"+(S.zone||"world"):S.mode;
+const KL=k=>k==="all"?"Général · tous les jeux":/^(cm|mc)_/.test(k)?MODES[k.slice(0,2)]+" · "+ZONES[k.slice(3)]:(MODES[k]||k);
+const MK=["flag","pf","fc","cap","cp",...Object.keys(ZONES).map(z=>"cm_"+z),...Object.keys(ZONES).map(z=>"mc_"+z),"ct","mix","surv","chr"];
 const legacy=(d,m)=>d.b?Math.max(0,...[1,2,3,4].map(k=>+d.b[m+"-"+k]||0)):0;
 const bm=(d,m)=>Math.max(+(d.m&&d.m[m])||0,legacy(d,m));
-const tv=(d,m)=>m==="all"?Math.max(...MK.map(k=>bm(d,k))):bm(d,m);
+const tv=(d,m)=>m==="xp"?+d.x||0:m==="day"?(dayDone(d)?+d.dc.s||0:0):m==="all"?Math.max(...MK.filter(k=>k!=="surv").map(k=>bm(d,k))):bm(d,m);
 async function save(){
  if(!DB||!S.uid)return null;
  try{
   const ref=DB.collection("players").doc(S.uid),snap=await ref.get(),d=(snap.exists&&snap.data())||{},m={};
   MK.forEach(k=>{m[k]=bm(d,k)});
-  const sk=SK(),old=m[sk]||0;m[sk]=Math.max(old,S.score);
-  await ref.set({...d,m,p:(+d.p||0)+1});
-  return{best:m[sk],rec:S.score>old};
+  const sk=SK(),day=S.mode==="day",old=day?0:(m[sk]||0),t=dk();
+  if(!day)m[sk]=Math.max(old,S.score);
+  const sn=d.sd===t?(+d.sn||1):d.sd===dk(-1)?(+d.sn||0)+1:1,x0=+d.x||0,x=x0+S.score;
+  const nd={...d,m,p:(+d.p||0)+1,x,sd:t,sn,sb:Math.max(+d.sb||0,sn)};
+  if(day)nd.dc={d:t,s:S.score};
+  await ref.set(nd);S.me=nd;
+  return{best:day?S.score:m[sk],rec:!day&&S.score>old,lvUp:lvlOf(x)>lvlOf(x0)};
  }catch(e){return "err"}
+}
+async function standing(){
+ try{
+  const k=SK(),snap=await DB.collection("players").get(),rows=snap.docs.map(d=>({id:d.id,s:tv(d.data(),k),n:d.data().u||"Joueur"})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s),i=rows.findIndex(r=>r.id===S.uid);
+  return i<0?null:{pos:i+1,n:rows.length,up:i>0?rows[i-1]:null};
+ }catch(e){return null}
 }
 async function rank(){
  const t=S.rt=(S.rt||0)+1;S.view="rank";S.rows=null;S.board=S.board||"all";drawRank();
@@ -279,7 +394,7 @@ async function rank(){
  try{
   if(DB){
    const snap=await DB.collection("players").get();
-   rows=snap.docs.map(d=>({id:d.id,s:tv(d.data(),S.board),n:d.data().u||"Joueur",reg:!!d.data().u})).filter(r=>r.s>0||r.reg).sort((a,b)=>b.s-a.s);
+   rows=snap.docs.map(d=>({id:d.id,s:tv(d.data(),S.board),n:d.data().u||"Joueur",lv:lvlOf(d.data().x),reg:!!d.data().u})).filter(r=>r.s>0||(r.reg&&S.board!=="day")).sort((a,b)=>b.s-a.s);
   }
  }catch(e){rows=[]}
  if(t!==S.rt||S.view!=="rank")return;
@@ -287,11 +402,12 @@ async function rank(){
 }
 function drawRank(){
  const rows=S.rows;
- app.innerHTML=`<h1>Classement<span>.</span></h1><p class="sub">Meilleur score de chaque joueur${rows?` · ${rows.length} joueur${rows.length>1?"s":""}`:""}.</p>
- <div class="card"><label for="bd">Classement</label><select id="bd">${["all",...MK].map(k=>`<option value="${k}" ${S.board===k?"selected":""}>${esc(KL(k))}</option>`).join("")}</select></div>
- <div class="card">${rows===null?`<p class="mute">Chargement…</p>`:rows.length?rows.map((r,i)=>`<div class="pl"><span class="${r.id===S.uid?"me":""}">${i+1}. ${esc(r.n)}</span><b>${r.s?fmt(r.s):"–"}</b></div>`).join(""):`<p class="mute">${DB?"Aucun score pour l’instant. Sois le premier !":"Connecte-toi à ton compte pour voir le classement."}</p>`}</div>
- <button class="btn alt" id="hm">Accueil</button>`;
+ app.innerHTML=`${HD("Classement",rows?pl(rows.length,"joueur","joueurs"):"Chargement…",["#10b981","#059669"],sv("trophy"))}
+ <div class="card"><label for="bd">Classement affiché</label><select id="bd">${["all","day","xp",...MK].map(k=>`<option value="${k}" ${S.board===k?"selected":""}>${esc(KL(k))}</option>`).join("")}</select></div>
+ <div class="card">${rows===null?`<p class="mute">Chargement…</p>`:rows.length?rows.map((r,i)=>`<div class="pl ${r.id===S.uid?"mine":""}"><span class="who"><span class="rkn ${i<3&&r.s?"r"+(i+1):""}">${i+1}</span><span>${esc(r.n)}${r.id===S.uid?" (moi)":""}<br><small>Niveau ${r.lv}</small></span></span><b>${r.s?fmt(r.s):"–"}</b></div>`).join(""):`<p class="mute">${S.board==="day"?"Personne n’a encore joué le défi du jour. À toi d’ouvrir le classement.":"Aucun score pour l’instant. Joue une partie pour ouvrir le classement."}</p>`}</div>
+ ${S.board==="day"&&!dayDone(S.me)?`<button class="btn" id="dy">Jouer le défi du jour</button>`:""}<button class="btn alt" id="hm">Accueil</button>`;
  $("bd").onchange=e=>{S.board=e.target.value;rank()};
+ const y=$("dy");if(y)y.onclick=startDay;
  $("hm").onclick=()=>{S.view="home";home()};
 }
 let MAPS=null;const MC={};
@@ -351,7 +467,7 @@ function mapSvg(x,ctx,th){
  return MC[key]=`<svg viewBox="0 0 ${W} ${H}" style="display:block;width:100%;max-height:${th?96:230}px" role="img" aria-label="Carte du pays à deviner">${nb?`<path class="nb" d="${nb}" fill="var(--line)" stroke="var(--mute)" stroke-width=".5" stroke-linejoin="round"/>`:""}<path class="tg" d="${d}" fill="var(--acc)" fill-rule="evenodd" stroke="var(--acc)" stroke-width=".6" stroke-linejoin="round"/></svg>`;
 }
 async function start(seed,lv){
- if(S.mode==="cm"&&!MAPS){
+ if((S.mode==="cm"||S.mode==="mc")&&!MAPS){
   S.view="load";app.innerHTML=`<div class="card"><p class="mute">Chargement des cartes…</p></div>`;
   if(!await loadMap()){
    app.innerHTML=`<h1>Cartes<span>.</span></h1><div class="card"><p class="mute">Impossible de charger les cartes. Ce jeu a besoin d’une connexion internet et n’est pas disponible dans l’aperçu Claude : utilise la version hébergée.</p></div><button class="btn alt" id="bk">Retour</button>`;
@@ -359,33 +475,35 @@ async function start(seed,lv){
   }
  }
  S.gid=(S.gid||0)+1;
- S.lv=lv;S.qs=build(seed,lv);S.i=0;S.score=0;
+ S.lv=lv;S.qs=build(seed,lv);S.i=0;S.score=0;S.good=0;S.combo=0;S.maxCombo=0;S.miss=[];S.gain=0;
  showQ();
 }
-function runTimer(){clearInterval(S.t);S.t=setInterval(()=>{S.left=Math.max(0,S.left-.1);const b=$("tm");if(b)b.style.width=(S.left/LV[S.lv].time*100)+"%";const t=$("ts");if(t)t.textContent=Math.ceil(S.left)+" s";if(S.left<=0)answer(null)},100)}
-function showQ(){S.locked=false;S.pick=null;S.quit=false;S.hints=0;S.view="play";S.left=LV[S.lv].time;play();runTimer()}
+function runTimer(){clearInterval(S.t);S.t=setInterval(()=>{S.left=Math.max(0,S.left-.1);const b=$("tm");if(b)b.style.width=(S.left/TT()*100)+"%";const t=$("ts");if(t)t.textContent=Math.ceil(S.left)+" s";if(S.left<=0){if(S.mode==="chr"){clearInterval(S.t);S.locked=true;finish()}else answer(null)}},100)}
+function showQ(){S.locked=false;S.pick=null;S.quit=false;S.hints=0;S.view="play";if(S.mode!=="chr"||S.i===0)S.left=TT();play();runTimer()}
 function askQuit(){if(S.locked)return;S.quit=true;clearInterval(S.t);play()}
 function resumeGame(){S.quit=false;play();if(!S.locked)runTimer()}
 function quitGame(){S.gid=(S.gid||0)+1;clearInterval(S.t);S.quit=false;if(S.sec)menu(S.sec);else{S.view="home";home()}}
 function play(){
- const q=S.qs[S.i];
- app.innerHTML=`<div class="top"><span>Question ${S.i+1}/${S.qs.length}</span><span>${LV[S.lv].n} · <b>${S.score}</b> pts</span></div>
- <div class="bar"><i id="tm" style="width:${S.left/LV[S.lv].time*100}%"></i></div>
- <div class="card flag" style="margin-top:14px">${S.mode==="pf"||S.mode==="cp"||S.mode==="cm"?`<div style="font:800 2rem 'Inter',system-ui,sans-serif;padding:14px 0">${esc(S.mode==="cp"?q.a.k:q.a.n)}</div>`:flag(q.a.c)}${S.mode==="cap"?`<div style="font:800 1.5rem 'Inter',system-ui,sans-serif;margin-top:6px">${esc(q.a.n)}</div>`:""}</div>
- <div class="top"><span class="mute">${{flag:"À quel pays appartient ce drapeau ?",cap:"Quelle est sa capitale ?",pf:"Quel est son drapeau ?",cp:"De quel pays est-ce la capitale ?",cm:"Quelle est la carte de ce pays ?"}[S.mode]}</span><span id="ts" class="mute">${Math.ceil(S.left)} s</span></div>
- <div class="opts">${q.o.map((o,k)=>{let c="";if(S.locked){if(o===q.a)c="ok";else if(k===S.pick)c="no"}return `<button class="opt ${c} ${S.mode==="pf"?"fl":S.mode==="cm"?"mp":""}" data-k="${k}">${S.mode==="cm"?mapSvg(o,S.lv<=2,true):S.mode==="pf"?flag(o.c):S.mode==="cp"?`<span style="display:block;font-size:2rem;line-height:1.3;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">${flag(o.c)}</span>${esc(o.n)}`:esc(S.mode==="cap"?o.k:o.n)}</button>`}).join("")}</div>
+ const q=S.qs[S.i],m=q.m,F="'Bricolage Grotesque','DM Sans',sans-serif";
+ const head=m==="mc"?mapSvg(q.a,S.lv<=2,false):m==="pf"||m==="cp"||m==="cm"?`<div style="font:800 2rem ${F};padding:14px 0">${esc(m==="cp"?q.a.k:q.a.n)}</div>`:flag(q.a.c)+(m==="cap"||m==="ct"?`<div style="font:800 1.5rem ${F};margin-top:6px">${esc(q.a.n)}</div>`:"");
+ const lab=o=>m==="cm"?mapSvg(o,S.lv<=2,true):m==="pf"?flag(o.c):m==="cp"?`<span style="display:block;font-size:2rem;line-height:1.3;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">${flag(o.c)}</span>${esc(o.n)}`:m==="ct"?esc(ZONES[o]):esc(m==="cap"||m==="fc"?o.k:o.n);
+ app.innerHTML=`<div class="top"><span>${S.mode==="surv"?`Survie · question ${S.i+1}`:S.mode==="chr"?`Chrono · question ${S.i+1}`:`Question ${S.i+1}/${S.qs.length}`}</span><span>${S.combo>=2?`<span class="combo">${sv("fire")}${S.combo}</span>`:""}<b>${fmt(S.score)}</b> pts${S.locked&&S.gain?`<span class="gain">+${S.gain}</span>`:""}</span></div>
+ <div class="bar"><i id="tm" style="width:${S.left/TT()*100}%"></i></div>
+ <div class="card flag" style="margin-top:14px">${head}</div>
+ <div class="top"><span class="mute">${{flag:"À quel pays appartient ce drapeau ?",cap:"Quelle est sa capitale ?",pf:"Quel est son drapeau ?",cp:"De quel pays est-ce la capitale ?",cm:"Quelle est la carte de ce pays ?",fc:"Quelle est la capitale de ce pays ?",mc:"Quel pays est représenté sur cette carte ?",ct:"Sur quel continent se trouve ce pays ?"}[m]}</span><span id="ts" class="mute">${Math.ceil(S.left)} s</span></div>
+ <div class="opts">${q.o.map((o,k)=>{let c="";if(S.locked){if(right(q,o))c="ok";else if(k===S.pick)c="no"}return `<button class="opt ${c} ${m==="pf"?"fl":m==="cm"?"mp":""}" data-k="${k}">${lab(o)}</button>`}).join("")}</div>
  <button class="btn alt" id="qt" style="margin-top:14px" ${S.locked?"disabled":""}>Quitter la partie</button>
- ${S.quit?`<div class="ov"><div class="card"><b>Quitter la partie ?</b><p class="mute">Ta progression sera perdue et ce score ne sera pas enregistré.</p><button class="btn" id="qc">Continuer</button><button class="btn alt" id="qy">Quitter</button></div></div>`:""}`;
+ ${S.quit?`<div class="ov"><div class="card"><b>Quitter la partie ?</b><p class="mute">${S.mode==="day"?"Le défi du jour ne se joue qu’une fois : si tu quittes, ton score du jour restera à 0.":"Ta progression sera perdue et ce score ne sera pas enregistré."}</p><button class="btn" id="qc">Continuer</button><button class="btn alt" id="qy">Quitter</button></div></div>`:""}`;
  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.k));
  $("qt").onclick=askQuit;
  if(S.quit){$("qc").onclick=resumeGame;$("qy").onclick=quitGame}
 }
 function answer(k){
  if(S.locked)return;S.locked=true;clearInterval(S.t);S.pick=k;
- const q=S.qs[S.i];
- if(k!==null&&q.o[k]===q.a)S.score+=Math.round((100+50*S.left/LV[S.lv].time)*LV[S.lv].coef*(1-.2*(S.mode==="map"?S.hints||0:0)));
+ const q=S.qs[S.i],good=k!==null&&right(q,q.o[k]);
+ S.gain=0;if(good){S.good++;S.combo++;S.maxCombo=Math.max(S.maxCombo,S.combo);S.gain=Math.round((100+(S.mode==="chr"?0:50*S.left/LV[S.lv].time))*LV[S.lv].coef);S.score+=S.gain}else{S.combo=0;if(!S.miss.includes(q.a))S.miss.push(q.a)}
  play();
- const g=S.gid||0;setTimeout(()=>{if(g!==(S.gid||0)||S.view!=="play")return;S.i++;if(S.i>=S.qs.length)finish();else showQ()},1200);
+ const g=S.gid||0;setTimeout(()=>{if(g!==(S.gid||0)||S.view!=="play")return;S.i++;if(S.i>=S.qs.length||(S.mode==="surv"&&!good))finish();else showQ()},S.mode==="chr"?450:1200);
 }
 const isRec=()=>S.uid?!!(S.res&&S.res.rec):!!S.sessRec;
 function confetti(){
@@ -395,15 +513,24 @@ function confetti(){
  for(let i=0;i<46;i++){const p=document.createElement("i");p.style.cssText=`left:${Math.random()*100}%;background:${cols[i%6]};width:${6+Math.random()*6}px;height:${10+Math.random()*8}px;animation-delay:${Math.random()*.5}s;animation-duration:${1.8+Math.random()*1.4}s;--dx:${(Math.random()-.5)*160}px`;box.appendChild(p)}
  document.body.appendChild(box);setTimeout(()=>box.remove(),3600);
 }
-async function finish(){S.fx=0;const sb=S.sb=S.sb||{},pv=sb[SK()]||0;S.sessRec=pv>0&&S.score>pv;if(S.score>pv)sb[SK()]=S.score;S.view="end";S.res=null;end();S.res=await save();if(S.view==="end")end()}
+async function finish(){clearInterval(S.t);S.fx=0;S.er=0;S.view="end";S.res=null;S.st=null;end();const g=S.gid;S.res=await save();if(S.view!=="end"||g!==S.gid)return;end();S.st=await standing();if(S.view==="end"&&g===S.gid)end()}
+function stars(){const g=S.good||0,n=S.qs.length;return S.mode==="surv"?(g>=20?3:g>=10?2:g>=5?1:0):S.mode==="chr"?(g>=25?3:g>=15?2:g>=8?1:0):(g>=n*.9?3:g>=n*.6?2:g>=n*.3?1:0)}
 function end(){
- const m=S.res&&S.res.best!==undefined?`Meilleur score : ${fmt(S.res.best)} pts`:S.res==="err"?"Enregistrement impossible.":S.uid?"Enregistrement…":"Connecte-toi pour enregistrer tes scores.";
- app.innerHTML=`<h1>Terminé<span>.</span></h1><p class="sub">${KL(SK())} · ${LV[S.lv].n}</p>
- <div class="card">${isRec()?`<div class="badge">Nouveau meilleur score</div>`:""}<div class="big ${isRec()?"pop":""}">${S.score}</div><p class="mute">points sur ${(150*S.qs.length*LV[S.lv].coef).toLocaleString("fr-FR")} possibles</p><p class="mute">${m}</p></div>
- <button class="btn" id="again">Rejouer</button><button class="btn alt" id="rk">Voir le classement</button><button class="btn alt" id="hm">Accueil</button>`;
- if(isRec()&&!S.fx){S.fx=1;confetti()}
- $("again").onclick=()=>start(Date.now()%2147483647,S.lv);
- $("rk").onclick=rank;$("hm").onclick=()=>{S.view="home";home()};
+ const r=S.res&&S.res.best!==undefined?S.res:null,long=S.mode==="surv"||S.mode==="chr",day=S.mode==="day",sn=stars(),d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=S.st,sk=streakOf(d),first=!S.er;S.er=1;
+ app.innerHTML=`<h1>${sn===3?"Bravo":"Terminé"}<span>.</span></h1><p class="sub">${KL(SK())}${day?"":" · "+LV[S.lv].n}</p>
+ <div class="card" style="text-align:center">${r&&r.rec?`<div class="badge">Nouveau record</div>`:""}<div class="stars" role="img" aria-label="${sn} étoiles sur 3">${[1,2,3].map(i=>`<svg viewBox="0 0 24 24" class="${i<=sn?"on":""}">${P.star}</svg>`).join("")}</div><div class="big ${first?"pop":""}">${fmt(S.score)}</div><p class="mute" style="margin:2px 0 14px">points</p>
+ <div class="stats"><div class="st"><b>${S.good}${long?"":"/"+S.qs.length}</b><small>bonnes réponses</small></div><div class="st"><b>${S.maxCombo||0}</b><small>à la suite</small></div><div class="st"><b>${r&&!day?fmt(r.best):"+"+fmt(S.score)}</b><small>${r&&!day?"mon record":"XP gagnés"}</small></div></div>
+ ${r?"":S.res==="err"?`<p class="err">Score non enregistré. Vérifie ta connexion puis rejoue.</p>`:`<p class="mute" style="margin:12px 0 0">Enregistrement…</p>`}</div>
+ ${r?`<div class="card"><div class="top"><span><b>Niveau ${L}</b> · ${titleOf(L)}</span><span class="mute" style="font-size:.82rem">+${fmt(S.score)} XP</span></div><div class="bar"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><p class="mute" style="text-align:left;margin:8px 0 0">${r.lvUp?`<b class="up">Niveau ${L} atteint.</b> `:""}Encore ${fmt(b-x)} XP pour le niveau ${L+1}.</p></div>
+ <p class="strk on">${sv("fire")}<span>Série de ${pl(sk,"jour","jours")}. Reviens demain pour la prolonger.</span></p>`:""}
+ ${st?`<div class="card"><b>${st.pos}${st.pos===1?"er":"e"} sur ${st.n}</b> dans ce classement. ${st.up?`Encore ${fmt(st.up.s-(day?S.score:r?r.best:S.score)+1)} pts pour dépasser ${esc(st.up.n)}.`:"Personne devant toi."}</div>`:""}
+ ${S.miss.length?`<details class="card rv"><summary>À revoir : ${pl(S.miss.length,"pays","pays")}</summary>${S.miss.map(c=>`<div class="pl"><span>${flag(c.c)} ${esc(c.n)}</span><b>${esc(c.k)} · ${esc(ZONES[ZN[c.c]])}</b></div>`).join("")}</details>`:""}
+ ${day?`<button class="btn" id="rk">Voir le classement du jour</button>`:`<button class="btn" id="again">Rejouer</button>${sn===3&&S.lv<4?`<button class="btn alt" id="up">Passer en ${LV[S.lv+1].n}</button>`:""}<button class="btn alt" id="rk">Voir le classement</button>`}<button class="btn alt" id="hm">Accueil</button>`;
+ if(r&&(r.rec||r.lvUp)&&!S.fx){S.fx=1;confetti()}
+ const ag=$("again"),up=$("up");
+ if(ag)ag.onclick=()=>start(Date.now()%2147483647,S.lv);
+ if(up)up.onclick=()=>start(Date.now()%2147483647,S.lv+1);
+ $("rk").onclick=()=>{S.board=SK();rank()};$("hm").onclick=()=>{S.view="home";home()};
 }
 boot();
 </script></body></html>
