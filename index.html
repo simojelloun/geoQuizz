@@ -629,8 +629,8 @@ async function shareDay(btn){
  const t=shareText(dc.g,dc.s,dc.d),old=btn.textContent;
  try{if(navigator.share){await navigator.share({text:t});return}await navigator.clipboard.writeText(t);btn.textContent=tr("Résultat copié : colle-le dans une conversation.");setTimeout(()=>{if(btn.isConnected)btn.textContent=old},2500)}catch(e){}
 }
-const COST=5,TFREE=["day","rev","duel"],DRW=[20,25,30,35,40,50,80];
-const tokensOf=d=>d&&d.tk!==undefined?Math.max(0,+d.tk||0):100;
+const COST=5,TFREE=["day","rev","duel"],DRW=[8,10,12,14,16,20,30];
+const tokensOf=d=>d&&d.tk!==undefined?Math.max(0,+d.tk||0):50;
 const costOf=md=>TFREE.includes(md)?0:COST;
 const drInfo=d=>{const r=(d&&d.dr)||{},done=r.d===dk(),n=done?+r.n||1:r.d===dk(-1)?(+r.n||0)+1:1;return{done,n,amt:DRW[(n-1)%7]}};
 const coin=n=>`<span class="tkc">${sv("coin")}<b>${fmt(n)}</b></span>`;
@@ -647,9 +647,9 @@ function noTokens(){
  <p class="sub">Une partie coûte ${COST} jetons. Il t’en reste ${tokensOf(S.me)}.</p>
  <div class="card"><b class="h3">Comment en regagner</b>
  <div class="pl"><span>Récompense du jour</span><b>${i.done?"demain":"+"+i.amt}</b></div>
- <div class="pl"><span>Défi du jour (gratuit)</span><b>${dd?"demain":"+6 à +20"}</b></div>
- <div class="pl"><span>Révision (gratuite)</span><b>${rv?"+1 par pays":"–"}</b></div>
- ${AUTH?`<div class="pl"><span>Duel gagné (gratuit)</span><b>+10</b></div>`:""}</div>
+ <div class="pl"><span>Défi du jour (gratuit)</span><b>${dd?"demain":"+1 à +8"}</b></div>
+ <div class="pl"><span>Révision (gratuite)</span><b>${rv?"+1 pour 3 pays":"–"}</b></div>
+ ${AUTH?`<div class="pl"><span>Duel gagné (gratuit)</span><b>+4</b></div>`:""}</div>
  ${!i.done?`<button class="btn" id="drb">Récupérer ma récompense du jour</button>`:!dd?`<button class="btn" id="dy">Jouer le défi du jour</button>`:rv?`<button class="btn" id="rvw">Réviser</button>`:`<p class="mute">Reviens demain : ta récompense du jour t’attend.</p>`}`;
  $("hm").onclick=()=>{S.view="home";home()};
  if($("drb"))$("drb").onclick=async()=>{await claimDaily();S.view="home";home(true)};if($("dy"))$("dy").onclick=startDay;if($("rvw"))$("rvw").onclick=startRev;
@@ -789,7 +789,7 @@ addTr([["Partager mon résultat", "Share my result", "شارك نتيجتي"], [
 addPat([[/^Ligue (Bronze|Argent|Or|Saphir|Diamant)$/,(x)=>""+tr(x[1])+" league",(x)=>"الدوري "+tr(x[1])],[/^Promotion en ligue (.+) !$/,(x)=>"Promoted to "+tr(x[1])+" league!",(x)=>"ترقية إلى الدوري "+tr(x[1])+"!"],[/^Retour en ligue (.+)$/,(x)=>"Back to "+tr(x[1])+" league",(x)=>"عودة إلى الدوري "+tr(x[1])],[/^(.+) t’a dépassé cette semaine$/,(x)=>""+x[1]+" overtook you this week",(x)=>""+x[1]+" تجاوزك هذا الأسبوع"],[/^Fin dans (\d+) jours$/,"Ends in $1 days","ينتهي بعد $1 أيام"]]);
 addTr([["Drapeau flou", "Blurred flag", "علم ضبابي"], ["Écris le pays", "Type the country", "اكتب الدولة"], ["Écris la capitale", "Type the capital", "اكتب العاصمة"], ["Trouve sur la carte", "Find it on the map", "جدها على الخريطة"], ["Vrai ou faux", "True or false", "صح أم خطأ"], ["Vrai ou faux ?", "True or false?", "صح أم خطأ؟"], ["Écris le nom de ce pays", "Type the name of this country", "اكتب اسم هذه الدولة"], ["Écris la capitale de ce pays", "Type the capital of this country", "اكتب عاصمة هذه الدولة"], ["Touche ce pays sur la carte", "Tap this country on the map", "المس هذه الدولة على الخريطة"], ["capitale de", "capital of", "عاصمة"], ["se trouve en", "is in", "تقع في"], ["Vrai", "True", "صح"], ["Faux", "False", "خطأ"], ["Je ne sais pas", "I don't know", "لا أعرف"], ["Nom du pays", "Country name", "اسم الدولة"], ["Nom de la capitale", "Capital name", "اسم العاصمة"], ["Ta réponse", "Your answer", "إجابتك"], ["Temps écoulé. La bonne réponse est en vert.", "Time's up. The right answer is in green.", "انتهى الوقت. الإجابة الصحيحة باللون الأخضر."], ["Raté. La bonne réponse est en vert.", "Missed. The right answer is in green.", "خطأ. الإجابة الصحيحة باللون الأخضر."], ["réponse écrite", "typed answer", "إجابة مكتوبة"], ["sur la carte", "on the map", "على الخريطة"], ["vrai ou faux", "true or false", "صح أم خطأ"], ["sans chrono", "no timer", "بدون مؤقت"], ["Carte de la zone", "Map of the region", "خريطة المنطقة"]]);
 addPat([[/^Bonne réponse : (.+)$/,(x)=>"Correct: "+x[1],(x)=>"إجابة صحيحة: "+x[1]],[/^Réponse : (.+)$/,(x)=>"Answer: "+x[1],(x)=>"الإجابة: "+x[1]],[/^Tu as écrit : (.+)$/,(x)=>"You wrote: "+x[1],(x)=>"كتبت: "+x[1]]]);
-addTr([["Récompense du jour", "Daily reward", "مكافأة اليوم"], ["Reviens chaque jour : la récompense grandit.", "Come back every day: the reward grows.", "عد كل يوم: المكافأة تكبر."], ["Plus de jetons", "Out of tokens", "انتهت الرموز"], ["Comment en regagner", "How to earn more", "كيف تكسب المزيد"], ["Défi du jour (gratuit)", "Daily challenge (free)", "تحدي اليوم (مجاني)"], ["Révision (gratuite)", "Review (free)", "المراجعة (مجانية)"], ["Duel gagné (gratuit)", "Duel won (free)", "مبارزة رابحة (مجانية)"], ["demain", "tomorrow", "غدًا"], ["+6 à +20", "+6 to +20", "+6 إلى +20"], ["+1 par pays", "+1 per country", "+1 لكل دولة"], ["Récupérer ma récompense du jour", "Claim my daily reward", "استلم مكافأة اليوم"], ["Reviens demain : ta récompense du jour t’attend.", "Come back tomorrow: your daily reward is waiting.", "عد غدًا: مكافأتك اليومية بانتظارك."], ["Aucun jeton gagné", "No tokens earned", "لم تكسب رموزًا"], ["Jouer ", "Play ", "العب "]]);
+addTr([["Récompense du jour", "Daily reward", "مكافأة اليوم"], ["Reviens chaque jour : la récompense grandit.", "Come back every day: the reward grows.", "عد كل يوم: المكافأة تكبر."], ["Plus de jetons", "Out of tokens", "انتهت الرموز"], ["Comment en regagner", "How to earn more", "كيف تكسب المزيد"], ["Défi du jour (gratuit)", "Daily challenge (free)", "تحدي اليوم (مجاني)"], ["Révision (gratuite)", "Review (free)", "المراجعة (مجانية)"], ["Duel gagné (gratuit)", "Duel won (free)", "مبارزة رابحة (مجانية)"], ["demain", "tomorrow", "غدًا"], ["+1 à +8", "+1 to +8", "+1 إلى +8"], ["+1 pour 3 pays", "+1 per 3 countries", "+1 لكل 3 دول"], ["Récupérer ma récompense du jour", "Claim my daily reward", "استلم مكافأة اليوم"], ["Reviens demain : ta récompense du jour t’attend.", "Come back tomorrow: your daily reward is waiting.", "عد غدًا: مكافأتك اليومية بانتظارك."], ["Aucun jeton gagné", "No tokens earned", "لم تكسب رموزًا"], ["Jouer ", "Play ", "العب "]]);
 addPat([[/^Une partie coûte (\d+) jetons\. Il t’en reste (\d+)\.$/,"A game costs $1 tokens. You have $2 left.","اللعبة تكلف $1 رموز. بقي لديك $2."],[/^\+(\d+) jetons ajoutés\. Reviens demain pour \+(\d+)\.$/,"+$1 tokens added. Come back tomorrow for +$2.","أضيفت +$1 رموز. عد غدًا لتحصل على +$2."],[/^Déjà récupérée\. Reviens demain pour \+(\d+)\.$/,"Already claimed. Come back tomorrow for +$1.","تم استلامها. عد غدًا لتحصل على +$1."],[/^\+(\d+) jetons gagnés$/,"+$1 tokens earned","+$1 رموز مكتسبة"],[/^Partie : −(\d+) · Solde : (.+)$/,"Game: −$1 · Balance: $2","اللعبة: −$1 · الرصيد: $2"],[/^Solde : (.+)$/,"Balance: $1","الرصيد: $1"]]);
 addTr([["Ligues","Leagues","الدوريات"]]);addPat([[/^Ta ligue : (.+)$/,(x)=>"Your league: "+tr(x[1]),(x)=>"دوريك: "+tr(x[1])]]);
 async function boot(){
@@ -864,10 +864,10 @@ function applyJob(d,job){
  if(wkp)nd.wkp=wkp;
  if(job.mode==="day")nd.dc={d:job.t,s:job.score,g:job.g||""};
  let tg=0;const cost=costOf(job.mode);
- if(rec)tg=[0,3,7,12][job.stars||0]+(job.score>old&&old>0?5:0);
- else if(job.mode==="day")tg=[6,6,12,20][job.stars||0];
- else if(job.mode==="duel")tg=job.win?10:(job.duel&&job.duel.r==="draw"?3:0);
- else if(job.mode==="rev")tg=Math.min(10,job.mast.length);
+ if(rec)tg=[0,0,2,6][job.stars||0]+(job.score>old&&old>0&&job.stars>=2?2:0);
+ else if(job.mode==="day")tg=[1,2,4,8][job.stars||0];
+ else if(job.mode==="duel")tg=job.win?4:(job.duel&&job.duel.r==="draw"?1:0);
+ else if(job.mode==="rev")tg=Math.min(4,Math.floor(job.mast.length/3));
  nd.tk=Math.max(0,tokensOf(d)-cost)+tg;
  const had=new Set(Object.keys(d.bd||{})),nb=badgesOf(nd).filter(k=>!had.has(k));
  if(nb.length){nd.bd={...(d.bd||{})};nb.forEach(k=>nd.bd[k]=job.t)}
