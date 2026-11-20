@@ -1,8 +1,8 @@
 // Geo Quizz : fonctionnement hors connexion.
 // Le jeu, les drapeaux, les polices et les cartes sont gardés sur l'appareil.
 // Les scores et classements passent toujours par internet (Firebase).
-const V="gq-v4",SHELL=["./","index.html","config.js","manifest.webmanifest","icon.svg","icon-180.png","icon-192.png","icon-512.png"];
-const ASSETS=/^https:\/\/(flagcdn\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|cdn\.jsdelivr\.net)\//;
+const V="gq-v6",SHELL=["./","index.html","config.js","manifest.webmanifest","icon.svg","icon-180.png","icon-192.png","icon-512.png"];
+const ASSETS=/^https:\/\/(flagcdn\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|cdn\.jsdelivr\.net|commons\.wikimedia\.org\/wiki\/Special:FilePath|upload\.wikimedia\.org|thumb\.wikimedia\.org)\//;
 const FLAGS="ad ae af ag al am ao ar at au az ba bb bd be bf bg bh bi bj bn bo br bs bt bw by bz ca cd cf cg ch ci cl cm cn co cr cu cv cy cz de dj dk dm do dz ec ee eg er es et fi fj fm fr ga gb gd ge gh gm gn gq gr gt gw gy hn hr ht hu id ie in iq ir is it jm jo jp ke kg kh ki km kn kp kr kw kz la lb lc li lk lr ls lt lu lv ly ma mc md me mg mh mk ml mm mn mr mt mu mv mw mx my mz na ne ng ni nl no np nr nz om pa pe pg ph pk pl pt pw py qa ro rs ru rw sa sb sc sd se sg si sk sl sm sn so sr ss st sv sy sz td tg th tj tl tm tn to tr tt tv tz ua ug us uy uz vc ve vn vu ws ye za zm zw".split(" ");
 self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>Promise.all(SHELL.map(u=>c.add(u).catch(()=>{})))).then(()=>self.skipWaiting()))});
 self.addEventListener("activate",e=>{e.waitUntil((async()=>{
@@ -22,17 +22,22 @@ self.addEventListener("fetch",e=>{
     e.respondWith(fetch(r).then(res=>{if(res.ok){const cl=res.clone();caches.open(V).then(c=>c.put(r,cl))}return res}).catch(async()=>(await caches.match(r,{ignoreSearch:true}))||(r.mode==="navigate"?caches.match("index.html"):Response.error())));
   }
 });
-// Rappel de série : le soir, si le joueur n'a pas encore joué aujourd'hui.
+// Rappels : série en jeu le soir, tournoi du week-end (ouverture le samedi, fin le dimanche soir).
 const TXT={fr:n=>`Ta série de ${n} jours se termine ce soir. Une partie suffit pour la garder.`,en:n=>`Your ${n}-day streak ends tonight. One game is enough to keep it.`,ar:n=>`سلسلتك من ${n} أيام تنتهي الليلة. لعبة واحدة تكفي للحفاظ عليها.`};
+const TNA={fr:"Le tournoi du week-end est ouvert : 3 essais, 100 jetons pour le 1er.",en:"The weekend tournament is open: 3 tries, 100 tokens for 1st place.",ar:"بطولة نهاية الأسبوع مفتوحة: 3 محاولات و100 رمز للأول."};
+const TNB={fr:"Le tournoi se termine ce soir. Il te reste des essais.",en:"The tournament ends tonight. You still have tries left.",ar:"تنتهي البطولة الليلة. ما زالت لديك محاولات."};
 const day=o=>{const d=new Date(Date.now()+o*864e5);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 self.addEventListener("periodicsync",e=>{
   if(e.tag!=="gq-streak")return;
   e.waitUntil((async()=>{
     const c=await caches.open("gq-state"),r=await c.match("state");if(!r)return;
-    const st=await r.json();if(!st.rem||!st.sn||st.sd===day(0)||st.sd!==day(-1))return;
-    if(new Date().getHours()<17||st.last===day(0))return;
-    st.last=day(0);await c.put("state",new Response(JSON.stringify(st)));
-    await self.registration.showNotification("Geo Quizz",{body:(TXT[st.lang]||TXT.fr)(st.sn),icon:"icon-192.png",badge:"icon-192.png",tag:"gq-streak"});
+    const st=await r.json();if(!st.rem)return;
+    const now=new Date(),h=now.getHours(),g=now.getDay(),show=(body,tag)=>self.registration.showNotification("Geo Quizz",{body,icon:"icon-192.png",badge:"icon-192.png",tag});
+    let ch=false;
+    if(st.sn&&st.sd===day(-1)&&h>=17&&st.last!==day(0)){st.last=day(0);ch=true;await show((TXT[st.lang]||TXT.fr)(st.sn),"gq-streak")}
+    if(st.tn&&g===6&&h>=10&&st.tnl!==day(0)+"a"){st.tnl=day(0)+"a";ch=true;await show(TNA[st.lang]||TNA.fr,"gq-tn")}
+    else if(st.tn&&g===0&&h>=18&&st.tnl!==day(0)+"b"&&!(st.tnw===day(-1)&&st.tnn>=3)){st.tnl=day(0)+"b";ch=true;await show(TNB[st.lang]||TNB.fr,"gq-tn")}
+    if(ch)await c.put("state",new Response(JSON.stringify(st)));
   })());
 });
 self.addEventListener("notificationclick",e=>{

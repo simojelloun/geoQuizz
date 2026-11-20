@@ -258,6 +258,7 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adju
 .apl{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;width:100%;padding:9px 0;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:.9rem;text-align:start;cursor:pointer}.apl.nb{grid-template-columns:1fr auto;cursor:default}.apl small{color:var(--mute)}.apl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .gtw{overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}.gt{border-collapse:collapse;font-size:.82rem;white-space:nowrap}.gt th,.gt td{padding:7px 10px;border-top:1px solid var(--line);text-align:center}.gt thead th{border-top:0;color:var(--mute);font-weight:600;max-width:96px;white-space:normal;vertical-align:bottom;line-height:1.2}.gt th:first-child{position:sticky;inset-inline-start:0;background:var(--card);text-align:start;max-width:110px;overflow:hidden;text-overflow:ellipsis}.gt tbody th{font-weight:700}
 .mimg{display:block;width:100%;height:200px;object-fit:cover;border-radius:12px;background:var(--bg)}.mcr{display:block;font-size:.68rem;color:var(--mute);text-align:end;margin:3px 2px 0;text-decoration:none}
+.msn{padding:12px 14px}.msh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}.msh small{color:var(--mute);font-weight:700}.msr{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:6px 0;font-size:.86rem;border-top:1px solid var(--line)}.msr small{color:var(--mute)}.msr em{font-style:normal;font-weight:700;display:inline-flex;align-items:center;gap:3px;min-width:34px;justify-content:flex-end}.msr em svg{width:15px;height:15px;fill:none;stroke:#d49a00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.msr.ok span{color:var(--mute);text-decoration:line-through}.msr.ok small{color:var(--ok);font-weight:800}.msw{display:block;color:var(--ok)}.tun{margin:0 auto;background:var(--acc);color:#fff}.tun svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.tud{display:flex;gap:6px;justify-content:center;margin:12px 0}.tud i{width:8px;height:8px;border-radius:50%;background:var(--line)}.tud i.on{background:var(--acc)}.bnm{font-style:normal;font-size:.72rem;color:var(--bad);font-weight:700}.pvc p{margin:8px 0 0;font-size:.9rem;line-height:1.45;color:var(--ink)}
 </style></head>
 <body><main id="app"></main>
 <script src="config.js"></script>
@@ -411,21 +412,22 @@ function lvButtons(editable){
 function home(fromX){
  const d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=streakOf(d),today=d.sd===dk(),dd=dayDone(d);
  app.innerHTML=`<div class="hb"><h1>Geo Quizz<span>.</span></h1><span class="hbr"><button class="tkb" id="shop" aria-label="Boutique">${coin(tokensOf(d))}</button><button class="gear" id="st" aria-label="Réglages">${sv("gear")}</button></span></div>
- <div class="card pc"><div class="stamp"><div><small>NIVEAU</small>${L}</div></div><div class="pi"><div class="pn">${avOf(d)}${esc(S.name||"")}<button id="chg" class="lk">${AUTH?"compte":"changer"}</button></div><div class="pt">${titleOf(L)}${AUTH?` · <span class="lgc" style="--lc:${LEAGUES[tierOf(d)][1]}">Ligue ${LEAGUES[tierOf(d)][0]}</span>`:""}</div><button class="pbd" id="bdg" aria-label="Badges">${sv("medal")}<span>${Object.keys(d.bd||{}).length}/${BADGES.length}</span></button><div class="xp"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><div class="px"><span>${fmt(x)} XP</span><span>niveau ${L+1} à ${fmt(b)} XP</span></div></div></div>
+ <div class="card pc"><div class="stamp"><div><small>NIVEAU</small>${L}</div></div><div class="pi"><div class="pn">${avOf(d)}${PN(S.name||"")}<button id="chg" class="lk">${AUTH?"compte":"changer"}</button></div><div class="pt">${titleOf(L)}${AUTH?` · <span class="lgc" style="--lc:${LEAGUES[tierOf(d)][1]}">Ligue ${LEAGUES[tierOf(d)][0]}</span>`:""}</div><button class="pbd" id="bdg" aria-label="Badges">${sv("medal")}<span>${Object.keys(d.bd||{}).length}/${BADGES.length}</span></button><div class="xp"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><div class="px"><span>${fmt(x)} XP</span><span>niveau ${L+1} à ${fmt(b)} XP</span></div></div></div>
  ${(()=>{const i=drInfo(d),k=(i.n-1)%7;if(i.done&&!S.drNew)return `<p class="strk on drl">${sv("coin")}<span>Récompense du jour récupérée. Demain : +${DRW[i.n%7]}.</span></p>`;return `<div class="card dr ${i.done?"done":""}"><div class="drt"><div><b>Récompense du jour</b><small>${i.done?(S.drNew?`+${S.drNew} jetons ajoutés. Reviens demain pour +${DRW[i.n%7]}.`:`Déjà récupérée. Reviens demain pour +${DRW[i.n%7]}.`):"Reviens chaque jour : la récompense grandit."}</small></div>${i.done?"":`<button class="btn drb" id="drb">+${i.amt}</button>`}</div><div class="drs">${DRW.map((a,j)=>`<span class="${j<k||(j===k&&i.done)?"ok":j===k?"cur":""}"><i>${a}</i></span>`).join("")}</div></div>`})()}
- ${S.inv?`<div class="card msg act"><b>${esc(S.inv.n)} te défie en duel</b><small>10 questions, en direct.</small><button class="btn sm" id="ivj">Rejoindre</button><button class="x" id="ivx" aria-label="Fermer">×</button></div>`:""}
- ${hwTodo().slice(0,1).map(h=>`<div class="card msg act"><b>Devoir · ${esc(h.n)}</b><small>${esc(hwTxt(h.hw))} · à rendre avant le ${dmy(h.hw.due)}</small><button class="btn sm" id="hwg">Faire le devoir</button></div>`).join("")}
+ ${S.inv?`<div class="card msg act"><b>${NM(S.inv.n)} te défie en duel</b><small>10 questions, en direct.</small><button class="btn sm" id="ivj">Rejoindre</button><button class="x" id="ivx" aria-label="Fermer">×</button></div>`:""}
+ ${hwTodo().slice(0,1).map(h=>`<div class="card msg act"><b>Devoir · ${NM(h.n)}</b><small>${esc(hwTxt(h.hw))} · à rendre avant le ${dmy(h.hw.due)}</small><button class="btn sm" id="hwg">Faire le devoir</button></div>`).join("")}
  ${(()=>{const i=ssInfo(d);return i&&S.ssNo!==dk()?`<div class="card msg down act"><b>Ta série de ${i.n} jours s’est arrêtée hier</b><small>Sauve-la et continue-la aujourd’hui.</small><button class="btn sm" id="ssb" ${tokensOf(d)<i.p?"disabled":""}>Sauver ma série ${sv("coin")}${i.p}</button><button class="x" id="ssx" aria-label="Fermer">×</button></div>`:""})()}
  ${S.tnMsg?`<div class="card msg"><b>Tournoi : ${S.tnMsg.pos}${S.tnMsg.pos===1?"er":"e"} · +${S.tnMsg.prize} jetons</b><small>Prochain tournoi samedi.</small><button class="x" id="mx3" aria-label="Fermer">×</button></div>`:""}
- ${S.lgMsg?`<div class="card msg ${S.lgMsg.r}"><b>${S.lgMsg.r==="up"?`Promotion en ligue ${LEAGUES[S.lgMsg.t][0]} !`:`Retour en ligue ${LEAGUES[S.lgMsg.t][0]}`}</b><small>${S.lgMsg.r==="up"?"Tu fais partie des meilleurs de ta ligue la semaine dernière.":"Joue cette semaine pour remonter."}</small><button class="x" id="mx1" aria-label="Fermer">×</button></div>`:""}${S.ovMsg?`<div class="card msg down"><b>${esc(S.ovMsg)} t’a dépassé cette semaine</b><small>Joue une partie pour reprendre ta place dans ta ligue.</small><button class="x" id="mx2" aria-label="Fermer">×</button></div>`:""}
+ ${S.lgMsg?`<div class="card msg ${S.lgMsg.r}"><b>${S.lgMsg.r==="up"?`Promotion en ligue ${LEAGUES[S.lgMsg.t][0]} !`:`Retour en ligue ${LEAGUES[S.lgMsg.t][0]}`}</b><small>${S.lgMsg.r==="up"?"Tu fais partie des meilleurs de ta ligue la semaine dernière.":"Joue cette semaine pour remonter."}</small><button class="x" id="mx1" aria-label="Fermer">×</button></div>`:""}${S.ovMsg?`<div class="card msg down"><b>${NM(S.ovMsg)} t’a dépassé cette semaine</b><small>Joue une partie pour reprendre ta place dans ta ligue.</small><button class="x" id="mx2" aria-label="Fermer">×</button></div>`:""}
  <p class="strk ${st?"on":""}">${sv("fire")}<span>${st?(today?`Série de ${pl(st,"jour","jours")}. Reviens demain pour la prolonger.`:`Série de ${pl(st,"jour","jours")} en jeu : joue aujourd’hui pour la garder.`):"Joue une partie aujourd’hui pour démarrer une série."}</span></p>
  ${dd?`<div class="dz done"><span><b>Défi du jour terminé</b><small>${fmt(dd.s)} pts. Nouveau défi demain.</small></span><span class="dza">${dd.g?`<button class="dzb" id="dsh">Partager</button>`:""}<button class="dzb" id="dy">Classement</button></span></div>`:`<button class="dz" id="dy"><span><b>Défi du jour</b><small>20 questions, les mêmes pour tous. Une seule tentative.</small></span><em>Jouer</em></button>`}
+ ${(()=>{const MS=missionsOf(dk()),mp=d.ms&&d.ms.d===dk()?d.ms.p||[]:[];return `<div class="card msn"><div class="msh"><b>Missions du jour</b><small>${MS.filter((m,i)=>(+mp[i]||0)>=m[1]).length}/3</small></div>${MS.map((m,i)=>{const v=Math.min(m[1],+mp[i]||0),ok=v>=m[1];return `<div class="msr ${ok?"ok":""}"><span>${mLabel(m)}</span><small>${ok?"✓":v+"/"+m[1]}</small><em>${sv("coin")}${m[2]}</em></div>`}).join("")}</div>`})()}
  ${tnOn()?`<button class="nav" id="tnb"><span class="nt" style="background:#b7791f">${sv("trophy")}</span><span><b>Tournoi du week-end</b><small>${tnBest()?`Mon meilleur score : ${fmt(tnBest())} · `:""}100 jetons pour le 1er</small></span><i>›</i></button>`:""}
  ${AUTH?`<button class="nav duel" id="dl"><span class="nt" style="background:#db2777">${sv("swords")}</span><span><b>Duel en direct</b><small>Défie un ami sur 10 questions</small></span><i>›</i></button>`:""}
  <div class="grid g3">${[["sd","d","Drapeaux"],["sc","c","Capitales"],["sm","m","Cartes"],["su","u","Culture"],["sx","x","Défis"]].map(([id,k,t])=>`<button class="tile" id="${id}"><span class="nt" style="background:${SG[k][0]}">${sv(SG[k][2])}</span><b>${t}</b></button>`).join("")}<button class="tile" id="atl"><span class="nt" style="background:#12a150">${sv("globe")}</span><b>Atlas</b></button></div>
  <div class="row3"><button class="mini" id="rvw" ${(d.rv||[]).length?"":"disabled"}><span style="--bc:#0891b2">${sv("book")}</span><b>Réviser</b><small>${(d.rv||[]).length?pl(d.rv.length,"pays","pays"):"Rien à revoir"}</small></button><button class="mini" id="rk"><span style="--bc:#d49a00">${sv("trophy")}</span><b>Classements</b><small>Semaine, records, groupes</small></button></div>
  ${S.off?`<p class="mute">Hors connexion : tu peux jouer, les scores seront enregistrés au retour d’internet.</p>`:""}${Q.get().some(j=>j.uid===S.uid)?`<p class="mute">Des scores attendent internet pour être enregistrés.</p>`:""}`;
- S.special=null;S.zf=null;S.hw=null;applyShop();$("shop").onclick=()=>shop();if(!fromX)socialCheck();
+ S.special=null;S.zf=null;S.hw=null;applyShop();$("shop").onclick=()=>shop();if(!fromX)socialCheck();tuto();
  if($("ivj")){const iv=S.inv,clr=()=>{S.inv=null;rput(`inbox/${S.uid}/${iv.f}`,null).catch(()=>{})};$("ivj").onclick=async()=>{clr();try{await joinDuel(iv.c)}catch(e){duelScreen(iv.c)}};$("ivx").onclick=()=>{clr();home(true)}}
  if($("hwg"))$("hwg").onclick=()=>hwStart(hwTodo()[0]);if($("ssb")){$("ssb").onclick=e=>{e.currentTarget.disabled=true;saveStreak()};$("ssx").onclick=()=>{S.ssNo=dk();home(true)}}
  if($("mx3"))$("mx3").onclick=()=>{S.tnMsg=null;home(true)};if($("tnb"))$("tnb").onclick=tnScreen;
@@ -571,7 +573,7 @@ async function token(force){
 }
 const claims=t=>{try{return JSON.parse(atob(t.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")))}catch(e){return{}}};
 const aq=async()=>{if(!AUTH||!SES)return"";try{return"?auth="+encodeURIComponent(await token())}catch(e){return""}};
-const docsOf=snap=>snap.docs.filter(d=>!AUTH||d.id.length>=28);
+const docsAll=snap=>snap.docs.filter(d=>!AUTH||d.id.length>=28),docsOf=snap=>docsAll(snap).filter(d=>!(d.data()&&d.data().bn));
 // L'email lié à un pseudo est stocké chiffré avec le mot de passe : personne ne peut le lire sans le mot de passe.
 const b64=u=>btoa(String.fromCharCode(...new Uint8Array(u))),ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 async function kdf(pw,salt){const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:250000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"])}
@@ -600,7 +602,8 @@ async function claimPseudo(name,key,sl,oldKey){
  if(oldKey&&oldKey!==key){try{await DB.collection("logins").doc(oldKey).delete();await DB.collection("names").doc(oldKey).delete()}catch(e){}}
  S.uid=uid;S.name=name;S.key=key;SES.pend=null;persist();
 }
-async function enter(){await loadMe();await flushQueue();const gq=new URLSearchParams(location.search).get("groupe");if(gq&&!S.gqSeen){S.gqSeen=1;history.replaceState(null,"",location.pathname);groupScreen();const i=$("gc");if(i)i.value=gq.toUpperCase();return}
+function bannedScreen(){S.view="banned";app.innerHTML=`<h1>Compte suspendu<span>.</span></h1><div class="card"><p class="mute" style="text-align:start">Ce compte a été suspendu par l’administrateur du jeu. Tu ne peux plus jouer ni apparaître dans les classements avec ce compte.</p></div><button class="btn alt" id="so">Se déconnecter</button><button class="btn alt" id="pv">Confidentialité</button>`;$("so").onclick=signOut;$("pv").onclick=()=>privacyScreen(bannedScreen)}
+async function enter(){await loadMe();if(AUTH&&S.me&&S.me.bn)return bannedScreen();await flushQueue();const gq=new URLSearchParams(location.search).get("groupe");if(gq&&!S.gqSeen){S.gqSeen=1;history.replaceState(null,"",location.pathname);groupScreen();const i=$("gc");if(i)i.value=gq.toUpperCase();return}
  if(AUTH&&new URLSearchParams(location.search).has("admin")&&!S.admSeen){S.admSeen=1;history.replaceState(null,"",location.pathname);try{await rput("admins/"+S.uid,true);S.adm=true}catch(e){}return settings()}
  const dc=new URLSearchParams(location.search).get("duel");if(dc&&!S.dlSeen){S.dlSeen=1;history.replaceState(null,"",location.pathname);return duelScreen(dc.toUpperCase())}S.view="home";home()}
 async function afterAuth(){
@@ -648,7 +651,8 @@ function authScreen(tab="in",msg=""){
  <form class="card af" id="af" novalidate>${tab==="in"?field("li","Pseudo ou email","text","username")+field("pw","Mot de passe","password","current-password"):tab==="up"?field("un","Pseudo","text","username")+`<small class="hint">3 à 16 caractères, visible dans les classements.</small>`+field("em","Email","email","email")+`<small class="hint">Un lien de vérification y sera envoyé. Il n’est jamais affiché.</small>`+field("pw","Mot de passe","password","new-password")+`<small class="hint">8 caractères minimum.</small>`:field("em","Email","email","email")}
  <p class="err" id="ae" role="alert">${esc(msg)}</p><p class="okm" id="ao" role="status"></p>
  <button class="btn" id="ab" type="submit">${tab==="in"?"Se connecter":tab==="up"?"Créer mon compte":"Envoyer le lien"}</button>
- ${tab==="in"?`<p class="lks"><button type="button" class="lk" id="fg">Mot de passe oublié ?</button></p>`:tab==="fg"?`<p class="lks"><button type="button" class="lk" id="bk">Retour à la connexion</button></p>`:""}</form>`;
+ ${tab==="in"?`<p class="lks"><button type="button" class="lk" id="fg">Mot de passe oublié ?</button></p>`:tab==="fg"?`<p class="lks"><button type="button" class="lk" id="bk">Retour à la connexion</button></p>`:""}</form><p class="lks"><button type="button" class="lk" id="pv">Confidentialité</button></p>`;
+ $("pv").onclick=()=>privacyScreen(()=>authScreen(tab));
  bindTheme(()=>authScreen(S.atab));
  app.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>authScreen(b.dataset.t));
  const fg=$("fg");if(fg)fg.onclick=()=>authScreen("fg");const bk=$("bk");if(bk)bk.onclick=()=>authScreen("in");
@@ -676,13 +680,46 @@ function pseudoScreen(msg=""){
  formRun(async()=>{const{name,key}=normName($("un").value);let sl=SES.pend&&SES.pend.seal;if(!sl){const pw=$("pw").value;setSes(await idt("signInWithPassword",{email:SES.email,password:pw,returnSecureToken:true}));sl=await seal(SES.email,pw)}await claimPseudo(name,key,sl);await enter()});
  $("so").onclick=signOut;
 }
+function privacyScreen(back){
+ S.view="privacy";const ct=(window.GQ_CONFIG&&window.GQ_CONFIG.contact)||"",sec=(t,x)=>`<div class="card pvc"><b class="h3">${t}</b>${x.map(v=>`<p>${v}</p>`).join("")}</div>`;
+ app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>Confidentialité<span>.</span></h1></div>
+ ${sec("Ce que le jeu enregistre",[REMOTE?"Ton pseudo, ton email, tes scores, ta progression (niveau, jetons, badges, série) et le nombre de parties que tu joues chaque jour.":"Ton pseudo, tes scores et ta progression, uniquement sur cet appareil.","Tes réglages (langue, sons, apparence) restent sur ton appareil."])}
+ ${REMOTE?sec("Qui voit quoi",["Les autres joueurs voient ton pseudo, ton niveau et tes scores dans les classements.","Ton email n’est jamais affiché. Il sert à te connecter et à vérifier ton compte.","L’administrateur du jeu voit aussi tes statistiques de jeu, pas ton mot de passe."])+sec("Où sont les données",["Elles sont stockées chez Firebase (Google), sur des serveurs situés en Europe.","Le jeu ne contient ni publicité ni traceur publicitaire."]):""}
+ ${sec("Services externes",["Les drapeaux, les photos de monuments, les cartes et les polices sont chargés depuis flagcdn.com, Wikimedia Commons, jsDelivr et Google Fonts. Comme pour tout site web, ces services reçoivent l’adresse IP de ton appareil."])}
+ ${sec("Tes droits",[AUTH?"Tu peux supprimer ton compte et toutes tes données à tout moment, depuis « Mon compte ».":"Tu peux effacer tes données en vidant les données du site dans ton navigateur.","Si tu as moins de 15 ans, demande l’accord d’un parent avant de créer un compte.",ct?`Une question ? Écris à <span translate="no">${esc(ct)}</span>.`:"Pour toute question, contacte la personne qui t’a invité à jouer."])}`;
+ $("bk").onclick=back||settings;window.scrollTo(0,0);
+}
+function delScreen(){
+ S.view="del";
+ app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>Supprimer mon compte<span>.</span></h1></div>
+ <div class="card"><p class="mute" style="text-align:start">Ton pseudo, ton email, tes scores, tes jetons et tes badges seront effacés définitivement. Cette action ne peut pas être annulée.</p></div>
+ <form class="card af" id="af" novalidate>${field("pw","Mot de passe actuel","password","current-password")}<p class="err" id="ae" role="alert"></p><p class="okm" id="ao" role="status"></p><button class="btn" id="ab" type="submit" style="background:var(--bad);box-shadow:none">Supprimer définitivement</button></form>`;
+ $("bk").onclick=accountScreen;
+ formRun(async()=>{const pw=$("pw").value;if(!pw)throw E("MISSING_PASSWORD");setSes(await idt("signInWithPassword",{email:SES.email,password:pw,returnSecureToken:true}));
+  const uid=S.uid,key=S.key,quiet=async f=>{try{await f()}catch(e){}};
+  await quiet(async()=>{const ib=await rget("inbox/"+uid)||{};for(const f of Object.keys(ib))await rput(`inbox/${uid}/${f}`,null)});
+  for(let i=0;i<31;i++)await quiet(()=>rput(`stats/${dk(-i)}/${uid}`,null));
+  await quiet(()=>rput("admins/"+uid,null));
+  if(key){await quiet(()=>DB.collection("logins").doc(key).delete());await quiet(()=>DB.collection("names").doc(key).delete())}
+  if(!(S.me&&S.me.bn))await DB.collection("players").doc(uid).delete();
+  await idt("delete",{idToken:SES.it});
+  ["gq-mec","gq-q","gq-st","gq-me"].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+  SES=null;persist();S.uid=null;S.name=null;S.key=null;S.me=null;S.adm=undefined;authScreen("in");$("ao").textContent=tr("Ton compte a été supprimé.")});
+}
+function tuto(){
+ if(LS("gq-tuto","0")==="1"||S.view!=="home")return;
+ const T=[["flag","Bienvenue sur Geo Quizz","Choisis un jeu : drapeaux, capitales, cartes, culture ou défis. Réponds vite : plus tu es rapide, plus tu marques de points."],["coin","Les jetons",`Une partie coûte ${COST} jetons. Tu en gagnes avec de bons scores, la récompense du jour et les missions. Ils servent aussi aux jokers.`],["fire","Reviens chaque jour","Le défi du jour, les missions et ta série te font progresser. Monte dans les ligues et défie tes amis en duel."]],i=Math.min(2,S.tu||0),[ic,t,x]=T[i],old=$("tuo");if(old)old.remove();
+ app.insertAdjacentHTML("beforeend",`<div class="ov" id="tuo"><div class="card" style="text-align:center;max-width:340px"><span class="nt tun">${sv(ic)}</span><b class="h3" style="display:block;margin:10px 0 6px">${t}</b><p class="mute">${x}</p><div class="tud">${T.map((_,k)=>`<i class="${k===i?"on":""}"></i>`).join("")}</div><button class="btn" id="tun">${i<2?"Suivant":"C’est parti"}</button>${i<2?`<button class="btn alt" id="tup">Passer</button>`:""}</div></div>`);
+ const end=()=>{LSset("gq-tuto","1");S.tu=0;const o=$("tuo");if(o)o.remove()};$("tun").onclick=()=>{if(i<2){S.tu=i+1;tuto()}else end()};if($("tup"))$("tup").onclick=end;
+}
 function accountScreen(){
  S.view="account";
  app.innerHTML=`<h1>Mon compte<span>.</span></h1><p class="sub">Pseudo public, email privé.</p>
  <div class="card"><div class="pl"><span>Pseudo</span><b>${esc(S.name||"")}</b></div><div class="pl"><span>Email</span><b style="font-weight:500;overflow-wrap:anywhere;text-align:right">${esc(SES&&SES.email||"")}</b></div></div>
  <form class="card af" id="af" novalidate><label style="margin:0 0 8px">Changer de pseudo</label>${field("un","Nouveau pseudo","text","username")}${field("pw","Mot de passe actuel","password","current-password")}
  <p class="err" id="ae" role="alert"></p><p class="okm" id="ao" role="status"></p><button class="btn" id="ab" type="submit">Changer de pseudo</button></form>
- <button class="btn alt" id="so">Se déconnecter</button><button class="btn alt" id="hm">Accueil</button>`;
+ <button class="btn alt" id="so">Se déconnecter</button><button class="btn alt" id="hm">Accueil</button><p class="lks"><button type="button" class="lk" id="pv">Confidentialité</button> · <button type="button" class="lk" id="dac">Supprimer mon compte</button></p>`;
+ $("pv").onclick=()=>privacyScreen(accountScreen);$("dac").onclick=delScreen;
  formRun(async()=>{const{name,key}=normName($("un").value),pw=$("pw").value;if(!pw)throw E("MISSING_PASSWORD");setSes(await idt("signInWithPassword",{email:SES.email,password:pw,returnSecureToken:true}));await claimPseudo(name,key,await seal(SES.email,pw),S.key);await loadMe();accountScreen();$("ao").textContent="Pseudo changé : "+name+"."});
  $("so").onclick=signOut;$("hm").onclick=()=>{S.view="home";home()};
 }
@@ -788,7 +825,7 @@ function noTokens(){
  $("hm").onclick=()=>{S.view="home";home()};
  if($("drb"))$("drb").onclick=async()=>{await claimDaily();S.view="home";home(true)};if($("dy"))$("dy").onclick=startDay;if($("rvw"))$("rvw").onclick=startRev;
 }
-const tkLine=r=>r&&r.tk!==undefined?`<div class="card tkl">${sv("coin")}<div><b>${r.tg?`+${r.tg} jetons gagnés`:"Aucun jeton gagné"}</b><small>${r.cost?`Partie : −${r.cost} · `:""}Solde : ${fmt(r.tk)}</small></div></div>`:"";
+const tkLine=r=>r&&r.tk!==undefined?`<div class="card tkl">${sv("coin")}<div><b>${r.tg?`+${r.tg} jetons gagnés`:"Aucun jeton gagné"}</b><small>${r.cost?`Partie : −${r.cost} · `:""}Solde : ${fmt(r.tk)}</small>${r.ms&&r.ms.length?`<small class="msw">Mission réussie : ${r.ms.map(esc).join(" · ")}</small>`:""}</div></div>`:"";
 const ZS={world:"Monde",eu:"Europe",af:"Afrique",as:"Asie-Océanie",na:"Am. du Nord",sa:"Am. du Sud"};
 const mastered=d=>Object.entries((d&&d.at)||{}).filter(([,v])=>v>=3).map(([c])=>c);
 async function fiche(code,back){
@@ -821,7 +858,7 @@ function duelHist(){
  if(!h.length)return `<div class="card"><b class="h3">Mes duels</b><p class="mute" style="text-align:left;margin:6px 0 0">Aucun duel joué pour l’instant.</p></div>`;
  const n=r=>h.filter(x=>x.r===r).length;
  return `<div class="card"><b class="h3">Mes duels</b><div class="stats" style="margin:12px 0 6px;text-align:center"><div class="st"><b>${n("win")}</b><small>victoires</small></div><div class="st"><b>${n("lose")}</b><small>défaites</small></div><div class="st"><b>${n("draw")}</b><small>égalités</small></div></div>
- ${h.slice(0,8).map(x=>`<div class="pl"><span class="who"><span class="dot ${esc(x.r)}"></span><span>${esc(x.on||"Joueur")}<br><small class="mute">${dmy(x.d)}</small></span></span><b>${fmt(x.s)} – ${fmt(x.os)}</b></div>`).join("")}</div>`;
+ ${h.slice(0,8).map(x=>`<div class="pl"><span class="who"><span class="dot ${esc(x.r)}"></span><span>${x.on?PN(x.on):"Joueur"}<br><small class="mute">${dmy(x.d)}</small></span></span><b>${fmt(x.s)} – ${fmt(x.os)}</b></div>`).join("")}</div>`;
 }
 function duelScreen(prefill=""){
  stopPoll();S.view="duel";S.duel=null;const fr=(S.me&&S.me.fr)||{};
@@ -830,7 +867,7 @@ function duelScreen(prefill=""){
  <div class="card"><b class="h3">Défier un ami</b><p class="mute" style="text-align:left;margin:4px 0 0">Crée un duel et envoie-lui le code.</p><button class="btn" id="dc">Créer un duel</button></div>
  <form class="card af" id="af" novalidate><label for="cd">Rejoindre avec un code</label><input id="cd" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false" value="${esc(prefill)}" style="text-transform:uppercase;letter-spacing:.2em;font-weight:700">
  <p class="err" id="ae" role="alert"></p><button class="btn alt" id="ab" type="submit">Rejoindre</button></form>
- <div class="card"><b class="h3">Mes amis</b>${Object.keys(fr).length?Object.entries(fr).map(([u,n])=>`<div class="pl"><span><b>${esc(n)}</b></span><span class="gact"><button class="btn sm" data-ch="${esc(u)}">Défier</button><button class="lk" data-rf="${esc(u)}" aria-label="Retirer ${esc(n)}">Retirer</button></span></div>`).join(""):`<p class="mute" style="text-align:left;margin:6px 0 0">Tes adversaires de duel s’ajoutent ici tout seuls.</p>`}
+ <div class="card"><b class="h3">Mes amis</b>${Object.keys(fr).length?Object.entries(fr).map(([u,n])=>`<div class="pl"><span><b>${PN(n)}</b></span><span class="gact"><button class="btn sm" data-ch="${esc(u)}">Défier</button><button class="lk" data-rf="${esc(u)}" aria-label="Retirer ${NM(n)}">Retirer</button></span></div>`).join(""):`<p class="mute" style="text-align:left;margin:6px 0 0">Tes adversaires de duel s’ajoutent ici tout seuls.</p>`}
  <form id="ff" class="frow" novalidate><input id="fn" maxlength="16" autocomplete="off" aria-label="Pseudo d’un ami" placeholder="Pseudo d’un ami"><button class="btn alt sm" type="submit">Ajouter</button></form><p class="err" id="fe" role="alert"></p></div>
  ${duelHist()}`;
  $("hm").onclick=()=>{S.view="home";home()};
@@ -874,12 +911,12 @@ function duelStart(code,host,d){
  S.mode="duel";S.sec=null;S.zone=null;start(+d.seed,2);
  stopPoll();S.dpoll=setInterval(async()=>{try{const sc=await rget(`duels/${code}/sc/${S.duel.opp}`);if(sc){S.duel.os=sc;const b=$("dbar");if(b)b.outerHTML=duelBar();if(S.view==="dwait"&&sc.f)duelResult()}}catch(e){}},1200);
 }
-function duelBar(){const D=S.duel,o=D.os||{},n=S.qs.length;return `<div class="card dbar" id="dbar"><div><b>Toi</b><span>${fmt(S.score)} pts · ${Math.min(S.i+(S.locked?1:0),n)}/${n}</span></div><div><b>${esc(D.on||"Adversaire")}</b><span>${fmt(o.s||0)} pts · ${o.f?"terminé":(o.i||0)+"/"+n}</span></div></div>`}
+function duelBar(){const D=S.duel,o=D.os||{},n=S.qs.length;return `<div class="card dbar" id="dbar"><div><b>Toi</b><span>${fmt(S.score)} pts · ${Math.min(S.i+(S.locked?1:0),n)}/${n}</span></div><div><b>${D.on?PN(D.on):"Adversaire"}</b><span>${fmt(o.s||0)} pts · ${o.f?"terminé":(o.i||0)+"/"+n}</span></div></div>`}
 function duelProgress(){if(!S.duel)return;rpatch(`duels/${S.duel.code}/sc/${S.uid}`,{s:S.score,i:S.i+1,f:false}).catch(()=>{})}
 async function duelFinish(){
  S.view="dwait";try{await rpatch(`duels/${S.duel.code}/sc/${S.uid}`,{s:S.score,i:S.qs.length,f:true})}catch(e){}
  if(S.duel.os&&S.duel.os.f)return duelResult();
- app.innerHTML=`<h1>Bien joué<span>.</span></h1><div class="card" style="text-align:center"><div class="big">${fmt(S.score)}</div><p class="mute">En attente de ${esc(S.duel.on||"ton adversaire")}…</p>${duelBar()}</div><button class="btn alt" id="qy">Arrêter d’attendre</button>`;
+ app.innerHTML=`<h1>Bien joué<span>.</span></h1><div class="card" style="text-align:center"><div class="big">${fmt(S.score)}</div><p class="mute">En attente de ${S.duel.on?NM(S.duel.on):"ton adversaire"}…</p>${duelBar()}</div><button class="btn alt" id="qy">Arrêter d’attendre</button>`;
  $("qy").onclick=()=>{stopPoll();S.duelWin=0;S.duelLog=null;S.mode="duel";S.view="end";save().then(()=>{S.view="home";home()})};
 }
 async function duelResult(){
@@ -887,8 +924,8 @@ async function duelResult(){
  S.duelLog={on:S.duel.on||"",ou:S.duel.opp||"",s:me,os:o,r:res};S.rm=null;
  if(S.duel.host)rpatch("duels/"+S.duel.code,{st:"done"}).catch(()=>{});
  const draw=()=>{const r=S.res&&S.res.best!==undefined?S.res:null;
-  app.innerHTML=`<h1>${res==="win"?"Victoire":res==="lose"?"Défaite":"Égalité"}<span>.</span></h1><p class="sub">Duel contre ${esc(S.duel.on||"ton adversaire")}</p>
-  <div class="card vs res"><div class="${res==="win"?"w":""}"><b>${fmt(me)}</b><small>toi</small></div><span>–</span><div class="${res==="lose"?"w":""}"><b>${fmt(o)}</b><small>${esc(S.duel.on||"")}</small></div></div>
+  app.innerHTML=`<h1>${res==="win"?"Victoire":res==="lose"?"Défaite":"Égalité"}<span>.</span></h1><p class="sub">Duel contre ${S.duel.on?NM(S.duel.on):"ton adversaire"}</p>
+  <div class="card vs res"><div class="${res==="win"?"w":""}"><b>${fmt(me)}</b><small>toi</small></div><span>–</span><div class="${res==="lose"?"w":""}"><b>${fmt(o)}</b><small>${PN(S.duel.on||"")}</small></div></div>
   ${r?tkLine(r)+badgeCard(r.nb):""}
   ${S.rm?`<p class="okm">${esc(S.duel.on||"Ton adversaire")} veut sa revanche.</p>`:""}
   <button class="btn" id="rv2">${S.rm?"Accepter la revanche":"Revanche"}</button><button class="btn alt" id="re">Autre duel</button><button class="btn alt" id="hm">Accueil</button>`;
@@ -901,7 +938,7 @@ function groupScreen(msg=""){
  S.view="groups";const GI=S.ginfo=S.ginfo||{};const g=(S.me&&S.me.g)||{},link=c=>location.origin+location.pathname+"?groupe="+c;
  app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>Groupes<span>.</span></h1></div>
  <p class="sub">Un classement rien qu’entre vous : amis, famille ou classe. Le créateur du groupe peut donner des devoirs.</p>
- ${Object.keys(g).length?`<div class="card">${Object.entries(g).map(([c,n])=>`<div class="pl"><span><b>${esc(n)}</b><br><small class="mute">Code ${c}${GI[c]&&GI[c].hw?` · devoir pour le ${dmy(GI[c].hw.due)}`:""}</small></span><span class="gact">${GI[c]&&GI[c].o===S.uid?`<button class="lk" data-hw="${c}">Devoirs</button>`:""}<button class="lk" data-sh="${c}">Partager</button><button class="lk" data-lv="${c}">Quitter</button></span></div>`).join("")}<p class="okm" id="ao" role="status"></p></div>`:""}
+ ${Object.keys(g).length?`<div class="card">${Object.entries(g).map(([c,n])=>`<div class="pl"><span><b>${PN(n)}</b><br><small class="mute">Code ${c}${GI[c]&&GI[c].hw?` · devoir pour le ${dmy(GI[c].hw.due)}`:""}</small></span><span class="gact">${GI[c]&&GI[c].o===S.uid?`<button class="lk" data-hw="${c}">Devoirs</button>`:""}<button class="lk" data-sh="${c}">Partager</button><button class="lk" data-lv="${c}">Quitter</button></span></div>`).join("")}<p class="okm" id="ao" role="status"></p></div>`:""}
  <form class="card af" id="af" novalidate><label for="gn">Créer un groupe</label><input id="gn" maxlength="24" autocomplete="off" placeholder="Ex. 3e B, Famille…">
  <label for="gc">Ou rejoindre avec un code</label><input id="gc" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" style="text-transform:uppercase;letter-spacing:.2em;font-weight:700">
  <p class="err" id="ae" role="alert">${esc(msg)}</p><button class="btn" id="ab" type="submit">Valider</button></form>`;
@@ -931,15 +968,15 @@ const TRD={en:new Map(),ar:new Map()},TRP=[];
 function addTr(list){list.forEach(([f,e,a])=>{TRD.en.set(f,e);TRD.ar.set(f,a)})}
 function addPat(list){list.forEach(([re,e,a])=>TRP.push([re,e,a]))}
 const MISS=new Set();
-function tr(t){
- if(LANG==="fr"||!t)return t;
+function tr(t,sub){
+ if(LANG==="fr"||!t)return t;if(sub&&typeof NAMES!=="undefined"&&NAMES.has(String(t).trim()))return t;const tr1=v=>tr(v,1);
  const m=t.match(/^(\s*)([\s\S]*?)(\s*)$/),core=m[2];if(!core||!/[A-Za-zÀ-ÿ]/.test(core))return t;
  const d=TRD[LANG];let out=d.get(core);
- if(out===undefined){for(const[re,e,a]of TRP){const x=core.match(re);if(x){const tpl=LANG==="en"?e:a;out=typeof tpl==="function"?tpl(x,tr):tpl.replace(/\$(\d)/g,(_,i)=>tr(x[i]));break}}}
- if(out===undefined&&core.includes(" · "))out=core.split(" · ").map(tr).join(" · ");
+ if(out===undefined){for(const[re,e,a]of TRP){const x=core.match(re);if(x){const tpl=LANG==="en"?e:a;out=typeof tpl==="function"?tpl(x,tr1):tpl.replace(/\$(\d)/g,(_,i)=>tr1(x[i]));break}}}
+ if(out===undefined&&core.includes(" · "))out=core.split(" · ").map(tr1).join(" · ");
  if(out===undefined&&core.startsWith("· "))out="· "+tr(core.slice(2));
  if(out===undefined&&core.endsWith(" ·"))out=tr(core.slice(0,-2))+" ·";
- if(out===undefined&&core.includes(": ")){const i=core.indexOf(": "),l=core.slice(0,i).trim(),a=tr(l);if(a!==l)out=a+": "+tr(core.slice(i+2))}
+ if(out===undefined&&core.includes(": ")){const i=core.indexOf(": "),l=core.slice(0,i).trim(),a=tr(l);if(a!==l)out=a+": "+tr1(core.slice(i+2))}
  if(out===undefined){MISS.add(core);return t}
  return m[1]+out+m[3];
 }
@@ -951,6 +988,8 @@ function trNode(root){
 }
 addPat([[/^niv\. (\d+)$/,"lvl $1","مستوى $1"]]);addPat([[/^([\d\s\u202f.,]+) jetons$/,"$1 tokens","$1 رمز"],[/^(\d+) badges?$/,"$1 badges","$1 شارة"]]);
 addPat([[/^Seconde chance · (\d+) jetons$/,"Second chance · $1 tokens","فرصة ثانية · $1 رمز"],[/^(\d+) bonnes? réponses? jusqu’ici\.$/,"$1 correct so far.","$1 إجابات صحيحة حتى الآن."],[/^Il te faut (\d+) jetons\. Tu en as (\d+)\.$/,"You need $1 tokens. You have $2.","تحتاج $1 رمزًا. لديك $2."]]);
+addTr([["Nombre de parties par jeu", "Games played, by game", "عدد المباريات حسب اللعبة"], ["Rendez-vous", "Daily habit", "الموعد اليومي"], ["Jouer un défi du jour", "Play a daily challenge", "العب تحدي اليوم"], ["Gagner un duel", "Win a duel", "فُز بمبارزة"], ["Non connecté : tes scores ne seront pas enregistrés. Choisis un pseudo.", "Not signed in: your scores won't be saved. Pick a username.", "لم تسجّل الدخول: لن تُحفظ نتائجك. اختر اسمًا."], ["Revanche", "Rematch", "إعادة المباراة"], ["Accepter la revanche", "Accept the rematch", "اقبل إعادة المباراة"], ["À voir", "Sights", "معالم"], ["Voir le classement du tournoi", "See the tournament leaderboard", "عرض ترتيب البطولة"], ["Un classement rien qu’entre vous : amis, famille ou classe. Le créateur du groupe peut donner des devoirs.", "A leaderboard just for you: friends, family or class. The group’s creator can set homework.", "ترتيب خاص بكم: أصدقاء أو عائلة أو قسم. يمكن لمنشئ المجموعة إعطاء واجبات."], ["C’est ton pseudo ? Connecte-toi avec pour retrouver tes scores sur cet appareil.", "Is this your username? Sign in with it to get your scores back on this device.", "هل هذا اسمك؟ سجّل الدخول به لاستعادة نتائجك على هذا الجهاز."], ["Aide", "Help", "مساعدة"], ["Revoir le tutoriel", "Replay the tutorial", "إعادة عرض الشرح"], ["Confidentialité", "Privacy", "الخصوصية"], ["Notifications", "Notifications", "الإشعارات"], ["Un rappel le soir si ta série est en jeu, une alerte quand un ami te défie en duel, et les rappels du tournoi du week-end. Sur Android, ajoute le jeu à l’écran d’accueil pour recevoir les rappels même jeu fermé.", "An evening reminder when your streak is at stake, an alert when a friend challenges you to a duel, and weekend tournament reminders. On Android, add the game to your home screen to get reminders even when the game is closed.", "تذكير مسائي إذا كانت سلسلتك مهددة، وتنبيه عندما يتحداك صديق في مبارزة، وتذكيرات بطولة نهاية الأسبوع. على أندرويد، أضف اللعبة إلى الشاشة الرئيسية لتصلك التذكيرات حتى واللعبة مغلقة."], ["Le tournoi du week-end est ouvert : 3 essais, 100 jetons pour le 1er.", "The weekend tournament is open: 3 tries, 100 tokens for 1st place.", "بطولة نهاية الأسبوع مفتوحة: 3 محاولات و100 رمز للأول."], ["Le tournoi se termine ce soir. Il te reste des essais.", "The tournament ends tonight. You still have tries left.", "تنتهي البطولة الليلة. ما زالت لديك محاولات."], ["Bienvenue sur Geo Quizz", "Welcome to Geo Quizz", "مرحبًا بك في جيو كويز"], ["Choisis un jeu : drapeaux, capitales, cartes, culture ou défis. Réponds vite : plus tu es rapide, plus tu marques de points.", "Pick a game: flags, capitals, maps, culture or challenges. Answer fast: the quicker you are, the more points you score.", "اختر لعبة: أعلام، عواصم، خرائط، ثقافة أو تحديات. أجب بسرعة: كلما كنت أسرع، سجّلت نقاطًا أكثر."], ["Les jetons", "Tokens", "الرموز"], ["Reviens chaque jour", "Come back every day", "عُد كل يوم"], ["Le défi du jour, les missions et ta série te font progresser. Monte dans les ligues et défie tes amis en duel.", "The daily challenge, missions and your streak help you progress. Climb the leagues and challenge your friends to duels.", "تحدي اليوم والمهام وسلسلتك تساعدك على التقدم. اصعد في الدوريات وتحدَّ أصدقاءك في مبارزات."], ["Suivant", "Next", "التالي"], ["C’est parti", "Let’s go", "هيا بنا"], ["Missions du jour", "Daily missions", "مهام اليوم"], ["Mission réussie", "Mission complete", "اكتملت المهمة"], ["Obtenir 3 étoiles dans une partie", "Get 3 stars in a game", "احصل على 3 نجوم في مباراة"], ["Terminer le défi du jour", "Finish the daily challenge", "أكمل تحدي اليوم"], ["Modération", "Moderation", "الإشراف"], ["bloqué", "blocked", "محظور"], ["Bloquer ce joueur", "Block this player", "حظر هذا اللاعب"], ["Débloquer ce joueur", "Unblock this player", "رفع الحظر عن هذا اللاعب"], ["Effacer ses scores", "Erase their scores", "مسح نتائجه"], ["Touche encore pour confirmer", "Tap again to confirm", "اضغط مرة أخرى للتأكيد"], ["Action refusée. Vérifie les règles Firebase.", "Action refused. Check the Firebase rules.", "رُفض الإجراء. تحقق من قواعد Firebase."], ["Ce joueur est bloqué : il ne peut plus jouer et n’apparaît plus dans les classements.", "This player is blocked: they can no longer play and no longer appear on leaderboards.", "هذا اللاعب محظور: لم يعد بإمكانه اللعب ولا يظهر في الترتيب."], ["Un joueur bloqué ne peut plus jouer et disparaît des classements.", "A blocked player can no longer play and disappears from leaderboards.", "اللاعب المحظور لا يستطيع اللعب ويختفي من الترتيب."], ["Compte suspendu", "Account suspended", "الحساب موقوف"], ["Ce compte a été suspendu par l’administrateur du jeu. Tu ne peux plus jouer ni apparaître dans les classements avec ce compte.", "This account has been suspended by the game’s administrator. You can no longer play or appear on leaderboards with this account.", "أوقف مشرف اللعبة هذا الحساب. لم يعد بإمكانك اللعب أو الظهور في الترتيب بهذا الحساب."], ["Supprimer mon compte", "Delete my account", "حذف حسابي"], ["Supprimer définitivement", "Delete permanently", "حذف نهائي"], ["Ton pseudo, ton email, tes scores, tes jetons et tes badges seront effacés définitivement. Cette action ne peut pas être annulée.", "Your username, email, scores, tokens and badges will be permanently erased. This cannot be undone.", "سيُمسح اسمك وبريدك ونتائجك ورموزك وشاراتك نهائيًا. لا يمكن التراجع عن هذا الإجراء."], ["Ton compte a été supprimé.", "Your account has been deleted.", "تم حذف حسابك."], ["Ce que le jeu enregistre", "What the game stores", "ما الذي تحفظه اللعبة"], ["Ton pseudo, ton email, tes scores, ta progression (niveau, jetons, badges, série) et le nombre de parties que tu joues chaque jour.", "Your username, your email, your scores, your progress (level, tokens, badges, streak) and the number of games you play each day.", "اسمك وبريدك ونتائجك وتقدمك (المستوى، الرموز، الشارات، السلسلة) وعدد المباريات التي تلعبها كل يوم."], ["Ton pseudo, tes scores et ta progression, uniquement sur cet appareil.", "Your username, scores and progress, on this device only.", "اسمك ونتائجك وتقدمك، على هذا الجهاز فقط."], ["Tes réglages (langue, sons, apparence) restent sur ton appareil.", "Your settings (language, sounds, appearance) stay on your device.", "إعداداتك (اللغة، الأصوات، المظهر) تبقى على جهازك."], ["Qui voit quoi", "Who sees what", "من يرى ماذا"], ["Les autres joueurs voient ton pseudo, ton niveau et tes scores dans les classements.", "Other players see your username, level and scores on leaderboards.", "يرى اللاعبون الآخرون اسمك ومستواك ونتائجك في الترتيب."], ["Ton email n’est jamais affiché. Il sert à te connecter et à vérifier ton compte.", "Your email is never shown. It is used to sign you in and verify your account.", "بريدك لا يُعرض أبدًا. يُستخدم لتسجيل دخولك والتحقق من حسابك."], ["L’administrateur du jeu voit aussi tes statistiques de jeu, pas ton mot de passe.", "The game’s administrator also sees your play statistics, not your password.", "يرى مشرف اللعبة أيضًا إحصاءات لعبك، وليس كلمة مرورك."], ["Où sont les données", "Where the data is kept", "أين تُحفظ البيانات"], ["Elles sont stockées chez Firebase (Google), sur des serveurs situés en Europe.", "It is stored with Firebase (Google), on servers located in Europe.", "تُخزَّن لدى Firebase (Google) على خوادم في أوروبا."], ["Le jeu ne contient ni publicité ni traceur publicitaire.", "The game contains no ads and no ad trackers.", "اللعبة لا تحتوي على إعلانات ولا على أدوات تتبع إعلانية."], ["Services externes", "External services", "خدمات خارجية"], ["Les drapeaux, les photos de monuments, les cartes et les polices sont chargés depuis flagcdn.com, Wikimedia Commons, jsDelivr et Google Fonts. Comme pour tout site web, ces services reçoivent l’adresse IP de ton appareil.", "Flags, landmark photos, maps and fonts are loaded from flagcdn.com, Wikimedia Commons, jsDelivr and Google Fonts. As with any website, these services receive your device’s IP address.", "تُحمَّل الأعلام وصور المعالم والخرائط والخطوط من flagcdn.com وWikimedia Commons وjsDelivr وGoogle Fonts. وكما في أي موقع، تتلقى هذه الخدمات عنوان IP لجهازك."], ["Tes droits", "Your rights", "حقوقك"], ["Tu peux supprimer ton compte et toutes tes données à tout moment, depuis « Mon compte ».", "You can delete your account and all your data at any time, from “My account”.", "يمكنك حذف حسابك وكل بياناتك في أي وقت من «حسابي»."], ["Tu peux effacer tes données en vidant les données du site dans ton navigateur.", "You can erase your data by clearing this site’s data in your browser.", "يمكنك مسح بياناتك بحذف بيانات الموقع من متصفحك."], ["Si tu as moins de 15 ans, demande l’accord d’un parent avant de créer un compte.", "If you are under 15, ask a parent for permission before creating an account.", "إذا كان عمرك أقل من 15 سنة، فاطلب موافقة أحد والديك قبل إنشاء حساب."], ["Pour toute question, contacte la personne qui t’a invité à jouer.", "For any question, contact the person who invited you to play.", "لأي سؤال، تواصل مع الشخص الذي دعاك إلى اللعب."], ["Une question ? Écris à", "Any question? Write to", "لديك سؤال؟ راسل"]]);
+addPat([[/^Jouer (\d+) parties$/,"Play $1 games","العب $1 مباريات"],[/^Donner (\d+) bonnes réponses$/,"Give $1 correct answers","أعطِ $1 إجابة صحيحة"],[/^Marquer (\d+) points$/,"Score $1 points","سجّل $1 نقطة"],[/^Enchaîner (\d+) bonnes réponses$/,"Get $1 correct answers in a row","أجب $1 إجابات صحيحة متتالية"],[/^Jouer une partie de (.+)$/,"Play a game of $1","العب مباراة في $1"],[/^Une partie coûte (\d+) jetons\. Tu en gagnes avec de bons scores, la récompense du jour et les missions\. Ils servent aussi aux jokers\.$/,"A game costs $1 tokens. You earn them with good scores, the daily reward and missions. They also pay for lifelines.","تكلّف المباراة $1 رموز. تكسبها بالنتائج الجيدة ومكافأة اليوم والمهام. وتُستخدم أيضًا لوسائل المساعدة."]]);
 let TRBUSY=false;
 const TROB=new MutationObserver(ms=>{if(LANG==="fr")return;for(const m of ms){if(m.type==="characterData")trNode(m.target);else m.addedNodes.forEach(x=>trNode(x))}TROB.takeRecords()});TROB.observe(document.getElementById("app"),{childList:true,subtree:true,characterData:true});
 const DN={};
@@ -1039,12 +1078,16 @@ function dashPlayer(uid){
  app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>${PN(d.u)}<span>.</span></h1></div>
  <div class="card" style="text-align:center"><div class="stats">${cell(fmt(+d.p||0),"parties en tout")}${cell(lvlOf(d.x),"niveau")}${cell(d.sd?dmy(d.sd):"–","dernière partie")}${cell(g30,"parties sur 30 jours")}${cell(act,"jours actifs sur 30")}${cell(streakOf(d)+" / "+(+d.sb||0),"série / record")}</div><p class="mute" style="margin:12px 0 0">${fmt(+d.x||0)} XP · ${fmt(tokensOf(d))} jetons · ${pl(Object.keys(d.bd||{}).length,"badge","badges")}</p></div>
  <div class="card"><b class="h3">Jeux joués</b><p class="mute" style="text-align:start;margin:4px 0 8px">Nombre de parties par jeu</p>${top.length?top.map(([m,n])=>`<div class="dbr md"><span>${esc(ML(m))}</span><i><u style="width:${n/tm*100}%"></u></i><b>${n}</b></div>`).join(""):`<p class="mute" style="text-align:start">Aucune partie enregistrée sur cette période.</p>`}</div>
- <div class="card"><b class="h3">Meilleurs scores</b>${best.length?best.map(([k,v])=>`<div class="apl nb"><span>${esc(ML(k))}</span><b>${fmt(v)}</b></div>`).join(""):`<p class="mute" style="text-align:start">Aucun record pour l’instant.</p>`}</div>`;
- $("bk").onclick=dashScreen;window.scrollTo(0,0);
+ <div class="card"><b class="h3">Meilleurs scores</b>${best.length?best.map(([k,v])=>`<div class="apl nb"><span>${esc(ML(k))}</span><b>${fmt(v)}</b></div>`).join(""):`<p class="mute" style="text-align:start">Aucun record pour l’instant.</p>`}</div>
+ ${uid!==S.uid?`<div class="card"><b class="h3">Modération</b><p class="mute" style="text-align:start;margin:4px 0 10px">${d.bn?"Ce joueur est bloqué : il ne peut plus jouer et n’apparaît plus dans les classements.":"Un joueur bloqué ne peut plus jouer et disparaît des classements."}</p><button class="btn alt" id="abn">${d.bn?"Débloquer ce joueur":"Bloquer ce joueur"}</button><button class="btn alt" id="ars">Effacer ses scores</button><p class="err" id="ame" role="alert"></p></div>`:""}`;
+ $("bk").onclick=dashScreen;if(!S.dpKeep)window.scrollTo(0,0);S.dpKeep=0;
+ const two=(b,fn)=>{if(b)b.onclick=async()=>{if(!b.dataset.c){b.dataset.c=1;b.textContent=tr("Touche encore pour confirmer");return}b.disabled=true;try{await fn();S.dpKeep=1;dashPlayer(uid)}catch(e){$("ame").textContent=tr("Action refusée. Vérifie les règles Firebase.");b.disabled=false}}};
+ two($("abn"),async()=>{if(d.bn){await rput(`players/${uid}/bn`,null);delete x.d.bn}else{await rpatch(`players/${uid}`,{bn:1});x.d.bn=1}});
+ two($("ars"),async()=>{const ref=DB.collection("players").doc(uid),nd={u:d.u,k:d.k};if(d.bn)nd.bn=1;if(d.g)nd.g=d.g;await ref.delete();await ref.set(nd);x.d=nd});
 }
 async function dashScreen(){
  S.view="dash";app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>Tableau de bord<span>.</span></h1></div><div class="card"><p class="mute">Chargement…</p></div>`;$("bk").onclick=settings;
- try{const q=await aq(),r=await fetch(`${FBU()}/stats.json${q}${q?"&":"?"}orderBy=%22%24key%22&limitToLast=31`);if(!r.ok)throw E("NET");const st=await r.json()||{},snap=await DB.collection("players").get(),plist=docsOf(snap).filter(d=>d.data()&&d.data().u).map(d=>({id:d.id,d:d.data()})),reg=plist.length;S.dash={st,plist};
+ try{const q=await aq(),r=await fetch(`${FBU()}/stats.json${q}${q?"&":"?"}orderBy=%22%24key%22&limitToLast=31`);if(!r.ok)throw E("NET");const st=await r.json()||{},snap=await DB.collection("players").get(),plist=docsAll(snap).filter(d=>d.data()&&d.data().u).map(d=>({id:d.id,d:d.data()})),reg=plist.length;S.dash={st,plist};
   if(S.view!=="dash")return;
   const days=Array.from({length:14},(_,i)=>dk(-i)),P1=k=>Object.keys(st[k]||{}),G1=k=>Object.values(st[k]||{}).reduce((a,v)=>a+(+v.g||0),0),mx=Math.max(1,...days.map(k=>P1(k).length));
   let rs=0,rn=0;days.slice(1).forEach((k,i)=>{const a=P1(k);if(!a.length)return;const b=new Set(P1(days[i]));rs+=a.filter(u=>b.has(u)).length/a.length;rn++});
@@ -1053,7 +1096,7 @@ async function dashScreen(){
   <div class="card" style="text-align:center"><div class="stats"><div class="st"><b>${P1(days[0]).length}</b><small>joueurs aujourd’hui</small></div><div class="st"><b>${G1(days[0])}</b><small>parties aujourd’hui</small></div><div class="st"><b>${rn?Math.round(rs/rn*100)+" %":"–"}</b><small>reviennent le lendemain</small></div></div><p class="mute" style="margin:12px 0 0">${pl(reg,"joueur inscrit","joueurs inscrits")}</p></div>
   <div class="card"><b class="h3">Joueurs par jour</b>${days.map(k=>`<div class="dbr"><span>${dmy(k)}</span><i><u style="width:${P1(k).length/mx*100}%"></u></i><b>${P1(k).length}</b><small>${pl(G1(k),"partie","parties")}</small></div>`).join("")}</div>
   <div class="card"><b class="h3">Jeux les plus joués</b><p class="mute" style="text-align:left;margin:4px 0 8px">Sur 7 jours</p>${top.length?top.map(([m,n])=>`<div class="dbr md"><span>${esc(ML(m))}</span><i><u style="width:${n/tm*100}%"></u></i><b>${n}</b></div>`).join(""):`<p class="mute" style="text-align:left">Aucune partie enregistrée pour l’instant.</p>`}</div>
-  <div class="card"><b class="h3">Joueurs</b><p class="mute" style="text-align:start;margin:4px 0 8px">Touche un joueur pour voir son détail.</p>${(()=>{const L=plist.slice().sort((a,b)=>(+b.d.p||0)-(+a.d.p||0)||String(b.d.sd||"").localeCompare(String(a.d.sd||""))),sh=S.dall?L:L.slice(0,20);return sh.map(x=>`<button class="apl" data-u="${x.id}"><span>${PN(x.d.u)}</span><small>${x.d.sd?dmy(x.d.sd):"–"}</small><b>${pl(+x.d.p||0,"partie","parties")}</b></button>`).join("")+(L.length>20?`<p class="rft"><button class="lk" id="dall">${S.dall?"Voir moins":"Voir tout"}</button></p>`:"")})()}</div>
+  <div class="card"><b class="h3">Joueurs</b><p class="mute" style="text-align:start;margin:4px 0 8px">Touche un joueur pour voir son détail.</p>${(()=>{const L=plist.slice().sort((a,b)=>(+b.d.p||0)-(+a.d.p||0)||String(b.d.sd||"").localeCompare(String(a.d.sd||""))),sh=S.dall?L:L.slice(0,20);return sh.map(x=>`<button class="apl" data-u="${x.id}"><span>${PN(x.d.u)}${x.d.bn?` <em class="bnm">bloqué</em>`:""}</span><small>${x.d.sd?dmy(x.d.sd):"–"}</small><b>${pl(+x.d.p||0,"partie","parties")}</b></button>`).join("")+(L.length>20?`<p class="rft"><button class="lk" id="dall">${S.dall?"Voir moins":"Voir tout"}</button></p>`:"")})()}</div>
   ${(()=>{const R=plist.map(x=>({x,g:gcOf(x)})).filter(r=>Object.keys(r.g).length).sort((a,b)=>(+b.x.d.p||0)-(+a.x.d.p||0)),tot={};R.forEach(r=>Object.entries(r.g).forEach(([m,n])=>tot[m]=(tot[m]||0)+n));const cols=Object.keys(tot).sort((a,b)=>tot[b]-tot[a]);if(!R.length)return"";
    return `<div class="card"><b class="h3">Parties par joueur et par jeu</b><p class="mute" style="text-align:start;margin:4px 0 8px">Fais glisser le tableau pour voir tous les jeux.</p><div class="gtw"><table class="gt"><thead><tr><th>Joueur</th><th>Total</th>${cols.map(m=>`<th>${esc(ML(m))}</th>`).join("")}</tr></thead><tbody>${R.map(r=>`<tr><th>${PN(r.x.d.u)}</th><td><b>${+r.x.d.p||0}</b></td>${cols.map(m=>`<td>${r.g[m]||"·"}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>`})()}
   <p class="mute">Les chiffres sont comptés à partir de la mise en ligne de cette version.</p>`;$("bk").onclick=settings;
@@ -1065,7 +1108,7 @@ const KL=k=>k==="all"?"Général · tous les jeux":/^(cm|mc|fm)_/.test(k)?MODES[
 const MK=["flag","pf","fc","cap","cp",...Object.keys(ZONES).map(z=>"cm_"+z),...Object.keys(ZONES).map(z=>"mc_"+z),"blur","tf","ct","mix","surv","chr","mon","cur","lan","nei","pop"];
 const legacy=(d,m)=>d.b?Math.max(0,...[1,2,3,4].map(k=>+d.b[m+"-"+k]||0)):0;
 const bm=(d,m)=>Math.max(+(d.m&&d.m[m])||0,legacy(d,m));
-const PN=x=>`<span translate="no">${esc(x)}</span>`;
+const NAMES=new Set(),NM=x=>{const v=String(x==null?"":x);if(v)NAMES.add(v.trim());return esc(v)},PN=x=>`<span translate="no">${NM(x)}</span>`;
 const GK=MK.filter(k=>k!=="surv"&&!/^(cm|mc)_/.test(k)),totalBest=d=>GK.reduce((t,k)=>t+bm(d,k),0)+["cm","mc"].reduce((t,g)=>t+Math.max(0,...Object.keys(ZONES).map(z=>bm(d,g+"_"+z))),0);
 const tv=(d,m)=>m==="tn"?(d.tn&&d.tn.w===wkEnd()?+d.tn.s||0:0):m==="lg"?wkScore(d,wkKey()):m==="week"?(d.wk&&d.wk.w===wkKey()?+d.wk.s||0:0):m==="xp"?+d.x||0:m==="day"?(dayDone(d)?+d.dc.s||0:0):m==="all"?totalBest(d):bm(d,m);
 const wkKey=(o=0)=>{const d=new Date(Date.now()+o*864e5);d.setDate(d.getDate()-(d.getDay()+6)%7);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
@@ -1091,6 +1134,11 @@ const BADGES=[
  ["duel","Duelliste","Gagner un duel",d=>+(d.c&&d.c.dw)>=1,"#db2777"],
  ["rev","Bon élève","Maîtriser 20 pays en révision",d=>+(d.c&&d.c.rm)>=20,"#16a34a"]];
 const badgesOf=d=>BADGES.filter(b=>b[3](d||{})).map(b=>b[0]);
+const MSEC={d:["flag","pf","fc","blur"],c:["cap","cp"],m:["cm","mc"],u:["mon","cur","lan","nei","pop"]},MSN={d:"Drapeaux",c:"Capitales",m:"Cartes",u:"Culture"};
+const MPOOL=[["g",3,3],["ok",40,4],["sc",5000,4],["st",1,5],["cb",10,4],["day",1,2],["s_d",1,2],["s_c",1,2],["s_m",1,2],["s_u",1,2],["g",5,5],["ok",25,3],["sc",8000,6]];
+const missionsOf=day=>{const r=rng(+String(day).replace(/-/g,"")*7+3),out=[],fam=new Set();for(const m of shuf(MPOOL,r)){const f=m[0].slice(0,2);if(fam.has(f))continue;fam.add(f);out.push(m);if(out.length===3)break}return out};
+const mLabel=m=>m[0]==="g"?`Jouer ${m[1]} parties`:m[0]==="ok"?`Donner ${m[1]} bonnes réponses`:m[0]==="sc"?`Marquer ${m[1]} points`:m[0]==="st"?"Obtenir 3 étoiles dans une partie":m[0]==="cb"?`Enchaîner ${m[1]} bonnes réponses`:m[0]==="day"?"Terminer le défi du jour":`Jouer une partie de ${MSN[m[0].slice(2)]}`;
+const mStep=(m,job,old,rec)=>m[0]==="g"?old+1:m[0]==="ok"?old+(+job.good||0):m[0]==="sc"?old+(+job.score||0):m[0]==="st"?old+(rec&&job.stars===3?1:0):m[0]==="cb"?Math.max(old,+job.mc||0):m[0]==="day"?old+(job.mode==="day"?1:0):old+(MSEC[m[0].slice(2)].includes(job.mode)&&!job.norec?1:0);
 function applyJob(d,job){
  const m={};MK.forEach(k=>{m[k]=bm(d,k)});
  const rec=!["day","rev","duel"].includes(job.mode)&&!job.norec,old=rec?(m[job.sk]||0):0;
@@ -1121,12 +1169,14 @@ function applyJob(d,job){
  else if(job.mode==="day")tg=[1,2,4,8][job.stars||0];
  else if(job.mode==="duel")tg=job.win?4:(job.duel&&job.duel.r==="draw"?1:0);
  else if(job.mode==="rev")tg=Math.min(4,Math.floor(job.mast.length/3));
+ const MS=missionsOf(job.t),op=d.ms&&d.ms.d===job.t?d.ms.p||[]:[],np=MS.map((m,i)=>Math.min(m[1],mStep(m,job,+op[i]||0,rec))),won=MS.filter((m,i)=>np[i]>=m[1]&&(+op[i]||0)<m[1]);
+ nd.ms={d:job.t,p:np};tg+=won.reduce((a,m)=>a+m[2],0);
  nd.tk=Math.max(0,tokensOf(d)-cost-(+job.spent||0))+tg;
  const had=new Set(Object.keys(d.bd||{})),nb=badgesOf(nd).filter(k=>!had.has(k));
  if(nb.length){nd.bd={...(d.bd||{})};nb.forEach(k=>nd.bd[k]=job.t)}
- return{nd,res:{best:job.mode==="day"?job.score:m[job.sk]||job.score,rec:rec&&job.score>old,lvUp:lvlOf(x)>lvlOf(x0),nb,tg,cost:cost+(+job.spent||0),tk:nd.tk}};
+ return{nd,res:{ms:won.map(mLabel),best:job.mode==="day"?job.score:m[job.sk]||job.score,rec:rec&&job.score>old,lvUp:lvlOf(x)>lvlOf(x0),nb,tg,cost:cost+(+job.spent||0),tk:nd.tk}};
 }
-const jobOf=()=>({mode:S.mode,sk:SK(),score:S.score,good:S.good,n:S.qs.length,lv:S.lv,stars:stars(),miss:S.miss.map(c=>c.c),mast:S.mast||[],win:!!S.duelWin,duel:S.duelLog||null,g:(S.marks||[]).join(""),okc:[...new Set(S.okc||[])],spent:S.spent||0,norec:!!S.special,tn:S.special==="tn"?wkEnd():null,hw:S.special==="hw"?S.hw:null,t:dk(),y:dk(-1),wk:wkKey()});
+const jobOf=()=>({mode:S.mode,sk:SK(),score:S.score,good:S.good,n:S.qs.length,lv:S.lv,stars:stars(),miss:S.miss.map(c=>c.c),mast:S.mast||[],win:!!S.duelWin,duel:S.duelLog||null,g:(S.marks||[]).join(""),okc:[...new Set(S.okc||[])],mc:S.maxCombo||0,spent:S.spent||0,norec:!!S.special,tn:S.special==="tn"?wkEnd():null,hw:S.special==="hw"?S.hw:null,t:dk(),y:dk(-1),wk:wkKey()});
 async function saveJob(job){const ref=DB.collection("players").doc(S.uid),snap=await ref.get(),d=(snap.exists&&snap.data())||{},{nd,res}=applyJob(d,job);await ref.set(nd);S.me=nd;saveState();statBump(job);return res}
 function statBump(job){if(!AUTH)return;try{const t=dk();let st=JSON.parse(LS("gq-st","{}"));if(st.d!==t||st.u!==S.uid)st={d:t,u:S.uid,g:0,m:{}};st.g++;const k=job.tn?"tn":job.hw?"hw":job.mode;st.m[k]=(st.m[k]||0)+1;LSset("gq-st",JSON.stringify(st));rput(`stats/${t}/${S.uid}`,{g:st.g,m:st.m}).catch(()=>{})}catch(e){}}
 const Q={get:()=>{try{return JSON.parse(LS("gq-q","[]"))}catch(e){return[]}},set:a=>LSset("gq-q",JSON.stringify(a))};
@@ -1167,7 +1217,7 @@ function overtakeCheck(all){
  LSset(key,JSON.stringify({w:cur,below}));
 }
 function saveState(){
- try{if(!("caches" in window)||!S.me)return;const st={sd:S.me.sd||"",sn:streakOf(S.me),name:S.name||"",lang:LANG,rem:LS("gq-rem","0")==="1"};
+ try{if(!("caches" in window)||!S.me)return;const st={sd:S.me.sd||"",sn:streakOf(S.me),name:S.name||"",lang:LANG,rem:LS("gq-rem","0")==="1",tn:AUTH?1:0,tnw:S.me.tn?S.me.tn.w:"",tnn:S.me.tn?+S.me.tn.n||0:0};
   caches.open("gq-state").then(c=>c.put("state",new Response(JSON.stringify(st),{headers:{"Content-Type":"application/json"}}))).catch(()=>{})}catch(e){}
 }
 const remSupport=()=>"Notification" in window&&"serviceWorker" in navigator;
@@ -1210,7 +1260,7 @@ function drawRank(){
  let list="";
  if(rows&&rows.length>pod.length){const st=pod.length,lim=S.rall?rows.length:10;list=rows.slice(st,Math.max(lim,st)).map((r,i)=>row(r,i+st)).join("");if(!S.rall&&mi>=lim)list+=`<div class="rgap">…</div>`+row(rows[mi],mi)}
  app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>Classement<span>.</span></h1>${AUTH?`<button class="gear" id="grp" aria-label="Groupes" style="margin-inline-start:auto">${sv("users")}</button>`:""}</div>
- ${AUTH&&Object.keys(gs).length?`<div class="rsel"><select id="gsel" aria-label="Joueurs affichés"><option value="">Tous les joueurs</option>${Object.entries(gs).map(([c,n])=>`<option value="${c}" ${S.gsel===c?"selected":""}>Groupe : ${esc(n)}</option>`).join("")}</select></div>`:""}
+ ${AUTH&&Object.keys(gs).length?`<div class="rsel"><select id="gsel" aria-label="Joueurs affichés"><option value="">Tous les joueurs</option>${Object.entries(gs).map(([c,n])=>`<option value="${c}" ${S.gsel===c?"selected":""}>Groupe : ${NM(n)}</option>`).join("")}</select></div>`:""}
  <div class="chips" role="tablist">${[...(AUTH?[["lg","Ligue"]]:[]),["all","Général"],["week","Semaine"],["day","Du jour"],...(wkEnd()?[["tn","Tournoi"]]:[]),["xp","XP"],["game","Par jeu"]].map(([k,l])=>`<button role="tab" data-b="${k}" class="${(k==="game"?per:B===k)?"on":""}" aria-selected="${k==="game"?per:B===k}">${l}</button>`).join("")}</div>
  ${B==="all"?`<p class="mute" style="margin:2px 0 8px;font-size:.8rem;text-align:center">Somme du meilleur score de chaque jeu.</p>`:""}
  ${B==="lg"?`<div class="lgsel" role="tablist" aria-label="Ligues">${LEAGUES.map((L,i)=>`<button role="tab" aria-selected="${i===myT}" data-lt="${i}" class="${i===myT?"on":""}" style="--lc:${L[1]}"><i></i><span>${L[0]}</span><small>${lgCnt[i]}</small></button>`).join("")}</div>`:""}
@@ -1305,11 +1355,12 @@ function settings(){
  <label style="margin-top:18px">Temps par question</label>${opt("ct",S.ct,[[10,"10 s"],[20,"20 s"],[0,"Sans chrono"]])}<p class="hint2">Le bonus de rapidité compte toujours sur 10 s. Le défi du jour, le duel et le contre-la-montre gardent leur chrono.</p>
  <label style="margin-top:18px">Musique de fond</label>${opt("mus",S.mus?1:0,[[1,"Activée"],[0,"Coupée"]])}
  ${S.mus?`<label style="margin-top:18px">Style de musique</label>${opt("mst",S.mst,[["trip","Voyage"],["calm","Douce"],["beat","Dynamique"]])}`:""}
- <label style="margin-top:18px">Rappels de série</label>${opt("rem",LS("gq-rem","0")==="1"?1:0,[[1,"Activés"],[0,"Coupés"]])}<p class="hint2" id="remh">${!remSupport()?"Ce navigateur ne permet pas les rappels.":"Un rappel le soir si ta série est en jeu. Sur Android, ajoute le jeu à l’écran d’accueil pour le recevoir même jeu fermé."}</p>
+ <label style="margin-top:18px">Notifications</label>${opt("rem",LS("gq-rem","0")==="1"?1:0,[[1,"Activés"],[0,"Coupés"]])}<p class="hint2" id="remh">${!remSupport()?"Ce navigateur ne permet pas les rappels.":"Un rappel le soir si ta série est en jeu, une alerte quand un ami te défie en duel, et les rappels du tournoi du week-end. Sur Android, ajoute le jeu à l’écran d’accueil pour recevoir les rappels même jeu fermé."}</p>
  <label style="margin-top:18px">Sons</label>${opt("snd",S.snd?1:0,[[1,"Activés"],[0,"Coupés"]])}
  <label style="margin-top:18px">Vibrations</label>${opt("vib",S.vib?1:0,[[1,"Activées"],[0,"Coupées"]])}
  <label style="margin-top:18px">Langue</label>${opt("lg",LANG,[["fr","Français"],["en","English"],["ar","العربية"]])}</div>
- ${S.uid?`<div class="card"><label>${AUTH?"Compte":"Joueur"}</label><div class="pl"><span>${AUTH?"Pseudo":"Joueur"}</span><b>${esc(S.name||"")}</b></div>${AUTH?`<button class="btn alt" id="acc">Mon compte</button>`:""}${S.adm?`<button class="btn alt" id="dsb">Tableau de bord</button>`:""}<button class="btn alt" id="lo">${AUTH?"Se déconnecter":"Changer de joueur"}</button></div>`:""}`;
+ ${S.uid?`<div class="card"><label>${AUTH?"Compte":"Joueur"}</label><div class="pl"><span>${AUTH?"Pseudo":"Joueur"}</span><b>${PN(S.name||"")}</b></div>${AUTH?`<button class="btn alt" id="acc">Mon compte</button>`:""}${S.adm?`<button class="btn alt" id="dsb">Tableau de bord</button>`:""}<button class="btn alt" id="lo">${AUTH?"Se déconnecter":"Changer de joueur"}</button></div>`:""}
+ <div class="card"><label>Aide</label><button class="btn alt" id="tus">Revoir le tutoriel</button><button class="btn alt" id="pvs">Confidentialité</button></div>`;
  app.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{applyTheme(b.dataset.th);LSset("gq-theme",b.dataset.th);settings()});
  app.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>{S.ct=+b.dataset.ct;LSset("gq-ct",S.ct);settings()});
  app.querySelectorAll("[data-mst]").forEach(b=>b.onclick=()=>{S.mst=b.dataset.mst;LSset("gq-mst",S.mst);musicStop(.5);musicStart();settings()});
@@ -1319,6 +1370,7 @@ function settings(){
  app.querySelectorAll("[data-snd]").forEach(b=>b.onclick=()=>{S.snd=b.dataset.snd==="1";LSset("gq-snd",S.snd?"1":"0");if(S.snd)sfx("ok");settings()});
  app.querySelectorAll("[data-vib]").forEach(b=>b.onclick=()=>{S.vib=b.dataset.vib==="1";LSset("gq-vib",S.vib?"1":"0");buzz(30);settings()});
  app.querySelectorAll("[data-lg]").forEach(b=>b.onclick=()=>{setLang(b.dataset.lg);settings()});
+ if($("pvs"))$("pvs").onclick=()=>privacyScreen(settings);if($("tus"))$("tus").onclick=()=>{LSset("gq-tuto","0");S.tu=0;S.view="home";home()};
  if($("dsb"))$("dsb").onclick=dashScreen;if(AUTH&&S.uid&&S.adm===undefined){S.adm=false;rget("admins/"+S.uid).then(v=>{if(v===true){S.adm=true;if(S.view==="settings")settings()}}).catch(()=>{S.adm=undefined})}
  const lo=$("lo"),ac=$("acc");if(ac)ac.onclick=accountScreen;if(lo)lo.onclick=()=>{if(AUTH)return signOut();try{localStorage.removeItem("gq-me")}catch(e){}S.uid=null;S.name="";S.me=null;nameScreen()};
  $("hm").onclick=()=>{S.view="home";home()};
@@ -1456,6 +1508,18 @@ function musicStop(fade=1.2){
 document.addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"?musicStop(.4):musicStart()});
 setInterval(()=>{try{if(LS("gq-rem","0")!=="1"||!S.me||Notification.permission!=="granted")return;const h=new Date().getHours(),sn=streakOf(S.me);if(h<18||!sn||S.me.sd===dk()||LS("gq-remd","")===dk())return;LSset("gq-remd",dk());
  navigator.serviceWorker.getRegistration().then(r=>r?r.showNotification("Geo Quizz",{body:tr("Ta série de {n} jours se termine ce soir. Une partie suffit pour la garder.").replace("{n}",sn),icon:"icon-192.png",tag:"gq-streak"}):new Notification("Geo Quizz",{body:tr("Ta série de {n} jours se termine ce soir. Une partie suffit pour la garder.").replace("{n}",sn)}))}catch(e){}},600000);
+const notify=(body,tag)=>{try{if(LS("gq-rem","0")!=="1"||!("Notification" in window)||Notification.permission!=="granted")return;navigator.serviceWorker.getRegistration().then(r=>r?r.showNotification("Geo Quizz",{body,icon:"icon-192.png",badge:"icon-192.png",tag}):new Notification("Geo Quizz",{body})).catch(()=>{})}catch(e){}};
+async function inviteCheck(){
+ if(!AUTH||!S.uid||!navigator.onLine||["play","banned","del"].includes(S.view))return;
+ try{const ib=await rget("inbox/"+S.uid)||{};let best=null;for(const[f,v]of Object.entries(ib)){if(v&&Date.now()-(+v.t||0)<=9e5&&(!best||v.t>best.t))best={f,c:String(v.c||""),n:String(v.n||""),t:v.t}}
+  if(!best)return;const id=best.f+best.c+best.t;if(LS("gq-ivn","")===id)return;LSset("gq-ivn",id);NAMES.add(best.n);
+  if(document.hidden)notify(tr(`${best.n} te défie en duel`),"gq-duel");
+  S.inv=best;if(S.view==="home"&&!$("tuo"))home(true)}catch(e){}
+}
+setInterval(inviteCheck,45000);
+setInterval(()=>{try{if(!AUTH||!S.me||!tnOn()||!document.hidden)return;const w=wkEnd(),g=new Date().getDay(),h=new Date().getHours();
+ if(g===6&&h>=10&&LS("gq-tnn","")!==w+"a"){LSset("gq-tnn",w+"a");notify(tr("Le tournoi du week-end est ouvert : 3 essais, 100 jetons pour le 1er."),"gq-tn")}
+ else if(g===0&&h>=18&&tnLeft()>0&&LS("gq-tnn","")!==w+"b"){LSset("gq-tnn",w+"b");notify(tr("Le tournoi se termine ce soir. Il te reste des essais."),"gq-tn")}}catch(e){}},300000);
 ["pointerdown","touchend","click","keydown"].forEach(ev=>document.addEventListener(ev,()=>musicStart(),{passive:true}));
 function tone(f,t0,d,type="sine",g=.12){const c=AC,o=c.createOscillator(),v=c.createGain();o.type=type;o.frequency.setValueAtTime(f,c.currentTime+t0);v.gain.setValueAtTime(0,c.currentTime+t0);v.gain.linearRampToValueAtTime(g,c.currentTime+t0+.01);v.gain.exponentialRampToValueAtTime(.0001,c.currentTime+t0+d);o.connect(v).connect(c.destination);o.start(c.currentTime+t0);o.stop(c.currentTime+t0+d+.02)}
 function sfx(k){
@@ -1498,7 +1562,7 @@ function end(){
  ${r?tkLine(r)+badgeCard(r.nb):""}
  ${r?`<div class="card"><div class="top"><span><b>Niveau ${L}</b> · ${titleOf(L)}</span><span class="mute" style="font-size:.82rem">+${fmt(S.score)} XP</span></div><div class="bar"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><p class="mute" style="text-align:left;margin:8px 0 0">${r.lvUp?`<b class="up">Niveau ${L} atteint.</b> `:""}Encore ${fmt(b-x)} XP pour le niveau ${L+1}.</p></div>
  <p class="strk on">${sv("fire")}<span>Série de ${pl(sk,"jour","jours")}. Reviens demain pour la prolonger.</span></p>`:""}
- ${st?`<div class="card"><b>${st.pos}${st.pos===1?"er":"e"} sur ${st.n}</b> dans ce classement. ${st.up?`Encore ${fmt(st.up.s-(day?S.score:r?r.best:S.score)+1)} pts pour dépasser ${esc(st.up.n)}.`:"Personne devant toi."}</div>`:""}
+ ${st?`<div class="card"><b>${st.pos}${st.pos===1?"er":"e"} sur ${st.n}</b> dans ce classement. ${st.up?`Encore ${fmt(st.up.s-(day?S.score:r?r.best:S.score)+1)} pts pour dépasser ${NM(st.up.n)}.`:"Personne devant toi."}</div>`:""}
  ${S.miss.length?`<details class="card rv"><summary>À revoir : ${pl(S.miss.length,"pays","pays")} (ajoutés à ta révision)</summary>${S.miss.map(c=>`<div class="pl tap" data-fc="${c.c}"><span>${flag(c.c)} ${esc(c.n)}</span><b>${c.k?esc(c.k)+" · ":""}${esc(ZONES[ZN[c.c]])}</b></div>`).join("")}</details>`:""}
  ${S.special==="tn"?`${tnOn()&&tnLeft()>0?`<button class="btn" id="tna">Nouvel essai (encore ${tnLeft()})</button>`:""}<button class="btn alt" id="rk">Voir le classement du tournoi</button>`:S.special==="hw"?`<div class="card msg"><b>Devoir rendu</b><small>Ton professeur voit ton résultat.</small></div>`:day?`${r&&S.marks&&S.marks.length?`<button class="btn" id="dsh">Partager mon résultat</button>`:""}<button class="btn alt" id="rk">Voir le classement du jour</button>`:`<button class="btn" id="again">Rejouer</button>${sn===3&&S.lv<4?`<button class="btn alt" id="up">Passer en ${LV[S.lv+1].n}</button>`:""}<button class="btn alt" id="rk">Voir le classement</button>`}<button class="btn alt" id="hm">Accueil</button>`;
  if(r&&(r.rec||r.lvUp||(r.nb&&r.nb.length))&&!S.fx){S.fx=1;confetti()}
