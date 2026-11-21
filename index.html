@@ -260,6 +260,7 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adju
 .mimg{display:block;width:100%;height:200px;object-fit:cover;border-radius:12px;background:var(--bg)}.mcr{display:block;font-size:.68rem;color:var(--mute);text-align:end;margin:3px 2px 0;text-decoration:none}
 .msn{padding:12px 14px}.msh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}.msh small{color:var(--mute);font-weight:700}.msr{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:6px 0;font-size:.86rem;border-top:1px solid var(--line)}.msr small{color:var(--mute)}.msr em{font-style:normal;font-weight:700;display:inline-flex;align-items:center;gap:3px;min-width:34px;justify-content:flex-end}.msr em svg{width:15px;height:15px;fill:none;stroke:#d49a00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.msr.ok span{color:var(--mute);text-decoration:line-through}.msr.ok small{color:var(--ok);font-weight:800}.msw{display:block;color:var(--ok)}.tun{margin:0 auto;background:var(--acc);color:#fff}.tun svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.tud{display:flex;gap:6px;justify-content:center;margin:12px 0}.tud i{width:8px;height:8px;border-radius:50%;background:var(--line)}.tud i.on{background:var(--acc)}.bnm{font-style:normal;font-size:.72rem;color:var(--bad);font-weight:700}.pvc p{margin:8px 0 0;font-size:.9rem;line-height:1.45;color:var(--ink)}
 .ava{width:22px;height:22px;border-radius:50%;flex:none;display:inline-block;vertical-align:-5px;margin-inline-end:6px}.ava.big{width:96px;height:96px;margin:0;vertical-align:middle;box-shadow:0 4px 0 var(--edge)}.avb{border:0;background:none;padding:0;margin:0;margin-inline-end:8px;cursor:pointer;line-height:0}.avb .ava{margin:0}.avb .ava{width:30px;height:30px;vertical-align:middle;box-shadow:0 0 0 2px rgba(255,255,255,.55)}.avg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}.avc{border:0;background:none;padding:0;cursor:pointer;line-height:0;border-radius:50%;aspect-ratio:1}.avc .ava{width:100%;height:100%;margin:0;box-shadow:0 3px 0 var(--edge)}.avc:focus-visible,.avb:focus-visible{outline:3px solid var(--acc);outline-offset:3px}.avc:disabled{opacity:.5}.pd .ava{display:block;width:34px;height:34px;margin:0 auto 3px}#avs .ava{vertical-align:-6px}
+img.ava{object-fit:cover;background:var(--line)}
 </style></head>
 <body><main id="app"></main>
 <script src="config.js"></script>
@@ -284,13 +285,15 @@ const modeButtons=(ks=["flag","pf","cap","cp"],cur=S.mode)=>`<div class="lv" sty
 function applyTheme(t){const e=document.documentElement;if(t==="light"||t==="dark")e.dataset.theme=t;else delete e.dataset.theme;S.theme=t}
 const themeCtl=()=>`<div class="seg" role="group" aria-label="Apparence">${[["auto","Auto"],["light","Clair"],["dark","Sombre"]].map(([k,l])=>`<button class="${S.theme===k?"on":""}" data-th="${k}" title="${l}" aria-label="${l}">${sv(k==="light"?"sun":k==="dark"?"moon":"auto")}</button>`).join("")}</div>`;
 const bindTheme=(re=home)=>app.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{applyTheme(b.dataset.th);try{localStorage.setItem("gq-theme",b.dataset.th)}catch(e){}re()});
-const flag=c=>`<img class="fi" src="https://flagcdn.com/${c.toLowerCase()}.svg" alt="" draggable="false">`;
+const FLAGOV={af:"https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_the_Taliban.svg"};
+const flag=c=>{const lc=c.toLowerCase();return `<img class="fi" src="${FLAGOV[lc]||`https://flagcdn.com/${lc}.svg`}" alt="" draggable="false">`};
 const LV={1:{n:"Facile",h:"Pays connus · 4 choix · 10 s",pool:1,ch:4,time:10,coef:1},2:{n:"Moyen",h:"Plus large · 4 choix · 10 s",pool:2,ch:4,time:10,coef:2},3:{n:"Difficile",h:"Choix proches · 6 choix · 10 s",pool:3,ch:6,time:10,coef:3},4:{n:"Très difficile",h:"Tous les pays · 8 choix · 10 s",pool:4,ch:8,time:10,coef:5}};
 const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
 const shuf=(arr,r)=>{const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const FG="MC ID PL SG|TD RO AD MD|ML GN SN CM BJ BF GW|KW AE JO SD SY YE IQ EG LY|BH QA|CG ZM ZW MW|SL GA|NZ AU TV FJ|TT AG BS|FR NL RU LU HR RS SK SI CZ|IT IE MX CI HU BG|RO TD AM BE ML SN GH CM ET|AU NZ GB US CU CL PH CZ|ID PL AT LV PE CA|NO IS DK SE FI CH|AR UY GR EE|IQ EG JO AE SA IR LB QA|JP BD KR CN VN TR TN DZ PK MA|CO EC VE|IN NE CI IE|LT BO GH ET|UA SE KZ".split("|").map(g=>g.split(" "));
 const RG="FR DE ES IT PT GB BE CH NL IE LU AT MT AD LI MC SM|SE NO DK FI IS EE LV LT|PL CZ HU RO UA HR RS SK SI BG AL GR RU BY BA MD ME MK|TR GE AM AZ IR IQ JO LB SA AE QA CY KW BH OM SY YE AF|MA DZ TN EG LY MR SD|SN CI NG CM GH ML TD NE BJ BF CF CG CD GQ GA GM GN GW LR SL TG CV ST|ZA KE ET MG AO BW BI KM DJ ER SZ LS MW MU MZ NA RW SC SO SS TZ UG ZM ZW|JP CN KR IN PK BD LK NP MM KH TH VN ID PH MN KZ BT BN KP KG LA MY MV SG TJ TL TM UZ|AU NZ PG FJ SB VU KI MH FM NR PW WS TO TV|US CA MX CU PA CR GT HN NI SV DO HT JM AG BS BB BZ DM GD KN LC VC TT|BR AR CO VE PE CL EC BO PY UY GY SR".split("|").map(g=>g.split(" "));
-const near=(a,m)=>{const G=(m==="flag"||m==="pf"||m==="fc")?FG:RG,o=new Set();G.forEach(g=>{if(g.includes(a.c))g.forEach(c=>{if(c!==a.c)o.add(c)})});return o};
+const FEXCL={TD:"RO",RO:"TD",MC:"ID",ID:"MC"};
+const near=(a,m)=>{const G=(m==="flag"||m==="pf"||m==="fc")?FG:RG,o=new Set();G.forEach(g=>{if(g.includes(a.c))g.forEach(c=>{if(c!==a.c)o.add(c)})});const ex=FEXCL[a.c];if(ex)o.delete(ex);return o};
 const MIXK=["flag","pf","cap","cp","fc","ct"],REVK=["flag","pf","fc","cap","ct"],ZK=["eu","af","as","na","sa"];
 const right=(q,o)=>q.ans!==undefined?o===q.ans:q.m==="tf"?o===q.truth:q.m==="ct"?o===ZN[q.a.c]:o===q.a;
 const TTm=md=>md==="chr"?60:md==="rev"?0:(md==="day"||md==="duel")?10:!S.ct?0:(md==="wf"||md==="wc")?S.ct+10:md==="fm"?S.ct+5:md==="tf"?S.ct-4:S.ct,TT=()=>TTm(S.mode),BW=()=>({wf:20,wc:20,fm:15,tf:6})[S.mode]||10;
@@ -353,10 +356,10 @@ const build=(seed,lv)=>{
    let kind=["cap","flag","ct"][Math.floor(r()*3)];if(kind==="cap"&&!a.k)kind="flag";
    const truth=r()<.5;let claim=a;
    if(kind==="ct")claim=truth?ZN[a.c]:shuf(ZK.filter(z=>z!==ZN[a.c]),r)[0];
-   else if(!truth){const pp=pool.filter(x=>x!==a&&(kind!=="cap"||x.k)),nr=lv>=3?near(a,kind==="flag"?"flag":"cap"):new Set(),cl=pp.filter(x=>nr.has(x.c));claim=shuf(cl.length?cl:pp,r)[0]||a}
+   else if(!truth){const tfex=FEXCL[a.c],pp=pool.filter(x=>x!==a&&(kind!=="cap"||x.k)&&(!tfex||x.c!==tfex)),nr=lv>=3?near(a,kind==="flag"?"flag":"cap"):new Set(),cl=pp.filter(x=>nr.has(x.c));claim=shuf(cl.length?cl:pp,r)[0]||a}
    return{a,m,kind,claim,truth:claim===a||(kind==="ct"&&truth),o:[true,false]};
   }
-  const pp=capm(m)?pool.filter(x=>x.k):pool;
+  const ex=FEXCL[a.c],pp0=capm(m)?pool.filter(x=>x.k):pool,pp=ex?pp0.filter(x=>x.c!==ex):pp0;
   const n=Math.min((m==="pf"?(L.ch>6?6:4):m==="cm"?Math.min(L.ch,6):L.ch)-1,pp.length-1);
   let d=[];
   if(lv>=3){const nr=near(a,m);d=shuf(pp.filter(x=>x!==a&&nr.has(x.c)),r).slice(0,lv===3?Math.ceil(n/2):n)}
@@ -413,7 +416,7 @@ function lvButtons(editable){
 function home(fromX){
  const d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=streakOf(d),today=d.sd===dk(),dd=dayDone(d);
  app.innerHTML=`<div class="hb"><h1>Geo Quizz<span>.</span></h1><span class="hbr"><button class="tkb" id="shop" aria-label="Boutique">${coin(tokensOf(d))}</button><button class="gear" id="st" aria-label="Réglages">${sv("gear")}</button></span></div>
- <div class="card pc"><div class="stamp"><div><small>NIVEAU</small>${L}</div></div><div class="pi"><div class="pn"><button class="avb" id="avb" aria-label="Changer d’avatar">${avSvg(avSeed(d,S.uid))}</button>${shIt("av",shOf(d).av)[2]&&P[shIt("av",shOf(d).av)[2]]?`<span class="av">${sv(shIt("av",shOf(d).av)[2])}</span>`:""}${PN(S.name||"")}<button id="chg" class="lk">${AUTH?"compte":"changer"}</button></div><div class="pt">${titleOf(L)}${AUTH?` · <span class="lgc" style="--lc:${LEAGUES[tierOf(d)][1]}">Ligue ${LEAGUES[tierOf(d)][0]}</span>`:""}</div><button class="pbd" id="bdg" aria-label="Badges">${sv("medal")}<span>${Object.keys(d.bd||{}).length}/${BADGES.length}</span></button><div class="xp"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><div class="px"><span>${fmt(x)} XP</span><span>niveau ${L+1} à ${fmt(b)} XP</span></div></div></div>
+ <div class="card pc"><div class="stamp"><div><small>NIVEAU</small>${L}</div></div><div class="pi"><div class="pn"><button class="avb" id="avb" aria-label="Changer d’avatar">${avAny(d,S.uid)}</button>${shIt("av",shOf(d).av)[2]&&P[shIt("av",shOf(d).av)[2]]?`<span class="av">${sv(shIt("av",shOf(d).av)[2])}</span>`:""}${PN(S.name||"")}<button id="chg" class="lk">${AUTH?"compte":"changer"}</button></div><div class="pt">${titleOf(L)}${AUTH?` · <span class="lgc" style="--lc:${LEAGUES[tierOf(d)][1]}">Ligue ${LEAGUES[tierOf(d)][0]}</span>`:""}</div><button class="pbd" id="bdg" aria-label="Badges">${sv("medal")}<span>${Object.keys(d.bd||{}).length}/${BADGES.length}</span></button><div class="xp"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><div class="px"><span>${fmt(x)} XP</span><span>niveau ${L+1} à ${fmt(b)} XP</span></div></div></div>
  ${(()=>{const i=drInfo(d),k=(i.n-1)%7;if(i.done&&!S.drNew)return `<p class="strk on drl">${sv("coin")}<span>Récompense du jour récupérée. Demain : +${DRW[i.n%7]}.</span></p>`;return `<div class="card dr ${i.done?"done":""}"><div class="drt"><div><b>Récompense du jour</b><small>${i.done?(S.drNew?`+${S.drNew} jetons ajoutés. Reviens demain pour +${DRW[i.n%7]}.`:`Déjà récupérée. Reviens demain pour +${DRW[i.n%7]}.`):"Reviens chaque jour : la récompense grandit."}</small></div>${i.done?"":`<button class="btn drb" id="drb">+${i.amt}</button>`}</div><div class="drs">${DRW.map((a,j)=>`<span class="${j<k||(j===k&&i.done)?"ok":j===k?"cur":""}"><i>${a}</i></span>`).join("")}</div></div>`})()}
  ${S.inv?`<div class="card msg act"><b>${NM(S.inv.n)} ${S.inv.o?"lance un défi à tous":"te défie en duel"}</b><small>${S.inv.o?"Le premier qui accepte joue. 10 questions, en direct.":"10 questions, en direct."}</small><button class="btn sm" id="ivj">Rejoindre</button><button class="x" id="ivx" aria-label="Fermer">×</button></div>`:""}
  ${hwTodo().slice(0,1).map(h=>`<div class="card msg act"><b>Devoir · ${NM(h.n)}</b><small>${esc(hwTxt(h.hw))} · à rendre avant le ${dmy(h.hw.due)}</small><button class="btn sm" id="hwg">Faire le devoir</button></div>`).join("")}
@@ -586,7 +589,7 @@ const AMSG={INVALID_LOGIN_CREDENTIALS:"Pseudo, email ou mot de passe incorrect."
  WEAK_PASSWORD:"Mot de passe trop court : 8 caractères minimum.",TAKEN:"Ce pseudo est déjà pris. Choisis-en un autre.",NAME:"Pseudo : 3 à 16 caractères, avec des lettres ou des chiffres.",
  TOO_MANY_ATTEMPTS_TRY_LATER:"Trop d’essais. Réessaie dans quelques minutes.",USER_DISABLED:"Ce compte est désactivé.",NOTVERIFIED:"Ton email n’est pas encore vérifié. Ouvre le lien reçu, puis réessaie.",
  OPERATION_NOT_ALLOWED:"La connexion par email n’est pas activée dans Firebase (Authentication › Sign-in method).",CONFIGURATION_NOT_FOUND:"Firebase Authentication n’est pas activé pour ce projet.",
- OTAKEN:"Trop tard : un autre joueur a déjà accepté ce défi.",FNONE:"Aucun joueur avec ce pseudo.",FSELF:"C’est ton propre pseudo.",FMAX:"30 amis maximum.",HWDATE:"Choisis une date limite à venir.",DCODE:"Aucun duel avec ce code. Vérifie les 5 caractères.",DFULL:"Ce duel a déjà deux joueurs.",DOLD:"Ce duel est terminé ou trop ancien.",GCODE:"Aucun groupe avec ce code. Vérifie les 6 caractères.",GNAME:"Donne un nom au groupe (2 caractères minimum).",GMAX:"10 groupes maximum.",API_KEY:"La clé apiKey de config.js n’est pas valide.",EXPIRED:"Ta session a expiré. Reconnecte-toi.",NET:"Pas de connexion au serveur. Vérifie internet et réessaie.",WRITE:"Enregistrement refusé par la base. Vérifie les règles Firebase."};
+ OTAKEN:"Trop tard : un autre joueur a déjà accepté ce défi.",PHBAD:"Cette image ne peut pas être utilisée. Essaie une autre photo.",FNONE:"Aucun joueur avec ce pseudo.",FSELF:"C’est ton propre pseudo.",FMAX:"30 amis maximum.",HWDATE:"Choisis une date limite à venir.",DCODE:"Aucun duel avec ce code. Vérifie les 5 caractères.",DFULL:"Ce duel a déjà deux joueurs.",DOLD:"Ce duel est terminé ou trop ancien.",GCODE:"Aucun groupe avec ce code. Vérifie les 6 caractères.",GNAME:"Donne un nom au groupe (2 caractères minimum).",GMAX:"10 groupes maximum.",API_KEY:"La clé apiKey de config.js n’est pas valide.",EXPIRED:"Ta session a expiré. Reconnecte-toi.",NET:"Pas de connexion au serveur. Vérifie internet et réessaie.",WRITE:"Enregistrement refusé par la base. Vérifie les règles Firebase."};
 const amsg=x=>AMSG[x&&x.code]||"Action impossible pour le moment. Réessaie.";
 const normName=raw=>{const name=String(raw||"").trim().replace(/\s+/g," "),key=slug(name);if(name.length<3||name.length>16||key.length<3)throw E("NAME");return{name,key}};
 const wr=async p=>{try{await p}catch(e){throw E("WRITE")}};
@@ -685,7 +688,7 @@ function privacyScreen(back){
  S.view="privacy";const ct=(window.GQ_CONFIG&&window.GQ_CONFIG.contact)||"",sec=(t,x)=>`<div class="card pvc"><b class="h3">${t}</b>${x.map(v=>`<p>${v}</p>`).join("")}</div>`;
  app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>Confidentialité<span>.</span></h1></div>
  ${sec("Ce que le jeu enregistre",[REMOTE?"Ton pseudo, ton email, tes scores, ta progression (niveau, jetons, badges, série) et le nombre de parties que tu joues chaque jour.":"Ton pseudo, tes scores et ta progression, uniquement sur cet appareil.","Tes réglages (langue, sons, apparence) restent sur ton appareil."])}
- ${REMOTE?sec("Qui voit quoi",["Les autres joueurs voient ton pseudo, ton niveau et tes scores dans les classements.","Ton email n’est jamais affiché. Il sert à te connecter et à vérifier ton compte.","L’administrateur du jeu voit aussi tes statistiques de jeu, pas ton mot de passe."])+sec("Où sont les données",["Elles sont stockées chez Firebase (Google), sur des serveurs situés en Europe.","Le jeu ne contient ni publicité ni traceur publicitaire."]):""}
+ ${REMOTE?sec("Qui voit quoi",["Les autres joueurs voient ton pseudo, ton niveau et tes scores dans les classements.","Si tu ajoutes une photo personnelle, elle est visible par tous les joueurs. Tu peux la retirer à tout moment.","Ton email n’est jamais affiché. Il sert à te connecter et à vérifier ton compte.","L’administrateur du jeu voit aussi tes statistiques de jeu, pas ton mot de passe."])+sec("Où sont les données",["Elles sont stockées chez Firebase (Google), sur des serveurs situés en Europe.","Le jeu ne contient ni publicité ni traceur publicitaire."]):""}
  ${sec("Services externes",["Les drapeaux, les photos de monuments, les cartes et les polices sont chargés depuis flagcdn.com, Wikimedia Commons, jsDelivr et Google Fonts. Comme pour tout site web, ces services reçoivent l’adresse IP de ton appareil."])}
  ${sec("Tes droits",[AUTH?"Tu peux supprimer ton compte et toutes tes données à tout moment, depuis « Mon compte ».":"Tu peux effacer tes données en vidant les données du site dans ton navigateur.","Si tu as moins de 15 ans, demande l’accord d’un parent avant de créer un compte.",ct?`Une question ? Écris à <span translate="no">${esc(ct)}</span>.`:"Pour toute question, contacte la personne qui t’a invité à jouer."])}`;
  $("bk").onclick=back||settings;window.scrollTo(0,0);
@@ -700,7 +703,7 @@ function delScreen(){
   const uid=S.uid,key=S.key,quiet=async f=>{try{await f()}catch(e){}};
   await quiet(async()=>{const ib=await rget("inbox/"+uid)||{};for(const f of Object.keys(ib))await rput(`inbox/${uid}/${f}`,null)});
   for(let i=0;i<31;i++)await quiet(()=>rput(`stats/${dk(-i)}/${uid}`,null));
-  await quiet(()=>rput("admins/"+uid,null));
+  await quiet(()=>rput("admins/"+uid,null));await quiet(()=>rput("photos/"+uid,null));try{localStorage.removeItem("gq-phc")}catch(e){}
   if(key){await quiet(()=>DB.collection("logins").doc(key).delete());await quiet(()=>DB.collection("names").doc(key).delete())}
   if(!(S.me&&S.me.bn))await DB.collection("players").doc(uid).delete();
   await idt("delete",{idToken:SES.it});
@@ -776,15 +779,26 @@ function avSvg(seed,cls){
  o+=`<circle cx="${R(8,32)}" cy="${R(8,32)}" r="${R(3,7)}" style="fill:#fff;fill-opacity:.88;stroke:none"/>`;
  o+=`<path d="M${R(0,8)} ${R(2,38)}Q20 ${R(0,40)} ${R(32,40)} ${R(2,38)}" style="fill:none;stroke:${c(h2,85,88)};stroke-width:${R(1.6,3.4)};stroke-linecap:round"/>`;
  return `<svg class="ava ${cls||""}" viewBox="0 0 40 40" aria-hidden="true">${o}</svg>`}
-const avOf=(d,id)=>{const a=shIt("av",shOf(d).av)[2];return avSvg(avSeed(d,id))+(a&&P[a]?`<span class="av">${sv(a)}</span>`:"")};
-async function setAvatar(n){const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};const nd={...d,av:n};await wr(ref.set(nd));S.me=nd}
+const PHC=new Map(),PHQ=new Set(),phOk=v=>typeof v==="string"&&v.length<=9000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(v);
+try{const c=JSON.parse(LS("gq-phc","null"));if(c&&c.k&&phOk(c.v))PHC.set(c.k,c.v)}catch(e){}
+function phFill(id,k){const v=PHC.get(k);if(!v)return;document.querySelectorAll(`svg[data-ph="${id}"]`).forEach(el=>{const i=document.createElement("img");i.className=el.getAttribute("class");i.alt="";i.src=v;el.replaceWith(i)})}
+function phNeed(id,ver){const k=id+":"+ver;if(PHQ.has(k))return;PHQ.add(k);setTimeout(async()=>{try{const v=await rget("photos/"+id);if(phOk(v)){PHC.set(k,v);phFill(id,k)}}catch(e){PHQ.delete(k)}},0)}
+function avAny(d,id,cls){const seed=avSeed(d,id);if(!AUTH||!d||!d.ph||!id||!/^[A-Za-z0-9_-]+$/.test(id))return avSvg(seed,cls);const k=id+":"+d.ph,c=PHC.get(k);if(c)return `<img class="ava ${cls||""}" src="${c}" alt="">`;phNeed(id,d.ph);if(PHQ.has(k))setTimeout(()=>phFill(id,k),0);return avSvg(seed,cls).replace("<svg ",`<svg data-ph="${id}" `)}
+async function fileToAvatar(file){const url=URL.createObjectURL(file);try{const img=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=()=>ko(E("PHBAD"));i.src=url}),w=img.naturalWidth,h=img.naturalHeight,m=Math.min(w,h);if(!m)throw E("PHBAD");const c=document.createElement("canvas");c.width=c.height=96;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,96,96);x.drawImage(img,(w-m)/2,(h-m)/2,m,m,0,0,96,96);let q=.82,d=c.toDataURL("image/jpeg",q);while(d.length>8500&&q>.35){q-=.1;d=c.toDataURL("image/jpeg",q)}if(!phOk(d)||d.length>8500)throw E("PHBAD");return d}finally{URL.revokeObjectURL(url)}}
+async function setPhoto(data){const ref=DB.collection("players").doc(S.uid);await rput("photos/"+S.uid,data);const sn=await ref.get(),d=(sn.exists&&sn.data())||{},nd={...d,ph:Date.now()};await wr(ref.set(nd));S.me=nd;const k=S.uid+":"+nd.ph;PHC.set(k,data);LSset("gq-phc",JSON.stringify({k,v:data}))}
+async function dropPhoto(){const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{},nd={...d};delete nd.ph;await wr(ref.set(nd));S.me=nd;try{await rput("photos/"+S.uid,null)}catch(e){}try{localStorage.removeItem("gq-phc")}catch(e){}}
+const avOf=(d,id)=>{const a=shIt("av",shOf(d).av)[2];return avAny(d,id)+(a&&P[a]?`<span class="av">${sv(a)}</span>`:"")};
+async function setAvatar(n){const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};const nd={...d,av:n},had=!!d.ph;delete nd.ph;await wr(ref.set(nd));S.me=nd;if(had&&AUTH){try{await rput("photos/"+S.uid,null)}catch(e){}try{localStorage.removeItem("gq-phc")}catch(e){}}}
 function avatarScreen(back){
  S.view="avatar";const cur=avSeed(S.me||{},S.uid);if(!S.avc)S.avc=Array.from({length:12},()=>Math.floor(Math.random()*1e9));
  app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>Avatar<span>.</span></h1></div>
- <div class="card" style="text-align:center">${avSvg(cur,"big")}<p class="mute" style="margin:8px 0 0">Ton avatar actuel</p></div>
- <div class="card"><b class="h3">Choisis ton avatar</b><div class="avg">${S.avc.map(n=>`<button class="avc" data-av="${n}" aria-label="Avatar">${avSvg(n)}</button>`).join("")}</div><button class="btn alt" id="avm">Autres propositions</button><p class="err" id="ae" role="alert"></p></div>`;
+ <div class="card" style="text-align:center">${avAny(S.me||{},S.uid,"big")}<p class="mute" style="margin:8px 0 0">Ton avatar actuel</p></div>
+ ${AUTH?`<div class="card"><b class="h3">Photo personnelle</b><p class="mute" style="text-align:start;margin:4px 0 10px">Ta photo sera visible par tous les joueurs. N’utilise pas la photo de quelqu’un d’autre.</p><input type="file" id="phf" accept="image/*" hidden><button class="btn" id="phb">${S.me&&S.me.ph?"Changer de photo":"Choisir une photo"}</button>${S.me&&S.me.ph?`<button class="btn alt" id="phx">Retirer ma photo</button>`:""}<p class="err" id="phe" role="alert"></p></div>`:""}
+ <div class="card"><b class="h3">Avatar abstrait</b><div class="avg">${S.avc.map(n=>`<button class="avc" data-av="${n}" aria-label="Avatar">${avSvg(n)}</button>`).join("")}</div><button class="btn alt" id="avm">Autres propositions</button><p class="err" id="ae" role="alert"></p></div>`;
  const out=back||(()=>{S.view="home";home()});$("bk").onclick=()=>{S.avc=null;out()};
  $("avm").onclick=()=>{S.avc=null;avatarScreen(back)};
+ if($("phb")){$("phb").onclick=()=>$("phf").click();$("phf").onchange=async()=>{const f=$("phf").files[0];if(!f)return;$("phb").disabled=true;try{await setPhoto(await fileToAvatar(f));avatarScreen(back)}catch(x){$("phb").disabled=false;alertIn("phe",amsg(x&&x.code?x:E("PHBAD")))}}}
+ if($("phx"))$("phx").onclick=async()=>{$("phx").disabled=true;try{await dropPhoto();avatarScreen(back)}catch(x){$("phx").disabled=false;alertIn("phe",amsg(x))}};
  app.querySelectorAll("[data-av]").forEach(b=>b.onclick=async()=>{app.querySelectorAll("[data-av]").forEach(x=>x.disabled=true);try{await setAvatar(+b.dataset.av);S.avc=null;out()}catch(x){app.querySelectorAll("[data-av]").forEach(y=>y.disabled=false);alertIn("ae",amsg(x))}});
 }
 function applyShop(){const h=shOf(S.me),r=document.documentElement.style,pc=shIt("pc",h.pc),th=shIt("th",h.th);pc[3]?r.setProperty("--pass",pc[2]):r.removeProperty("--pass");th[3]?r.setProperty("--acc",th[2]):r.removeProperty("--acc")}
@@ -1033,6 +1047,7 @@ addTr([["Défi ouvert à tous", "Open challenge", "تحدٍّ مفتوح للج�
 addPat([[/^(.+) lance un défi à tous$/,"$1 challenges everyone","$1 يتحدى الجميع"]]);
 addTr([["Inviter un joueur", "Invite a player", "دعوة لاعب"], ["Écris son pseudo : il reçoit ton invitation tout de suite.", "Type their username: they get your invitation right away.", "اكتب اسمه: تصله دعوتك فورًا."], ["Pseudo du joueur", "Player’s username", "اسم اللاعب"], ["Inviter", "Invite", "دعوة"], ["Les joueurs que tu invites et tes adversaires s’ajoutent ici.", "Players you invite and your opponents are added here.", "يُضاف هنا اللاعبون الذين تدعوهم وخصومك."]]);
 addTr([["Avatar", "Avatar", "الصورة الرمزية"], ["Ton avatar actuel", "Your current avatar", "صورتك الحالية"], ["Choisis ton avatar", "Choose your avatar", "اختر صورتك الرمزية"], ["Autres propositions", "More options", "اقتراحات أخرى"], ["Changer d’avatar", "Change avatar", "تغيير الصورة الرمزية"]]);
+addTr([["Photo personnelle", "Personal photo", "صورة شخصية"], ["Ta photo sera visible par tous les joueurs. N’utilise pas la photo de quelqu’un d’autre.", "Your photo will be visible to all players. Don’t use someone else’s photo.", "ستكون صورتك مرئية لكل اللاعبين. لا تستخدم صورة شخص آخر."], ["Choisir une photo", "Choose a photo", "اختيار صورة"], ["Changer de photo", "Change photo", "تغيير الصورة"], ["Retirer ma photo", "Remove my photo", "إزالة صورتي"], ["Avatar abstrait", "Abstract avatar", "صورة رمزية مجردة"], ["Supprimer sa photo", "Delete their photo", "حذف صورته"], ["Cette image ne peut pas être utilisée. Essaie une autre photo.", "This image can’t be used. Try another photo.", "لا يمكن استخدام هذه الصورة. جرّب صورة أخرى."], ["Si tu ajoutes une photo personnelle, elle est visible par tous les joueurs. Tu peux la retirer à tout moment.", "If you add a personal photo, it is visible to all players. You can remove it at any time.", "إذا أضفت صورة شخصية فستكون مرئية لكل اللاعبين. يمكنك إزالتها في أي وقت."]]);
 let TRBUSY=false;
 const TROB=new MutationObserver(ms=>{if(LANG==="fr")return;for(const m of ms){if(m.type==="characterData")trNode(m.target);else m.addedNodes.forEach(x=>trNode(x))}TROB.takeRecords()});TROB.observe(document.getElementById("app"),{childList:true,subtree:true,characterData:true});
 const DN={};
@@ -1119,14 +1134,15 @@ function dashPlayer(uid){
  const top=Object.entries(gcOf(x)).sort((a,b)=>b[1]-a[1]),tm=Math.max(1,...top.map(t=>t[1])),best=MK.map(k=>[k,bm(d,k)]).filter(r=>r[1]>0).sort((a,b)=>b[1]-a[1]);
  const cell=(v,l)=>`<div class="st"><b>${v}</b><small>${l}</small></div>`;
  app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>${PN(d.u)}<span>.</span></h1></div>
- <div class="card" style="text-align:center"><div class="stats">${cell(fmt(+d.p||0),"parties en tout")}${cell(lvlOf(d.x),"niveau")}${cell(d.sd?dmy(d.sd):"–","dernière partie")}${cell(g30,"parties sur 30 jours")}${cell(act,"jours actifs sur 30")}${cell(streakOf(d)+" / "+(+d.sb||0),"série / record")}</div><p class="mute" style="margin:12px 0 0">${fmt(+d.x||0)} XP · ${fmt(tokensOf(d))} jetons · ${pl(Object.keys(d.bd||{}).length,"badge","badges")}</p></div>
+ <div class="card" style="text-align:center">${d.ph?avAny(d,uid,"big")+`<div style="height:12px"></div>`:""}<div class="stats">${cell(fmt(+d.p||0),"parties en tout")}${cell(lvlOf(d.x),"niveau")}${cell(d.sd?dmy(d.sd):"–","dernière partie")}${cell(g30,"parties sur 30 jours")}${cell(act,"jours actifs sur 30")}${cell(streakOf(d)+" / "+(+d.sb||0),"série / record")}</div><p class="mute" style="margin:12px 0 0">${fmt(+d.x||0)} XP · ${fmt(tokensOf(d))} jetons · ${pl(Object.keys(d.bd||{}).length,"badge","badges")}</p></div>
  <div class="card"><b class="h3">Jeux joués</b><p class="mute" style="text-align:start;margin:4px 0 8px">Nombre de parties par jeu</p>${top.length?top.map(([m,n])=>`<div class="dbr md"><span>${esc(ML(m))}</span><i><u style="width:${n/tm*100}%"></u></i><b>${n}</b></div>`).join(""):`<p class="mute" style="text-align:start">Aucune partie enregistrée sur cette période.</p>`}</div>
  <div class="card"><b class="h3">Meilleurs scores</b>${best.length?best.map(([k,v])=>`<div class="apl nb"><span>${esc(ML(k))}</span><b>${fmt(v)}</b></div>`).join(""):`<p class="mute" style="text-align:start">Aucun record pour l’instant.</p>`}</div>
- ${uid!==S.uid?`<div class="card"><b class="h3">Modération</b><p class="mute" style="text-align:start;margin:4px 0 10px">${d.bn?"Ce joueur est bloqué : il ne peut plus jouer et n’apparaît plus dans les classements.":"Un joueur bloqué ne peut plus jouer et disparaît des classements."}</p><button class="btn alt" id="abn">${d.bn?"Débloquer ce joueur":"Bloquer ce joueur"}</button><button class="btn alt" id="ars">Effacer ses scores</button><p class="err" id="ame" role="alert"></p></div>`:""}`;
+ ${uid!==S.uid?`<div class="card"><b class="h3">Modération</b><p class="mute" style="text-align:start;margin:4px 0 10px">${d.bn?"Ce joueur est bloqué : il ne peut plus jouer et n’apparaît plus dans les classements.":"Un joueur bloqué ne peut plus jouer et disparaît des classements."}</p><button class="btn alt" id="abn">${d.bn?"Débloquer ce joueur":"Bloquer ce joueur"}</button><button class="btn alt" id="ars">Effacer ses scores</button>${d.ph?`<button class="btn alt" id="aph">Supprimer sa photo</button>`:""}<p class="err" id="ame" role="alert"></p></div>`:""}`;
  $("bk").onclick=dashScreen;if(!S.dpKeep)window.scrollTo(0,0);S.dpKeep=0;
  const two=(b,fn)=>{if(b)b.onclick=async()=>{if(!b.dataset.c){b.dataset.c=1;b.textContent=tr("Touche encore pour confirmer");return}b.disabled=true;try{await fn();S.dpKeep=1;dashPlayer(uid)}catch(e){$("ame").textContent=tr("Action refusée. Vérifie les règles Firebase.");b.disabled=false}}};
  two($("abn"),async()=>{if(d.bn){await rput(`players/${uid}/bn`,null);delete x.d.bn}else{await rpatch(`players/${uid}`,{bn:1});x.d.bn=1}});
- two($("ars"),async()=>{const ref=DB.collection("players").doc(uid),nd={u:d.u,k:d.k};if(d.bn)nd.bn=1;if(d.g)nd.g=d.g;await ref.delete();await ref.set(nd);x.d=nd});
+ two($("aph"),async()=>{await rput("photos/"+uid,null);await rput(`players/${uid}/ph`,null);delete x.d.ph});
+ two($("ars"),async()=>{const ref=DB.collection("players").doc(uid),nd={u:d.u,k:d.k};if(d.bn)nd.bn=1;if(d.ph)nd.ph=d.ph;if(d.g)nd.g=d.g;await ref.delete();await ref.set(nd);x.d=nd});
 }
 async function dashScreen(){
  S.view="dash";app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>Tableau de bord<span>.</span></h1></div><div class="card"><p class="mute">Chargement…</p></div>`;$("bk").onclick=settings;
@@ -1357,7 +1373,7 @@ function mapSvg(x,ctx,th){
  const cl=CLIP[x.c];
  if(cl)polys=polys.filter(p=>{const r=p[0],m=r.reduce((s,q)=>[s[0]+q[0],s[1]+q[1]],[0,0]).map(v=>v/r.length);return m[0]>=cl[0]&&m[0]<=cl[2]&&m[1]>=cl[1]&&m[1]<=cl[3]});
  const mx=Math.max(0,...polys.map(p=>ringArea(p[0])));
- polys=polys.filter(p=>ringArea(p[0])>=mx*.004);
+ polys=polys.filter(p=>ringArea(p[0])>=mx*.001);
  const R=Math.PI/180,my=b=>-Math.log(Math.tan(Math.PI/4+Math.max(-85,Math.min(85,b))*R/2));
  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
  polys.forEach(p=>p[0].forEach(([a,b])=>{const X=a*R,Y=my(b);x0=Math.min(x0,X);x1=Math.max(x1,X);y0=Math.min(y0,Y);y1=Math.max(y1,Y)}));
@@ -1373,7 +1389,7 @@ function mapSvg(x,ctx,th){
    MAPS[id].forEach(p=>{
     const g=bbx(p);
     if(g[2]<wx0||g[0]>wx1||g[3]<wy0||g[1]>wy1)return;
-    const r=p[0],st=r.length>200?3:1,pts=[];
+    const r=p[0],st=r.length>400?2:1,pts=[];
     for(let i=0;i<r.length;i+=st)pts.push(P(r[i]));
     nb+="M"+pts.map(q=>q[0].toFixed(1)+" "+q[1].toFixed(1)).join("L")+"Z";
    });
@@ -1386,8 +1402,8 @@ function startRev(){
  const r=rng(Date.now()%2147483647),codes=shuf(rv.slice(0,20),r),by=Object.fromEntries(C.map(x=>[x.c,x]));
  S.mode="rev";S.sec=null;S.gid=(S.gid||0)+1;S.lv=1;
  S.qs=codes.map(c=>by[c]).filter(Boolean).map(a=>{let m=REVK[Math.floor(r()*REVK.length)];if(capm(m)&&!a.k)m="flag";if(m==="ct")return{a,m,o:ZK};
-  const pp=C.filter(x=>x!==a&&x.z===a.z&&(!capm(m)||x.k));return{a,m,o:shuf([a,...shuf(pp,r).slice(0,3)],r)}});
- S.qs.forEach(q=>{const i=new Image();i.src=`https://flagcdn.com/${q.a.c.toLowerCase()}.svg`});
+  const rvex=FEXCL[a.c],pp=C.filter(x=>x!==a&&x.z===a.z&&(!capm(m)||x.k)&&(!rvex||x.c!==rvex));return{a,m,o:shuf([a,...shuf(pp,r).slice(0,3)],r)}});
+ S.qs.forEach(q=>{const lc=q.a.c.toLowerCase(),i=new Image();i.src=FLAGOV[lc]||`https://flagcdn.com/${lc}.svg`});
  S.marks=[];S.okc=[];S.spent=0;S.lives=0;S.offer=0;S.jk={};S.i=0;S.score=0;S.good=0;S.combo=0;S.maxCombo=0;S.miss=[];S.mast=[];S.marks=[];S.gain=0;S.res=null;showQ();
 }
 function settings(){
@@ -1403,7 +1419,7 @@ function settings(){
  <label style="margin-top:18px">Vibrations</label>${opt("vib",S.vib?1:0,[[1,"Activées"],[0,"Coupées"]])}
  <label style="margin-top:18px">Langue</label>${opt("lg",LANG,[["fr","Français"],["en","English"],["ar","العربية"]])}</div>
  ${S.uid?`<div class="card"><label>${AUTH?"Compte":"Joueur"}</label><div class="pl"><span>${AUTH?"Pseudo":"Joueur"}</span><b>${PN(S.name||"")}</b></div>${AUTH?`<button class="btn alt" id="acc">Mon compte</button>`:""}${S.adm?`<button class="btn alt" id="dsb">Tableau de bord</button>`:""}<button class="btn alt" id="lo">${AUTH?"Se déconnecter":"Changer de joueur"}</button></div>`:""}
- <div class="card"><label>Avatar</label><button class="btn alt" id="avs">${avSvg(avSeed(S.me||{},S.uid))}Changer d’avatar</button></div>
+ <div class="card"><label>Avatar</label><button class="btn alt" id="avs">${avAny(S.me||{},S.uid)}Changer d’avatar</button></div>
  <div class="card"><label>Aide</label><button class="btn alt" id="tus">Revoir le tutoriel</button><button class="btn alt" id="pvs">Confidentialité</button></div>`;
  app.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{applyTheme(b.dataset.th);LSset("gq-theme",b.dataset.th);settings()});
  app.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>{S.ct=+b.dataset.ct;LSset("gq-ct",S.ct);settings()});
@@ -1436,7 +1452,7 @@ async function start(seed,lv){
   }
  }
  S.gid=(S.gid||0)+1;
- S.lv=lv;S.qs=build(seed,lv);S.qs.forEach(q=>{if(q.m==="mon"&&q.x&&q.x.img){const i=new Image();i.src=murl(q.x.img)}});S.qs.slice(0,60).forEach(q=>{const i=new Image();i.src=`https://flagcdn.com/${q.a.c.toLowerCase()}.svg`});S.marks=[];S.okc=[];S.spent=0;S.lives=0;S.offer=0;S.jk={};S.i=0;S.score=0;S.good=0;S.combo=0;S.maxCombo=0;S.miss=[];S.mast=[];S.gain=0;S.res=null;
+ S.lv=lv;S.qs=build(seed,lv);S.qs.forEach(q=>{if(q.m==="mon"&&q.x&&q.x.img){const i=new Image();i.src=murl(q.x.img)}});S.qs.slice(0,60).forEach(q=>{const lc=q.a.c.toLowerCase(),i=new Image();i.src=FLAGOV[lc]||`https://flagcdn.com/${lc}.svg`});S.marks=[];S.okc=[];S.spent=0;S.lives=0;S.offer=0;S.jk={};S.i=0;S.score=0;S.good=0;S.combo=0;S.maxCombo=0;S.miss=[];S.mast=[];S.gain=0;S.res=null;
  showQ();
 }
 function runTimer(){clearInterval(S.t);if(!TT())return;S.t=setInterval(()=>{S.left=Math.max(0,S.left-.1);const b=$("tm");if(b)b.style.width=(S.left/TT()*100)+"%";const t=$("ts");if(t)t.textContent=Math.ceil(S.left)+" s";if(S.left<=0){if(S.mode==="chr"){clearInterval(S.t);S.locked=true;finish()}else answer(null)}},100)}
