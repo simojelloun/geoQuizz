@@ -1,5 +1,5 @@
 // Geo Quizz : fonctionnement hors connexion.
-// Le jeu, les drapeaux, les polices et les cartes sont gardés sur l'appareil.
+// Le jeu, les drapeaux, les polices, les cartes et le relief sont gardés sur l'appareil.
 // Les scores et classements passent toujours par internet (Firebase).
 const V="gq-v6",SHELL=["./","index.html","config.js","manifest.webmanifest","icon.svg","icon-180.png","icon-192.png","icon-512.png"];
 const ASSETS=/^https:\/\/(flagcdn\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|cdn\.jsdelivr\.net|commons\.wikimedia\.org\/wiki\/Special:FilePath|upload\.wikimedia\.org|thumb\.wikimedia\.org)\//;
@@ -9,13 +9,17 @@ self.addEventListener("activate",e=>{e.waitUntil((async()=>{
   for(const k of await caches.keys())if(k!==V&&k!=="gq-state")await caches.delete(k);
   await self.clients.claim();
   const c=await caches.open(V);
-  for(const f of FLAGS){const u=`https://flagcdn.com/${f}.svg`;if(!(await c.match(u)))try{const r=await fetch(u,{mode:"cors"});if(r.ok)await c.put(u,r)}catch(x){}}
+  for(const f of FLAGS){const u=f==="af"?"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/500px-Flag_of_the_Taliban.svg.png":`https://flagcdn.com/${f}.svg`;if(!(await c.match(u)))try{const r=await fetch(u,{mode:"cors"});if(r.ok)await c.put(u,r)}catch(x){}}
 })())});
 self.addEventListener("fetch",e=>{
   const r=e.request;if(r.method!=="GET")return;
   const u=new URL(r.url);
   if(ASSETS.test(r.url)){ // images, polices, cartes : d'abord l'appareil
     e.respondWith(caches.open(V).then(async c=>{const hit=await c.match(r);if(hit)return hit;const res=await fetch(r);if(res.ok||res.type==="opaque")c.put(r,res.clone());return res}));
+    return;
+  }
+  if(u.origin===location.origin&&/\/relief\/r\d\d\.jpg$/.test(u.pathname)){ // cartes en relief : d'abord l'appareil
+    e.respondWith(caches.open(V).then(async c=>{const hit=await c.match(r);if(hit)return hit;const res=await fetch(r);if(res.ok)c.put(r,res.clone());return res}));
     return;
   }
   if(u.origin===location.origin){ // le jeu : d'abord internet (mises à jour), sinon l'appareil
