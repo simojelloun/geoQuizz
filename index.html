@@ -1427,15 +1427,17 @@ const LEAGUES=[["Bronze","#b7793f"],["Argent","#7f8fa6"],["Or","#d49a00"],["Saph
 const wkScore=(p,w)=>p&&p.wk&&p.wk.w===w?+p.wk.s||0:p&&p.wkp&&p.wkp.w===w?+p.wkp.s||0:0;
 const tierOf=p=>p&&p.lg?Math.max(0,Math.min(4,+p.lg.t||0)):0;
 const tierPrev=(p,cur)=>p&&p.lg?(p.lg.w===cur?+(p.lg.f!==undefined?p.lg.f:p.lg.t):+p.lg.t||0):0;
+// 25 % montent, 50 % restent, 25 % descendent (arrondi au plus proche, la moitié vers le bas)
+const lgK=n=>n<2?0:Math.max(1,Math.floor((n+1)/4)),lgZone=(i,n,t,s)=>(t<4&&s>0&&i<lgK(n))?"zu":(t>0&&n>=4&&i>=n-lgK(n))?"zd":"zs",lgSort=(a,b)=>b.s-a.s||String(a.n).localeCompare(String(b.n));
 const daysLeft=()=>7-(new Date().getDay()+6)%7;
 async function leagueTick(all){
  if(!DB||!S.uid||!S.me)return;
  const cur=wkKey(),lg=S.me.lg;if(lg&&lg.w===cur)return;
  let t=lg?tierOf(S.me):0,nt=t,r="same";
  if(lg&&lg.w===wkKey(-7)){
-  const prev=lg.w,pool=all.filter(p=>tierPrev(p.d,cur)===t).map(p=>({id:p.id,s:wkScore(p.d,prev)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
-  const i=pool.findIndex(x=>x.id===S.uid),n=pool.length,k=Math.max(1,Math.floor(n/4));
-  if(i>=0){if(n>=2&&i<k&&t<4){nt=t+1;r="up"}else if(n>=4&&i>=n-k&&t>0){nt=t-1;r="down"}}
+  const prev=lg.w,pool=all.filter(p=>p.d&&p.d.u&&tierPrev(p.d,cur)===t).map(p=>({id:p.id,s:wkScore(p.d,prev),n:p.d.u})).sort(lgSort);
+  const i=pool.findIndex(x=>x.id===S.uid),z=i>=0?lgZone(i,pool.length,t,pool[i].s):"zs";
+  if(z==="zu"){nt=t+1;r="up"}else if(z==="zd"){nt=t-1;r="down"}
  }
  const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};
  if(d.lg&&d.lg.w===cur){S.me=d;return}
@@ -1506,7 +1508,7 @@ function drawRank(){
  const realT=tierOf(S.me),myT=S.lgSel==null?realT:S.lgSel,lgCnt=[0,0,0,0,0];(S.pall||[]).forEach(p=>lgCnt[tierOf(p.d)]++);
  const rows=S.pall===null?null:S.pall.filter(p=>(B!=="lg"||tierOf(p.d)===myT)&&(B==="lg"||!S.gsel||(p.d.g&&p.d.g[S.gsel]))).map(p=>({id:p.id,s:tv(p.d,B),n:p.d.u,lv:lvlOf(p.d.x),av:avOf(p.d,p.id)})).filter(r=>r.s>0||B==="lg").sort((a,b)=>b.s-a.s||a.n.localeCompare(b.n));
  const mi=rows?rows.findIndex(r=>r.id===S.uid):-1;
- const nR=rows?rows.filter(r=>r.s>0).length:0,kz=Math.max(1,Math.floor(nR/4)),zn=i=>B!=="lg"?"":(i<kz&&myT<4&&nR>=2)?"zu":(nR>=4&&i>=nR-kz&&myT>0)?"zd":"zs",za=z=>z?`<i class="za" aria-hidden="true">${z==="zu"?"▲":z==="zd"?"▼":"="}</i>`:"";
+ const nR=rows?rows.length:0,zn=i=>B!=="lg"?"":lgZone(i,nR,myT,rows[i].s),za=z=>z?`<i class="za" aria-hidden="true">${z==="zu"?"▲":z==="zd"?"▼":"="}</i>`:"";
  const zAll=B==="lg"&&rows?rows.map((r,i)=>zn(i)):[],zleg=B==="lg"&&rows&&rows.length?`<div class="zleg">${zAll.includes("zu")?`<span class="zu">${za("zu")}<span>Montent en ${LEAGUES[myT+1][0]}</span></span>`:""}${zAll.includes("zs")?`<span class="zs">${za("zs")}<span>Restent</span></span>`:""}${zAll.includes("zd")?`<span class="zd">${za("zd")}<span>Descendent en ${LEAGUES[myT-1][0]}</span></span>`:""}</div>`:"";
  const row=(r,i)=>`<div class="rr ${r.id===S.uid?"mine":""} ${zn(i)}"><span class="rkn">${i+1}</span><span class="rn">${r.av}${PN(r.n)}${r.id===S.uid?" <em>moi</em>":""}</span><span class="rl">niv. ${r.lv}</span><b>${r.s?(B==="xp"?xpf:fmt)(r.s):"–"}</b>${za(zn(i))}</div>`;
  const pod=rows?rows.filter(r=>r.s>0).slice(0,3):[];
