@@ -540,7 +540,7 @@ function home(fromX){
  <div class="lks"><button class="lkb" id="rk" style="--bc:#b7791f">${sv("trophy")}<b>Classements</b></button><button class="lkb" id="shop2" style="--bc:#7c3aed">${sv("cart")}<b>Boutique</b></button></div>
  ${allDone?tdy:""}
  ${S.off?`<p class="mute">Hors connexion : tu peux jouer, les scores seront enregistrés au retour d’internet.</p>`:""}${Q.get().some(j=>j.uid===S.uid)?`<p class="mute">Des scores attendent internet pour être enregistrés.</p>`:""}`;
- S.special=null;S.zf=null;S.hw=null;applyShop();$("shop").onclick=$("shop2").onclick=()=>shop();if(!fromX)socialCheck();tuto();
+ S.special=null;S.zf=null;S.hw=null;applyShop();if(S.g20){S.g20=0;setTimeout(()=>{sfx("badge");confetti();toast(tr("Cadeau : +20 gemmes"),"good")},400)}$("shop").onclick=$("shop2").onclick=()=>shop();if(!fromX)socialCheck();tuto();
  if($("ivj")){const iv=S.inv,clr=()=>{S.inv=null;if(iv.o){(S.ovx||(S.ovx={}))[iv.c]=1;return}rput(`inbox/${S.uid}/${iv.f}`,null).catch(()=>{})};$("ivj").onclick=async()=>{clr();try{await joinDuel(iv.c)}catch(e){if(iv.o){duelScreen();alertIn("oe",amsg(E("OTAKEN")))}else duelScreen(iv.c)}};$("ivx").onclick=()=>{clr();home(true)}}
  if($("hwg"))$("hwg").onclick=()=>hwStart(hwTodo()[0]);if($("ssb")){$("ssb").onclick=e=>{e.currentTarget.disabled=true;saveStreak()};$("ssx").onclick=()=>{S.ssNo=dk();home(true)}}
  if($("mx3"))$("mx3").onclick=()=>{S.tnMsg=null;home(true)};if($("tnb"))$("tnb").onclick=tnScreen;
@@ -723,7 +723,12 @@ function emailSync(){
  if(S.me&&S.me.em!==undefined){const m={...S.me};delete m.em;S.me=m;rput(`players/${S.uid}/em`,null).catch(()=>{})}
  const tag=S.uid+"|"+SES.email;if(LS("gq-eml","")!==tag)rput("emails/"+S.uid,SES.email).then(()=>LSset("gq-eml",tag)).catch(()=>{});
 }
-async function enter(){await loadMe();if(AUTH&&S.me&&S.me.bn)return bannedScreen();try{emailSync()}catch(e){}await flushQueue();const gq=new URLSearchParams(location.search).get("groupe");if(gq&&!S.gqSeen){S.gqSeen=1;history.replaceState(null,"",location.pathname);groupScreen();const i=$("gc");if(i)i.value=gq.toUpperCase();return}
+async function giftGems(){
+ if(!DB||!S.uid||S.off||!S.me||!S.me.u||S.me.g20)return;
+ try{const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};if(!d.u||d.g20){S.me=d;return}
+  const nd={...d,gm:gemsOf(d)+20,g20:1};await ref.set(nd);S.me=nd;S.g20=1}catch(e){}
+}
+async function enter(){await loadMe();if(AUTH&&S.me&&S.me.bn)return bannedScreen();try{emailSync()}catch(e){}await giftGems();await flushQueue();const gq=new URLSearchParams(location.search).get("groupe");if(gq&&!S.gqSeen){S.gqSeen=1;history.replaceState(null,"",location.pathname);groupScreen();const i=$("gc");if(i)i.value=gq.toUpperCase();return}
  if(AUTH&&new URLSearchParams(location.search).has("admin")&&!S.admSeen){S.admSeen=1;history.replaceState(null,"",location.pathname);try{await rput("admins/"+S.uid,true);S.adm=true}catch(e){}return settings()}
  const dc=new URLSearchParams(location.search).get("duel");if(dc&&!S.dlSeen){S.dlSeen=1;history.replaceState(null,"",location.pathname);return duelScreen(dc.toUpperCase())}S.view="home";home()}
 async function afterAuth(){
@@ -1206,6 +1211,7 @@ addPat([[/^Bonne réponse : (.+)$/,(x)=>"Correct: "+x[1],(x)=>"إجابة صحي
 addTr([["Récompense du jour", "Daily reward", "مكافأة اليوم"], ["Reviens chaque jour : la récompense grandit.", "Come back every day: the reward grows.", "عد كل يوم: المكافأة تكبر."], ["Plus de jetons", "Out of tokens", "انتهت الرموز"], ["Comment en regagner", "How to earn more", "كيف تكسب المزيد"], ["Défi du jour (gratuit)", "Daily challenge (free)", "تحدي اليوم (مجاني)"], ["Révision (gratuite)", "Review (free)", "المراجعة (مجانية)"], ["Duel gagné (gratuit)", "Duel won (free)", "مبارزة رابحة (مجانية)"], ["demain", "tomorrow", "غدًا"], ["+1 à +8", "+1 to +8", "+1 إلى +8"], ["+1 pour 3 pays", "+1 per 3 countries", "+1 لكل 3 دول"], ["Récupérer ma récompense du jour", "Claim my daily reward", "استلم مكافأة اليوم"], ["Reviens demain : ta récompense du jour t’attend.", "Come back tomorrow: your daily reward is waiting.", "عد غدًا: مكافأتك اليومية بانتظارك."], ["Aucun jeton gagné", "No tokens earned", "لم تكسب رموزًا"], ["Jouer ", "Play ", "العب "]]);
 addPat([[/^Une partie coûte (\d+) jetons\. Il t’en reste (\d+)\.$/,"A game costs $1 tokens. You have $2 left.","اللعبة تكلف $1 رموز. بقي لديك $2."],[/^\+(\d+) jetons ajoutés\. Reviens demain pour \+(\d+)\.$/,"+$1 tokens added. Come back tomorrow for +$2.","أضيفت +$1 رموز. عد غدًا لتحصل على +$2."],[/^Déjà récupérée\. Reviens demain pour \+(\d+)\.$/,"Already claimed. Come back tomorrow for +$1.","تم استلامها. عد غدًا لتحصل على +$1."],[/^\+(\d+) jetons gagnés$/,"+$1 tokens earned","+$1 رموز مكتسبة"],[/^Partie : −(\d+) · Solde : (.+)$/,"Game: −$1 · Balance: $2","اللعبة: −$1 · الرصيد: $2"],[/^Solde : (.+)$/,"Balance: $1","الرصيد: $1"]]);
 addTr([["Ligues","Leagues","الدوريات"]]);addPat([[/^Ta ligue : (.+)$/,(x)=>"Your league: "+tr(x[1]),(x)=>"دوريك: "+tr(x[1])]]);
+addTr([["Cadeau : +20 gemmes","Gift: +20 gems","هدية: +20 جوهرة"]]);
 addTr([["Restent","Stay","يبقون"]]);addPat([[/^Montent en (Bronze|Argent|Or|Saphir|Diamant)$/,x=>"Move up to "+tr(x[1]),x=>"يصعدون إلى الدوري "+tr(x[1])],[/^Descendent en (Bronze|Argent|Or|Saphir|Diamant)$/,x=>"Drop to "+tr(x[1]),x=>"ينزلون إلى الدوري "+tr(x[1])]]);
 addTr([["Apprendre","Learn","تعلّم"]]);
 addTr([["Prêt ?","Ready?","مستعد؟"],["Record absolu battu","All-time record beaten","تم تحطيم الرقم القياسي المطلق"]]);
