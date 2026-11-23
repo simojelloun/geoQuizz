@@ -351,7 +351,7 @@ img.ava{object-fit:cover;background:var(--line)}
 .pron .h3{display:flex;align-items:center;gap:6px}.pron .h3 svg{width:18px;height:18px;fill:#fbbf24;stroke:#b45309;stroke-width:1.5}.pron p{margin:6px 0 10px;text-align:start}.stl{display:flex;gap:8px}.stl .btn{flex:1}
 .drc{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:0 0 10px 40px}[dir=rtl] .drc{padding:0 40px 10px 0}.drc span{display:flex;flex-direction:column;align-items:center;gap:1px;padding:4px 0 5px;border-radius:9px;background:var(--bg);color:var(--mute);border:1.5px solid transparent}.drc small{font-size:.62rem;font-weight:600}.drc b{font:800 .74rem/1.1 var(--D);display:inline-flex;align-items:center;gap:1px}.drc svg{width:10px;height:10px;fill:#7dd3fc;stroke:#0369a1;stroke-width:1.6}
 .drc span.got{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}.drc span.now{border-color:var(--acc);color:var(--ink)}.drc span.now.got{border-color:var(--ok)}
-.chr.lck .tdi{background:var(--bg);color:var(--mute)}.chr.rdy .tdi{background:color-mix(in srgb,#d49a00 18%,transparent);color:#b7791f}.chg{display:inline-flex;align-items:center;gap:3px;font:800 .82rem var(--D);color:var(--mute);flex:none}.chg svg{width:14px;height:14px;fill:#7dd3fc;stroke:#0369a1;stroke-width:1.6}
+.chr.lck .tdi{background:var(--bg);color:var(--mute)}.chr.rdy .tdi{background:color-mix(in srgb,#d49a00 18%,transparent);color:#b7791f}.chg{display:inline-flex;align-items:center;gap:3px;font:800 .82rem var(--D);color:var(--mute);flex:none}.chg svg{width:14px;height:14px;fill:#7dd3fc;stroke:#0369a1;stroke-width:1.6}.chg.chk svg{fill:#fcd34d;stroke:#b45309}
 .tdf{display:flex;align-items:center;gap:6px;margin:0;padding:9px 0 3px;border-top:1px solid var(--line);font-size:.78rem;color:var(--mute)}.tdf svg{width:14px;height:14px;fill:none;stroke:#ea580c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .tdr .btn.sm{margin:0;flex:none}.tdr .btn.sm svg{width:15px;height:15px}.tda{display:flex;gap:6px;flex:none}.tda .dzb{background:var(--bg);border:1px solid var(--line)}
 .tdc{font-style:normal;color:var(--mute);font-size:1.2rem;transition:transform .15s}.tdm[open] .tdc{transform:rotate(90deg)}.tdm .msr{padding-inline-start:40px}
@@ -558,7 +558,7 @@ function home(fromX){
  const rDr=row(drDone,"coin","Récompense du jour",drDone?`Demain : +${DRW[dri.n%7]}`:"Un jour manqué et le calendrier recommence.",drDone?"":`<button class="btn sm" id="drb">+${dri.amt}${dri.n%7===0?sv("gem"):""}</button>`)+cal;
  const rDy=row(!!dd,"bolt","Défi du jour",dd?`${fmt(dd.s)} pts. Nouveau défi demain.`:"20 questions, une seule tentative.",dd?`<span class="tda">${dd.g?`<button class="dzb" id="dsh">Partager</button>`:""}<button class="dzb" id="dy">Classement</button></span>`:`<button class="btn sm" id="dy">Jouer</button>`);
  const rMs=`<details class="tdm"><summary class="tdr ${msDone?"ok":""}"><span class="tdi">${sv(msDone?"check":"medal")}</span><span class="tdt"><b>Missions du jour</b><small>${msN}/3</small></span><i class="tdc" aria-hidden="true">›</i></summary>${MS.map((m,i)=>{const v=Math.min(m[1],+msp[i]||0),ok=v>=m[1];return `<div class="msr ${ok?"ok":""}"><span>${mLabel(m)}</span><small>${ok?"✓":v+"/"+m[1]}</small><em>${sv("coin")}${m[2]}</em></div>`}).join("")}</details>`;
- const three=drDone&&!!dd&&msDone,chO=chOpen(d),rCh=`<div class="tdr chr ${chO?"ok":three?"rdy":"lck"}"><span class="tdi">${sv(chO?"check":three?"gift":"lock")}</span><span class="tdt"><b>Coffre du jour</b><small>${chO?"Ouvert. Un nouveau coffre t’attend demain.":three?"Tout est fait : ouvre ton coffre.":"Termine les 3 objectifs pour l’ouvrir."}</small></span>${three&&!chO?`<button class="btn sm" id="chb">Ouvrir</button>`:`<span class="chg">${sv("gem")}+1</span>`}</div>`;
+ const three=drDone&&!!dd&&msDone,chO=chOpen(d),rCh=`<div class="tdr chr ${chO?"ok":three?"rdy":"lck"}"><span class="tdi">${sv(chO?"check":three?"gift":"lock")}</span><span class="tdt"><b>Coffre du jour</b><small>${chO?"Ouvert. Un nouveau coffre t’attend demain.":three?"Tout est fait : ouvre ton coffre.":"Termine les 3 objectifs pour l’ouvrir."}</small></span>${three&&!chO?`<button class="btn sm" id="chb">Ouvrir</button>`:`<span class="chg chk">${sv("coin")}+3</span>`}</div>`;
  const rPg=PRO()&&d.pg!==PROMO()?row(false,"crown","Cadeau Pro du mois",`${PRO_GEMS} gemmes offertes chaque mois.`,`<button class="btn sm" id="pgb">+${PRO_GEMS}${sv("gem")}</button>`):"";
  const nx=smNext(st),stf=`<p class="tdf">${sv("fire")}<span>${st?`Série de ${pl(st,"jour","jours")}`:"Pas encore de série"}${nx?` · à ${nx[0]} jours : +${nx[1]} ${nx[1]>1?"gemmes":"gemme"}`:""}</span></p>`;
  const allDone=three&&chO,tdy=`<div class="card tdy ${allDone?"alld":""}"><div class="tdh"><b>Aujourd’hui</b><small>${[drDone,!!dd,msDone].filter(Boolean).length}/3</small></div>${[[drDone,rDr],[!!dd,rDy],[msDone,rMs]].sort((p,q)=>p[0]-q[0]).map(p=>p[1]).join("")}${rPg}${rCh}${stf}</div>`;
@@ -592,7 +592,7 @@ function home(fromX){
  ${GUEST?`<button class="nav" id="gac"><span class="nt" style="background:#2563eb">${sv("users")}</span><span><b>Créer un compte gratuit</b><small>Classements mondiaux, duels, amis et tournoi.</small></span><i>›</i></button>`:""}
  ${!BEG&&allDone?tdy:""}
  ${S.off?`<p class="mute">Hors connexion : tu peux jouer, les scores seront enregistrés au retour d’internet.</p>`:""}${Q.get().some(j=>j.uid===S.uid)?`<p class="mute">Des scores attendent internet pour être enregistrés.</p>`:""}`;
- S.special=null;S.zf=null;S.hw=null;applyShop();if(S.g20&&!BEG){S.g20=0;setTimeout(()=>{sfx("badge");confetti();toast(tr("Cadeau : +20 gemmes"),"good")},400)}$("shop").onclick=()=>shop();if($("shop2"))$("shop2").onclick=()=>shop();if(!fromX)socialCheck();if($("fp1"))$("fp1").onclick=()=>{S.mode="flag";S.sec="d";S.zone=null;S.zf=null;start(Date.now()%2147483647,1)};if($("fp2"))$("fp2").onclick=()=>menu("c");
+ S.special=null;S.zf=null;S.hw=null;applyShop();if(S.g20&&!BEG){S.g20=0;setTimeout(()=>{sfx("badge");confetti();toast(tr("Cadeau : +5 gemmes"),"good")},400)}$("shop").onclick=()=>shop();if($("shop2"))$("shop2").onclick=()=>shop();if(!fromX)socialCheck();if($("fp1"))$("fp1").onclick=()=>{S.mode="flag";S.sec="d";S.zone=null;S.zf=null;start(Date.now()%2147483647,1)};if($("fp2"))$("fp2").onclick=()=>menu("c");
  if($("ivj")){const iv=S.inv,clr=()=>{S.inv=null;if(iv.o){(S.ovx||(S.ovx={}))[iv.c]=1;return}rput(`inbox/${S.uid}/${iv.f}`,null).catch(()=>{})};$("ivj").onclick=async()=>{clr();try{await joinDuel(iv.c)}catch(e){if(iv.o){duelScreen();alertIn("oe",amsg(E("OTAKEN")))}else duelScreen(iv.c)}};$("ivx").onclick=()=>{clr();home(true)};$("ivb").onclick=async()=>{const b=$("ivb");b.disabled=true;try{await setBlock(iv.f,iv.n,true);toast(tr("Joueur bloqué."),"good")}catch(e){}clr();home(true)}}if($("gac"))$("gac").onclick=()=>guestGo(false,"up");
  if($("hwg"))$("hwg").onclick=()=>hwStart(hwTodo()[0]);if($("ssb")){$("ssb").onclick=e=>{e.currentTarget.disabled=true;saveStreak()};$("ssx").onclick=()=>{S.ssNo=dk();home(true)}}
  if($("mx3"))$("mx3").onclick=()=>{S.tnMsg=null;home(true)};if($("tnb"))$("tnb").onclick=tnScreen;
@@ -780,7 +780,7 @@ function emailSync(){
 async function giftGems(){
  if(!DB||!S.uid||S.off||!S.me||!S.me.u||S.me.g20)return;
  try{const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};if(!d.u||d.g20){S.me=d;return}
-  const nd={...d,gm:gemsOf(d)+20,g20:1};await ref.set(nd);S.me=nd;S.g20=1}catch(e){}
+  const nd={...d,gm:gemsOf(d)+5,g20:1};await ref.set(nd);S.me=nd;S.g20=1}catch(e){}
 }
 async function enter(){await loadMe();if(AUTH&&S.me&&S.me.bn)return bannedScreen();await proSync();try{emailSync()}catch(e){}await giftGems();await flushQueue();const gq=new URLSearchParams(location.search).get("groupe");if(gq&&!S.gqSeen){S.gqSeen=1;history.replaceState(null,"",location.pathname);groupScreen();const i=$("gc");if(i)i.value=gq.toUpperCase();return}
  if(AUTH&&new URLSearchParams(location.search).has("admin")&&!S.admSeen){S.admSeen=1;history.replaceState(null,"",location.pathname);return settings()}
@@ -1077,9 +1077,9 @@ async function socialCheck(){
 const hwTodo=()=>(S.hwp||[]).filter(h=>((S.me&&S.me.hw)||{})[h.c]===undefined||S.me.hw[h.c].t!==h.hw.t);
 const hwTxt=h=>`${(MODES[h.m]||h.m).split(" · ")[0]} · ${ZS[h.z]||ZS.world} · ${LV[h.lv]?LV[h.lv].n:""}`;
 function hwStart(h){S.mode=MODES[h.hw.m]&&h.hw.m!=="riv"&&h.hw.m!=="mnt"?h.hw.m:"flag";S.sec=null;S.zone=null;S.special="hw";S.hw={c:h.c,t:h.hw.t};S.zf=h.hw.z&&h.hw.z!=="world"?h.hw.z:null;start((+h.hw.t||1)%2147483647,LV[h.hw.lv]?+h.hw.lv:1)}
-const COST=5,TFREE=["day","rev","duel"],DRW=[6,7,8,9,10,12,16],GEMX=[[1,10],[5,55],[10,120]];
+const COST=5,TFREE=["day","rev","duel"],DRW=[3,3,4,4,5,5,8],GEMX=[[1,6],[5,32],[10,70]];
 const gemsOf=d=>Math.max(0,+(d&&d.gm)||0),gem=n=>`<span class="tkc gmc">${sv("gem")}<b>${fmt(n)}</b></span>`;
-const tokensOf=d=>d&&d.tk!==undefined?Math.max(0,+d.tk||0):50;
+const tokensOf=d=>d&&d.tk!==undefined?Math.max(0,+d.tk||0):30;
 // MODE PRO : abonnement par achats intégrés (Apple / Google) via RevenueCat.
 // La référence est côté serveur : pro/<uid>/u (fin de l'abonnement, en ms), écrit par la fonction Firebase « rcWebhook ».
 // Dans l'app iPhone/Android, le SDK RevenueCat donne aussi l'état dès l'achat (S.proSdk).
@@ -1110,6 +1110,17 @@ async function gemBuyReal(i,btn){
 function gemPkLoad(){
  if(S.gemPk!==undefined||!NATIVE||!RCK())return;S.gemPk=null;
  rcCall("getOfferings").then(o=>{const g=o&&o.all&&(o.all.gems||o.all.Gems);const a=(g&&g.availablePackages||[]).filter(p=>p&&p.product&&gemsOfPkg(p)>0).sort((x,y)=>gemsOfPkg(x)-gemsOfPkg(y));S.gemPk=a.length?a:false;if(S.view==="shop")shop()}).catch(()=>{S.gemPk=false;if(S.view==="shop")shop()});
+}
+async function payEntry(){
+ // la mise de la partie est prise au lancement : si le joueur quitte, elle est perdue
+ const c=costOf(S.mode);if(!c)return true;
+ try{const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};if(tokensOf(d)<c){S.me=d;return false}
+  const nd={...d,tk:tokensOf(d)-c};await ref.set(nd);S.me=nd;S.paid=c;return true}catch(e){S.paid=0;return tokensOf(S.me)>=c}
+}
+async function payJokers(){
+ // jokers utilisés pendant une partie abandonnée : perdus aussi
+ const s=+S.spent||0;if(!s||!S.uid)return;S.spent=0;
+ try{const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{},nd={...d,tk:Math.max(0,tokensOf(d)-s)};await ref.set(nd);S.me=nd}catch(e){}
 }
 async function proSync(){
  const job=(async()=>{
@@ -1164,7 +1175,7 @@ function proScreen(ctx){
  if($("prst"))$("prst").onclick=async()=>{const b=$("prst");b.disabled=true;try{const r=await rcCall("restorePurchases");S.proSdk=ciU(r&&(r.customerInfo||r));if(PRO()){toast(tr("Achats restaurés : Pro est actif."),"good");proWait();return proScreen()}alertIn("pe",tr("Aucun abonnement Pro à restaurer sur ce compte."))}catch(e){alertIn("pe",tr("Restauration impossible pour le moment. Réessaie."))}b.disabled=false};
 }
 const costOf=md=>TFREE.includes(md)||PRO()?0:COST;
-const SMS=[[3,1],[7,3],[14,5],[30,10],[60,15],[100,25]],smNext=n=>SMS.find(([k])=>k>n);
+const SMS=[[7,1],[30,3],[100,5]],smNext=n=>SMS.find(([k])=>k>n);
 async function obDone(show){
  try{const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};if(!d.u||d.ob)return;const nd={...d,ob:1};await ref.set(nd);S.me=nd;
   if(show){LSset("gq-beg","");sfx("badge");confetti();toast(tr("Tout le jeu est ouvert : ligues, missions, coffre du jour et tournoi."),"good");if(S.view==="home")home(true)}}catch(e){S.obW=0}
@@ -1173,7 +1184,7 @@ const chOpen=d=>!!(d&&d.ch===dk());
 async function openChest(){
  const b=$("chb");if(b)b.disabled=true;
  try{const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};
-  if(d.ch!==dk()){const nd={...d,ch:dk(),gm:gemsOf(d)+1,tk:tokensOf(d)+5};await ref.set(nd);S.me=nd;sfx("badge");confetti();toast(tr("Coffre ouvert : +1 gemme · +5 jetons"),"good")}else S.me=d;
+  if(d.ch!==dk()){const nd={...d,ch:dk(),tk:tokensOf(d)+3};await ref.set(nd);S.me=nd;sfx("badge");confetti();toast(tr("Coffre ouvert : +3 jetons"),"good")}else S.me=d;
  }catch(e){}
  if(S.view==="home")home(true);
 }
@@ -1192,9 +1203,9 @@ function noTokens(){
  <p class="sub">Une partie coûte ${COST} jetons. Il t’en reste ${tokensOf(S.me)}.</p>
  <div class="card"><b class="h3">Comment en regagner</b>
  <div class="pl"><span>Récompense du jour</span><b>${i.done?"demain":"+"+i.amt}</b></div>
- <div class="pl"><span>Défi du jour (gratuit)</span><b>${dd?"demain":"+1 à +5"}</b></div>
- <div class="pl"><span>Révision (gratuite)</span><b>${rv?"+1 pour 3 pays":"–"}</b></div>
- ${AUTH?`<div class="pl"><span>Duel gagné (gratuit)</span><b>+3</b></div>`:""}${gemsOf(S.me)?`<div class="pl"><span>Échanger des gemmes</span><b>${gem(gemsOf(S.me))}</b></div>`:""}</div>
+ <div class="pl"><span>Défi du jour (gratuit)</span><b>${dd?"demain":"+1 à +3"}</b></div>
+ <div class="pl"><span>Révision (gratuite)</span><b>${rv?"+1 pour 5 pays":"–"}</b></div>
+ ${AUTH?`<div class="pl"><span>Duel gagné (gratuit)</span><b>+2</b></div>`:""}${gemsOf(S.me)?`<div class="pl"><span>Échanger des gemmes</span><b>${gem(gemsOf(S.me))}</b></div>`:""}</div>
  ${gemsOf(S.me)?`<button class="btn alt" id="gsh">Échanger des gemmes</button>`:""}${NATIVE&&RCK()?`<button class="btn alt" id="ngem">${sv("gem")}Acheter des gemmes</button>`:""}${AUTH||NATIVE?`<button class="btn alt" id="npro">${sv("infinity")}Parties illimitées avec Pro</button>`:""}
  ${!i.done?`<button class="btn" id="drb">Récupérer ma récompense du jour</button>`:!dd?`<button class="btn" id="dy">Jouer le défi du jour</button>`:rv?`<button class="btn" id="rvw">Réviser</button>`:`<p class="mute">Reviens demain : ta récompense du jour t’attend.</p>`}`;
  $("hm").onclick=()=>{S.view="home";home()};
@@ -1404,6 +1415,7 @@ addPat([[/^Bonne réponse : (.+)$/,(x)=>"Correct: "+x[1],(x)=>"إجابة صحي
 addTr([["Récompense du jour", "Daily reward", "مكافأة اليوم"], ["Reviens chaque jour : la récompense grandit.", "Come back every day: the reward grows.", "عد كل يوم: المكافأة تكبر."], ["Plus de jetons", "Out of tokens", "انتهت الرموز"], ["Comment en regagner", "How to earn more", "كيف تكسب المزيد"], ["Défi du jour (gratuit)", "Daily challenge (free)", "تحدي اليوم (مجاني)"], ["Révision (gratuite)", "Review (free)", "المراجعة (مجانية)"], ["Duel gagné (gratuit)", "Duel won (free)", "مبارزة رابحة (مجانية)"], ["demain", "tomorrow", "غدًا"], ["+1 à +8", "+1 to +8", "+1 إلى +8"], ["+1 pour 3 pays", "+1 per 3 countries", "+1 لكل 3 دول"], ["Récupérer ma récompense du jour", "Claim my daily reward", "استلم مكافأة اليوم"], ["Reviens demain : ta récompense du jour t’attend.", "Come back tomorrow: your daily reward is waiting.", "عد غدًا: مكافأتك اليومية بانتظارك."], ["Aucun jeton gagné", "No tokens earned", "لم تكسب رموزًا"], ["Jouer ", "Play ", "العب "]]);
 addPat([[/^Une partie coûte (\d+) jetons\. Il t’en reste (\d+)\.$/,"A game costs $1 tokens. You have $2 left.","اللعبة تكلف $1 رموز. بقي لديك $2."],[/^\+(\d+) jetons ajoutés\. Reviens demain pour \+(\d+)\.$/,"+$1 tokens added. Come back tomorrow for +$2.","أضيفت +$1 رموز. عد غدًا لتحصل على +$2."],[/^Déjà récupérée\. Reviens demain pour \+(\d+)\.$/,"Already claimed. Come back tomorrow for +$1.","تم استلامها. عد غدًا لتحصل على +$1."],[/^\+(\d+) jetons gagnés$/,"+$1 tokens earned","+$1 رموز مكتسبة"],[/^Partie : −(\d+) · Solde : (.+)$/,"Game: −$1 · Balance: $2","اللعبة: −$1 · الرصيد: $2"],[/^Solde : (.+)$/,"Balance: $1","الرصيد: $1"]]);
 addTr([["Ligues","Leagues","الدوريات"]]);addPat([[/^Ta ligue : (.+)$/,(x)=>"Your league: "+tr(x[1]),(x)=>"دوريك: "+tr(x[1])]]);
+addTr([["Coffre ouvert : +3 jetons", "Chest opened: +3 tokens", "فُتح الصندوق: +3 رموز"], ["Cadeau : +5 gemmes", "Gift: +5 gems", "هدية: +5 جواهر"], ["+1 à +3", "+1 to +3", "+1 إلى +3"], ["+1 pour 5 pays", "+1 per 5 countries", "+1 لكل 5 دول"], ["Une gemme à chaque niveau gagné, à chaque nouvelle étoile de badge et au 7e jour de récompense.", "One gem for each level gained, each new badge star and the 7th daily reward in a row.", "جوهرة عند كل مستوى جديد، وكل نجمة شارة جديدة، وفي اليوم السابع من المكافآت."], ["Ta progression et les jetons engagés sur cette partie seront perdus.", "Your progress and the tokens staked on this game will be lost.", "سيضيع تقدمك والرموز التي دفعتها لهذه المباراة."]]);
 addTr([["Acheter des gemmes", "Buy gems", "شراء جواهر"], ["Les gemmes s’achètent dans l’app Geo Quizz sur iPhone et Android. Elles arrivent ensuite sur ton compte, ici aussi.", "Gems are bought in the Geo Quizz app on iPhone and Android. They then reach your account, here too.", "تُشترى الجواهر في تطبيق Geo Quizz على iPhone وAndroid. ثم تصل إلى حسابك، هنا أيضاً."], ["L’achat de gemmes n’est pas encore disponible sur cet appareil.", "Buying gems is not available on this device yet.", "شراء الجواهر غير متاح بعد على هذا الجهاز."], ["Paiement unique, sans abonnement, débité sur ton compte Apple.", "One-time payment, no subscription, charged to your Apple account.", "دفعة واحدة، دون اشتراك، تُخصم من حسابك على Apple."], ["Paiement unique, sans abonnement, débité sur ton compte Google Play.", "One-time payment, no subscription, charged to your Google Play account.", "دفعة واحدة، دون اشتراك، تُخصم من حسابك على Google Play."], ["Achat réussi : tes gemmes arrivent.", "Purchase complete: your gems are on their way.", "تم الشراء: جواهرك في الطريق."]]);addPat([[/^\+(\d+) gemmes ajoutées$/,"+$1 gems added","+$1 جوهرة أضيفت"],[/^(\d+) gemmes$/,"$1 gems","$1 جوهرة"]]);
 addTr([["Formule", "Plan", "الخطة"], ["Pro", "Pro", "Pro"], ["Parties illimitées", "Unlimited games", "مباريات بلا حدود"], ["Plus besoin de jetons pour lancer une partie.", "No more tokens needed to start a game.", "لا حاجة إلى رموز لبدء مباراة."], ["Très difficile et Expert", "Very hard and Expert", "صعب جداً وخبير"], ["Les deux niveaux les plus durs, dès que ton XP les atteint.", "The two hardest levels, as soon as your XP reaches them.", "أصعب مستويين، بمجرد أن تبلغهما خبرتك."], ["30 gemmes chaque mois", "30 gems every month", "30 جوهرة كل شهر"], ["Et des articles Pro dans la boutique : cadre, couleur, emblème.", "Plus Pro items in the shop: frame, colour, emblem.", "وعناصر Pro في المتجر: إطار، لون، شعار."], ["Outils pour ta classe", "Tools for your class", "أدوات لقسمك"], ["Donne des devoirs à tes groupes et suis les résultats.", "Give homework to your groups and follow the results.", "أعطِ واجبات لمجموعاتك وتابع النتائج."], ["Geo Quizz Pro", "Geo Quizz Pro", "Geo Quizz Pro"], ["Joue sans limite", "Play without limits", "العب بلا حدود"], ["Le jeu reste gratuit. Pro ajoute tout ça :", "The game stays free. Pro adds all this:", "تبقى اللعبة مجانية. يضيف Pro كل هذا:"], ["Annuel", "Yearly", "سنوي"], ["Mensuel", "Monthly", "شهري"], ["Abonnement renouvelé automatiquement à la fin de chaque période, au même prix, sauf résiliation au moins 24 heures avant. Le paiement est débité sur ton compte Apple. Tu peux gérer ou résilier ton abonnement dans les réglages de ton compte.", "The subscription renews automatically at the end of each period, at the same price, unless cancelled at least 24 hours before. Payment is charged to your Apple account. You can manage or cancel your subscription in your account settings.", "يتجدد الاشتراك تلقائياً في نهاية كل فترة بنفس السعر، ما لم يُلغَ قبل 24 ساعة على الأقل. يُخصم المبلغ من حسابك على Apple. يمكنك إدارة اشتراكك أو إلغاؤه من إعدادات حسابك."], ["Abonnement renouvelé automatiquement à la fin de chaque période, au même prix, sauf résiliation avant la date de renouvellement. Le paiement est débité sur ton compte Google Play. Tu peux gérer ou résilier ton abonnement dans les réglages de ton compte.", "The subscription renews automatically at the end of each period, at the same price, unless cancelled before the renewal date. Payment is charged to your Google Play account. You can manage or cancel your subscription in your account settings.", "يتجدد الاشتراك تلقائياً في نهاية كل فترة بنفس السعر، ما لم يُلغَ قبل تاريخ التجديد. يُخصم المبلغ من حسابك على Google Play. يمكنك إدارة اشتراكك أو إلغاؤه من إعدادات حسابك."], ["Conditions d’utilisation", "Terms of use", "شروط الاستخدام"], ["Pro est actif", "Pro is active", "Pro مفعّل"], ["Gérer mon abonnement", "Manage my subscription", "إدارة اشتراكي"], ["Pour le gérer ou le résilier, ouvre l’app Geo Quizz sur ton téléphone.", "To manage or cancel it, open the Geo Quizz app on your phone.", "لإدارته أو إلغائه، افتح تطبيق Geo Quizz على هاتفك."], ["Où s’abonner ?", "Where to subscribe?", "أين تشترك؟"], ["Pro s’achète dans l’app Geo Quizz sur iPhone et Android. Il marche ensuite partout avec ton compte, ici aussi.", "Pro is bought in the Geo Quizz app on iPhone and Android. It then works everywhere with your account, here too.", "يُشترى Pro في تطبيق Geo Quizz على iPhone وAndroid. ثم يعمل في كل مكان بحسابك، هنا أيضاً."], ["L’abonnement Pro n’est pas encore disponible sur cet appareil. Réessaie plus tard.", "The Pro subscription is not available on this device yet. Try again later.", "اشتراك Pro غير متاح بعد على هذا الجهاز. حاول لاحقاً."], ["Chargement des offres…", "Loading offers…", "جارٍ تحميل العروض…"], ["S’abonner", "Subscribe", "اشترك"], ["Restaurer mes achats", "Restore purchases", "استعادة مشترياتي"], ["Crée un compte pour garder Pro sur tous tes appareils.", "Create an account to keep Pro on all your devices.", "أنشئ حساباً للاحتفاظ بـ Pro على كل أجهزتك."], ["Bienvenue dans Geo Quizz Pro !", "Welcome to Geo Quizz Pro!", "مرحباً بك في Geo Quizz Pro!"], ["L’achat n’a pas abouti. Réessaie dans un instant.", "The purchase did not go through. Try again in a moment.", "لم تتم عملية الشراء. حاول بعد قليل."], ["Achats restaurés : Pro est actif.", "Purchases restored: Pro is active.", "تمت استعادة المشتريات: Pro مفعّل."], ["Aucun abonnement Pro à restaurer sur ce compte.", "No Pro subscription to restore on this account.", "لا يوجد اشتراك Pro لاستعادته في هذا الحساب."], ["Restauration impossible pour le moment. Réessaie.", "Restore is not possible right now. Try again.", "تعذرت الاستعادة حالياً. حاول مجدداً."], ["Royal", "Royal", "ملكي"], ["Couronne", "Crown", "تاج"], ["Parties illimitées, niveaux Expert, 30 gemmes par mois.", "Unlimited games, Expert levels, 30 gems a month.", "مباريات بلا حدود، مستويات خبير، 30 جوهرة شهرياً."], ["Cadeau Pro du mois", "Monthly Pro gift", "هدية Pro الشهرية"], ["30 gemmes offertes chaque mois.", "30 free gems every month.", "30 جوهرة مجانية كل شهر."], ["Parties illimitées avec Pro", "Unlimited games with Pro", "مباريات بلا حدود مع Pro"], ["Parties illimitées, niveaux Très difficile et Expert, devoirs pour ta classe.", "Unlimited games, Very hard and Expert levels, homework for your class.", "مباريات بلا حدود، مستويات صعب جداً وخبير، واجبات لقسمك."], ["Mon abonnement", "My subscription", "اشتراكي"], ["Découvrir Pro", "Discover Pro", "اكتشف Pro"], ["abonnés Pro", "Pro subscribers", "مشتركو Pro"], ["Ce joueur n’a pas d’abonnement Pro.", "This player has no Pro subscription.", "ليس لدى هذا اللاعب اشتراك Pro."], ["Retirer Pro offert", "Remove gifted Pro", "إزالة Pro المهدى"], ["Offrir Pro pendant 1 an", "Give Pro for 1 year", "إهداء Pro لمدة سنة"]]);addPat([[/^Ton abonnement Pro est actif jusqu’au (.+)\.$/,"Your Pro subscription is active until $1.","اشتراكك في Pro مفعّل حتى $1."],[/^Actif jusqu’au (.+) \(offert par un administrateur\)\.$/,"Active until $1 (gifted by an administrator).","مفعّل حتى $1 (هدية من مسؤول)."],[/^Actif jusqu’au (.+)\.$/,"Active until $1.","مفعّل حتى $1."],[/^Terminé le (.+)\.$/,"Ended on $1.","انتهى في $1."],[/^(.+) par an · soit (.+) par mois$/,"$1 a year · that is $2 a month","$1 في السنة · أي $2 في الشهر"],[/^(.+) par an$/,"$1 a year","$1 في السنة"],[/^(.+) par mois$/,"$1 a month","$1 في الشهر"],[/^Cadeau Pro : \+(\d+) gemmes$/,"Pro gift: +$1 gems","هدية Pro: +$1 جوهرة"],[/^Pro · (.+) XP$/,"Pro · $1 XP","Pro · $1 XP"]]);
 addTr([["Parties","Games","المباريات"],["Activité","Activity","النشاط"],["Jeux","Games","الألعاب"],["actifs sur 7 jours","active over 7 days","نشطون خلال 7 أيام"],["parties sur 7 jours","games over 7 days","مباريات خلال 7 أيام"],["inscrits","registered","مسجلون"],["jetons en circulation","tokens in circulation","رموز متداولة"],["gemmes en circulation","gems in circulation","جواهر متداولة"],["Chercher un nom ou un email","Search a name or email","ابحث عن اسم أو بريد"],["Touche un en-tête pour trier, un joueur pour voir son détail.","Tap a header to sort, a player to see details.","المس عنواناً للترتيب، ولاعباً لرؤية التفاصيل."],["Jetons","Tokens","الرموز"],["Gemmes","Gems","الجواهر"],["Niv.","Lvl","المستوى"],["Dernière","Last","الأخيرة"],["Aucun joueur ne correspond.","No matching player.","لا يوجد لاعب مطابق."],["jetons","tokens","رموز"],["gemmes","gems","جواهر"],["badges","badges","شارات"],["parties","games","مباريات"],["joueurs","players","لاعبون"]]);addPat([[/^([\d\s\u202f\u00a0,.]+) parties par jour en moyenne cette semaine$/,"$1 games per day on average this week","$1 مباراة في اليوم في المتوسط هذا الأسبوع"],[/^Voir les (\d+)$/,"Show all $1","عرض الـ $1"]]);
@@ -1600,7 +1612,7 @@ const BADGES=BFAM.flatMap(([fk,ft,col,val,ts])=>ts.map(([id,goal,name,desc],i)=>
 const bstars=(n,of)=>`<em class="bst" role="img" aria-label="${n} étoiles${of?" sur "+of:""}">${Array.from({length:of||n},(_,i)=>`<svg viewBox="0 0 24 24" class="${i<n?"on":""}">${P.star}</svg>`).join("")}</em>`;
 const badgesOf=d=>BADGES.filter(b=>b[3](d||{})).map(b=>b[0]);
 const MSEC={d:["flag","pf","fc","blur"],c:["cap","cp"],m:["cm","mc"],u:["mon","lan","nei","pop"]},MSN={d:"Drapeaux",c:"Capitales",m:"Cartes",u:"Culture"};
-const MPOOL=[["g",3,3],["ok",40,4],["sc",5000,4],["st",1,5],["cb",10,4],["day",1,2],["s_d",1,2],["s_c",1,2],["s_m",1,2],["s_u",1,2],["g",5,5],["ok",25,3],["sc",8000,6]];
+const MPOOL=[["g",3,2],["ok",40,2],["sc",5000,2],["st",1,3],["cb",10,2],["day",1,1],["s_d",1,1],["s_c",1,1],["s_m",1,1],["s_u",1,1],["g",5,3],["ok",25,2],["sc",8000,3]];
 const missionsOf=day=>{const r=rng(+String(day).replace(/-/g,"")*7+3),out=[],fam=new Set();for(const m of shuf(MPOOL,r)){const f=m[0].slice(0,2);if(fam.has(f))continue;fam.add(f);out.push(m);if(out.length===3)break}return out};
 const mLabel=m=>m[0]==="g"?`Jouer ${m[1]} parties`:m[0]==="ok"?`Donner ${m[1]} bonnes réponses`:m[0]==="sc"?`Marquer ${m[1]} points`:m[0]==="st"?"Obtenir 3 étoiles dans une partie":m[0]==="cb"?`Enchaîner ${m[1]} bonnes réponses`:m[0]==="day"?"Terminer le défi du jour":`Jouer une partie de ${MSN[m[0].slice(2)]}`;
 const mStep=(m,job,old,rec)=>m[0]==="g"?old+1:m[0]==="ok"?old+(+job.good||0):m[0]==="sc"?old+(+job.score||0):m[0]==="st"?old+(rec&&job.stars===3?1:0):m[0]==="cb"?Math.max(old,+job.mc||0):m[0]==="day"?old+(job.mode==="day"?1:0):old+(MSEC[m[0].slice(2)].includes(job.mode)&&!job.norec?1:0);
@@ -1630,25 +1642,25 @@ function applyJob(d,job){
  if(job.tn){const o=d.tn&&d.tn.w===job.tn?d.tn:{w:job.tn,s:0,n:0};nd.tn={w:job.tn,s:Math.max(+o.s||0,job.score),n:(+o.n||0)+1}}
  if(job.hw&&job.hw.c){const o=(d.hw||{})[job.hw.c];nd.hw={...(d.hw||{}),[job.hw.c]:{t:job.hw.t,s:Math.max(o&&o.t===job.hw.t?+o.s||0:0,job.score),g:job.good,n:job.n}}}
  if(job.duel&&job.duel.ou&&job.duel.on){const fr={...(d.fr||{})};if(!fr[job.duel.ou]&&Object.keys(fr).length<30){fr[job.duel.ou]=job.duel.on;nd.fr=fr}}
- let tg=0;const cost=job.norec?0:costOf(job.mode);
- if(rec)tg=[0,0,2,4][job.stars||0]+(job.score>old&&old>0&&job.stars>=2?1:0);
- else if(job.mode==="day")tg=[1,2,3,5][job.stars||0];
- else if(job.mode==="duel")tg=job.win?3:(job.duel&&job.duel.r==="draw"?1:0);
- else if(job.mode==="rev")tg=Math.min(4,Math.floor(job.mast.length/3));
+ let tg=0;const cost=job.norec?0:Math.max(0,costOf(job.mode)-(+job.paid||0));
+ if(rec)tg=[0,0,1,3][job.stars||0];
+ else if(job.mode==="day")tg=[0,1,2,3][job.stars||0];
+ else if(job.mode==="duel")tg=job.win?2:0;
+ else if(job.mode==="rev")tg=Math.min(2,Math.floor(job.mast.length/5));
  const MS=missionsOf(job.t),op=d.ms&&d.ms.d===job.t?d.ms.p||[]:[],np=MS.map((m,i)=>Math.min(m[1],mStep(m,job,+op[i]||0,rec))),won=MS.filter((m,i)=>np[i]>=m[1]&&(+op[i]||0)<m[1]);
  nd.ms={d:job.t,p:np};tg+=won.reduce((a,m)=>a+m[2],0);
  nd.tk=Math.max(0,tokensOf(d)-cost-(+job.spent||0))+tg;
  const had=new Set(Object.keys(d.bd||{})),nb=badgesOf(nd).filter(k=>!had.has(k));
  if(nb.length){nd.bd={...(d.bd||{})};nb.forEach(k=>nd.bd[k]=job.t)}
  // gemmes : une par niveau gagné, une par nouvelle étoile de badge (3 au plus par partie)
- const gg=Math.min(3,nb.length)+(lvlOf(x)>lvlOf(x0)?1:0);
+ const gg=Math.min(1,nb.length)+(lvlOf(x)>lvlOf(x0)?1:0);
  // paliers de série : des gemmes à 3, 7, 14, 30, 60 et 100 jours (une fois par série)
  const smc=sn===1||!d.sm?[]:(d.sm.c||[]),smNew=SMS.filter(([k])=>sn>=k&&!smc.includes(k)),sg=smNew.reduce((a,[,g])=>a+g,0);
  nd.sm={c:[...smc,...smNew.map(([k])=>k)]};
  if(gg+sg)nd.gm=gemsOf(d)+gg+sg;
- return{nd,res:{sg,sk:smNew.length?smNew[smNew.length-1][0]:0,ms:won.map(mLabel),best:job.mode==="day"?job.score:m[job.sk]||job.score,rec:rec&&job.score>old,old,x0,lvUp:lvlOf(x)>lvlOf(x0),nb,tg,gg,cost:cost+(+job.spent||0),tk:nd.tk}};
+ return{nd,res:{sg,sk:smNew.length?smNew[smNew.length-1][0]:0,ms:won.map(mLabel),best:job.mode==="day"?job.score:m[job.sk]||job.score,rec:rec&&job.score>old,old,x0,lvUp:lvlOf(x)>lvlOf(x0),nb,tg,gg,cost:cost+(+job.paid||0)+(+job.spent||0),tk:nd.tk}};
 }
-const jobOf=()=>({mode:S.mode,sk:SK(),score:S.score,good:S.good,n:S.qs.length,lv:S.lv,stars:stars(),miss:S.miss.map(c=>c.c),mast:S.mast||[],win:!!S.duelWin,duel:S.duelLog||null,g:(S.marks||[]).join(""),okc:[...new Set(S.okc||[])],mc:S.maxCombo||0,spent:S.spent||0,norec:!!S.special,tn:S.special==="tn"?wkEnd():null,hw:S.special==="hw"?S.hw:null,t:dk(),y:dk(-1),wk:wkKey()});
+const jobOf=()=>({paid:+S.paid||0,mode:S.mode,sk:SK(),score:S.score,good:S.good,n:S.qs.length,lv:S.lv,stars:stars(),miss:S.miss.map(c=>c.c),mast:S.mast||[],win:!!S.duelWin,duel:S.duelLog||null,g:(S.marks||[]).join(""),okc:[...new Set(S.okc||[])],mc:S.maxCombo||0,spent:S.spent||0,norec:!!S.special,tn:S.special==="tn"?wkEnd():null,hw:S.special==="hw"?S.hw:null,t:dk(),y:dk(-1),wk:wkKey()});
 async function saveJob(job){const ref=DB.collection("players").doc(S.uid),snap=await ref.get(),d=(snap.exists&&snap.data())||{},{nd,res}=applyJob(d,job);await ref.set(nd);S.me=nd;saveState();statBump(job);return res}
 function statBump(job){if(!AUTH)return;try{const t=dk();let st=JSON.parse(LS("gq-st","{}"));if(st.d!==t||st.u!==S.uid)st={d:t,u:S.uid,g:0,m:{}};st.g++;const k=job.tn?"tn":job.hw?"hw":job.mode;st.m[k]=(st.m[k]||0)+1;LSset("gq-st",JSON.stringify(st));rput(`stats/${t}/${S.uid}`,{g:st.g,m:st.m}).catch(()=>{})}catch(e){}}
 const Q={get:()=>{try{return JSON.parse(LS("gq-q","[]"))}catch(e){return[]}},set:a=>LSset("gq-q",JSON.stringify(a))};
@@ -1932,8 +1944,8 @@ async function start(seed,lv){
   }
  }
  S.gid=(S.gid||0)+1;
- S.lv=lv;S.qs=build(seed,lv);S.qs.forEach(q=>{if(q.m==="mon"&&q.x&&q.x.img){const i=new Image();i.src=murl(q.x.img)}});S.qs.slice(0,60).forEach(q=>{if(q.a&&q.a.c)new Image().src=furl(q.a.c)});S.marks=[];S.okc=[];S.spent=0;S.lives=0;S.offer=0;S.jk={};S.i=0;S.score=0;S.good=0;S.combo=0;S.maxCombo=0;S.miss=[];S.mast=[];S.gain=0;S.res=null;S.sgT=0;
- const g=S.gid;recFetch(g);if(!await countdown(g))return;
+ S.lv=lv;S.qs=build(seed,lv);S.qs.forEach(q=>{if(q.m==="mon"&&q.x&&q.x.img){const i=new Image();i.src=murl(q.x.img)}});S.qs.slice(0,60).forEach(q=>{if(q.a&&q.a.c)new Image().src=furl(q.a.c)});S.marks=[];S.okc=[];S.spent=0;S.lives=0;S.offer=0;S.jk={};S.i=0;S.score=0;S.good=0;S.combo=0;S.maxCombo=0;S.miss=[];S.mast=[];S.gain=0;S.res=null;S.sgT=0;S.paid=0;
+ const g=S.gid;if(!S.special&&costOf(S.mode)>0&&S.uid&&!(await payEntry()))return noTokens();recFetch(g);if(!await countdown(g))return;
  showQ();
 }
 function countdown(g){
@@ -1958,7 +1970,7 @@ function runTimer(){clearInterval(S.t);if(!TT())return;S.tkc=0;S.t=setInterval((
 function showQ(){S.locked=false;S.hide=[];S.pick=null;S.quit=false;S.hints=0;S.view="play";S.qt0=performance.now();if(S.mode!=="chr"||S.i===0)S.left=TT();play();runTimer();clearInterval(S.bt);if(S.mode==="blur")S.bt=setInterval(()=>{const im=$("fimg");if(!im||S.locked||S.quit)return;const el=(performance.now()-S.qt0)/1000;im.style.filter=`blur(${Math.max(0,16*(1-el/8)).toFixed(1)}px)`},100)}
 function askQuit(){if(S.locked)return;S.quit=true;clearInterval(S.t);play()}
 function resumeGame(){S.quit=false;play();if(!S.locked)runTimer()}
-function quitGame(){S.gid=(S.gid||0)+1;clearInterval(S.t);clearInterval(S.bt);if(S.mode==="duel"){stopPoll();S.duel=null}S.quit=false;if(S.sec)menu(S.sec);else{S.view="home";home()}}
+function quitGame(){S.gid=(S.gid||0)+1;if(!S.special&&S.mode!=="rev")payJokers();S.paid=0;clearInterval(S.t);clearInterval(S.bt);if(S.mode==="duel"){stopPoll();S.duel=null}S.quit=false;if(S.sec)menu(S.sec);else{S.view="home";home()}}
 function play(){
  const q=S.qs[S.i],m=q.m,F="'Bricolage Grotesque','DM Sans',sans-serif";
  const BIG=t=>`<div style="font:800 1.9rem/1.2 ${F};padding:6px 0">${esc(t)}</div>`,SM=t=>`<div style="font:500 .95rem/1.3 'DM Sans','IBM Plex Sans Arabic',sans-serif;color:var(--mute)">${t}</div>`;
@@ -1978,7 +1990,7 @@ function play(){
  ${S.mode==="duel"&&S.duel?duelBar():""}
  <button class="btn alt" id="qt" style="margin-top:14px" ${S.locked&&S.mode!=="rev"?"disabled":""}>${S.mode==="rev"?"Arrêter la révision":"Quitter la partie"}</button>
  ${S.offer?(()=>{const c=lifeCost(),ok=budget()>=c;return `<div class="ov"><div class="card" style="text-align:center"><b>Raté !</b><p class="mute">${S.good?`<span>${pl(S.good,"bonne réponse","bonnes réponses")} jusqu’ici.</span> `:""}<span>Utilise un joker pour continuer ta série.</span></p><button class="btn" id="sv1" ${ok?"":"disabled"}>Seconde chance · ${c} jetons</button>${ok?"":`<p class="mute">Il te faut ${c} jetons. Tu en as ${Math.max(0,budget())}.</p>`}<button class="btn alt" id="sv0">Terminer la partie</button></div></div>`})():""}
- ${S.quit?`<div class="ov"><div class="card"><b>Quitter la partie ?</b><p class="mute">${S.mode==="day"?"Le défi du jour ne se joue qu’une fois : si tu quittes, ton score du jour restera à 0.":"Ta progression sera perdue et ce score ne sera pas enregistré."}</p><button class="btn" id="qc">Continuer</button><button class="btn alt" id="qy">Quitter</button></div></div>`:""}`;
+ ${S.quit?`<div class="ov"><div class="card"><b>Quitter la partie ?</b><p class="mute">${S.mode==="day"?"Le défi du jour ne se joue qu’une fois : si tu quittes, ton score du jour restera à 0.":S.paid||S.spent?"Ta progression et les jetons engagés sur cette partie seront perdus.":"Ta progression sera perdue et ce score ne sera pas enregistré."}</p><button class="btn" id="qc">Continuer</button><button class="btn alt" id="qy">Quitter</button></div></div>`:""}`;
  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.k));app.querySelectorAll("[data-j]").forEach(b=>b.onclick=()=>joker(b.dataset.j));
  const zm=app.querySelector(".zmap");if(zm&&!S.locked)zm.onclick=e=>{const t=e.target.closest("[data-n]");if(t)answer(+t.dataset.n)};
  const tfm=$("tform");if(tfm){tfm.onsubmit=e=>{e.preventDefault();const v=$("ti").value;if(v.trim())answer(v)};$("skip").onclick=()=>answer(null);if(!S.quit)setTimeout(()=>{const i=$("ti");if(i)i.focus()},30)}
@@ -1987,7 +1999,7 @@ function play(){
  const nx=$("nx");if(nx){nx.onclick=()=>nextQ(true);nx.focus()}
  if(S.quit){$("qc").onclick=resumeGame;$("qy").onclick=quitGame}
 }
-const JP={h:3,t:2,s:4},budget=()=>tokensOf(S.me)-(S.special?0:costOf(S.mode))-(S.spent||0);
+const JP={h:3,t:2,s:4},budget=()=>tokensOf(S.me)-(S.special||S.paid?0:costOf(S.mode))-(S.spent||0);
 function jokers(q){
  if(S.special||S.lv===5||["day","duel","rev"].includes(S.mode)||S.locked||S.quit)return"";
  const U=S.jk||{},b=budget(),B=(id,l,ok)=>U[id]||!ok?"":`<button class="jk" data-j="${id}" ${b<JP[id]?"disabled":""}><b>${l}</b><span>${sv("coin")}${JP[id]}</span></button>`;
