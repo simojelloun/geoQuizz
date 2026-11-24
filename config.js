@@ -4,8 +4,8 @@
 // contact : adresse email affichée aux joueurs (confidentialité, règles du jeu, signalements). OBLIGATOIRE pour l'App Store.
 // editor : nom affiché comme responsable du jeu sur la page de confidentialité.
 // site : adresse publique du jeu, utilisée dans les liens partagés depuis l'app iOS.
-// rcIos / rcAndroid : clés publiques RevenueCat (abonnement Pro), « appl_… » et « goog_… ». Vides = Pro pas encore en vente.
-// appStore / playStore : liens vers l'app dans les stores, affichés sur le site web pour s'abonner (facultatif).
+// rcIos / rcAndroid : clés publiques RevenueCat (achat de gemmes), « appl_… » et « goog_… ». Vides = gemmes pas encore en vente.
+// appStore / playStore : liens vers l'app dans les stores, facultatifs.
 window.GQ_CONFIG={
   firebaseUrl:"https://geoquizz-5c149-default-rtdb.europe-west1.firebasedatabase.app",
   apiKey:"AIzaSyCtM7CPpQ4vmH65czAn85CW4SxyWfcX8nc",
