@@ -1172,7 +1172,7 @@ async function lvUnlock(k){
 }
 function lvSheet(k){
  const md=S.mode,top=lvTop(S.me,md),need=Math.max(1,xpn(LVG[k])-xpn(gxOf(S.me,md))),g=gemsOf(S.me),nxt=k===top+1,ok=nxt&&g>=LVP[k],o=$("lvo");if(o)o.remove();
- app.insertAdjacentHTML("beforeend",`<div class="ov" id="lvo"><div class="card" style="text-align:center"><b>${LV[k].n} est verrouillé</b><p class="mute">${nxt?`<span>Encore ${fmt(need)} XP à gagner dans ce jeu.</span> <span>Ou débloque-le tout de suite avec des gemmes.</span>`:`Débloque d’abord le niveau ${LV[top+1].n}.`}</p>${nxt?`<button class="btn" id="lub" ${ok?"":"disabled"}>Débloquer ${sv("gem")}${LVP[k]}</button>${ok?"":`<p class="mute" style="margin:6px 0 0">Il te manque ${LVP[k]-g} gemmes.</p><button class="btn alt" id="lug">Obtenir des gemmes</button>`}`:""}<button class="btn alt" id="lux">Fermer</button></div></div>`);
+ app.insertAdjacentHTML("beforeend",`<div class="ov" id="lvo"><div class="card" style="text-align:center"><b>${LV[k].n} est verrouillé</b><p class="mute">${nxt?`<span>Encore ${fmt(need)} XP à gagner dans ce jeu.</span> <span>Ou débloque-le tout de suite avec des gemmes.</span>`:`Débloque d’abord le niveau ${LV[top+1].n}.`}</p>${nxt?`<button class="btn" id="lub" ${ok?"":"disabled"}>Débloquer <span class="tkb">${sv("gem")}${LVP[k]}</span></button>${ok?"":`<p class="mute" style="margin:6px 0 0">Il te manque ${LVP[k]-g} gemmes.</p><button class="btn alt" id="lug">Obtenir des gemmes</button>`}`:""}<button class="btn alt" id="lux">Fermer</button></div></div>`);
  $("lux").onclick=()=>$("lvo").remove();if($("lub"))$("lub").onclick=()=>lvUnlock(k);if($("lug"))$("lug").onclick=()=>shop();
 }
 async function giveGems(uid,n){
@@ -1205,15 +1205,15 @@ function noTokens(){
  app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>À demain<span>.</span></h1></div>
  <p class="sub">Tu as joué tes ${FREE_G} parties offertes d’aujourd’hui. Reviens demain : ${FREE_G} nouvelles parties t’attendent.</p>
  <div class="card"><b class="h3">Continuer aujourd’hui</b>
- <div class="pl"><span>Une partie de plus</span><b>${gem(XG)}</b></div>
+ <div class="pl tap" id="nrow" role="button" tabindex="0"><span>Une partie de plus</span><b>${gem(XG)}</b></div>
  <div class="pl"><span>Tes gemmes</span><b>${gem(g)}</b></div></div>
- ${can?`<button class="btn" id="npl">Jouer cette partie ${sv("gem")}${XG}</button>`:""}${AUTH||NATIVE?`<button class="btn ${can?"alt":""}" id="ngem">Obtenir des gemmes</button>`:""}
+ ${can?`<button class="btn" id="npl">Jouer cette partie <span class="tkb">${sv("gem")}${XG}</span></button>`:""}${AUTH||NATIVE?`<button class="btn ${can?"alt":""}" id="ngem">Obtenir des gemmes</button>`:""}
  <div class="card"><b class="h3">Toujours gratuit</b>
  <div class="pl"><span>Défi du jour</span>${dd?`<b>demain</b>`:`<button class="btn sm" id="dy">Jouer</button>`}</div>
  <div class="pl"><span>Révision</span>${rv?`<button class="btn sm" id="rvw">Réviser</button>`:`<b>–</b>`}</div>
  ${AUTH?`<div class="pl"><span>Duel</span><button class="btn sm" id="ndl">Défier</button></div>`:""}</div>`;
  $("hm").onclick=()=>{S.view="home";home()};
- if($("npl"))$("npl").onclick=()=>{const f=S.again;S.again=null;if(f)f()};if($("ngem"))$("ngem").onclick=()=>shop();
+ {const go=()=>{const f=S.again;S.again=null;if(f)f()};if($("npl"))$("npl").onclick=go;$("nrow").onclick=()=>can?go():AUTH||NATIVE?shop():0}if($("ngem"))$("ngem").onclick=()=>shop();
  if($("dy"))$("dy").onclick=startDay;if($("rvw"))$("rvw").onclick=startRev;if($("ndl"))$("ndl").onclick=()=>duelScreen();
 }
 const tkLine=r=>r&&r.tk!==undefined?`<div class="card tkl gml">${sv("gem")}<div><b>${r.gg?`+${r.gg} ${r.gg>1?"gemmes gagnées":"gemme gagnée"}`:"Aucune gemme gagnée"}</b>${r.sg?`<small class="msw">${sv("fire")}<span>Série de ${r.sk} jours : +${r.sg} ${r.sg>1?"gemmes":"gemme"}</span></small>`:""}<small>${r.free?"Partie offerte · ":""}${r.cost?`Dépensé : −${r.cost} ${r.cost>1?"gemmes":"gemme"} · `:""}Solde : ${fmt(r.gm)} ${r.gm>1?"gemmes":"gemme"}</small>${r.ms&&r.ms.length?`<small class="msw">Mission réussie : ${r.ms.map(esc).join(" · ")}</small>`:""}</div></div>`:"";
