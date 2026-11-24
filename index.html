@@ -1824,7 +1824,9 @@ const legacy=(d,m)=>d.b?Math.max(0,...[1,2,3,4].map(k=>+d.b[m+"-"+k]||0)):0;
 const bm=(d,m)=>Math.max(+(d.m&&d.m[m])||0,legacy(d,m));
 const NAMES=new Set(),NM=x=>{const v=String(x==null?"":x);if(v)NAMES.add(v.trim());return esc(v)},PN=x=>`<span translate="no">${NM(x)}</span>`;
 const GK=MK.filter(k=>k!=="surv"&&!/^(cm|mc)_/.test(k)),totalBest=d=>GK.reduce((t,k)=>t+bm(d,k),0)+["cm","mc"].reduce((t,g)=>t+Math.max(0,...Object.keys(ZONES).map(z=>bm(d,g+"_"+z))),0);
-const xpn=x=>Math.floor((+x||0)/100),xpf=x=>fmt(xpn(x)),xpg=s=>fmt(s>0?Math.max(1,Math.round(s/100)):0);
+const xpn=x=>Math.floor((+x||0)/100),xpf=x=>fmt(xpn(x)),xpg=s=>fmt(s>0?Math.max(1,Math.round(xpOf(s)/100)):0);
+// XP gagnée par partie = score × XPM (plafonnée sous la limite des règles Firebase : +250 000 par écriture).
+const XPM=2,xpOf=s=>Math.min(240000,Math.max(0,Math.round((+s||0)*XPM)));
 const tv=(d,m)=>m==="tn"?(d.tn&&d.tn.w===wkEnd()?+d.tn.s||0:0):m==="lg"?wkScore(d,wkKey()):m==="week"?(d.wk&&d.wk.w===wkKey()?+d.wk.s||0:0):m==="xp"?+d.x||0:m==="day"?(dayDone(d)?+d.dc.s||0:0):m==="all"?totalBest(d):bm(d,m);
 const wkKey=(o=0)=>{const d=new Date(Date.now()+o*864e5);d.setDate(d.getDate()-(d.getDay()+6)%7);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 const BASEK=["flag","pf","fc","cap","cp","ct","mix","surv","chr"];
@@ -1856,7 +1858,7 @@ function applyJob(d,job){
  const m={};MK.forEach(k=>{m[k]=bm(d,k)});
  const rec=!["day","rev","duel"].includes(job.mode)&&!job.norec,old=rec?(m[job.sk]||0):0;
  if(rec)m[job.sk]=Math.max(old,job.score);
- const sn=d.sd===job.t?(+d.sn||1):d.sd===job.y?(+d.sn||0)+1:1,x0=+d.x||0,x=x0+job.score;
+ const sn=d.sd===job.t?(+d.sn||1):d.sd===job.y?(+d.sn||0)+1:1,x0=+d.x||0,x=x0+xpOf(job.score);
  const c={...(d.c||{})},inc=(k,v=1)=>c[k]=(+c[k]||0)+v;
  if(rec&&job.n>=20&&job.good>=job.n)inc("perf");
  if(rec&&job.lv>=4&&job.stars===3)inc("x4");
@@ -1879,7 +1881,7 @@ function applyJob(d,job){
  if(job.hw&&job.hw.c){const o=(d.hw||{})[job.hw.c];nd.hw={...(d.hw||{}),[job.hw.c]:{t:job.hw.t,s:Math.max(o&&o.t===job.hw.t?+o.s||0:0,job.score),g:job.good,n:job.n}}}
  if(job.duel&&job.duel.ou&&job.duel.on){const fr={...(d.fr||{})};if(!fr[job.duel.ou]&&Object.keys(fr).length<30){fr[job.duel.ou]=job.duel.on;nd.fr=fr}}
  const tg=0,top0=lvTop(d,job.mode);
- if(rec)nd.gx={...(d.gx||{}),[job.mode]:gxOf(d,job.mode)+job.score};
+ if(rec)nd.gx={...(d.gx||{}),[job.mode]:gxOf(d,job.mode)+xpOf(job.score)};
  const MS=missionsOf(job.t),op=d.ms&&d.ms.d===job.t?d.ms.p||[]:[],np=MS.map((m,i)=>Math.min(m[1],mStep(m,job,+op[i]||0,rec))),won=MS.filter((m,i)=>np[i]>=m[1]&&(+op[i]||0)<m[1]);
  nd.ms={d:job.t,p:np};
  if(+job.spent)nd.gm=Math.max(0,gemsOf(d)-(+job.spent||0));
