@@ -362,6 +362,7 @@ img.ava{object-fit:cover;background:var(--line)}
 [data-pu]{cursor:pointer}.psh .ava{width:72px;height:72px;border-radius:50%}.psh .btn{margin-top:8px}.rul{text-align:start;max-height:60vh;overflow:auto}.rul p{margin:0 0 10px;font-size:.9rem;line-height:1.45}
 .nat,.nat body{overscroll-behavior:none}.nat body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.nat input,.nat textarea{-webkit-user-select:text;user-select:text}img{-webkit-user-drag:none}a,button{-webkit-tap-highlight-color:transparent}
 .hero{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;margin:0 0 14px;padding:20px 18px 20px 20px;border:0;border-radius:20px;text-align:start;background:linear-gradient(120deg,#e3a400,#c98500);color:#0c1b2e;box-shadow:0 5px 0 #8f5d00;overflow:hidden;cursor:pointer;transition:transform .08s,box-shadow .08s;font:inherit}
+.hero.hcl{background:linear-gradient(120deg,#22a447,#13843a);color:#fff;box-shadow:0 5px 0 #0b5a26}.hero.hcl:active{box-shadow:0 2px 0 #0b5a26}.hero.hch .hft b{font-size:1.4rem;line-height:1.12}.hero .hgm{display:inline-flex;align-items:center;gap:2px;font-weight:800;white-space:nowrap}.hero .hgm svg{width:1.05em;height:1.05em;fill:#0b5fa5}
 .hero:active{transform:translateY(3px);box-shadow:0 2px 0 #8f5d00}
 .hero .hft{min-width:0}.hero .hft b{display:block;font:800 2rem/1 var(--D)}.hero .hft small{display:block;margin-top:7px;font-size:.9rem;opacity:.94}
 .hero .hfl{display:flex;flex:none;padding-inline-start:14px}
@@ -461,6 +462,14 @@ img.ava{object-fit:cover;background:var(--line)}
 @keyframes tsh{0%,80%{left:-60%}100%{left:140%}}
 @media (prefers-reduced-motion:reduce){.tile .nt,.tile .nt svg,.tile::after{animation:none}}
 .ulb{display:inline-flex;align-items:center;gap:4px;color:#b7791f;font-weight:800}.ulb svg{width:14px;height:14px;fill:#ffb703;stroke:#b97f00;stroke-width:1.6;stroke-linejoin:round}
+/* récompenses : diamant qui scintille + étoile qui brille */
+#drb,#chb,#evb,.chg,.evn>b,.drc .now b,.hero .hgm{position:relative;overflow:visible}
+#drb svg,#chb svg,#evb svg,.chg svg,.evn>b svg,.drc .now b svg,.hero .hgm svg{animation:gtw 1.8s ease-in-out infinite;transform-origin:50% 55%;filter:drop-shadow(0 0 3px rgba(80,200,255,.75))}
+#drb::after,#chb::after,#evb::after,.chg::after,.evn>b::after,.drc .now b::after,.hero .hgm::after{content:"";position:absolute;top:-6px;inset-inline-end:-5px;width:12px;height:12px;background:radial-gradient(circle,#fff 0 22%,#ffe066 45%,#ffb300 70%);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:gsp 2.4s ease-in-out infinite;pointer-events:none;z-index:2}
+.drc .now b::after{top:-9px}.chg::after{animation-delay:-.8s}.evn>b::after{animation-delay:-1.6s}
+@keyframes gtw{0%,100%{transform:scale(1) rotate(0);filter:drop-shadow(0 0 2px rgba(80,200,255,.6)) brightness(1)}45%{transform:scale(1.22) rotate(-8deg);filter:drop-shadow(0 0 7px rgba(120,220,255,1)) brightness(1.35)}60%{transform:scale(1.1) rotate(4deg)}}
+@keyframes gsp{0%,55%,100%{transform:scale(0) rotate(0);opacity:0}70%{transform:scale(1.15) rotate(90deg);opacity:1}85%{transform:scale(.7) rotate(160deg);opacity:.8}}
+@media (prefers-reduced-motion:reduce){#drb svg,#chb svg,#evb svg,.chg svg,.evn>b svg,.drc .now b svg,.hero .hgm svg,#drb::after,#chb::after,#evb::after,.chg::after,.evn>b::after,.drc .now b::after,.hero .hgm::after{animation:none}#drb::after,#chb::after,#evb::after,.chg::after,.evn>b::after,.drc .now b::after,.hero .hgm::after{display:none}}
 </style></head>
 <body><main id="app"></main>
 <script src="config.js"></script>
@@ -685,7 +694,11 @@ function home(fromX){
  ${row(fs[2],"gem","Récupère ta récompense du jour",fs[2]?"Reviens demain pour la suivante.":"Une gemme offerte chaque jour.",fs[2]?"":`<button class="btn sm" id="drb">+${dri.amt}${sv("gem")}</button>`)}
  <p class="tdf">${sv("star")}<span>Ensuite : ligues, missions, coffre du jour et tournoi.</span></p></div>`:"";
  const lp=(()=>{try{const o=JSON.parse(LS("gq-lp","")||"null");if(o&&SEC[o.s]&&SEC[o.s].includes(o.m)&&MODES[o.m])return o}catch(e){}return{s:"d",m:"flag",l:1,z:null}})(),hfl=(()=>{if(!fromX||!S.hfl){const p=C.filter(c=>c.t===1),o=[];while(o.length<3&&p.length)o.push(p.splice(Math.floor(Math.random()*p.length),1)[0].c);S.hfl=o}return S.hfl})();
- const hero=`<button class="hero" id="qp" style="--sc:${SG[lp.s][0]}"><span class="hft"><b>Jouer</b><small>${MODES[lp.m]}${lp.s==="m"&&lp.z&&ZONES[lp.z]?" · "+ZONES[lp.z]:""}</small></span><span class="hfl" aria-hidden="true">${[0,1,2].map(i=>flag(hfl[i])).join("")}</span></button>`;
+ // bouton jaune = un défi à jouer (jour, tournoi de la semaine, mission spéciale) ; bouton vert = jeu classique quand tous les défis sont faits
+ const hch=(()=>{if(!dd)return{k:"day",t:"Défi du jour",s:"20 questions, une seule tentative."};if(AUTH&&tnOn()&&tnLeft()>0)return{k:"tn",t:"Tournoi du week-end",s:"5 gemmes pour le 1er"};
+  const E=evAt(evNow());if(E){const o=(d.ev||{})[E.id]||{},D=EVS[E.k];if(!o.c&&(+o.n||0)<D[3])return{k:"ev",t:`<span>Mission spéciale</span> <span>${D[0]}</span>`,s:`<span>${+o.n||0} / ${D[3]} bonnes réponses</span> <span class="hgm">+${D[4]}${sv("gem")}</span>`}}return null})();
+ S.hch=hch&&hch.k;
+ const hero=`<button class="hero ${hch?"hch":"hcl"}" id="qp" style="--sc:${SG[lp.s][0]}"><span class="hft"><b>${hch?hch.t:"Jouer"}</b><small>${hch?hch.s:MODES[lp.m]+(lp.s==="m"&&lp.z&&ZONES[lp.z]?" · "+ZONES[lp.z]:"")}</small></span><span class="hfl" aria-hidden="true">${[0,1,2].map(i=>flag(hfl[i])).join("")}</span></button>`;
  const tiles=[["sd","d","Drapeaux"],["sc","c","Capitales"],["sm","m","Cartes"],["su","u","Culture"],["sx","x","Défis"]].map(([id,k,t])=>`<button class="tile" id="${id}" style="--tc:${SG[k][0]}"><span class="nt" style="background:${SG[k][0]}">${sv(SG[k][2])}</span><b>${t}</b></button>`).join("")+(AUTH?`<button class="tile" id="dl" style="--tc:#db2777"><span class="nt" style="background:#db2777">${sv("swords")}</span><b>Duel</b></button>`:"");
  app.innerHTML=`<div class="hb"><h1>Geo Quizz<span>.</span></h1><span class="hbr"><button class="tkb ${S.gmP!==undefined&&gemsOf(d)>S.gmP?"gup":""}" id="shop" aria-label="Boutique">${gem(gemsOf(d))}</button><button class="gear" id="st" aria-label="Réglages">${sv("gear")}</button></span></div>
  <div class="card pc"><div class="stamp"><div><small>NIVEAU</small>${L}</div></div><div class="pi"><div class="pn"><button class="avb" id="avb" aria-label="Changer d’avatar">${avAny(d,S.uid)}</button>${shIt("av",shOf(d).av)[2]&&P[shIt("av",shOf(d).av)[2]]?`<span class="av">${sv(shIt("av",shOf(d).av)[2])}</span>`:""}${PN(S.name||"")}<button id="chg" class="lk">${AUTH?"compte":"changer"}</button></div><div class="pt">${titleOf(L)}${AUTH&&!BEG?` · <span class="lgc" style="--lc:${LEAGUES[tierOf(d)][1]}">Ligue ${LEAGUES[tierOf(d)][0]}</span>`:""}${st?`<span class="stk" role="img" aria-label="Série de ${pl(st,"jour","jours")}">${sv("fire")}${st}</span>`:""}</div><button class="pbd" id="bdg" aria-label="Badges">${sv("medal")}<span>${Object.keys(d.bd||{}).length}/${BADGES.length}</span></button><div class="xp"><i style="width:${Math.round((x-a)/(b-a)*100)}%"></i></div><div class="px"><span>${xpf(x)} XP</span><span>niveau ${L+1} à ${xpf(b)} XP</span></div></div></div>
@@ -694,7 +707,7 @@ function home(fromX){
  ${!BEG&&st&&!today?`<p class="strk on">${sv("fire")}<span>Série de ${pl(st,"jour","jours")} en jeu : joue aujourd’hui pour la garder.</span></p>`:""}
  ${BEG?"":hero}
  ${BEG?"":evCard(d)}
- ${!BEG&&tnOn()?`<button class="nav" id="tnb"><span class="nt" style="background:#b7791f">${sv("trophy")}</span><span><b>Tournoi du week-end</b><small>${tnBest()?`Mon meilleur score : ${fmt(tnBest())} · `:""}5 gemmes pour le 1er</small></span><i>›</i></button>`:""}
+ ${!BEG&&tnOn()&&S.hch!=="tn"?`<button class="nav" id="tnb"><span class="nt" style="background:#b7791f">${sv("trophy")}</span><span><b>Tournoi du week-end</b><small>${tnBest()?`Mon meilleur score : ${fmt(tnBest())} · `:""}5 gemmes pour le 1er</small></span><i>›</i></button>`:""}
  <h2 class="shd">Tous les jeux${ADM()?"":`${ulOn(d)?`<small class="ulb">${sv("star")}<span>${ulTxt(d)}</span></small>`:`<small id="fgl" data-n="${enOf(d).n}">${fglHtml(d)}</small>`}`}</h2>
  <div class="grid g3">${tiles}</div>
  ${BEG||allDone?"":tdy}
@@ -707,7 +720,7 @@ function home(fromX){
  S.special=null;S.zf=null;S.hw=null;applyShop();S.g20=0;$("shop").onclick=()=>shop();if($("shop2"))$("shop2").onclick=()=>shop();if(!fromX)socialCheck();if($("fp1"))$("fp1").onclick=()=>{S.mode="flag";S.sec="d";S.zone=null;S.zf=null;start(Date.now()%2147483647,1)};if($("fp2"))$("fp2").onclick=()=>menu("c");
  if($("evb"))$("evb").onclick=()=>claimEvent($("evb").dataset.id);
  if(app.querySelector(".evc")&&!fromX){const E=evAt(evNow());if(E&&LS("gq-evc","")!==E.id+dk()){LSset("gq-evc",E.id+dk());setTimeout(()=>{if(S.view==="home")confetti()},400)}}
- if($("qp"))$("qp").onclick=()=>{S.sec=lp.s;S.mode=lp.m;S.zone=lp.s==="m"?lp.z||null:null;S.zf=null;if(lp.s==="m"&&!S.zone)return menu("m");S.okGem=freeLeft(S.me)>0?1:0;start(Date.now()%2147483647,Math.max(1,Math.min(+lp.l||1,lvMax(lp.m))))};
+ if($("qp"))$("qp").onclick=()=>{if(S.hch==="day")return startDay();if(S.hch==="tn")return tnStart();S.sec=lp.s;S.mode=lp.m;S.zone=lp.s==="m"?lp.z||null:null;S.zf=null;if(lp.s==="m"&&!S.zone)return menu("m");S.okGem=freeLeft(S.me)>0?1:0;start(Date.now()%2147483647,Math.max(1,Math.min(+lp.l||1,lvMax(lp.m))))};
  if($("ivj")){const iv=S.inv,clr=()=>{S.inv=null;if(iv.o){(S.ovx||(S.ovx={}))[iv.c]=1;return}rput(`inbox/${S.uid}/${iv.f}`,null).catch(()=>{})};$("ivj").onclick=async()=>{clr();try{await joinDuel(iv.c)}catch(e){if(iv.o){duelScreen();alertIn("oe",amsg(E("OTAKEN")))}else duelScreen(iv.c)}};$("ivx").onclick=()=>{clr();home(true)};$("ivb").onclick=async()=>{const b=$("ivb");b.disabled=true;try{await setBlock(iv.f,iv.n,true);toast(tr("Joueur bloqué."),"good")}catch(e){}clr();home(true)}}if($("gac"))$("gac").onclick=()=>guestGo(false,"up");
  if($("hwg"))$("hwg").onclick=()=>hwStart(hwTodo()[0]);if($("ssb")){$("ssb").onclick=async e=>{const b=e.currentTarget,i=ssInfo(S.me);if(i&&!(await gemConfirm(i.p,"Sauver ma série")))return;b.disabled=true;saveStreak()};$("ssx").onclick=()=>{S.ssNo=dk();home(true)}}
  if($("mx3"))$("mx3").onclick=()=>{S.tnMsg=null;home(true)};if($("tnb"))$("tnb").onclick=tnScreen;
@@ -779,10 +792,11 @@ const LDB=(()=>{
   get:async()=>({docs:Object.entries(rd()[c]||{}).map(([id,v])=>({id,data:()=>v}))})
  })}
 })();
+const GPV={};
 const RDB=base=>({collection:c=>({
  doc:id=>({
-  get:async()=>{const r=await fetch(`${base}/${c}/${id}.json`+await aq());if(!r.ok)throw 0;const v=await r.json();return{exists:v!=null,data:()=>v}},
-  set:async o=>{if(c==="players"&&o&&typeof o==="object"&&(o.pr!==undefined||o.pg!==undefined)){o={...o};delete o.pr;delete o.pg}const r=await fetch(`${base}/${c}/${id}.json`+await aq(),{method:"PUT",body:JSON.stringify(o)});if(!r.ok)throw 0},
+  get:async()=>{const r=await fetch(`${base}/${c}/${id}.json`+await aq());if(!r.ok)throw 0;const v=await r.json();if(c==="players")GPV[id]=v;return{exists:v!=null,data:()=>v}},
+  set:async o=>{const pv=c==="players"?GPV[id]:undefined;if(c==="players"&&o&&typeof o==="object"&&(o.pr!==undefined||o.pg!==undefined)){o={...o};delete o.pr;delete o.pg}const r=await fetch(`${base}/${c}/${id}.json`+await aq(),{method:"PUT",body:JSON.stringify(o)});if(!r.ok)throw 0;if(c==="players"){GPV[id]=o;if(pv&&o&&typeof S!=="undefined"&&id===S.uid)gemStat(Math.max(0,gemsOf(pv)-gemsOf(o)),Math.max(0,(+o.gb||0)-(+pv.gb||0)))}},
   delete:async()=>{const r=await fetch(`${base}/${c}/${id}.json`+await aq(),{method:"DELETE"});if(!r.ok)throw 0}}),
  get:async()=>{const r=await fetch(`${base}/${c}.json`+await aq());if(!r.ok)throw 0;const v=(await r.json())||{};return{docs:Object.entries(v).map(([id,x])=>({id,data:()=>x}))}}
 })});
@@ -1155,7 +1169,7 @@ function shop(msg=""){
  app.innerHTML=`<div class="rh"><button class="bk" id="hm" aria-label="Accueil">‹</button><h1>Boutique<span>.</span></h1><span style="margin-inline-start:auto;display:inline-flex;gap:6px">${gem(gemsOf(S.me))}</span></div>
  <p class="sub">Du style, rien que du style : aucun article ne donne d’avantage en jeu.</p><p class="err" role="alert">${esc(msg)}</p>
  ${AUTH||NATIVE?`<div class="card"><label>Acheter des gemmes</label>${!NATIVE?`<p class="hint2" style="margin:0">Les gemmes s’achètent dans l’app Geo Quizz sur iPhone et Android. Elles arrivent ensuite sur ton compte, ici aussi.</p>`:!RCK()||S.gemPk===false?`<p class="hint2" style="margin:0">L’achat de gemmes n’est pas encore disponible sur cet appareil.</p>`:!S.gemPk?`<p class="hint2" style="margin:0">Chargement des offres…</p>`:`<div class="shg">${S.gemPk.map((p,i)=>`<button class="shi gbuy" data-gb="${i}"><span class="sw gsw">${sv("gem")}</span><b>${gemsOfPkg(p)} gemmes</b><small class="gbp">${esc(p.product.priceString||"")}</small></button>`).join("")}</div><p class="hint2" style="margin:8px 0 0">Paiement unique, sans abonnement, débité sur ton compte ${PLAT()==="android"?"Google Play":"Apple"}.</p>`}</div>`:""}
- <div class="card"><label>Gagner des gemmes</label><p class="hint2" style="margin:0">Récompense du jour, coffre du jour, niveau gagné, nouvelle étoile de badge, série de 7 jours. ${GCAP} gemmes par jour au plus.</p></div>
+ <div class="card"><label>Gagner des gemmes</label><p class="hint2" style="margin:0">Récompense du jour, coffre du jour, niveau gagné, nouvelle étoile de badge, série de 7 jours.</p></div>
  ${sec("vi","Thème d’affichage")}${sec("fr","Cadre d’avatar")}${sec("pc","Couleur du passeport")}${sec("av","Emblème à côté du pseudo")}${sec("th","Couleur du jeu")}`;
  $("hm").onclick=()=>{S.view="home";home()};app.querySelectorAll(".shi[data-k]").forEach(b=>b.onclick=async()=>{const it=shIt(b.dataset.k,b.dataset.i),own=(shOf(S.me).o||{})[b.dataset.i];if(it&&it[3]&&!own&&gemsOf(S.me)>=it[3]&&!(await gemConfirm(it[3],"Acheter cet article")))return;b.disabled=true;shopBuy(b.dataset.k,b.dataset.i)});app.querySelectorAll(".shi[data-gb]").forEach(b=>b.onclick=()=>gemBuyReal(+b.dataset.gb,b));gemPkLoad();
 }
@@ -1193,9 +1207,9 @@ const TFREE=["day","rev","duel"],DRW=[1,1,1,1,1,1,3];
 const gemsOf=d=>Math.max(0,+(d&&d.gm)||0),gem=n=>`<span class="tkc gmc">${sv("gem")}<b>${fmt(n)}</b></span>`;
 // ÉCONOMIE : une seule monnaie, les gemmes. Tout le jeu est ouvert à tous.
 // Parties offertes : une réserve de FREE_G parties qui se recharge (voir enOf), puis XG gemmes par partie. Défi du jour, révision, duel, devoirs et tournoi restent gratuits.
-// Les gemmes se gagnent en petite quantité (GCAP par jour au plus, vérifié par les règles Firebase) ou s'achètent (achats intégrés).
+// Les gemmes gagnées en jeu n'ont plus de limite visible (GCAP = garde-fou anti-triche, vérifié par les règles Firebase) ou s'achètent (achats intégrés).
 // L'administrateur joue sans limite, a tous les niveaux et peut donner des gemmes depuis le tableau de bord.
-const FREE_G=10,REGEN_H=2,REGEN=REGEN_H*36e5,XG=1,GCAP=10,ADM=()=>S.adm===true,UD=()=>Math.floor(Date.now()/864e5);
+const FREE_G=10,REGEN_H=2,REGEN=REGEN_H*36e5,XG=1,GCAP=300,ADM=()=>S.adm===true,UD=()=>Math.floor(Date.now()/864e5);
 // Réserve de parties offertes : FREE_G au maximum, +1 toutes les REGEN_H heures. Champ en = {n: parties en réserve, t: début du compte de la prochaine}.
 // L'heure vient du serveur (srvSync) puis d'un compteur que l'horloge du téléphone ne peut pas modifier : avancer l'heure ne recharge plus les parties.
 const tnow=()=>window.GQ_NOW||(S.srv?S.srv.t+(performance.now()-S.srv.p):Date.now());
@@ -1601,6 +1615,7 @@ const MAN=[["Jouer une partie","Choisis un jeu sur l’accueil, puis une difficu
 [["Offrir des gemmes","Give gems","إهداء جواهر","Regalar gemas"],["Les joueurs voient un message de cadeau à leur prochaine visite.","Players see a gift message on their next visit.","يرى اللاعبون رسالة هدية في زيارتهم التالية.","Los jugadores ven un mensaje de regalo en su próxima visita."],["À qui ?","To whom?","لمن؟","¿A quién?"],["Actifs sur 7 jours","Active in the last 7 days","النشطون خلال 7 أيام","Activos en 7 días"],["Un joueur","One player","لاعب واحد","Un jugador"],["Combien ?","How many?","كم؟","¿Cuántas?"]].forEach(([f,e,a,s])=>{TRD.en.set(f,e);TRD.ar.set(f,a);TRD.es.set(f,s)});
 [[/^Offrir (\d+) gemmes à (\d+) joueurs?$/,x=>"Give "+x[1]+" gems to "+(x[2]==1?"1 player":x[2]+" players"),"إهداء $1 جوهرة إلى $2 لاعب",x=>"Regalar "+x[1]+" gemas a "+(x[2]==1?"1 jugador":x[2]+" jugadores")],[/^Envoi… (\d+)\/(\d+)$/,"Sending… $1/$2","جارٍ الإرسال… $1/$2","Enviando… $1/$2"],[/^Gemmes offertes à (\d+) joueurs?$/,x=>"Gems given to "+(x[1]==1?"1 player":x[1]+" players"),"أُهديت الجواهر إلى $1 لاعب",x=>"Gemas regaladas a "+(x[1]==1?"1 jugador":x[1]+" jugadores")],[/^Cadeau de l’équipe Geo Quizz : \+(\d+) gemmes$/,"A gift from the Geo Quizz team: +$1 gems","هدية من فريق جيو كويز: +$1 جوهرة","Regalo del equipo de Geo Quizz: +$1 gemas"]].forEach(([r,e,a,s])=>{TRP.push([r,e,a]);TRPES.set(r.source,s)});
 [["+1 dans","+1 in","+1 بعد","+1 en"],["Prochaine partie dans","Next game in","المباراة التالية بعد","Próxima partida en"],["Horloge avancée","Clock set ahead","ساعة مقدَّمة","Reloj adelantado"],["Trop de parties offertes","Too many free games","مباريات مجانية أكثر من الممكن","Demasiadas partidas gratis"]].forEach(([f,e,a,s])=>{TRD.en.set(f,e);TRD.ar.set(f,a);TRD.es.set(f,s)});
+(()=>{[["Récompense du jour, coffre du jour, niveau gagné, nouvelle étoile de badge, série de 7 jours.","Daily reward, daily chest, level gained, new badge star, 7-day streak.","مكافأة اليوم، صندوق اليوم، مستوى جديد، نجمة شارة جديدة، سلسلة 7 أيام.","Recompensa del día, cofre del día, nivel ganado, nueva estrella de insignia, racha de 7 días."]].forEach(([f,e,a,x])=>{TRD.en.set(f,e);TRD.ar.set(f,a);TRD.es.set(f,x)})})();
 (()=>{const T=[["Mission spéciale","Special mission","مهمة خاصة","Misión especial"],["Dépenser","Spend","إنفاق","Gastar"],["Acheter cet article","Buy this item","شراء هذا العنصر","Comprar este artículo"],["Noël","Christmas","عيد الميلاد","Navidad"],["Jour de l’An","New Year","رأس السنة","Año Nuevo"],["Halloween","Halloween","الهالوين","Halloween"],["Thanksgiving","Thanksgiving","عيد الشكر","Acción de Gracias"],["Ramadan","Ramadan","رمضان","Ramadán"],["Aïd al-Fitr","Eid al-Fitr","عيد الفطر","Eid al-Fitr"],["Aïd al-Adha","Eid al-Adha","عيد الأضحى","Eid al-Adha"],["Nouvel An de l’hégire","Islamic New Year","رأس السنة الهجرية","Año Nuevo islámico"],["Nouvel An chinois","Chinese New Year","رأس السنة الصينية","Año Nuevo chino"],["Dernier jour","Last day","اليوم الأخير","Último día"],["Terminée","Ended","انتهت","Terminada"],["Limite de gemmes du jour atteinte. Récupère ta récompense demain.","Daily gem limit reached. Collect your reward tomorrow.","بلغت حد جواهر اليوم. استلم مكافأتك غداً.","Has alcanzado el límite de gemas de hoy. Recoge tu recompensa mañana."],["Objectif atteint : récupère ta récompense sur l’accueil.","Goal reached: collect your reward on the home screen.","تحقق الهدف: استلم مكافأتك من الصفحة الرئيسية.","Objetivo cumplido: recoge tu recompensa en el inicio."],["Missions spéciales","Special missions","المهام الخاصة","Misiones especiales"],["Pendant certaines fêtes (Noël, Jour de l’An, Halloween, Thanksgiving, Ramadan, Aïd al-Fitr, Aïd al-Adha, Nouvel An de l’hégire, Nouvel An chinois), une mission spéciale apparaît sur l’accueil. Donne assez de bonnes réponses pendant la fête pour gagner des gemmes.","During some holidays (Christmas, New Year, Halloween, Thanksgiving, Ramadan, Eid al-Fitr, Eid al-Adha, Islamic New Year, Chinese New Year), a special mission appears on the home screen. Give enough correct answers during the holiday to earn gems.","في بعض الأعياد (عيد الميلاد، رأس السنة، الهالوين، عيد الشكر، رمضان، عيد الفطر، عيد الأضحى، رأس السنة الهجرية، رأس السنة الصينية) تظهر مهمة خاصة في الصفحة الرئيسية. أعطِ ما يكفي من الإجابات الصحيحة خلال العيد لتربح جواهر.","Durante algunas fiestas (Navidad, Año Nuevo, Halloween, Acción de Gracias, Ramadán, Eid al-Fitr, Eid al-Adha, Año Nuevo islámico, Año Nuevo chino), aparece una misión especial en el inicio. Da suficientes respuestas correctas durante la fiesta para ganar gemas."],["À bientôt","See you soon","إلى اللقاء","Hasta pronto"],["Prochaine partie offerte","Next free game","المباراة المجانية التالية","Próxima partida gratis"],["Une partie offerte est de retour.","A free game is back.","عادت مباراة مجانية.","Ha vuelto una partida gratis."],["Ta réserve contient 10 parties offertes et se recharge d’une partie toutes les 2 heures. Sans attendre, une partie coûte 1 gemme. Le défi du jour, la révision et le duel sont toujours gratuits. Tu gagnes des gemmes avec la récompense du jour, le coffre, les badges et les séries.","Your reserve holds 10 free games and refills by one game every 2 hours. To skip the wait, a game costs 1 gem. The daily challenge, review and duels are always free. You earn gems with the daily reward, the chest, badges and streaks.","رصيدك يضم 10 مباريات مجانية ويُعاد شحنه بمباراة كل ساعتين. دون انتظار، تكلّف المباراة جوهرة واحدة. تحدي اليوم والمراجعة والمبارزة مجانية دائماً. تربح الجواهر من مكافأة اليوم والصندوق والشارات والسلاسل.","Tu reserva tiene 10 partidas gratis y se recarga con una partida cada 2 horas. Sin esperar, una partida cuesta 1 gema. El reto del día, el repaso y el duelo son siempre gratis. Ganas gemas con la recompensa del día, el cofre, las insignias y las rachas."]];
 MAN[2][1]=T[T.length-1][0];
 T.forEach(([f,e,a,s])=>{TRD.en.set(f,e);TRD.ar.set(f,a);TRD.es.set(f,s)});MAN.splice(6,0,[T[16][0],T[17][0]]);
@@ -1758,6 +1773,7 @@ function dashPlayer(uid){
  app.innerHTML=`<div class="rh"><button class="bk" id="bk" aria-label="Retour">‹</button><h1>${PN(d.u)}<span>.</span></h1></div>
  <div class="card" style="text-align:center">${d.ph?avAny(d,uid,"big")+`<div style="height:12px"></div>`:""}<div class="stats">${cell(fmt(+d.p||0),"parties en tout")}${cell(lvlOf(d.x),"niveau")}${cell(d.sd?dmy(d.sd):"–","dernière partie")}${cell(g30,"parties sur 30 jours")}${cell(act,"jours actifs sur 30")}${cell(streakOf(d)+" / "+(+d.sb||0),"série / record")}${cell(fmt(gemsOf(d)),"gemmes")}${cell(Object.keys(d.bd||{}).length,"badges")}</div>${mail?`<p class="mute" style="margin:12px 0 4px" translate="no">${esc(mail)}</p>`:""}<p class="mute" style="margin:${mail?4:12}px 0 0">${xpf(d.x)} XP</p></div>
  ${(()=>{const dd=days.slice(0,14).map(k=>[k,+((D.st[k]||{})[uid]||{}).g||0]),gm=Math.max(1,...dd.map(x=>x[1]));return `<div class="card"><b class="h3">Parties par jour</b><p class="mute" style="text-align:start;margin:4px 0 8px">14 derniers jours</p>${dd.map(([k,n])=>`<div class="dbr gd"><span>${dmy(k)}</span><i><u style="width:${n/gm*100}%"></u></i><b>${n||"·"}</b></div>`).join("")}</div>`})()}
+ ${(()=>{const dd=days.slice(0,14).map(k=>{const v=(D.st[k]||{})[uid]||{};return[k,+v.s||0,+v.b||0]}),ts=dd.reduce((a,x)=>a+x[1],0),tb=dd.reduce((a,x)=>a+x[2],0),m=Math.max(1,...dd.map(x=>x[1]));return `<div class="card"><b class="h3">Gemmes par jour</b><p class="mute" style="text-align:start;margin:4px 0 8px">14 derniers jours : ${fmt(ts)} dépensées, ${fmt(tb)} achetées</p><div class="dbr dh"><span></span><span></span><small>dépensées</small><small>achetées</small></div>${dd.map(([k,a,b])=>`<div class="dbr"><span>${dmy(k)}</span><i><u style="width:${a/m*100}%"></u></i><b>${a||"·"}</b><small>${b||"·"}</small></div>`).join("")}</div>`})()}
  <div class="card"><b class="h3">Jeux joués</b><p class="mute" style="text-align:start;margin:4px 0 8px">Nombre de parties par jeu</p>${top.length?top.map(([m,n])=>`<div class="dbr md"><span>${esc(ML(m))}</span><i><u style="width:${n/tm*100}%"></u></i><b>${n}</b></div>`).join(""):`<p class="mute" style="text-align:start">Aucune partie enregistrée sur cette période.</p>`}</div>
  <div class="card"><b class="h3">Meilleurs scores</b>${best.length?best.map(([k,v])=>`<div class="apl nb"><span>${esc(ML(k))}</span><b>${fmt(v)}</b></div>`).join(""):`<p class="mute" style="text-align:start">Aucun record pour l’instant.</p>`}</div>
  <div class="card"><b class="h3">Donner des gemmes</b><p class="mute" style="text-align:start;margin:4px 0 10px">Ce joueur a ${fmt(gemsOf(d))} gemmes. Touche deux fois pour confirmer.</p><div class="ggr">${[5,10,50,100].map(n=>`<button class="btn alt" data-gg="${n}">+${n}</button>`).join("")}</div></div>
@@ -1781,7 +1797,7 @@ async function dashScreen(){
 }
 function dashDraw(){
  if(S.view!=="dash"&&S.view!=="dashp")return;S.view="dash";const {st,plist,em}=S.dash,reg=plist.length;
-  const days=Array.from({length:14},(_,i)=>dk(-i)),P1=k=>Object.keys(st[k]||{}),G1=k=>Object.values(st[k]||{}).reduce((a,v)=>a+(+v.g||0),0),mx=Math.max(1,...days.map(k=>P1(k).length));
+  const days=Array.from({length:14},(_,i)=>dk(-i)),P1=k=>Object.keys(st[k]||{}),G1=k=>Object.values(st[k]||{}).reduce((a,v)=>a+(+v.g||0),0),GS=k=>Object.values(st[k]||{}).reduce((a,v)=>a+(+v.s||0),0),GB=k=>Object.values(st[k]||{}).reduce((a,v)=>a+(+v.b||0),0),gsm=Math.max(1,...days.map(GS)),mx=Math.max(1,...days.map(k=>P1(k).length));
   let rs=0,rn=0;days.slice(1).forEach((k,i)=>{const a=P1(k);if(!a.length)return;const b=new Set(P1(days[i]));rs+=a.filter(u=>b.has(u)).length/a.length;rn++});
   const md={};days.slice(0,7).forEach(k=>Object.values(st[k]||{}).forEach(v=>Object.entries(v.m||{}).forEach(([m,n])=>md[m]=(md[m]||0)+(+n||0))));const top=Object.entries(md).sort((a,b)=>b[1]-a[1]).slice(0,8),tm=Math.max(1,...top.map(t=>t[1]));
   const tab=S.dtab||"act",d7=days.slice(0,7),act7=new Set();d7.forEach(k=>P1(k).forEach(u=>act7.add(u)));const g7=d7.reduce((a,k)=>a+G1(k),0),gm=Math.max(1,...days.map(G1));
@@ -1789,7 +1805,8 @@ function dashDraw(){
   const totG=plist.reduce((a,x)=>a+gemsOf(x.d),0);
   const R=plist.map(x=>({x,g:gcOf(x)})).filter(r=>Object.keys(r.g).length).sort((a,b)=>(+b.x.d.p||0)-(+a.x.d.p||0)),tot={};R.forEach(r=>Object.entries(r.g).forEach(([m,n])=>tot[m]=(tot[m]||0)+n));const cols=Object.keys(tot).sort((a,b)=>tot[b]-tot[a]);
   const body=tab==="act"?`<div class="card" style="text-align:center"><div class="stats">${kpi(P1(days[0]).length,"joueurs aujourd’hui")}${kpi(G1(days[0]),"parties aujourd’hui")}${kpi(rn?Math.round(rs/rn*100)+" %":"–","reviennent le lendemain")}${kpi(act7.size,"actifs sur 7 jours")}${kpi(g7,"parties sur 7 jours")}${kpi(reg,"inscrits")}</div></div>
-  <div class="card"><b class="h3">Parties par jour</b><p class="mute" style="text-align:start;margin:4px 0 8px">${fmt(Math.round(g7/7*10)/10)} parties par jour en moyenne cette semaine</p><div class="dbr dh"><span></span><span></span><small>parties</small><small>joueurs</small></div>${days.map(k=>`<div class="dbr"><span>${dmy(k)}</span><i><u style="width:${G1(k)/gm*100}%"></u></i><b>${G1(k)}</b><small>${P1(k).length}</small></div>`).join("")}</div>`
+  <div class="card"><b class="h3">Parties par jour</b><p class="mute" style="text-align:start;margin:4px 0 8px">${fmt(Math.round(g7/7*10)/10)} parties par jour en moyenne cette semaine</p><div class="dbr dh"><span></span><span></span><small>parties</small><small>joueurs</small></div>${days.map(k=>`<div class="dbr"><span>${dmy(k)}</span><i><u style="width:${G1(k)/gm*100}%"></u></i><b>${G1(k)}</b><small>${P1(k).length}</small></div>`).join("")}</div>
+  <div class="card"><b class="h3">Gemmes par jour</b><p class="mute" style="text-align:start;margin:4px 0 8px">7 derniers jours : ${fmt(d7.reduce((a,k)=>a+GS(k),0))} dépensées, ${fmt(d7.reduce((a,k)=>a+GB(k),0))} achetées</p><div class="dbr dh"><span></span><span></span><small>dépensées</small><small>achetées</small></div>${days.map(k=>`<div class="dbr"><span>${dmy(k)}</span><i><u style="width:${GS(k)/gsm*100}%"></u></i><b>${GS(k)||"·"}</b><small>${GB(k)||"·"}</small></div>`).join("")}</div>`
   :tab==="pl"?`<div class="card" style="text-align:center"><div class="stats">${kpi(fmt(totG),"gemmes en circulation")}${kpi(plist.filter(x=>+x.d.gb>0).length,"joueurs ayant acheté")}</div></div>${giftCard()}
   <div class="card"><div class="dtop"><b class="h3">Joueurs</b><input id="dq" type="search" placeholder="Chercher un nom ou un email" value="${esc(S.dq||"")}" autocomplete="off"></div><p class="mute" style="text-align:start;margin:4px 0 8px">Touche un en-tête pour trier, un joueur pour voir son détail.</p><div class="gtw" id="dpl"></div></div>`
   :`<div class="card"><b class="h3">Jeux les plus joués</b><p class="mute" style="text-align:start;margin:4px 0 8px">Sur 7 jours</p>${top.length?top.map(([m,n])=>`<div class="dbr md"><span>${esc(ML(m))}</span><i><u style="width:${n/tm*100}%"></u></i><b>${n}</b></div>`).join(""):`<p class="mute" style="text-align:start">Aucune partie enregistrée pour l’instant.</p>`}</div>
@@ -1898,7 +1915,11 @@ function applyJob(d,job){
 }
 const jobOf=()=>({paid:+S.paid||0,free:!!S.free,mode:S.mode,sk:SK(),score:S.score,good:S.good,n:S.qs.length,lv:S.lv,stars:stars(),miss:S.miss.map(c=>c.c),mast:S.mast||[],win:!!S.duelWin,duel:S.duelLog||null,g:(S.marks||[]).join(""),okc:[...new Set(S.okc||[])],mc:S.maxCombo||0,spent:S.spent||0,norec:!!S.special,tn:S.special==="tn"?wkEnd():null,hw:S.special==="hw"?S.hw:null,t:dk(),y:dk(-1),wk:wkKey()});
 async function saveJob(job){const ref=DB.collection("players").doc(S.uid),snap=await ref.get(),d=(snap.exists&&snap.data())||{},{nd,res}=applyJob(d,job);await ref.set(nd);S.me=nd;saveState();statBump(job);return res}
-function statBump(job){if(!AUTH)return;try{const t=dk();let st=JSON.parse(LS("gq-st","{}"));if(st.d!==t||st.u!==S.uid)st={d:t,u:S.uid,g:0,m:{}};st.g++;const k=job.tn?"tn":job.hw?"hw":job.mode;st.m[k]=(st.m[k]||0)+1;LSset("gq-st",JSON.stringify(st));rput(`stats/${t}/${S.uid}`,{g:st.g,m:st.m}).catch(()=>{})}catch(e){}}
+// statistiques du jour pour le tableau de bord : parties (g), par jeu (m), gemmes dépensées (s) et achetées (b)
+const stCur=()=>{const t=dk();let st={};try{st=JSON.parse(LS("gq-st","{}"))}catch(e){}if(st.d!==t||st.u!==S.uid)st={d:t,u:S.uid,g:0,m:{}};return st};
+const stPut=st=>{LSset("gq-st",JSON.stringify(st));const o={g:st.g,m:st.m};if(st.s)o.s=st.s;if(st.b)o.b=st.b;rput(`stats/${st.d}/${S.uid}`,o).catch(()=>{})};
+function statBump(job){if(!AUTH)return;try{const st=stCur();st.g++;const k=job.tn?"tn":job.hw?"hw":job.mode;st.m[k]=(st.m[k]||0)+1;stPut(st)}catch(e){}}
+function gemStat(sp,bu){if(!AUTH||!S.uid||!(sp>0||bu>0))return;try{const st=stCur();st.s=(+st.s||0)+sp;st.b=(+st.b||0)+bu;stPut(st)}catch(e){}}
 const Q={get:()=>{try{return JSON.parse(LS("gq-q","[]"))}catch(e){return[]}},set:a=>LSset("gq-q",JSON.stringify(a))};
 async function flushQueue(){
  if(!DB||!S.uid||S.flushing)return;const q=Q.get().filter(j=>j.uid===S.uid);if(!q.length)return;S.flushing=1;
@@ -2052,12 +2073,23 @@ function decodeTopo(t){
  const arcs=t.arcs.map(a=>{let x=0,y=0;return a.map(p=>{x+=p[0];y+=p[1];return[x*sx+tx,y*sy+ty]})});
  const ring=idx=>{let pts=[];idx.forEach(i=>{const a=i<0?arcs[~i].slice().reverse():arcs[i];pts=pts.concat(pts.length?a.slice(1):a)});return pts};
  const out={};
+ const G={};
  t.objects.countries.geometries.forEach(g=>{
   const id=g.id!=null?+g.id:({France:250,Norway:578}[g.properties&&g.properties.name]);
   if(id==null||isNaN(id))return;
   const polys=g.type==="Polygon"?[g.arcs]:g.type==="MultiPolygon"?g.arcs:[];
-  out[id]=polys.map(p=>p.map(ring));
+  // plusieurs territoires peuvent partager un code (Australie + îles Ashmore) : on les additionne
+  G[id]=(G[id]||[]).concat(polys);
  });
+ // Sahara marocain rattaché au Maroc, sans frontière intérieure
+ if(G[504]&&G[732]){const A=G[504],B=G[732],k=i=>i<0?~i:i;let done=0;
+  for(const pa of A){if(done)break;for(let j=0;j<B.length;j++){const pb=B[j],sa=new Set(pa[0].map(k)),sh=new Set(pb[0].map(k).filter(i=>sa.has(i)));if(!sh.size)continue;
+   const keep=pa[0].concat(pb[0]).filter(i=>!sh.has(k(i)));const pt=i=>{const a=i<0?arcs[~i].slice().reverse():arcs[i];return[a[0],a[a.length-1]]};
+   const eq=(u,v)=>Math.abs(u[0]-v[0])<1e-9&&Math.abs(u[1]-v[1])<1e-9,ord=[keep.shift()];
+   while(keep.length){const e=pt(ord[ord.length-1])[1],n=keep.findIndex(i=>eq(pt(i)[0],e));if(n<0)break;ord.push(keep.splice(n,1)[0])}
+   if(!keep.length){pa[0]=ord;pa.push(...pb.slice(1));B.splice(j,1);done=1}break}}
+  G[504]=A.concat(B);delete G[732]}
+ for(const id in G)out[id]=G[id].map(p=>p.map(ring));
  return out;
 }
 async function loadMap(){
@@ -2118,7 +2150,7 @@ function mapSvg(x,ctx,th){
  const d=polys.map(p=>p.map(r=>{let s="",lx=1e9,ly=1e9,n=0;for(let i=0;i<r.length;i++){const X=(r[i][0]-l0)*sx,Y=(b1-r[i][1])*sy;if(i&&i<r.length-1&&Math.abs(X-lx)<tol&&Math.abs(Y-ly)<tol)continue;s+=(n?"L":"M")+X.toFixed(1)+" "+Y.toFixed(1);lx=X;ly=Y;n++}return n>2?s+"Z":""}).join("")).join("");
  const land=landPath(win,W,H,x.n3,th?.8:.45).d;
  const tw=(x1-x0)*sx,tH=(y1-y0)*sy,sm=Math.max(tw,tH)<40,cx=((x0+x1)/2-l0)*sx,cy=(b1-(y0+y1)/2)*sy,rr=Math.max(12,Math.max(tw,tH)*.7+7);
- const st=`display:block;width:100%;max-height:${th?96:240}px;border-radius:${th?6:10}px`,al=`role="img" aria-label="Carte du pays à deviner"`;
+ const st=`display:block;overflow:hidden;width:100%;max-height:${th?96:240}px;border-radius:${th?6:10}px`,al=`role="img" aria-label="Carte du pays à deviner"`;
  return MC[key]=`<svg viewBox="0 0 ${W} ${H}" class="cmap" style="${st}" ${al}><rect width="${W}" height="${H}" fill="var(--map-sea,#c8ddf0)"/><path class="nb" d="${land}" fill="var(--map-land,#e6ebf0)" stroke="var(--map-brd,#a8b8c8)" stroke-width="${th?.6:.7}" stroke-linejoin="round"/><path class="tg" d="${d}" fill="var(--map-tg,#1a7f37)" fill-rule="evenodd" stroke="var(--map-tgs,#145f2a)" stroke-width="${th?.6:.8}" stroke-linejoin="round"/>${sm?`<circle class="rg" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${rr.toFixed(1)}" fill="none" stroke="var(--map-tg,#1a7f37)" stroke-width="2.2"/>`:""}</svg>`;
 
 }
