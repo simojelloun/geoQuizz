@@ -510,6 +510,15 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 :root:not([data-season]):not([data-visual=glass]):not([data-visual=sunset]) body{background:radial-gradient(ellipse at 15% 0%,#bfe3ff 0%,transparent 55%),radial-gradient(ellipse at 90% 100%,#c8f2df 0%,transparent 55%),linear-gradient(180deg,#e2f1ff 0%,#eef8f6 100%);background-attachment:fixed}
 :root[data-theme=dark]:not([data-season]):not([data-visual=glass]):not([data-visual=sunset]) body{background:radial-gradient(ellipse at 15% 0%,#123a6b 0%,transparent 55%),radial-gradient(ellipse at 90% 100%,#0d4a3a 0%,transparent 55%),linear-gradient(180deg,#0b1a33 0%,#0c2230 100%);background-attachment:fixed}
 :root[data-theme=dark] body::before{background:#5fb0ff;opacity:.22}
+
+/* fond d'écran adapté au thème choisi (auto, clair, sombre, verre, coucher de soleil) */
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]):not([data-season]):not([data-visual=glass]):not([data-visual=sunset]) body{background:radial-gradient(ellipse at 15% 0%,#123a6b 0%,transparent 55%),radial-gradient(ellipse at 90% 100%,#0d4a3a 0%,transparent 55%),linear-gradient(180deg,#0b1a33 0%,#0c2230 100%);background-attachment:fixed}:root:not([data-theme=light]) body::before{background:#5fb0ff;opacity:.22}}
+:root[data-theme=light]:not([data-season]):not([data-visual=glass]):not([data-visual=sunset]) body::before{background:#1d6fd1;opacity:.26}
+:root[data-visual=glass] body::before{background:#a5b4fc!important;opacity:.2!important}
+:root[data-visual=sunset] body::before{background:var(--acc)!important;opacity:.24!important}
+:root[data-season=ram] body::before{background:#e8d9a8!important;opacity:.09!important}
+:root[data-season=xmas] body::before{background:#fff!important;opacity:.35!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .shd small#fgl{background:#0f3a24;color:#a7f3c4;border-color:#1f7a47}:root:not([data-theme=light]) .shd small#fgl[data-n="0"]{background:#3d2608;color:#fcd9a0;border-color:#8a5a14}}
 </style></head>
 <body><main id="app"></main>
 <script src="config.js"></script>
