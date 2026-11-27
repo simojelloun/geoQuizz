@@ -519,6 +519,22 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 :root[data-season=ram] body::before{background:#e8d9a8!important;opacity:.09!important}
 :root[data-season=xmas] body::before{background:#fff!important;opacity:.35!important}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) .shd small#fgl{background:#0f3a24;color:#a7f3c4;border-color:#1f7a47}:root:not([data-theme=light]) .shd small#fgl[data-n="0"]{background:#3d2608;color:#fcd9a0;border-color:#8a5a14}}
+
+/* trophée plein écran */
+#tro{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;background:radial-gradient(circle at 50% 42%,rgba(255,196,0,.5),rgba(10,20,45,.93) 62%);color:#fff;cursor:pointer;animation:troin .35s ease-out}
+#tro.out{opacity:0;transition:opacity .3s}
+#tro .troc{position:relative;width:min(56vw,240px);height:min(56vw,240px);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#ffe98a,#f5b301 60%,#c98200);box-shadow:0 0 0 10px rgba(255,255,255,.18),0 0 80px 20px rgba(255,190,0,.65);animation:tropop .7s cubic-bezier(.2,1.5,.4,1) both,bob 3s ease-in-out .7s infinite}
+#tro .troc svg{width:56%;height:56%;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 3px 0 rgba(120,70,0,.5))}
+#tro .tror{position:absolute;top:42%;left:50%;width:160vmax;height:160vmax;margin:-80vmax 0 0 -80vmax;background:repeating-conic-gradient(rgba(255,220,120,.16) 0 9deg,transparent 9deg 18deg);animation:trorot 14s linear infinite;pointer-events:none}
+#tro b{position:relative;font:800 1.9rem/1.15 var(--D);margin-top:18px;text-shadow:0 2px 0 rgba(0,0,0,.35)}#tro small{position:relative;font-size:1rem;opacity:.92}
+@keyframes troin{from{opacity:0}}@keyframes tropop{from{transform:scale(.2) rotate(-25deg);opacity:0}}@keyframes trorot{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){#tro .troc,#tro .tror{animation:none}}
+/* coffres de ligue */
+.rch{display:inline-flex;flex-direction:column;align-items:center;margin-inline-start:auto;padding-inline:8px;line-height:1;flex:none}.rch small{font:800 .62rem/1 var(--D);color:var(--mute);margin-top:1px}
+.chs{display:block;filter:drop-shadow(0 2px 0 rgba(0,0,0,.18))}
+.card.msg.lgch{padding-inline-start:68px;position:relative}.lgci{position:absolute;inset-inline-start:14px;top:50%;transform:translateY(-50%);animation:bob 2.4s ease-in-out infinite}
+.lgl{display:flex;justify-content:center;gap:14px;margin:6px 0 10px;font:700 .78rem/1 var(--D);color:var(--mute)}.lgl span{display:inline-flex;align-items:center;gap:4px}
+.card.msg .hgm{display:inline-flex;align-items:center;gap:2px;white-space:nowrap}.card.msg .hgm svg{width:1.05em;height:1.05em;scale:1;fill:#7dd3fc;stroke:#0369a1;stroke-width:1.6;stroke-linejoin:round}
 </style></head>
 <body><main id="app"></main>
 <script src="config.js"></script>
@@ -748,7 +764,7 @@ function home(fromX){
  hwTodo().slice(0,1).forEach(h=>msgs.push(`<div class="card msg act"><b>Devoir · ${NM(h.n)}</b><small>${esc(hwTxt(h.hw))} · à rendre avant le ${dmy(h.hw.due)}</small><button class="btn sm" id="hwg">Faire le devoir</button></div>`));
  if(!BEG){const i=ssInfo(d);if(i&&S.ssNo!==dk())msgs.push(`<div class="card msg down act"><b>Ta série de ${i.n} jours s’est arrêtée hier</b><small>Sauve-la et continue-la aujourd’hui.</small><button class="btn sm" id="ssb" ${gemsOf(d)<i.p?"disabled":""}>Sauver ma série ${sv("gem")}${i.p}</button><button class="x" id="ssx" aria-label="Fermer">×</button></div>`)}
  if(!BEG&&(S.ovG||[]).length)msgs.push(`<div class="card msg down act"><b>${S.ovG.every(o=>o.n===S.ovG[0].n)?`${NM(S.ovG[0].n)} t’a dépassé`:"Des joueurs t’ont dépassé"}</b>${S.ovG.slice(0,3).map(o=>`<small>${PN(o.n)} · ${esc(KL(o.k))} · ${fmt(o.s)} pts</small>`).join("")}<button class="btn sm" id="ovgo">Reprendre ma place</button><button class="x" id="mx4" aria-label="Fermer">×</button></div>`);
- if(!BEG&&S.lgMsg)msgs.push(`<div class="card msg ${S.lgMsg.r}"><b>${S.lgMsg.r==="up"?`Promotion en ligue ${LEAGUES[S.lgMsg.t][0]} !`:`Retour en ligue ${LEAGUES[S.lgMsg.t][0]}`}</b><small>${S.lgMsg.r==="up"?"Tu fais partie des meilleurs de ta ligue la semaine dernière.":"Joue cette semaine pour remonter."}</small><button class="x" id="mx1" aria-label="Fermer">×</button></div>`);
+ if(!BEG&&S.lgMsg)msgs.push(`<div class="card msg ${S.lgMsg.r==="same"?"up":S.lgMsg.r}${S.lgMsg.ch>=0?" lgch":""}">${S.lgMsg.ch>=0?`<span class="lgci">${chest(S.lgMsg.ch,44)}</span>`:""}<b>${S.lgMsg.ch>=0?`<span>${LGC[S.lgMsg.ch][0]}</span> : <span>${S.lgMsg.ch+1}${S.lgMsg.ch?"e":"er"} de la ligue ${LEAGUES[S.lgMsg.f][0]}</span>${S.lgMsg.cg?` <span class="hgm">+${S.lgMsg.cg}${sv("gem")}</span>`:""}`:S.lgMsg.r==="up"?`Promotion en ligue ${LEAGUES[S.lgMsg.t][0]} !`:`Retour en ligue ${LEAGUES[S.lgMsg.t][0]}`}</b><small>${S.lgMsg.r==="up"?(S.lgMsg.ch>=0?`Promotion en ligue ${LEAGUES[S.lgMsg.t][0]} !`:"Tu fais partie des meilleurs de ta ligue la semaine dernière."):S.lgMsg.r==="down"?"Joue cette semaine pour remonter.":"Tu fais partie des meilleurs de ta ligue la semaine dernière."}</small><button class="x" id="mx1" aria-label="Fermer">×</button></div>`);
  if(!BEG&&S.ovMsg)msgs.push(`<div class="card msg down"><b>${NM(S.ovMsg)} t’a dépassé cette semaine</b><small>Joue une partie pour reprendre ta place dans ta ligue.</small><button class="x" id="mx2" aria-label="Fermer">×</button></div>`);
  if(!BEG&&S.tnMsg)msgs.push(`<div class="card msg"><b>Tournoi : ${S.tnMsg.pos}${S.tnMsg.pos===1?"er":"e"} · ${S.tnMsg.prize?`+${S.tnMsg.prize} ${S.tnMsg.prize>1?"gemmes":"gemme"}`:"bravo"}</b><small>Prochain tournoi samedi.</small><button class="x" id="mx3" aria-label="Fermer">×</button></div>`);
  const fst=BEG?`<div class="card tdy fst"><div class="tdh"><b>Premiers pas</b><small>${fs.filter(Boolean).length}/3</small></div><p class="fsi">${P0?"Encore un peu et tout le jeu s’ouvre.":"Bienvenue ! Trois étapes pour bien démarrer."}</p>
@@ -1683,6 +1699,8 @@ const MAN=[["Jouer une partie","Choisis un jeu sur l’accueil, puis une difficu
 [["+1 dans","+1 in","+1 بعد","+1 en"],["Prochaine partie dans","Next game in","المباراة التالية بعد","Próxima partida en"],["Horloge avancée","Clock set ahead","ساعة مقدَّمة","Reloj adelantado"],["Trop de parties offertes","Too many free games","مباريات مجانية أكثر من الممكن","Demasiadas partidas gratis"]].forEach(([f,e,a,s])=>{TRD.en.set(f,e);TRD.ar.set(f,a);TRD.es.set(f,s)});
 addPat([[/^Acheter (\d+) gemmes \?$/,"Buy $1 gems?","شراء $1 جوهرة؟"]]);addPatEs([["^Acheter (\\d+) gemmes \\?$","¿Comprar $1 gemas?"]]);
 (()=>{[["Acheter","Buy","شراء","Comprar"]].forEach(([f,e,a,x])=>{if(!TRD.en.has(f)){TRD.en.set(f,e);TRD.ar.set(f,a)}if(!TRD.es.has(f))TRD.es.set(f,x)})})();
+addPat([[/^(\d+)(?:er|e) de la ligue (.+)$/,(x)=>"#"+x[1]+" in "+tr(x[2])+" league",(x)=>"المركز "+x[1]+" في دوري "+tr(x[2])]]);addPatEs([["^(\\d+)(?:er|e) de la ligue (.+)$",x=>x[1]+".º de la liga "+tr(x[2])]]);
+(()=>{[["Coffre d'or","Gold chest","صندوق ذهبي","Cofre de oro"],["Coffre d'argent","Silver chest","صندوق فضي","Cofre de plata"],["Coffre de bronze","Bronze chest","صندوق برونزي","Cofre de bronce"]].forEach(([f,e,a,x])=>{TRD.en.set(f,e);TRD.ar.set(f,a);TRD.es.set(f,x)})})();
 (()=>{[["Récompense du jour, coffre du jour, niveau gagné, nouvelle étoile de badge, série de 7 jours.","Daily reward, daily chest, level gained, new badge star, 7-day streak.","مكافأة اليوم، صندوق اليوم، مستوى جديد، نجمة شارة جديدة، سلسلة 7 أيام.","Recompensa del día, cofre del día, nivel ganado, nueva estrella de insignia, racha de 7 días."]].forEach(([f,e,a,x])=>{TRD.en.set(f,e);TRD.ar.set(f,a);TRD.es.set(f,x)})})();
 (()=>{const T=[["Mission spéciale","Special mission","مهمة خاصة","Misión especial"],["Dépenser","Spend","إنفاق","Gastar"],["Acheter cet article","Buy this item","شراء هذا العنصر","Comprar este artículo"],["Noël","Christmas","عيد الميلاد","Navidad"],["Jour de l’An","New Year","رأس السنة","Año Nuevo"],["Halloween","Halloween","الهالوين","Halloween"],["Thanksgiving","Thanksgiving","عيد الشكر","Acción de Gracias"],["Ramadan","Ramadan","رمضان","Ramadán"],["Aïd al-Fitr","Eid al-Fitr","عيد الفطر","Eid al-Fitr"],["Aïd al-Adha","Eid al-Adha","عيد الأضحى","Eid al-Adha"],["Nouvel An de l’hégire","Islamic New Year","رأس السنة الهجرية","Año Nuevo islámico"],["Nouvel An chinois","Chinese New Year","رأس السنة الصينية","Año Nuevo chino"],["Dernier jour","Last day","اليوم الأخير","Último día"],["Terminée","Ended","انتهت","Terminada"],["Limite de gemmes du jour atteinte. Récupère ta récompense demain.","Daily gem limit reached. Collect your reward tomorrow.","بلغت حد جواهر اليوم. استلم مكافأتك غداً.","Has alcanzado el límite de gemas de hoy. Recoge tu recompensa mañana."],["Objectif atteint : récupère ta récompense sur l’accueil.","Goal reached: collect your reward on the home screen.","تحقق الهدف: استلم مكافأتك من الصفحة الرئيسية.","Objetivo cumplido: recoge tu recompensa en el inicio."],["Missions spéciales","Special missions","المهام الخاصة","Misiones especiales"],["Pendant certaines fêtes (Noël, Jour de l’An, Halloween, Thanksgiving, Ramadan, Aïd al-Fitr, Aïd al-Adha, Nouvel An de l’hégire, Nouvel An chinois), une mission spéciale apparaît sur l’accueil. Donne assez de bonnes réponses pendant la fête pour gagner des gemmes.","During some holidays (Christmas, New Year, Halloween, Thanksgiving, Ramadan, Eid al-Fitr, Eid al-Adha, Islamic New Year, Chinese New Year), a special mission appears on the home screen. Give enough correct answers during the holiday to earn gems.","في بعض الأعياد (عيد الميلاد، رأس السنة، الهالوين، عيد الشكر، رمضان، عيد الفطر، عيد الأضحى، رأس السنة الهجرية، رأس السنة الصينية) تظهر مهمة خاصة في الصفحة الرئيسية. أعطِ ما يكفي من الإجابات الصحيحة خلال العيد لتربح جواهر.","Durante algunas fiestas (Navidad, Año Nuevo, Halloween, Acción de Gracias, Ramadán, Eid al-Fitr, Eid al-Adha, Año Nuevo islámico, Año Nuevo chino), aparece una misión especial en el inicio. Da suficientes respuestas correctas durante la fiesta para ganar gemas."],["À bientôt","See you soon","إلى اللقاء","Hasta pronto"],["Prochaine partie offerte","Next free game","المباراة المجانية التالية","Próxima partida gratis"],["Une partie offerte est de retour.","A free game is back.","عادت مباراة مجانية.","Ha vuelto una partida gratis."],["Ta réserve contient 10 parties offertes et se recharge d’une partie toutes les 2 heures. Sans attendre, une partie coûte 1 gemme. Le défi du jour, la révision et le duel sont toujours gratuits. Tu gagnes des gemmes avec la récompense du jour, le coffre, les badges et les séries.","Your reserve holds 10 free games and refills by one game every 2 hours. To skip the wait, a game costs 1 gem. The daily challenge, review and duels are always free. You earn gems with the daily reward, the chest, badges and streaks.","رصيدك يضم 10 مباريات مجانية ويُعاد شحنه بمباراة كل ساعتين. دون انتظار، تكلّف المباراة جوهرة واحدة. تحدي اليوم والمراجعة والمبارزة مجانية دائماً. تربح الجواهر من مكافأة اليوم والصندوق والشارات والسلاسل.","Tu reserva tiene 10 partidas gratis y se recarga con una partida cada 2 horas. Sin esperar, una partida cuesta 1 gema. El reto del día, el repaso y el duelo son siempre gratis. Ganas gemas con la recompensa del día, el cofre, las insignias y las rachas."]];
 MAN[2][1]=T[T.length-1][0];
@@ -2003,21 +2021,28 @@ const LEAGUES=[["Bronze","#b7793f"],["Argent","#7f8fa6"],["Or","#d49a00"],["Saph
 const wkScore=(p,w)=>p&&p.wk&&p.wk.w===w?+p.wk.s||0:p&&p.wkp&&p.wkp.w===w?+p.wkp.s||0:0;
 const tierOf=p=>p&&p.lg?Math.max(0,Math.min(4,+p.lg.t||0)):0;
 const tierPrev=(p,cur)=>p&&p.lg?(p.lg.w===cur?+(p.lg.f!==undefined?p.lg.f:p.lg.t):+p.lg.t||0):0;
-// 25 % montent, 50 % restent, 25 % descendent (arrondi au plus proche, la moitié vers le bas)
-const lgK=n=>n<2?0:Math.max(1,Math.floor((n+1)/4)),lgZone=(i,n,t,s)=>(t<4&&s>0&&i<lgK(n))?"zu":(t>0&&n>=4&&i>=n-lgK(n))?"zd":"zs",lgSort=(a,b)=>b.s-a.s||String(a.n).localeCompare(String(b.n));
+// 25 % montent (au moins les 3 premiers), 25 % descendent, les autres restent
+const lgK=n=>n<2?0:Math.max(1,Math.floor((n+1)/4)),lgUp=n=>n<2?0:Math.max(3,lgK(n)),lgZone=(i,n,t,s)=>(t<4&&s>0&&i<lgUp(n))?"zu":(t>0&&n>=4&&i>=n-lgK(n))?"zd":"zs",lgSort=(a,b)=>b.s-a.s||String(a.n).localeCompare(String(b.n));
 const daysLeft=()=>7-(new Date().getDay()+6)%7;
+// trophée plein écran quand on bat le record absolu : disparaît après 4 s ou au premier toucher
+function trophyShow(){const o=document.getElementById("tro");if(o)o.remove();const e=document.createElement("div");e.id="tro";e.setAttribute("role","dialog");
+ e.innerHTML=`<span class="tror"></span><span class="troc">${sv("trophy")}</span><b>${tr("Nouveau record absolu")}</b><small>${tr("Tu détiens le meilleur score de ce jeu.")}</small>`;
+ document.body.appendChild(e);try{sfx("badge");confetti()}catch(x){}const end=()=>{if(!e.isConnected)return;e.classList.add("out");setTimeout(()=>e.remove(),300)};e.onclick=end;setTimeout(end,4000)}
+// coffres de ligue : or, argent, bronze pour les 3 premiers de chaque ligue à la fin de la semaine
+const LGC=[["Coffre d'or",5,"#f5b301","#a66a00"],["Coffre d'argent",3,"#c3ccd8","#6b7a8f"],["Coffre de bronze",2,"#cd8a4b","#7d4a1c"]];
+const chest=(i,w=26)=>`<svg class="chs" viewBox="0 0 32 28" width="${w}" aria-hidden="true"><path d="M3 12C3 6 7 2 13 2h6c6 0 10 4 10 10z" fill="${LGC[i][2]}" stroke="${LGC[i][3]}" stroke-width="1.6"/><rect x="3" y="12" width="26" height="14" rx="2" fill="${LGC[i][2]}" stroke="${LGC[i][3]}" stroke-width="1.6"/><path d="M3 12h26" stroke="${LGC[i][3]}" stroke-width="1.6"/><rect x="13" y="9" width="6" height="8" rx="1.5" fill="#fff8dc" stroke="${LGC[i][3]}" stroke-width="1.4"/><circle cx="16" cy="13" r="1.2" fill="${LGC[i][3]}"/></svg>`;
 async function leagueTick(all){
  if(!DB||!S.uid||!S.me)return;
  const cur=wkKey(),lg=S.me.lg;if(lg&&lg.w===cur)return;
- let t=lg?tierOf(S.me):0,nt=t,r="same";
+ let t=lg?tierOf(S.me):0,nt=t,r="same",ch=-1;
  if(lg&&lg.w===wkKey(-7)){
   const prev=lg.w,pool=all.filter(p=>p.d&&p.d.u&&tierPrev(p.d,cur)===t).map(p=>({id:p.id,s:wkScore(p.d,prev),n:p.d.u})).sort(lgSort);
   const i=pool.findIndex(x=>x.id===S.uid),z=i>=0?lgZone(i,pool.length,t,pool[i].s):"zs";
-  if(z==="zu"){nt=t+1;r="up"}else if(z==="zd"){nt=t-1;r="down"}
+  if(z==="zu"){nt=t+1;r="up"}else if(z==="zd"){nt=t-1;r="down"}if(i>=0&&i<3&&pool[i].s>0)ch=i;
  }
  const ref=DB.collection("players").doc(S.uid),sn=await ref.get(),d=(sn.exists&&sn.data())||{};
  if(d.lg&&d.lg.w===cur){S.me=d;return}
- const nd={...d,lg:{t:nt,w:cur,f:t,r}};await ref.set(nd);S.me=nd;if(lg&&r!=="same")S.lgMsg={r,t:nt};
+ const nd={...d,lg:{t:nt,w:cur,f:t,r}},cg=ch>=0?earn(nd,LGC[ch][1]):0;await ref.set(nd);S.me=nd;if(lg&&(r!=="same"||ch>=0))S.lgMsg={r,t:nt,ch,cg,f:t};
 }
 function overtakeCheck(all){
  const cur=wkKey(),t=tierOf(S.me),mine=wkScore(S.me,cur);if(!mine)return;
@@ -2101,7 +2126,7 @@ function drawRank(){
  const mi=rows?rows.findIndex(r=>r.id===S.uid):-1,nR=rows?rows.length:0,LG=B==="lg";
  const zn=i=>LG?lgZone(i,nR,myT,rows[i].s):"",sc=v=>v?(B==="xp"?xpf:fmt)(v):"–";
  const zt={zu:LG&&myT<4?`Montent en ${LEAGUES[myT+1][0]}`:"",zs:"Restent",zd:LG&&myT>0?`Descendent en ${LEAGUES[myT-1][0]}`:""};
- const pu=r=>AUTH&&r.id!==S.uid?` data-pu="${esc(r.id)}" role="button" tabindex="0"`:"",row=(r,i)=>`<div class="rr ${r.id===S.uid?"mine":""} ${zn(i)}"${pu(r)}><span class="rkn">${i+1}</span><span class="rn">${r.av}<span class="rnn"><span class="rnt">${PN(r.n)}${r.pro?`<i class="prb" title="Pro">${sv("crown")}</i>`:""}${r.id===S.uid?" <em>moi</em>":""}</span><small>niv. ${r.lv}</small></span></span><b>${sc(r.s)}</b></div>`;
+ const pu=r=>AUTH&&r.id!==S.uid?` data-pu="${esc(r.id)}" role="button" tabindex="0"`:"",row=(r,i)=>`<div class="rr ${r.id===S.uid?"mine":""} ${zn(i)}"${pu(r)}><span class="rkn">${i+1}</span><span class="rn">${r.av}<span class="rnn"><span class="rnt">${PN(r.n)}${r.pro?`<i class="prb" title="Pro">${sv("crown")}</i>`:""}${r.id===S.uid?" <em>moi</em>":""}</span><small>niv. ${r.lv}</small></span>${LG&&i<3&&r.s>0?`<span class="rch" title="${LGC[i][0]}">${chest(i,24)}<small>+${LGC[i][1]}</small></span>`:""}</span><b>${sc(r.s)}</b></div>`;
  const pod=rows&&!LG?rows.filter(r=>r.s>0).slice(0,3):[];
  let list="";
  if(rows&&LG){const lim=S.rall?nR:30;let pz="";rows.forEach((r,i)=>{if(i>=lim&&i!==mi)return;const z=zn(i);if(z!==pz){list+=`<div class="zhd ${z}">${zt[z]}</div>`;pz=z}list+=row(r,i)})}
@@ -2474,7 +2499,7 @@ function cuRun(){const T=900,f=()=>{const e=$("bigs");if(!e||S.view!=="end"||!S.
 function end(){
  if(S.mode==="rev")return endRev();
  setTimeout(cuRun,0);
- const r=S.res&&S.res.best!==undefined?S.res:null,long=S.mode==="surv"||S.mode==="chr",day=S.mode==="day",sn=stars(),d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=S.st,sk=streakOf(d),first=!S.er,unl=r&&r.lvNew?[r.lvNew]:[];S.er=1;
+ const r=S.res&&S.res.best!==undefined?S.res:null,long=S.mode==="surv"||S.mode==="chr",day=S.mode==="day",sn=stars(),d=S.me||{},x=+d.x||0,L=lvlOf(x),a=lvlAt(L),b=lvlAt(L+1),st=S.st,sk=streakOf(d),first=!S.er,unl=r&&r.lvNew?[r.lvNew]:[];S.er=1;if(first&&r&&r.rec&&st&&st.newAbs)setTimeout(trophyShow,400);
  app.innerHTML=`<h1>${sn===3?"Bravo":"Terminé"}<span>.</span></h1><p class="sub">${S.special==="tn"?"Tournoi du week-end":S.special==="hw"?"Devoir · "+(MODES[S.mode]||""):KL(SK())}${day?"":" · "+LV[S.lv].n}</p>
  <div class="card" style="text-align:center">${r&&r.rec?(st&&st.newAbs?`<div class="trf"><span class="trc">${sv("trophy")}</span><b>Nouveau record absolu</b><small>Tu détiens le meilleur score de ce jeu.</small></div>`:`<div class="badge">Nouveau record</div>`):""}<div class="stars ${first?"seq":""}" role="img" aria-label="${sn} étoiles sur 3">${[1,2,3].map(i=>`<svg viewBox="0 0 24 24" class="${i<=sn?"on":""}">${P.star}</svg>`).join("")}</div><div class="big ${first?"pop":""}" id="bigs">${fmt(S.score)}</div><p class="mute" style="margin:2px 0 14px">points</p>
  <div class="stats"><div class="st"><b>${S.good}${long?"":"/"+S.qs.length}</b><small>bonnes réponses</small></div><div class="st"><b>${S.maxCombo||0}</b><small>à la suite</small></div><div class="st"><b>${r&&!day&&!S.special?fmt(r.best):"+"+fmt(S.score)}</b><small>${r&&!day&&!S.special?"mon record":"XP gagnés"}</small></div></div>
