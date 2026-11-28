@@ -836,6 +836,8 @@ button.trtp{border:0;background:rgba(183,121,31,.12);padding:6px 10px;border-rad
 .bpk{position:absolute;right:-5px;bottom:-5px;width:20px;height:20px;border-radius:50%;background:#2f9e44;display:grid;place-items:center}.bpk svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:3}
 .bpg svg{width:26px;height:26px}.bpt{font:800 1.05rem/1 var(--D);color:#2f9e44}@keyframes bpr{50%{transform:scale(1.05)}}@media(prefers-reduced-motion:reduce){.bpc.rdy{animation:none}}
 .hqb .albn{color:#e8590c;font-weight:800}
+
+.lks.hlk{margin:0 0 12px}
 </style></head>
 <body><div id="spl" role="status" aria-live="polite"><svg class="spg" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="#2f8fe6"/><path d="M34 34c8-6 18-4 22 2s-2 12-8 14-6 10-14 8-10-16 0-24zM70 58c8-4 18 0 20 8s-6 18-14 18-12-8-12-14 0-9 6-12zM74 22c6 0 12 4 14 8-6 2-12 0-14-8z" fill="#3fc77a"/><circle cx="60" cy="60" r="50" fill="none" stroke="#fff" stroke-width="4"/><path d="M10 60h100" stroke="#fff" stroke-width="2.500" opacity=".7"/><ellipse class="mer" cx="60" cy="60" rx="24" ry="50" fill="none" stroke="#fff" stroke-width="2.500" opacity=".7"/><circle cx="42" cy="38" r="9" fill="#fff" opacity=".18"/></svg><h1>Geo Quizz<span>.</span></h1><div class="spb"><i></i></div><p id="splt">Chargement…</p></div>
 <script>(function(){try{var l=localStorage.getItem("gq-lang")||(navigator.language||"fr").slice(0,2),t={en:"Loading…",es:"Cargando…",ar:"جارٍ التحميل…"}[l];if(t)document.getElementById("splt").textContent=t;if(l==="ar")document.getElementById("spl").dir="rtl"}catch(e){}
@@ -1102,6 +1104,7 @@ function home(fromX){
  ${hero}
  ${BEG?"":evCard(d)}
  ${AUTH?`<div class="hq">${albNav(d)}${trNav(d)}${bpNav(d)}${!BEG&&tnOn()&&S.hch!=="tn"?`<button class="hqb" id="tnb"><span class="hqi" style="background:linear-gradient(160deg,#f6b73c,#b7791f)">${sv("trophy")}</span><b>Tournoi</b><small>${tnBest()?fmt(tnBest()):`<span>Week-end</span>`}</small></button>`:""}</div>`:""}
+ <div class="lks hlk"><button class="lkb" id="rk" style="--bc:#b7791f">${sv("trophy")}<b>Classements</b></button>${BEG?"":`<button class="lkb" id="shop2" style="--bc:#7c3aed">${sv("cart")}<b>Boutique</b></button>`}</div>
  ${BEG?"":tdy}
  ${GUEST?`<button class="nav" id="gac"><span class="nt" style="background:#2563eb">${sv("users")}</span><span><b>Créer un compte gratuit</b><small>Classements mondiaux, duels, amis et tournoi.</small></span><i>›</i></button>`:""}
  </div><div class="hgames"><div class="hgh"><button class="bk" id="hgb" aria-label="Accueil">‹</button><b>Jeux</b></div>
@@ -1109,7 +1112,6 @@ function home(fromX){
  <div class="grid g3">${tiles}</div>
  <h2 class="shd">Apprendre</h2>
  <div class="lrn"><button class="lcd" id="rvw" style="--bc:#0891b2" ${(d.rv||[]).length?"":"disabled"}>${sv("book")}<span><b>Réviser</b><small>${(d.rv||[]).length?pl(d.rv.length,"pays","pays"):"Rien à revoir"}</small></span></button><button class="lcd" id="atl" style="--bc:#12a150">${sv("globe")}<span><b>Atlas</b><small>${pl(mastered(d).length,"pays","pays")}</small></span></button></div>
- <div class="lks"><button class="lkb" id="rk" style="--bc:#b7791f">${sv("trophy")}<b>Classements</b></button>${BEG?"":`<button class="lkb" id="shop2" style="--bc:#7c3aed">${sv("cart")}<b>Boutique</b></button>`}</div>
  </div>
  ${S.off?`<p class="mute">Hors connexion : tu peux jouer, les scores seront enregistrés au retour d’internet.</p>`:""}${Q.get().some(j=>j.uid===S.uid)?`<p class="mute">Des scores attendent internet pour être enregistrés.</p>`:""}`;
  S.special=null;S.zf=null;S.hw=null;applyShop();S.g20=0;$("shop").onclick=()=>shop();if($("shop2"))$("shop2").onclick=()=>shop();if(!fromX)socialCheck();if($("fp1"))$("fp1").onclick=()=>{S.mode="flag";S.sec="d";S.zone=null;S.zf=null;start(Date.now()%2147483647,1)};if($("fp2"))$("fp2").onclick=()=>menu("c");
