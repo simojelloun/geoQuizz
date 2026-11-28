@@ -145,6 +145,30 @@ group("Moins de 15 ans et albums",()=>{
  check("Joueur de moins de 15 ans reconnu",run("(()=>{const m=S.me;S.me={yg:1};const a=YG();S.me={yg:0};const b=YG();S.me=m;return[a,b]})()"),[true,false]);
  check("Les albums n'ont pas tous la même récompense",run("new Set(Object.keys(CTHR).map(k=>cthR(k).join())).size>1"),true);
 });
+group("Plus ou moins, L'intrus, Roue du jour",()=>{
+ check("Plus ou moins : 20 questions, réponse conforme aux populations",run("(()=>{S.mode='hl';const q=buildCult('hl',rng(7),LV[2],2);return[q.length,q.every(x=>x.truth===(POP[x.a.c]>POP[x.ref.c])),q.every(x=>Math.max(POP[x.a.c],POP[x.ref.c])/Math.min(POP[x.a.c],POP[x.ref.c])>=1.7)]})()"),[20,true,true]);
+ check("L'intrus : un seul pays hors du continent des autres",run("(()=>{const q=buildCult('odd',rng(9),LV[1],1);return[q.length,q.every(x=>x.o.length===4&&x.o.filter(o=>ZN[o.c]!==x.zo).length===1&&ZN[x.a.c]!==x.zo)]})()"),[20,true]);
+ check("L'intrus en difficile : 6 choix",run("buildCult('odd',rng(3),LV[3],3).every(x=>x.o.length===6)"),true);
+ check("Aucun pays interdit dans ces deux jeux",run("[...buildCult('hl',rng(1),LV[4],4).flatMap(x=>[x.a.c,x.ref.c]),...buildCult('odd',rng(1),LV[4],4).flatMap(x=>x.o.map(o=>o.c))].includes('IL')"),false);
+ check("Roue : le tirage reste dans les 8 cases",run("[whPick(0),whPick(.999999),[0,.1,.3,.5,.7,.9].every(r=>whPick(r)>=0&&whPick(r)<WHL.length)]"),[0,7,true]);
+ check("Roue : la gemme et le pack or restent rares (7 % au plus)",run("(WHL[3][2]+WHL[7][2])/WHL.reduce((a,x)=>a+x[2],0)<=.07"),true);
+ check("Roue : un seul tour par jour",run("[whDone({wh:dk()}),whDone({wh:dk(-1)}),whDone({})]"),[true,false,false]);
+});
+group("Pass de saison, gel de série, retour, semaine",()=>{
+ const J="{mode:'flag',sk:'flag',score:1000,t:dk(),y:dk(-1),wk:wkKey(),n:20,good:20,stars:3,lv:1,mast:[],miss:[],okc:[]}";
+ check("Pass : une partie à 3 étoiles rapporte 25 points",run("applyJob({},"+J+").nd.bp.p"),25);
+ check("Pass : 30 paliers de 40 points, plafonné à 30",run("[bpTier({p:39}),bpTier({p:40}),bpTier({p:99999})]"),[0,1,30]);
+ check("Pass : le palier 30 donne 5 gemmes, 5 parties et un pack or",run("bpR(30)"),[5,5,2]);
+ check("Pass : pas plus de 8 gemmes sur tout le mois",run("Array.from({length:30},(x,k)=>bpR(k+1)[0]).reduce((a,b)=>a+b,0)<=8"),true);
+ check("Pass : un nouveau mois repart de zéro",run("bpOf({bp:{m:'2000-01',p:500,c:9}}).p"),0);
+ check("Gel : un jour raté avec un gel garde la série et consomme le gel",run("(()=>{const o=applyJob({sd:dk(-2),sn:9,fz:1},"+J+");return[o.nd.sn,o.nd.fz,o.res.fz]})()"),[10,0,1]);
+ check("Sans gel : un jour raté remet la série à 1",run("applyJob({sd:dk(-2),sn:9},"+J+").nd.sn"),1);
+ check("Deux jours ratés : le gel ne suffit pas",run("applyJob({sd:dk(-3),sn:9,fz:2},"+J+").nd.sn"),1);
+ check("Un gel offert au 7e jour de série, 2 au plus",run("[applyJob({sd:dk(-1),sn:6},"+J+").nd.fz,applyJob({sd:dk(-1),sn:6,fz:2},"+J+").nd.fz]"),[1,2]);
+ check("Cadeau de retour : après 3 jours d'absence, une seule fois",run("[cbOk({sd:dk(-3)}),cbOk({sd:dk(-2)}),cbOk({sd:dk(-5),cb:dk(-5)})]"),[true,false,false]);
+ check("Semaine : seules les parties de la famille à l'honneur comptent",run("(()=>{const E=weNow(),inF=SEC[E[1]][0],out=Object.keys(SEC).filter(k=>k!==E[1]).map(k=>SEC[k][0])[0];const j=m=>({mode:m,sk:m,score:100,t:dk(),y:dk(-1),wk:wkKey(),n:20,good:5,stars:0,lv:1,mast:[],miss:[],okc:[]});return[applyJob({},j(inF)).nd.we.n,(applyJob({},j(out)).nd.we||{n:0}).n]})()"),[1,0]);
+ check("Cadre d'avatar : couleur de la ligue, doré après un pass terminé",run("[frOf({lg:{t:2}}).includes(LEAGUES[2][1]),frOf({bpf:1}).includes('#f59f00'),frOf({})]"),[true,true,""]);
+});
 group("Divers",()=>{
  check("esc protège le texte affiché",run("esc('<b>\"x\"&</b>')"),"&lt;b&gt;&quot;x&quot;&amp;&lt;/b&gt;");
  check("Pluriels",run("[pl(1,'partie','parties'),pl(3,'partie','parties')]"),["1 partie","3 parties"]);
