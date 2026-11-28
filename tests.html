@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Geo Quizz : tests unitaires</title>
+<style>
+body{font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;margin:0;padding:20px;background:#f4f7fb;color:#13233a}
+h1{font-size:1.4rem;margin:0 0 4px}p.sub{margin:0 0 16px;color:#5b6b80}
+#sum{padding:12px 14px;border-radius:12px;font-weight:700;margin-bottom:16px;background:#e7edf5}
+#sum.ok{background:#dcfce7;color:#0b6b30}#sum.ko{background:#ffe3e3;color:#a61e1e}
+section{background:#fff;border-radius:12px;padding:10px 14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+section h2{font-size:1rem;margin:2px 0 6px}
+li{list-style:none;padding:3px 0}li.ok::before{content:"✓ ";color:#1f9d55;font-weight:800}li.ko{color:#a61e1e}li.ko::before{content:"✗ ";font-weight:800}
+li small{display:block;color:#7a5050;margin-inline-start:18px;white-space:pre-wrap}
+iframe{position:absolute;width:390px;height:700px;left:-9999px;top:0;border:0}
+</style>
+</head>
+<body>
+<h1>Geo Quizz : tests unitaires</h1>
+<p class="sub">Vérifie les règles du jeu (XP, niveaux, gemmes, ligues, album, Tour du monde…) sur le fichier index.html à côté de cette page. Rien n'est envoyé au serveur.</p>
+<div id="sum">Chargement du jeu…</div>
+<div id="out"></div>
+<iframe id="app" src="index.html?unittest=1" title="jeu"></iframe>
+<script>
+// Les tests s'exécutent dans la page du jeu (iframe) : run("expression") évalue du code dans le jeu.
+const results=[];let G;
+const run=code=>G.eval(code);
+function eq(a,b){return JSON.stringify(a)===JSON.stringify(b)}
+const T={};let cur="";
+function group(name,fn){T[name]=fn}
+function check(label,got,want){const ok=typeof want==="function"?!!want(got):eq(got,want);results.push({g:cur,label,ok,got,want:typeof want==="function"?"(condition)":want})}
+function render(){
+ const out=document.getElementById("out"),by={};results.forEach(r=>(by[r.g]=by[r.g]||[]).push(r));
+ out.innerHTML=Object.entries(by).map(([g,rs])=>`<section><h2>${g} (${rs.filter(r=>r.ok).length}/${rs.length})</h2><ul>${rs.map(r=>`<li class="${r.ok?"ok":"ko"}">${r.label}${r.ok?"":`<small>obtenu : ${JSON.stringify(r.got)}\nattendu : ${JSON.stringify(r.want)}</small>`}</li>`).join("")}</ul></section>`).join("");
+ const ko=results.filter(r=>!r.ok).length,s=document.getElementById("sum");
+ s.className=ko?"ko":"ok";s.textContent=ko?`${ko} test(s) en échec sur ${results.length}`:`Tous les tests passent : ${results.length}/${results.length}`;
+ window.TEST_RESULT={total:results.length,failed:ko,failures:results.filter(r=>!r.ok).map(r=>r.g+" › "+r.label)};
+}
+
+/* ---------- XP et niveaux ---------- */
+group("XP et niveaux du joueur",()=>{
+ check("Une partie rapporte 2 fois son score en XP",run("xpOf(1000)"),2000);
+ check("Un score négatif ou vide ne rapporte rien",run("[xpOf(-5),xpOf(undefined),xpOf('abc')]"),[0,0,0]);
+ check("L'XP d'une partie est plafonnée à 240 000 (règle Firebase : +250 000 max)",run("xpOf(10**9)"),240000);
+ check("Niveau 1 à 0 XP",run("lvlOf(0)"),1);
+ check("Niveau 2 à 2 000 XP internes (20 XP affichés)",run("[lvlOf(1999),lvlOf(2000)]"),[1,2]);
+ check("Seuils des niveaux : 2 000 × (n-1)²",run("[2,3,4,10].map(lvlAt)"),[2000,8000,18000,162000]);
+ check("lvlOf et lvlAt sont cohérents",run("[2,5,9,20].every(n=>lvlOf(lvlAt(n))===n&&lvlOf(lvlAt(n)-1)===n-1)"),true);
+});
+group("Difficultés débloquées",()=>{
+ check("Seuils d'XP par difficulté",run("LVG"),{1:0,2:44000,3:176000,4:560000,5:1320000});
+ check("Sans XP ni achat : Facile seulement",run("lvTop({},'flag')"),1);
+ check("Assez d'XP dans le jeu : Moyen ouvert",run("lvTop({gx:{flag:44000}},'flag')"),[2][0]);
+ check("L'XP d'un autre jeu ne compte pas",run("lvTop({gx:{cap:50000}},'flag')"),1);
+ check("Un niveau acheté avec des gemmes compte",run("lvTop({lu:{flag:4}},'flag')"),4);
+});
+
+/* ---------- Gemmes ---------- */
+group("Gemmes",()=>{
+ check("gemsOf lit le solde, jamais négatif",run("[gemsOf({gm:7}),gemsOf({gm:-3}),gemsOf(null)]"),[7,0,0]);
+ check("earn ajoute des gemmes et compte la journée",run("(()=>{const d={gm:2};const a=earn(d,3);return[a,d.gm,d.gd.n,d.gd.d===UD()]})()"),[3,5,3,true]);
+ check("earn ignore 0 et les valeurs négatives",run("(()=>{const d={gm:2};return[earn(d,0),earn(d,-4),d.gm]})()"),[0,0,2]);
+ check("Garde-fou anti-triche : 300 gemmes gagnées par jour au plus",run("(()=>{const d={gm:0,gd:{d:UD(),n:299}};return[earn(d,5),d.gm]})()"),[1,1]);
+ check("Le compteur du jour repart à zéro le lendemain",run("(()=>{const d={gm:0,gd:{d:UD()-1,n:300}};return earn(d,4)})()"),4);
+ check("Récompense du jour : 1 gemme, 3 le 7e jour",run("DRW"),[1,1,1,1,1,1,3]);
+ check("Paliers de série : 7, 30 et 100 jours",run("SMS"),[[7,1],[30,3],[100,5]]);
+});
+
+/* ---------- Parties offertes ---------- */
+group("Réserve de parties offertes",()=>{
+ check("10 parties au maximum, +1 toutes les 2 heures",run("[FREE_G,REGEN_H]"),[10,2]);
+ check("Réserve vide qui se recharge d'une partie après 2 h",run("(()=>{const t=tnow()-2*36e5-1000;return enOf({en:{n:0,t}}).n})()"),1);
+ check("La réserve ne dépasse jamais 10",run("enOf({en:{n:3,t:tnow()-100*36e5}}).n"),10);
+ check("Une date dans le futur ne donne pas de parties en plus",run("enOf({en:{n:2,t:tnow()+50*36e5}}).n"),2);
+ check("Parties bonus des coffres : comptées à part, 50 au plus",run("[bgOf({bg:5}),bgOf({bg:900}),bgOf({bg:-2}),bgOf({})]"),[5,50,0,0]);
+});
+
+/* ---------- Ligues ---------- */
+group("Ligues",()=>{
+ check("Au moins les 3 premiers montent",run("[2,3,4,8,12].map(lgUp)"),[3,3,3,3,3]);
+ check("Sinon 25 % montent",run("[20,40].map(lgUp)"),[5,10]);
+ check("Les 3 premiers sont en zone de montée (8 joueurs)",run("[0,1,2,3].map(i=>lgZone(i,8,0,100))"),["zu","zu","zu","zs"]);
+ check("Il faut avoir marqué des points pour monter",run("lgZone(0,8,0,0)"),r=>r!=="zu");
+ check("Coffres de ligue : or, argent, bronze",run("LGC.map(c=>c[0])"),["Coffre d'or","Coffre d'argent","Coffre de bronze"]);
+ check("Contenu des coffres (gemmes, parties)",run("LGC.map(c=>[c[1],c[2]])"),[[3,5],[2,3],[1,2]]);
+ check("Tournoi du week-end : 5 essais",run("TNMAX"),5);
+});
+
+/* ---------- Album ---------- */
+group("Album de cartes",()=>{
+ check("81 cartes : 9 thèmes de 9 cartes",run("(()=>{const a=albumOf('2026-11');return[a.length,a.every(s=>s.cards.length===9)]})()"),[9,true]);
+ check("Aucune carte en double dans un album",run("(()=>{const ids=albumOf('2026-12').flatMap(s=>s.cards.map(x=>x.c.id));return new Set(ids).size})()"),81);
+ check("Le même mois donne toujours le même album",run("(()=>{ALBM=null;const a=JSON.stringify(albumOf('2027-03').map(s=>s.cards.map(x=>x.c.id)));ALBM=null;return a===JSON.stringify(albumOf('2027-03').map(s=>s.cards.map(x=>x.c.id)))})()"),true);
+ check("L'album change d'un mois à l'autre",run("(()=>{ALBM=null;const a=albumOf('2027-01').map(s=>s.k).join();ALBM=null;const b=albumOf('2027-02').map(s=>s.k).join();ALBM=null;return a!==b||JSON.stringify(albumOf('2027-01'))!==JSON.stringify(albumOf('2027-02'))})()"),true);
+ check("Chaque mois : 7 thèmes de monuments et 2 thèmes dessinés",run("(()=>{ALBM=null;const a=albumOf('2027-05');return[a.filter(s=>/^t\\d$/.test(s.k)).length,a.filter(s=>!/^t\\d$/.test(s.k)).length]})()"),[7,2]);
+ check("Toutes les cartes de monuments ont une photo",run("cPool().every(x=>!!x.img)"),true);
+ check("Un nouvel album démarre vide, sans packs",run("(()=>{const c=cdOf({});return[c.m===CMK(),Object.keys(c.c).length,c.pk]})()"),[true,0,[0,0,0,0]]);
+ check("Un album d'un mois passé est remis à zéro",run("cdOf({cd:{v:2,m:'2020-01',c:{m0:3},pk:[2,0,0,0]}}).pk"),[0,0,0,0]);
+ check("Un pack bronze donne 3 cartes, argent 4, or 5, diamant 3",run("CDN"),[3,4,5,3]);
+ check("Un doublon donne 10 points par étoile",run("(()=>{const cd=cdOf({}),x=albumOf(cd.m)[0].cards[0];cd.c[x.c.id]=1;Math.random=()=>0;const o=cdDraw(cd,0);return o.filter(r=>r.dup).length?cd.p===o.filter(r=>r.dup).reduce((a,r)=>a+r.x.st*10,0):true})()"),true);
+ check("Le pack diamant ne donne que des cartes manquantes",run("(()=>{const cd=cdOf({});const all=albumOf(cd.m).flatMap(s=>s.cards);all.slice(0,70).forEach(x=>cd.c[x.c.id]=1);const o=cdDraw(cd,3);return o.every(r=>!r.dup)})()"),true);
+ check("Échanges de doublons : 200, 300, 500 points",run("CTR.map(t=>t[0])"),[200,300,500]);
+});
+group("Packs gagnés en jouant",()=>{
+ const job="{t:dk(),wk:wkKey(),mode:'flag'}";
+ check("Première partie du jour : 1 pack bronze",run(`(()=>{const nd={sn:1,ms:{p:[]}};return cdStep({},nd,${job})})()`),[0]);
+ check("3e jour de série : pack argent",run(`(()=>{const nd={sn:3,ms:{p:[]}};return cdStep({},nd,${job})})()`),[1]);
+ check("7e jour de série : pack or",run(`(()=>{const nd={sn:7,ms:{p:[]}};return cdStep({},nd,${job})})()`),[2]);
+ check("Pas de 2e pack « jour » dans la même journée",run(`(()=>{const nd={sn:1,ms:{p:[]}};cdStep({},nd,${job});const nd2={sn:1,ms:{p:[]}};return cdStep({cd:nd.cd},nd2,${job})})()`),[]);
+ check("5e partie de la journée : 1 pack bronze en plus",run(`(()=>{let d={};let got=[];for(let i=0;i<5;i++){const nd={sn:1,ms:{p:[]}};got=cdStep(d,nd,${job});d={cd:nd.cd}}return got})()`),[0]);
+});
+
+/* ---------- Tour du monde ---------- */
+group("Tour du monde",()=>{
+ check("40 étapes",run("TOUR.length"),40);
+ check("Le parcours commence au Maroc",run("TOUR[0]"),"MA");
+ check("Pas de pays en double",run("new Set(TOUR).size"),40);
+ check("Tous les pays du parcours existent dans le jeu",run("TOUR.every(c=>C.some(x=>x.c===c))"),true);
+ check("Chaque étape a au moins un monument en photo",run("TOUR.filter(c=>!cPool().some(x=>x.c===c))"),[]);
+ check("Parties nécessaires : 3, 7, 11… de plus en plus",run("[1,2,3,5,10].map(trNeed)"),[3,7,11,21,55]);
+ check("0 partie : étape 1",run("trAt({p:0})"),1);
+ check("3 parties : étape 2",run("[trAt({p:2}),trAt({p:3})]"),[1,2]);
+ check("L'étape ne dépasse jamais 40",run("trAt({p:10**6})"),40);
+ check("Pack argent toutes les 5 étapes, or à la dernière",run("[trPk(0),trPk(4),trPk(9),trPk(39)]"),[0,1,1,2]);
+ check("Coordonnées de la carte entre 0 et 100 %",run("TOURD.every(t=>t.x>=0&&t.x<=100&&t.y>=0&&t.y<=100)"),true);
+});
+
+/* ---------- Résultat d'une partie ---------- */
+group("Fin de partie (applyJob)",()=>{
+ const J="{mode:'flag',sk:'flag',score:1500,n:20,good:15,lv:1,stars:2,t:dk(),y:dk(-1),wk:wkKey(),miss:[],mast:[],okc:[],g:''}";
+ check("Ajoute l'XP (score × 2) et compte la partie",run(`(()=>{const r=applyJob({x:0,p:4},${J});return[r.nd.x,r.nd.p]})()`),[3000,5]);
+ check("Enregistre le record du jeu",run(`(()=>{const r=applyJob({},${J});return[r.nd.m.flag,r.res.rec]})()`),[1500,true]);
+ check("Un score plus bas ne remplace pas le record",run(`(()=>{const r=applyJob({m:{flag:9000}},${J});return[r.nd.m.flag,r.res.rec]})()`),[9000,false]);
+ check("La série de jours continue si on a joué hier",run(`(()=>{const r=applyJob({sd:dk(-1),sn:4},${J});return r.nd.sn})()`),5);
+ check("La série repart à 1 après un jour sans jouer",run(`(()=>{const r=applyJob({sd:dk(-3),sn:9},${J});return r.nd.sn})()`),1);
+ check("La première partie du jour donne un pack de cartes",run(`applyJob({},${J}).res.cp`),[0]);
+ check("Pas de message « difficulté débloquée » pour un niveau inférieur à celui joué",run(`applyJob({gx:{flag:43999}},{...${J},score:1000,lv:4}).res.lvNew`),0);
+ check("Le score du tournoi garde le meilleur essai et compte les essais",run(`(()=>{const tn='w1';let d={tn:{w:tn,s:5000,n:2}};const r=applyJob(d,{...${J},tn,score:3000});return[r.nd.tn.s,r.nd.tn.n]})()`),[5000,3]);
+});
+
+/* ---------- Divers ---------- */
+group("Divers",()=>{
+ check("esc protège le texte affiché",run("esc('<b>\"x\"&</b>')"),"&lt;b&gt;&quot;x&quot;&amp;&lt;/b&gt;");
+ check("Pluriels",run("[pl(1,'partie','parties'),pl(3,'partie','parties')]"),["1 partie","3 parties"]);
+ check("3 missions différentes par jour",run("(()=>{const m=missionsOf('2026-11-28');return[m.length,new Set(m.map(x=>x[0].slice(0,2))).size]})()"),[3,3]);
+ check("Les missions sont les mêmes pour tous le même jour",run("JSON.stringify(missionsOf('2026-12-01'))===JSON.stringify(missionsOf('2026-12-01'))"),true);
+ check("Thème de Noël du 15 décembre au 15 janvier",run("(()=>{const o=window.GQ_SEASON;delete window.GQ_SEASON;const r=[seasonAt(new Date(2026,11,14)),seasonAt(new Date(2026,11,15)),seasonAt(new Date(2027,0,15)),seasonAt(new Date(2027,0,16))];if(o!==undefined)window.GQ_SEASON=o;return r})()"),[null,"xmas","xmas",null]);
+ check("Mission de fête à Noël (24 décembre)",run("(()=>{const o=window.GQ_EV;window.GQ_EV=undefined;const r=evAt(new Date(2026,11,24));window.GQ_EV=o;return r&&r.k})()"),"xmas");
+ check("Le Maroc inclut le Sahara sur la carte (pas de pays 732)",run("(()=>{const t={type:'Topology',transform:{scale:[1,1],translate:[0,0]},arcs:[[[0,0],[1,0]],[[1,0],[0,1]],[[1,1],[-1,0]],[[0,1],[0,-1]],[[1,0],[1,0]],[[2,0],[0,1]],[[2,1],[-1,0]]],objects:{countries:{geometries:[{id:'504',type:'Polygon',arcs:[[0,1,2,3]]},{id:'732',type:'Polygon',arcs:[[4,5,6,~1]]},{id:'036',type:'Polygon',arcs:[[0,1,2,3]]},{id:'036',type:'Polygon',arcs:[[4,5,6,~1]]}]}}};const o=decodeTopo(t);return[!!o[504],!o[732],o[36].length]})()"),[true,true,2]);
+});
+
+function start(){
+ G=document.getElementById("app").contentWindow;
+ let n=0;const wait=setInterval(()=>{n++;let ready=false;try{ready=G.eval("typeof applyJob==='function'&&typeof albumOf==='function'&&typeof C!=='undefined'&&C.length>100")}catch(e){}
+  if(ready||n>100){clearInterval(wait);
+   if(!ready){document.getElementById("sum").className="ko";document.getElementById("sum").textContent="Le jeu n'a pas pu être chargé (ouvre cette page depuis le site ou un serveur local, pas en double-cliquant le fichier).";window.TEST_RESULT={total:0,failed:1,failures:["chargement"]};return}
+   const keep=G.Math.random;
+   for(const [g,fn] of Object.entries(T)){cur=g;try{fn()}catch(e){results.push({g,label:"Erreur pendant le groupe",ok:false,got:String(e),want:"pas d'erreur"})}G.Math.random=keep}
+   render()}},100)}
+document.getElementById("app").addEventListener("load",start);
+</script>
+</body>
+</html>
