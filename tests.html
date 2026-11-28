@@ -141,6 +141,16 @@ group("Fin de partie (applyJob)",()=>{
 });
 
 /* ---------- Divers ---------- */
+group("Fusion de la semaine",()=>{
+ check("Deux paires fusionnent en une fois",run("mgLine([2,2,2,2])"),[[4,4,0,0],8]);
+ check("Une tuile ne fusionne qu'une fois par coup",run("mgLine([4,4,8,0])"),[[8,8,0,0],8]);
+ check("Une ligne sans paire ne change pas",run("mgLine([2,4,8,16])"),[[2,4,8,16],0]);
+ check("Paliers de coffre : 2048 or, 512 argent, 128 bronze, rien en dessous",run("[mgTier(2048),mgTier(512),mgTier(128),mgTier(64)]"),[0,1,2,-1]);
+});
+group("Moins de 15 ans et albums",()=>{
+ check("Joueur de moins de 15 ans reconnu",run("(()=>{const m=S.me;S.me={yg:1};const a=YG();S.me={yg:0};const b=YG();S.me=m;return[a,b]})()"),[true,false]);
+ check("Les albums n'ont pas tous la même récompense",run("new Set(Object.keys(CTHR).map(k=>cthR(k).join())).size>1"),true);
+});
 group("Divers",()=>{
  check("esc protège le texte affiché",run("esc('<b>\"x\"&</b>')"),"&lt;b&gt;&quot;x&quot;&amp;&lt;/b&gt;");
  check("Pluriels",run("[pl(1,'partie','parties'),pl(3,'partie','parties')]"),["1 partie","3 parties"]);
